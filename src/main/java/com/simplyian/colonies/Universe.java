@@ -19,23 +19,26 @@
  */
 package com.simplyian.colonies;
 
-import java.util.logging.Level;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.spout.api.plugin.CommonPlugin;
+import com.simplyian.colonies.colony.Colony;
 
 /**
- * Colonies plugin main class.
+ * Represents a headless group of all organizations within its scope.
  */
-public class ColoniesPlugin extends CommonPlugin {
+public class Universe {
+	/**
+	 * The groups in this group manager.
+	 */
+	private List<Colony> groups;
 
-	@Override
-	public void onEnable() {
-		getLogger().log(Level.INFO, "Colonies enabled!");
+	/**
+	 * Gets a list of all groups in the universe.
+	 * 
+	 * @return
+	 */
+	public List<Colony> getColonies() {
+		return new ArrayList<Colony>(groups);
 	}
-
-	@Override
-	public void onDisable() {
-		getLogger().log(Level.INFO, "Colonies disabled!");
-	}
-
 }

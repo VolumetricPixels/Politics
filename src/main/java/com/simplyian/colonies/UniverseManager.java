@@ -19,23 +19,19 @@
  */
 package com.simplyian.colonies;
 
-import java.util.logging.Level;
-
-import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.entity.Player;
 
 /**
- * Colonies plugin main class.
+ * Contains all universes.
  */
-public class ColoniesPlugin extends CommonPlugin {
-
-	@Override
-	public void onEnable() {
-		getLogger().log(Level.INFO, "Colonies enabled!");
+public class UniverseManager {
+	/**
+	 * Gets the universe of the given player.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public Universe getUniverse(Player player) {
+		return null;
 	}
-
-	@Override
-	public void onDisable() {
-		getLogger().log(Level.INFO, "Colonies disabled!");
-	}
-
 }
