@@ -49,9 +49,9 @@ public class Universe {
 	private final ColoniesPlugin plugin;
 
 	/**
-	 * Contains the properties of this universe.
+	 * Contains the rules of this universe.
 	 */
-	private final UniverseProperties properties;
+	private final UniverseRules rules;
 
 	/**
 	 * The colonies in this universe manager.
@@ -71,9 +71,9 @@ public class Universe {
 	/**
 	 * C'tor
 	 */
-	public Universe(ColoniesPlugin plugin, UniverseProperties properties) {
+	public Universe(ColoniesPlugin plugin, UniverseRules properties) {
 		this.plugin = plugin;
-		this.properties = properties;
+		this.rules = properties;
 
 		buildColonistCache();
 	}
@@ -109,12 +109,12 @@ public class Universe {
 	}
 
 	/**
-	 * Gets the properties of this universe.
+	 * Gets the rules of this universe.
 	 * 
 	 * @return
 	 */
-	public UniverseProperties getProperties() {
-		return properties;
+	public UniverseRules getRules() {
+		return rules;
 	}
 
 	/**

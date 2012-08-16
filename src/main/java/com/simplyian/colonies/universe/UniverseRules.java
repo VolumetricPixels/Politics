@@ -6,7 +6,7 @@ import java.util.Map;
 import com.simplyian.colonies.colony.ColonyLevel;
 
 /**
- * Represents the sum of the properties of a given universe. In essence, it is a
+ * Represents the sum of the rules of a given universe. In essence, it is a
  * configuration object.
  * 
  * <p>
@@ -15,7 +15,7 @@ import com.simplyian.colonies.colony.ColonyLevel;
  * that fun gameplay requires". - adapted from Paul Davies
  * </p>
  */
-public class UniverseProperties {
+public class UniverseRules {
 	/**
 	 * The ColonyLevels apparent in this Universe.
 	 */
@@ -24,7 +24,7 @@ public class UniverseProperties {
 	/**
 	 * C'tor
 	 */
-	public UniverseProperties() {
+	public UniverseRules() {
 		// TODO load
 		colonyLevels = new HashMap<String, ColonyLevel>();
 	}
