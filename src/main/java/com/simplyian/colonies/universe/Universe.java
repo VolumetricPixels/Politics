@@ -38,7 +38,6 @@ import com.google.common.cache.LoadingCache;
 import com.simplyian.colonies.ColoniesPlugin;
 import com.simplyian.colonies.colony.Colonist;
 import com.simplyian.colonies.colony.Colony;
-import com.simplyian.colonies.colony.ColonyLevel;
 
 /**
  * Represents a headless group of all colonies within its scope.
@@ -50,9 +49,9 @@ public class Universe {
 	private final ColoniesPlugin plugin;
 
 	/**
-	 * The ColonyLevels apparent in this Universe.
+	 * Contains the properties of this universe.
 	 */
-	private Map<String, ColonyLevel> colonyLevels;
+	private final UniverseProperties properties;
 
 	/**
 	 * The colonies in this universe manager.
@@ -72,15 +71,15 @@ public class Universe {
 	/**
 	 * C'tor
 	 */
-	public Universe(ColoniesPlugin plugin) {
+	public Universe(ColoniesPlugin plugin, UniverseProperties properties) {
 		this.plugin = plugin;
+		this.properties = properties;
 
 		buildColonistCache();
 	}
 
 	public void load() {
 		// TODO major
-		colonyLevels = new HashMap<String, ColonyLevel>();
 		colonies = new HashSet<Colony>();
 		children = new HashMap<Colony, Set<Colony>>();
 	}
@@ -110,22 +109,21 @@ public class Universe {
 	}
 
 	/**
+	 * Gets the properties of this universe.
+	 * 
+	 * @return
+	 */
+	public UniverseProperties getProperties() {
+		return properties;
+	}
+
+	/**
 	 * Gets a list of all colonies in the universe.
 	 * 
 	 * @return
 	 */
 	public List<Colony> getColonies() {
 		return new ArrayList<Colony>(colonies);
-	}
-
-	/**
-	 * Gets the ColonyLevel with the given name.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public ColonyLevel getColonyLevel(String name) {
-		return colonyLevels.get(name.toLowerCase());
 	}
 
 	/**

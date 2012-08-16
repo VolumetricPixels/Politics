@@ -41,7 +41,7 @@ public final class ColonyLevel {
 	/**
 	 * Contains the allowed children for this ColonyLevel.
 	 */
-	private final Set<ColonyLevel> allowedChildren;
+	private Set<ColonyLevel> allowedChildren;
 
 	/**
 	 * Contains the names of roles corresponding to the given privilege set.
@@ -54,11 +54,20 @@ public final class ColonyLevel {
 	 * @param name
 	 * @param rank
 	 */
-	public ColonyLevel(String name, int rank, Set<ColonyLevel> allowedChildren, BiMap<Integer, String> roleNames) {
+	public ColonyLevel(String name, int rank, BiMap<Integer, String> roleNames) {
 		this.name = name;
 		this.rank = rank;
-		this.allowedChildren = allowedChildren;
 		this.roleNames = roleNames;
+	}
+
+	/**
+	 * Sets the allowed children to the given set.
+	 * 
+	 * @param set
+	 *            The set to use. This should be the only reference.
+	 */
+	public void setAllowedChildren(Set<ColonyLevel> set) {
+		this.allowedChildren = set;
 	}
 
 	/**
