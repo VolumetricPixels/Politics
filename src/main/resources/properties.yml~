@@ -6,5 +6,5 @@ website: ${project.organization.url}
 
 main: ${mainClass}
 load: startup
-platform: SERVER
+platform: BOTH
 
