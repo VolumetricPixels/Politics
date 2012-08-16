@@ -38,6 +38,7 @@ import com.google.common.cache.LoadingCache;
 import com.simplyian.colonies.ColoniesPlugin;
 import com.simplyian.colonies.colony.Colonist;
 import com.simplyian.colonies.colony.Colony;
+import com.simplyian.colonies.colony.ColonyLevel;
 
 /**
  * Represents a headless group of all colonies within its scope.
@@ -49,6 +50,11 @@ public class Universe {
 	private final ColoniesPlugin plugin;
 
 	/**
+	 * The ColonyLevels apparent in this Universe.
+	 */
+	private Map<String, ColonyLevel> colonyLevels;
+
+	/**
 	 * The colonies in this universe manager.
 	 */
 	private Set<Colony> colonies;
@@ -56,7 +62,7 @@ public class Universe {
 	/**
 	 * Contains the immediate children of each colony.
 	 */
-	private Map<Colony, Set<Colony>> children = new HashMap<Colony, Set<Colony>>();
+	private Map<Colony, Set<Colony>> children;
 
 	/**
 	 * Cache containing colonists.
@@ -70,6 +76,13 @@ public class Universe {
 		this.plugin = plugin;
 
 		buildColonistCache();
+	}
+
+	public void load() {
+		// TODO major
+		colonyLevels = new HashMap<String, ColonyLevel>();
+		colonies = new HashSet<Colony>();
+		children = new HashMap<Colony, Set<Colony>>();
 	}
 
 	/**
@@ -103,6 +116,16 @@ public class Universe {
 	 */
 	public List<Colony> getColonies() {
 		return new ArrayList<Colony>(colonies);
+	}
+
+	/**
+	 * Gets the ColonyLevel with the given name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public ColonyLevel getColonyLevel(String name) {
+		return colonyLevels.get(name.toLowerCase());
 	}
 
 	/**
