@@ -23,7 +23,49 @@ public enum Privilege {
 	/**
 	 * Allows the player to disband the colony.
 	 */
-	DISBAND(0x4);
+	DISBAND(0x4),
+
+	/**
+	 * Allows the player to view information about the colony.
+	 */
+	INFO(0x8),
+
+	/**
+	 * Allows the player to leave the colony.
+	 */
+	LEAVE(0x10),
+
+	/**
+	 * Allows the player to check who in the colony is online.
+	 */
+	ONLINE(0x20),
+
+	/**
+	 * Allows the player to add other players to the colony.
+	 */
+	ADD(0x40),
+
+	/**
+	 * Allows the player to kick others from the colony.
+	 */
+	KICK(0x80),
+
+	/**
+	 * Allows the player to alter the roles of other members.
+	 */
+	SET_ROLE(0x100),
+
+	/**
+	 * Allows the player to teleport to the spawn of the colony.
+	 */
+	SPAWN(0x200),
+
+	/**
+	 * Allows the player to unclaim land.
+	 */
+	UNCLAIM(0x400),
+
+	;
 
 	/**
 	 * The bit that represents the privilege.
