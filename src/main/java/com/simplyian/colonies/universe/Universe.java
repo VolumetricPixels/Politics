@@ -17,28 +17,51 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies;
+package com.simplyian.colonies.universe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.simplyian.colonies.colony.Colony;
 
 /**
- * Represents a headless group of all organizations within its scope.
+ * Represents a headless group of all colonies within its scope.
  */
 public class Universe {
 	/**
-	 * The groups in this group manager.
+	 * The colonies in this universe manager.
 	 */
-	private List<Colony> groups;
+	private Set<Colony> colonies;
 
 	/**
-	 * Gets a list of all groups in the universe.
+	 * Contains the immediate children of each colony.
+	 */
+	private Map<Colony, Set<Colony>> children = new HashMap<Colony, Set<Colony>>();
+
+	/**
+	 * Gets a list of all colonies in the universe.
 	 * 
 	 * @return
 	 */
 	public List<Colony> getColonies() {
-		return new ArrayList<Colony>(groups);
+		return new ArrayList<Colony>(colonies);
+	}
+
+	/**
+	 * Gets the child colonies of the given colony.
+	 * 
+	 * @param colony
+	 * @return
+	 */
+	public Set<Colony> getChildColonies(Colony colony) {
+		Set<Colony> childs = children.get(colony);
+		if (childs == null) {
+			return new HashSet<Colony>();
+		}
+		return childs;
 	}
 }

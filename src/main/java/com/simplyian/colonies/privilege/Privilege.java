@@ -19,12 +19,15 @@ public enum Privilege {
 	 * Allows the player to claim land.
 	 */
 	CLAIM(0x2),
-	
+
 	/**
 	 * Allows the player to disband the colony.
 	 */
 	DISBAND(0x4);
 
+	/**
+	 * The bit that represents the privilege.
+	 */
 	private int id;
 
 	/**

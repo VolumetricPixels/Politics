@@ -27,7 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.simplyian.colonies.Universe;
+import com.simplyian.colonies.universe.Universe;
 
 /**
  * Represents a colony of players.
@@ -41,7 +41,7 @@ public abstract class Colony {
 	/**
 	 * The immediate child colonies of this colony.
 	 */
-	private Set<Colony> colonies;
+	private Set<Colony> colonies = new HashSet<Colony>();
 
 	/**
 	 * The immediate players of this colony. The keys are the players, and the
@@ -72,8 +72,8 @@ public abstract class Colony {
 	 * 
 	 * @return
 	 */
-	public Set<Colony> getGroups() {
-		return new HashSet<Colony>(colonies);
+	public Set<Colony> getColonies() {
+		return universe.getChildColonies(this);
 	}
 
 	/**
