@@ -23,7 +23,6 @@ import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,9 +38,9 @@ public abstract class Colony {
 	private final Universe universe;
 
 	/**
-	 * The immediate child colonies of this colony.
+	 * The level of the colony.
 	 */
-	private Set<Colony> colonies = new HashSet<Colony>();
+	private ColonyLevel level;
 
 	/**
 	 * The immediate players of this colony. The keys are the players, and the
@@ -77,6 +76,37 @@ public abstract class Colony {
 	}
 
 	/**
+	 * Adds the given colony as a child of this colony.
+	 * 
+	 * @param colony
+	 * @return True if the given colony was able to be a child of the colony.
+	 */
+	public boolean addChildColony(Colony colony) {
+		return universe.addChildColony(this, colony);
+	}
+
+	/**
+	 * Removes the given colony from this colony's children.
+	 * 
+	 * @param colony
+	 * @return
+	 * 
+	 * @see Universe#removeChildColony(Colony, Colony)
+	 */
+	public boolean removeChildColony(Colony colony) {
+		return universe.removeChildColony(this, colony);
+	}
+
+	/**
+	 * Gets the ColonyLevel of this Colony.
+	 * 
+	 * @return
+	 */
+	public ColonyLevel getLevel() {
+		return level;
+	}
+
+	/**
 	 * Gets the immediate players part of this colony.
 	 * 
 	 * @return
@@ -92,7 +122,7 @@ public abstract class Colony {
 	 */
 	public List<String> getPlayers() {
 		List<String> players = new ArrayList<String>();
-		for (Colony colony : colonies) {
+		for (Colony colony : getColonies()) {
 			players.addAll(colony.getPlayers());
 		}
 		players.addAll(this.players.keySet());
@@ -100,17 +130,27 @@ public abstract class Colony {
 	}
 
 	/**
-	 * Checks if the given player is a member of this colony.
+	 * Returns true if the given player is an immediate member of this colony.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public boolean isImmediateMember(String player) {
+		return players.containsKey(player);
+	}
+
+	/**
+	 * Checks if the given player is a member of this colony or child colonies.
 	 * 
 	 * @param player
 	 * @return
 	 */
 	public boolean isMember(String player) {
-		if (players.containsKey(player)) {
+		if (isImmediateMember(player)) {
 			return true;
 		}
 
-		for (Colony colony : colonies) {
+		for (Colony colony : getColonies()) {
 			if (colony.isMember(player)) {
 				return true;
 			}

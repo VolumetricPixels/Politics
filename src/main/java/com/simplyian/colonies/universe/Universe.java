@@ -100,7 +100,7 @@ public class Universe {
 			public Colonist load(String name) throws Exception {
 				Set<Colony> myColonies = new HashSet<Colony>();
 				for (Colony colony : colonies) {
-					if (colony.isMember(name)) {
+					if (colony.isImmediateMember(name)) {
 						myColonies.add(colony);
 					}
 				}
@@ -140,6 +140,42 @@ public class Universe {
 			return new HashSet<Colony>();
 		}
 		return childs;
+	}
+
+	/**
+	 * Adds the given child as a child for the given colony.
+	 * 
+	 * @param colony
+	 * @param child
+	 * @return True if the colony could be made a child
+	 */
+	public boolean addChildColony(Colony colony, Colony child) {
+		if (!colony.getLevel().canBeChild(child.getLevel())) {
+			return false;
+		}
+
+		Set<Colony> childs = children.get(colony);
+		if (childs == null) {
+			childs = new HashSet<Colony>();
+		}
+		childs.add(child);
+		return true;
+	}
+
+	/**
+	 * Removes the given child colony from the children of the given colony.
+	 * 
+	 * @param colony
+	 * @param child
+	 * @return True if the child was removed, false if the child was not a child
+	 *         in the first place
+	 */
+	public boolean removeChildColony(Colony colony, Colony child) {
+		Set<Colony> childs = children.get(colony);
+		if (childs == null) {
+			return false;
+		}
+		return childs.remove(child);
 	}
 
 	/**

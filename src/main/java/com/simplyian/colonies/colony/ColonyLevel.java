@@ -19,9 +19,9 @@
  */
 package com.simplyian.colonies.colony;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+
+import com.google.common.collect.BiMap;
 
 /**
  * Represents a level of organization of a colony.
@@ -41,7 +41,12 @@ public final class ColonyLevel {
 	/**
 	 * Contains the allowed children for this ColonyLevel.
 	 */
-	private final Set<ColonyLevel> allowedChildren = new HashSet<ColonyLevel>();
+	private final Set<ColonyLevel> allowedChildren;
+
+	/**
+	 * Contains the names of roles corresponding to the given privilege set.
+	 */
+	private final BiMap<Integer, String> roleNames;
 
 	/**
 	 * C'tor
@@ -49,9 +54,11 @@ public final class ColonyLevel {
 	 * @param name
 	 * @param rank
 	 */
-	public ColonyLevel(String name, int rank) {
+	public ColonyLevel(String name, int rank, Set<ColonyLevel> allowedChildren, BiMap<Integer, String> roleNames) {
 		this.name = name;
 		this.rank = rank;
+		this.allowedChildren = allowedChildren;
+		this.roleNames = roleNames;
 	}
 
 	/**
@@ -73,16 +80,6 @@ public final class ColonyLevel {
 	}
 
 	/**
-	 * Adds the given levels as allowed children.
-	 * 
-	 * @param levels
-	 *            The levels to add.
-	 */
-	public void addAllowedChildren(ColonyLevel... levels) {
-		allowedChildren.addAll(Arrays.asList(levels));
-	}
-
-	/**
 	 * Returns true if this level can have children of the given level.
 	 * 
 	 * @param level
@@ -90,5 +87,25 @@ public final class ColonyLevel {
 	 */
 	public boolean canBeChild(ColonyLevel level) {
 		return allowedChildren.contains(level);
+	}
+
+	/**
+	 * Gets the role name of the given privilege set.
+	 * 
+	 * @param privileges
+	 * @return
+	 */
+	public String getRoleName(int privileges) {
+		return roleNames.get(Integer.valueOf(privileges));
+	}
+
+	/**
+	 * Gets the privileges of the given role name.
+	 * 
+	 * @param roleName
+	 * @return
+	 */
+	public int getPrivileges(String roleName) {
+		return roleNames.inverse().get(roleName).intValue();
 	}
 }
