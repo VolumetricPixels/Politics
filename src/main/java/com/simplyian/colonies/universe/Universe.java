@@ -25,13 +25,29 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
+import org.spout.api.Server;
+import org.spout.api.Spout;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.simplyian.colonies.ColoniesPlugin;
+import com.simplyian.colonies.colony.Colonist;
 import com.simplyian.colonies.colony.Colony;
 
 /**
  * Represents a headless group of all colonies within its scope.
  */
 public class Universe {
+	/**
+	 * The instance of ColoniesPlugin.
+	 */
+	private final ColoniesPlugin plugin;
+
 	/**
 	 * The colonies in this universe manager.
 	 */
@@ -41,6 +57,44 @@ public class Universe {
 	 * Contains the immediate children of each colony.
 	 */
 	private Map<Colony, Set<Colony>> children = new HashMap<Colony, Set<Colony>>();
+
+	/**
+	 * Cache containing colonists.
+	 */
+	private LoadingCache<String, Colonist> colonistCache;
+
+	/**
+	 * C'tor
+	 */
+	public Universe(ColoniesPlugin plugin) {
+		this.plugin = plugin;
+
+		buildColonistCache();
+	}
+
+	/**
+	 * Builds the colonist cache.
+	 */
+	private void buildColonistCache() {
+		// Build cache
+		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
+
+		builder.maximumSize(((Server) Spout.getEngine()).getMaxPlayers());
+		builder.expireAfterAccess(10L, TimeUnit.MINUTES);
+
+		colonistCache = builder.build(new CacheLoader<String, Colonist>() {
+			@Override
+			public Colonist load(String name) throws Exception {
+				Set<Colony> myColonies = new HashSet<Colony>();
+				for (Colony colony : colonies) {
+					if (colony.isMember(name)) {
+						myColonies.add(colony);
+					}
+				}
+				return new Colonist(myColonies, Universe.this);
+			}
+		});
+	}
 
 	/**
 	 * Gets a list of all colonies in the universe.
@@ -63,5 +117,20 @@ public class Universe {
 			return new HashSet<Colony>();
 		}
 		return childs;
+	}
+
+	/**
+	 * Gets the colonist corresponding with the given player name.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public Colonist getColonist(String player) {
+		try {
+			return colonistCache.get(player);
+		} catch (ExecutionException ex) {
+			plugin.getLogger().log(Level.SEVERE, "Could not load a colonist! This is a PROBLEM!", ex);
+			return null;
+		}
 	}
 }
