@@ -91,7 +91,7 @@ public class Universe {
 						myColonies.add(colony);
 					}
 				}
-				return new Colonist(myColonies, Universe.this);
+				return new Colonist(name, myColonies, Universe.this);
 			}
 		});
 	}

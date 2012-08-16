@@ -19,6 +19,7 @@
  */
 package com.simplyian.colonies.colony;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.simplyian.colonies.universe.Universe;
@@ -27,19 +28,61 @@ import com.simplyian.colonies.universe.Universe;
  * Represents a player.
  */
 public class Colonist {
-	private final Universe universe;
+	/**
+	 * The name of the colonist.
+	 */
+	private final String name;
+
+	/**
+	 * The colonies this colonist is part of.
+	 */
 	private final Set<Colony> colonies;
+
+	/**
+	 * The universe this colonist is part of.
+	 */
+	private final Universe universe;
 
 	/**
 	 * C'tor
 	 * 
-	 * @param universe
+	 * @param name
+	 *            The name of the colonist.
 	 * @param colonies
 	 *            The colonies of this colonist. This should be the only
 	 *            reference.
+	 * @param universe
 	 */
-	public Colonist(Set<Colony> colonies, Universe universe) {
-		this.universe = universe;
+	public Colonist(String name, Set<Colony> colonies, Universe universe) {
+		this.name = name;
 		this.colonies = colonies;
+		this.universe = universe;
+	}
+
+	/**
+	 * Gets the name of this colonist.
+	 * 
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Gets the colonies this colonist is part of.
+	 * 
+	 * @return
+	 */
+	public Set<Colony> getColonies() {
+		return new HashSet<Colony>(colonies);
+	}
+
+	/**
+	 * Gets the universe this Colonist is part of.
+	 * 
+	 * @return
+	 */
+	public Universe getUniverse() {
+		return universe;
 	}
 }
