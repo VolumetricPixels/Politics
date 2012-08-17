@@ -19,6 +19,9 @@
  */
 package com.simplyian.colonies.universe;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.spout.api.geo.World;
 
 import com.simplyian.colonies.ColoniesPlugin;
@@ -28,7 +31,20 @@ import com.simplyian.colonies.colony.ColonyLevel;
  * Contains all universes.
  */
 public class UniverseManager {
+	/**
+	 * Plugin instance
+	 */
 	private final ColoniesPlugin plugin;
+
+	/**
+	 * Universes mapped to their names.
+	 */
+	private Map<String, Universe> universes;
+
+	/**
+	 * World names mapped to ColonyWorlds.
+	 */
+	private Map<String, ColonyWorld> worlds = new HashMap<String, ColonyWorld>();
 
 	/**
 	 * C'tor
@@ -40,13 +56,20 @@ public class UniverseManager {
 	}
 
 	/**
+	 * Loads all universes into memory from files.
+	 */
+	public void loadUniverses() {
+
+	}
+
+	/**
 	 * Gets a universe by its name.
 	 * 
 	 * @param name
 	 * @return
 	 */
 	public Universe getUniverse(String name) {
-		return null;
+		return universes.get(name.toLowerCase());
 	}
 
 	/**
@@ -57,6 +80,30 @@ public class UniverseManager {
 	 * @return
 	 */
 	public Universe getUniverse(World world, ColonyLevel level) {
-		return null;
+		ColonyWorld cw = getWorld(world);
+		if (cw == null) {
+			return null;
+		}
+		return cw.getUniverse(level);
+	}
+
+	/**
+	 * Gets a ColonyWorld from its name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public ColonyWorld getWorld(String name) {
+		return worlds.get(name);
+	}
+
+	/**
+	 * Gets a ColonyWorld from its World.
+	 * 
+	 * @param world
+	 * @return
+	 */
+	public ColonyWorld getWorld(World world) {
+		return getWorld(world.getName());
 	}
 }
