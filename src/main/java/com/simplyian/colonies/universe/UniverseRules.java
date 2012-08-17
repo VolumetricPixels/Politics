@@ -71,16 +71,6 @@ public class UniverseRules {
 	}
 
 	/**
-	 * Gets a ColonyLevel from the given command.
-	 * 
-	 * @param command
-	 * @return
-	 */
-	public ColonyLevel getColonyLevel(Command command) {
-		return getColonyLevel(command.getPreferredName().toLowerCase());
-	}
-
-	/**
 	 * Loads a UniverseRules from the given config.
 	 * 
 	 * @param config

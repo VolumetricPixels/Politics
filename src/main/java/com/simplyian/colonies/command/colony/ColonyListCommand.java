@@ -34,8 +34,20 @@ import com.simplyian.colonies.colony.Colony;
 import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.universe.Universe;
 
-public class ColonyListCommand implements CommandExecutor {
+/**
+ * Colony list command
+ */
+public class ColonyListCommand extends ColonyCommand {
 	public static final int PAGE_HEIGHT = 20;
+
+	/**
+	 * C'tor
+	 * 
+	 * @param level
+	 */
+	private ColonyListCommand(ColonyLevel level) {
+		super(level);
+	}
 
 	@Override
 	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
@@ -54,10 +66,13 @@ public class ColonyListCommand implements CommandExecutor {
 				return;
 			}
 		} else {
-			universe = Colonies.getUniverse((Player) source, command);
+			universe = Colonies.getUniverse(((Player) source).getWorld(), level);
+			if (universe == null) {
+				source.sendMessage(MsgStyle.error(), "You can't use this command right now.");
+				return;
+			}
 		}
 
-		ColonyLevel level = universe.getRules().getColonyLevel(command);
 		source.sendMessage(MsgStyle.info(), "========= " + level.getPlural().toUpperCase() + " =========");
 
 		List<Colony> colonies = universe.getColonies(level);
@@ -82,5 +97,17 @@ public class ColonyListCommand implements CommandExecutor {
 		for (Colony colony : pageColonies) {
 			source.sendMessage(colony.getName()); // TODO prettify list
 		}
+	}
+
+	public static ColonyListCommand register(Command parent, ColonyLevel level) {
+		ColonyListCommand executor = new ColonyListCommand(level);
+
+		Command cmd = parent.addSubCommand(Colonies.getPlugin(), "list");
+		cmd.setExecutor(executor);
+		cmd.addAlias("ls");
+		cmd.setArgBounds(0, -1);
+		cmd.closeSubCommand();
+
+		return executor;
 	}
 }

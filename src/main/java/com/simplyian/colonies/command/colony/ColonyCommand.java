@@ -17,46 +17,20 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.universe;
+package com.simplyian.colonies.command.colony;
 
-import org.spout.api.geo.World;
+import org.spout.api.command.CommandExecutor;
 
-import com.simplyian.colonies.ColoniesPlugin;
 import com.simplyian.colonies.colony.ColonyLevel;
 
-/**
- * Contains all universes.
- */
-public class UniverseManager {
-	private final ColoniesPlugin plugin;
+public abstract class ColonyCommand implements CommandExecutor {
+	protected final ColonyLevel level;
 
-	/**
-	 * C'tor
-	 * 
-	 * @param plugin
-	 */
-	public UniverseManager(ColoniesPlugin plugin) {
-		this.plugin = plugin;
+	public ColonyCommand(ColonyLevel level) {
+		this.level = level;
 	}
 
-	/**
-	 * Gets a universe by its name.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public Universe getUniverse(String name) {
-		return null;
-	}
-
-	/**
-	 * Gets the universe of the given CommandSource.
-	 * 
-	 * @param world
-	 * @param level
-	 * @return
-	 */
-	public Universe getUniverse(World world, ColonyLevel level) {
-		return null;
+	public ColonyLevel getLevel() {
+		return level;
 	}
 }

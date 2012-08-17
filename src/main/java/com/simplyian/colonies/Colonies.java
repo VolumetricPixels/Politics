@@ -19,9 +19,9 @@
  */
 package com.simplyian.colonies;
 
-import org.spout.api.command.Command;
-import org.spout.api.entity.Player;
+import org.spout.api.geo.World;
 
+import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.universe.Universe;
 import com.simplyian.colonies.universe.UniverseManager;
 
@@ -64,13 +64,13 @@ public final class Colonies {
 	}
 
 	/**
-	 * Gets the universe corresponding with the given player and command.
+	 * Gets the universe corresponding with the given world and colony level.
 	 * 
-	 * @param player
-	 * @param cmd
+	 * @param world
+	 * @param level
 	 * @return
 	 */
-	public static Universe getUniverse(Player player, Command cmd) {
-		return getUniverseManager().getUniverse(player, cmd);
+	public static Universe getUniverse(World world, ColonyLevel level) {
+		return getUniverseManager().getUniverse(world, level);
 	}
 }
