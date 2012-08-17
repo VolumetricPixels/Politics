@@ -31,6 +31,7 @@ import java.util.logging.Level;
 
 import org.spout.api.Server;
 import org.spout.api.Spout;
+import org.spout.api.command.Command;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -38,6 +39,7 @@ import com.google.common.cache.LoadingCache;
 import com.simplyian.colonies.ColoniesPlugin;
 import com.simplyian.colonies.colony.Colonist;
 import com.simplyian.colonies.colony.Colony;
+import com.simplyian.colonies.colony.ColonyLevel;
 
 /**
  * Represents a headless group of all colonies within its scope.
@@ -64,6 +66,11 @@ public class Universe {
 	private Map<Colony, Set<Colony>> children;
 
 	/**
+	 * Colonies in the given levels.
+	 */
+	private Map<ColonyLevel, Set<Colony>> levels;
+
+	/**
 	 * Cache containing colonists.
 	 */
 	private LoadingCache<String, Colonist> colonistCache;
@@ -82,6 +89,16 @@ public class Universe {
 		// TODO major
 		colonies = new HashSet<Colony>();
 		children = new HashMap<Colony, Set<Colony>>();
+
+		levels = new HashMap<ColonyLevel, Set<Colony>>();
+		for (Colony colony : colonies) {
+			Set<Colony> level = levels.get(colony.getLevel());
+			if (level == null) {
+				level = new HashSet<Colony>();
+				levels.put(colony.getLevel(), level);
+			}
+			level.add(colony);
+		}
 	}
 
 	/**
@@ -124,6 +141,16 @@ public class Universe {
 	 */
 	public List<Colony> getColonies() {
 		return new ArrayList<Colony>(colonies);
+	}
+
+	/**
+	 * Gets a list of all colonies with the given level in this universe.
+	 * 
+	 * @param level
+	 * @return
+	 */
+	public List<Colony> getColonies(ColonyLevel level) {
+		return new ArrayList<Colony>(levels.get(level));
 	}
 
 	/**

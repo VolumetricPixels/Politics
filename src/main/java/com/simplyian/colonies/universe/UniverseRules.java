@@ -27,6 +27,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 
+import org.spout.api.command.Command;
 import org.spout.api.util.config.Configuration;
 import org.spout.api.util.config.ConfigurationNode;
 
@@ -70,6 +71,16 @@ public class UniverseRules {
 	}
 
 	/**
+	 * Gets a ColonyLevel from the given command.
+	 * 
+	 * @param command
+	 * @return
+	 */
+	public ColonyLevel getColonyLevel(Command command) {
+		return getColonyLevel(command.getPreferredName().toLowerCase());
+	}
+
+	/**
 	 * Loads a UniverseRules from the given config.
 	 * 
 	 * @param config
@@ -86,9 +97,13 @@ public class UniverseRules {
 			for (Entry<String, ConfigurationNode> entry : levelNode.getChildren().entrySet()) {
 				String levelName = entry.getKey();
 
+				// Load rank
 				int rank = entry.getValue().getNode("rank").getInt();
+
+				// Load children
 				List<String> children = entry.getValue().getNode("children").getStringList();
 
+				// Load roles
 				Map<Integer, String> rolesMap = new HashMap<Integer, String>();
 				for (Entry<String, ConfigurationNode> roleEntry : entry.getValue().getChildren().entrySet()) {
 					String roleName = roleEntry.getKey();
@@ -105,7 +120,12 @@ public class UniverseRules {
 					rolesMap.put(mask, roleName);
 				}
 				BiMap<Integer, String> realRolesMap = ImmutableBiMap.<Integer, String> builder().putAll(rolesMap).build();
-				ColonyLevel level = new ColonyLevel(levelName, rank, realRolesMap);
+
+				// Load plural
+				String plural = entry.getValue().getNode("plural").getString(levelName + "s");
+
+				// Create the level
+				ColonyLevel level = new ColonyLevel(levelName, rank, realRolesMap, plural);
 				levelMap.put(levelName.toLowerCase(), level);
 				levels.put(level, children);
 			}

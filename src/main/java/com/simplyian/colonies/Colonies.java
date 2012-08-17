@@ -19,33 +19,29 @@
  */
 package com.simplyian.colonies;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.spout.api.command.Command;
+import org.spout.api.entity.Player;
 
-import org.spout.api.plugin.CommonPlugin;
-
+import com.simplyian.colonies.universe.Universe;
 import com.simplyian.colonies.universe.UniverseManager;
 
 /**
- * Colonies plugin main class.
+ * Static API access
  */
-public class ColoniesPlugin extends CommonPlugin {
-	private static ColoniesPlugin instance;
-
-	private UniverseManager universeManager;
-
-	@Override
-	public void onEnable() {
-		instance = this;
-
-		universeManager = new UniverseManager(this);
-
-		getLogger().log(Level.INFO, "Colonies enabled!");
+public final class Colonies {
+	/**
+	 * C'tor
+	 */
+	private Colonies() {
 	}
 
-	@Override
-	public void onDisable() {
-		getLogger().log(Level.INFO, "Colonies disabled!");
+	/**
+	 * Gets the ColoniesPlugin instance.
+	 * 
+	 * @return
+	 */
+	public static ColoniesPlugin getPlugin() {
+		return ColoniesPlugin.getInstance();
 	}
 
 	/**
@@ -53,25 +49,28 @@ public class ColoniesPlugin extends CommonPlugin {
 	 * 
 	 * @return
 	 */
-	public UniverseManager getUniverseManager() {
-		return universeManager;
+	public static UniverseManager getUniverseManager() {
+		return getPlugin().getUniverseManager();
 	}
 
 	/**
-	 * Gets the instance of ColoniesPlugin.
+	 * Gets a Universe by its name.
 	 * 
+	 * @param name
 	 * @return
 	 */
-	public static ColoniesPlugin getInstance() {
-		return instance;
+	public static Universe getUniverse(String name) {
+		return getUniverseManager().getUniverse(name);
 	}
 
 	/**
-	 * Gets the logger of the plugin.
+	 * Gets the universe corresponding with the given player and command.
 	 * 
+	 * @param player
+	 * @param cmd
 	 * @return
 	 */
-	public static Logger logger() {
-		return instance.getLogger();
+	public static Universe getUniverse(Player player, Command cmd) {
+		return getUniverseManager().getUniverse(player, cmd);
 	}
 }

@@ -20,8 +20,11 @@
 package com.simplyian.colonies.colony;
 
 import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
+import gnu.trove.map.hash.TShortObjectHashMap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +34,7 @@ import com.simplyian.colonies.universe.Universe;
 /**
  * Represents a colony of players.
  */
-public abstract class Colony {
+public final class Colony implements Comparable<Colony> {
 	/**
 	 * The universe this colony is part of.
 	 */
@@ -41,6 +44,11 @@ public abstract class Colony {
 	 * The level of the colony.
 	 */
 	private ColonyLevel level;
+
+	/**
+	 * Properties of this colony.
+	 */
+	private TShortObjectMap<Object> properties = new TShortObjectHashMap<Object>();
 
 	/**
 	 * The immediate players of this colony. The keys are the players, and the
@@ -55,6 +63,24 @@ public abstract class Colony {
 	 */
 	public Colony(Universe universe) {
 		this.universe = universe;
+	}
+
+	/**
+	 * Gets the name of the colony.
+	 * 
+	 * @return
+	 */
+	public String getName() {
+		return getProperty(ColonyProperty.NAME).toString();
+	}
+
+	/**
+	 * Sets the name of the colony.
+	 * 
+	 * @param name
+	 */
+	public void setName(String name) {
+		setProperty(ColonyProperty.NAME, name);
 	}
 
 	/**
@@ -107,6 +133,26 @@ public abstract class Colony {
 	}
 
 	/**
+	 * Gets the value of a property.
+	 * 
+	 * @param property
+	 * @return
+	 */
+	public Object getProperty(short property) {
+		return properties.get(property);
+	}
+
+	/**
+	 * Sets the value of a property.
+	 * 
+	 * @param property
+	 * @param value
+	 */
+	public void setProperty(short property, Serializable value) {
+		properties.put(property, value);
+	}
+
+	/**
 	 * Gets the immediate players part of this colony.
 	 * 
 	 * @return
@@ -156,5 +202,10 @@ public abstract class Colony {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(Colony o) {
+		return getName().compareTo(o.getName());
 	}
 }

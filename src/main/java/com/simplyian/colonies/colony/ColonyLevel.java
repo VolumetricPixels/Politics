@@ -49,15 +49,21 @@ public final class ColonyLevel {
 	private final BiMap<Integer, String> roleNames;
 
 	/**
+	 * Plural form of this colony level name.
+	 */
+	private final String plural;
+
+	/**
 	 * C'tor
 	 * 
 	 * @param name
 	 * @param rank
 	 */
-	public ColonyLevel(String name, int rank, BiMap<Integer, String> roleNames) {
+	public ColonyLevel(String name, int rank, BiMap<Integer, String> roleNames, String plural) {
 		this.name = name;
 		this.rank = rank;
 		this.roleNames = roleNames;
+		this.plural = plural;
 	}
 
 	/**
@@ -86,6 +92,15 @@ public final class ColonyLevel {
 	 */
 	public int getRank() {
 		return rank;
+	}
+
+	/**
+	 * Gets the plural form of this ColonyLevel.
+	 * 
+	 * @return
+	 */
+	public String getPlural() {
+		return plural;
 	}
 
 	/**
