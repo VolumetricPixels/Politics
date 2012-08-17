@@ -20,6 +20,7 @@
 package com.simplyian.colonies;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.spout.api.plugin.CommonPlugin;
 
@@ -27,9 +28,11 @@ import org.spout.api.plugin.CommonPlugin;
  * Colonies plugin main class.
  */
 public class ColoniesPlugin extends CommonPlugin {
+	private static ColoniesPlugin instance;
 
 	@Override
 	public void onEnable() {
+		instance = this;
 		getLogger().log(Level.INFO, "Colonies enabled!");
 	}
 
@@ -38,4 +41,12 @@ public class ColoniesPlugin extends CommonPlugin {
 		getLogger().log(Level.INFO, "Colonies disabled!");
 	}
 
+	/**
+	 * Gets the logger of the plugin.
+	 * 
+	 * @return
+	 */
+	public static Logger logger() {
+		return instance.getLogger();
+	}
 }
