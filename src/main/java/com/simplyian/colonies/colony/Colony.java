@@ -19,6 +19,8 @@
  */
 package com.simplyian.colonies.colony;
 
+import gnu.trove.iterator.TObjectIntIterator;
+import gnu.trove.iterator.TShortObjectIterator;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.TShortObjectMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
@@ -27,14 +29,19 @@ import gnu.trove.map.hash.TShortObjectHashMap;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+
+import com.simplyian.colonies.data.Storable;
 import com.simplyian.colonies.universe.Universe;
 
 /**
  * Represents a colony of players.
  */
-public final class Colony implements Comparable<Colony> {
+public final class Colony implements Comparable<Colony>, Storable {
 	/**
 	 * The universe this colony is part of.
 	 */
@@ -43,26 +50,42 @@ public final class Colony implements Comparable<Colony> {
 	/**
 	 * The level of the colony.
 	 */
-	private ColonyLevel level;
+	private final ColonyLevel level;
 
 	/**
 	 * Properties of this colony.
 	 */
-	private TShortObjectMap<Object> properties = new TShortObjectHashMap<Object>();
+	private final TShortObjectMap<Object> properties;
 
 	/**
 	 * The immediate players of this colony. The keys are the players, and the
 	 * values are the player privileges.
 	 */
-	private TObjectIntMap<String> players = new TObjectIntHashMap<String>();
+	private final TObjectIntMap<String> players;
 
 	/**
 	 * C'tor
 	 * 
 	 * @param universe
+	 * @param level
 	 */
-	public Colony(Universe universe) {
+	public Colony(Universe universe, ColonyLevel level) {
+		this(universe, level, new TShortObjectHashMap<Object>(), new TObjectIntHashMap<String>());
+	}
+
+	/**
+	 * C'tor
+	 * 
+	 * @param universe
+	 * @param level
+	 * @param properties
+	 * @param players
+	 */
+	private Colony(Universe universe, ColonyLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
 		this.universe = universe;
+		this.level = level;
+		this.properties = properties;
+		this.players = players;
 	}
 
 	/**
@@ -207,5 +230,77 @@ public final class Colony implements Comparable<Colony> {
 	@Override
 	public int compareTo(Colony o) {
 		return getName().compareTo(o.getName());
+	}
+
+	public BasicBSONObject toBSONObject() {
+		BasicBSONObject object = new BasicBSONObject();
+
+		object.put("level", level.getName());
+
+		final BasicBSONObject propertiesBson = new BasicBSONObject();
+		TShortObjectIterator<Object> pit = properties.iterator();
+		while (pit.hasNext()) {
+			pit.advance();
+			propertiesBson.put(Integer.toHexString(pit.key()), pit.value());
+		}
+		object.put("properties", propertiesBson);
+
+		final BasicBSONObject playersBson = new BasicBSONObject();
+		TObjectIntIterator<String> lit = players.iterator();
+		while (lit.hasNext()) {
+			lit.advance();
+			playersBson.put(lit.key(), lit.value());
+		}
+		object.put("players", lit);
+
+		return object;
+	}
+
+	/**
+	 * Gets the Colony from the given BSONObject.
+	 * 
+	 * @param universe
+	 * @param object
+	 * @return
+	 */
+	public static Colony fromBSONObject(Universe universe, BSONObject object) {
+		if (!(object instanceof BasicBSONObject)) {
+			throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
+		}
+
+		BasicBSONObject bobject = (BasicBSONObject) object;
+		String levelName = bobject.getString("level");
+		ColonyLevel level = universe.getRules().getColonyLevel(levelName);
+		if (level == null) {
+			throw new IllegalStateException("Unknown level type '" + level + "'! (Did the universe rules change?)");
+		}
+
+		// Properties
+		Object propertiesObj = bobject.get("properties");
+		if (!(propertiesObj instanceof BasicBSONObject)) {
+			throw new IllegalStateException("WTF you screwed up the properties! CORRUPT!");
+		}
+		BasicBSONObject propertiesBson = (BasicBSONObject) propertiesObj;
+		TShortObjectMap<Object> properties = new TShortObjectHashMap<Object>();
+		for (Entry<String, Object> entry : propertiesBson.entrySet()) {
+			int realKey = Integer.valueOf(entry.getKey(), 16);
+			short realKeyShort = (short) realKey;
+			Object value = entry.getValue();
+			properties.put(realKeyShort, value);
+		}
+
+		// Players
+		Object playersObj = bobject.get("players");
+		if (!(playersObj instanceof BasicBSONObject)) {
+			throw new IllegalStateException("Stupid server admin... don't mess with the data!");
+		}
+		BasicBSONObject playersBson = (BasicBSONObject) playersObj;
+		TObjectIntMap<String> players = new TObjectIntHashMap<String>();
+		for (Entry<String, Object> entry : playersBson.entrySet()) {
+			int mask = ((Integer) entry.getValue()).intValue();
+			players.put(entry.getKey(), mask);
+		}
+
+		return new Colony(universe, level, properties, players);
 	}
 }

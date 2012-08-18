@@ -17,19 +17,18 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.universe;
+package com.simplyian.colonies.data;
 
-import com.simplyian.colonies.colony.ColonyLevel;
+import org.bson.BSONObject;
 
-public class ColonyWorld {
-	private final UniverseManager universeManager;
-
-	public ColonyWorld(UniverseManager universeManager) {
-		this.universeManager = universeManager;
-	}
-
-	public Universe getUniverse(ColonyLevel level) {
-		return null;
-	}
-
+/**
+ * Represents something that can be stored.
+ */
+public interface Storable {
+	/**
+	 * Converts this object into a BSON Object.
+	 * 
+	 * @return
+	 */
+	public BSONObject toBSONObject();
 }
