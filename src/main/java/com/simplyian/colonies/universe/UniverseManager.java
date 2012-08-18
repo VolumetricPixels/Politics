@@ -27,8 +27,10 @@ import java.util.logging.Level;
 
 import org.apache.commons.io.FileUtils;
 import org.bson.BSONDecoder;
+import org.bson.BSONEncoder;
 import org.bson.BSONObject;
 import org.bson.BasicBSONDecoder;
+import org.bson.BasicBSONEncoder;
 import org.spout.api.geo.World;
 
 import com.simplyian.colonies.ColoniesPlugin;
@@ -73,7 +75,7 @@ public class UniverseManager {
 	/**
 	 * Loads all universes into memory from files.
 	 */
-	public void loadUniverses() {
+	public void loadAll() {
 		BSONDecoder decoder = new BasicBSONDecoder();
 		for (File file : universeDir.listFiles()) {
 			String fileName = file.getName();
@@ -93,6 +95,27 @@ public class UniverseManager {
 
 			Universe universe = Universe.fromBSONObject(object);
 			universes.put(universe.getName(), universe);
+		}
+	}
+
+	/**
+	 * Saves all universes in memory to files.
+	 */
+	public void saveAll() {
+		BSONEncoder encoder = new BasicBSONEncoder();
+		universeDir.mkdirs();
+		for (Universe universe : universes.values()) {
+			String fileName = universe.getName() + ".cou";
+			File universeFile = new File(universeDir, fileName);
+
+			byte[] data = encoder.encode(universe.toBSONObject());
+			try {
+				FileUtils.writeByteArrayToFile(universeFile, data);
+			} catch (IOException ex) {
+				plugin.getLogger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
+				continue;
+			}
+			// TODO make backups
 		}
 	}
 
