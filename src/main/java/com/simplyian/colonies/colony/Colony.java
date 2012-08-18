@@ -37,16 +37,12 @@ import org.bson.BasicBSONObject;
 
 import com.simplyian.colonies.data.Storable;
 import com.simplyian.colonies.universe.Universe;
+import com.simplyian.colonies.universe.UniverseRules;
 
 /**
  * Represents a colony of players.
  */
 public final class Colony implements Comparable<Colony>, Storable {
-	/**
-	 * The universe this colony is part of.
-	 */
-	private final Universe universe;
-
 	/**
 	 * The unique identifier of this colony.
 	 */
@@ -69,13 +65,18 @@ public final class Colony implements Comparable<Colony>, Storable {
 	private final TObjectIntMap<String> players;
 
 	/**
+	 * The universe this colony is part of.
+	 */
+	private Universe universe;
+
+	/**
 	 * C'tor
 	 * 
 	 * @param universe
 	 * @param level
 	 */
-	public Colony(Universe universe, long uid, ColonyLevel level) {
-		this(universe, uid, level, new TShortObjectHashMap<Object>(), new TObjectIntHashMap<String>());
+	public Colony(long uid, ColonyLevel level) {
+		this(uid, level, new TShortObjectHashMap<Object>(), new TObjectIntHashMap<String>());
 	}
 
 	/**
@@ -86,12 +87,23 @@ public final class Colony implements Comparable<Colony>, Storable {
 	 * @param properties
 	 * @param players
 	 */
-	private Colony(Universe universe, long uid, ColonyLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
-		this.universe = universe;
+	private Colony(long uid, ColonyLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
 		this.uid = uid;
 		this.level = level;
 		this.properties = properties;
 		this.players = players;
+	}
+
+	/**
+	 * Initializes the universe.
+	 * 
+	 * @param universe
+	 */
+	public void initialize(Universe universe) {
+		if (universe != null) {
+			throw new IllegalStateException("Someone is trying to screw with the plugin!");
+		}
+		this.universe = universe;
 	}
 
 	/**
@@ -257,11 +269,11 @@ public final class Colony implements Comparable<Colony>, Storable {
 	/**
 	 * Gets the Colony from the given BSONObject.
 	 * 
-	 * @param universe
+	 * @param rules
 	 * @param object
 	 * @return
 	 */
-	public static Colony fromBSONObject(Universe universe, BSONObject object) {
+	public static Colony fromBSONObject(UniverseRules rules, BSONObject object) {
 		if (!(object instanceof BasicBSONObject)) {
 			throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
 		}
@@ -271,7 +283,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 		long uid = bobject.getLong("uid");
 
 		String levelName = bobject.getString("level");
-		ColonyLevel level = universe.getRules().getColonyLevel(levelName);
+		ColonyLevel level = rules.getColonyLevel(levelName);
 		if (level == null) {
 			throw new IllegalStateException("Unknown level type '" + level + "'! (Did the universe rules change?)");
 		}
@@ -302,6 +314,6 @@ public final class Colony implements Comparable<Colony>, Storable {
 			players.put(entry.getKey(), mask);
 		}
 
-		return new Colony(universe, uid, level, properties, players);
+		return new Colony(uid, level, properties, players);
 	}
 }

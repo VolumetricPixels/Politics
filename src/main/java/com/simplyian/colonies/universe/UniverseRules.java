@@ -60,6 +60,11 @@ public class UniverseRules {
 		this.colonyLevels = colonyLevels;
 	}
 
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Gets the ColonyLevel with the given name.
 	 * 

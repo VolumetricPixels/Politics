@@ -19,9 +19,16 @@
  */
 package com.simplyian.colonies.universe;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
+import org.apache.commons.io.FileUtils;
+import org.bson.BSONDecoder;
+import org.bson.BSONObject;
+import org.bson.BasicBSONDecoder;
 import org.spout.api.geo.World;
 
 import com.simplyian.colonies.ColoniesPlugin;
@@ -35,6 +42,11 @@ public class UniverseManager {
 	 * Plugin instance
 	 */
 	private final ColoniesPlugin plugin;
+
+	/**
+	 * Universe directory
+	 */
+	private final File universeDir;
 
 	/**
 	 * Universes mapped to their names.
@@ -53,13 +65,35 @@ public class UniverseManager {
 	 */
 	public UniverseManager(ColoniesPlugin plugin) {
 		this.plugin = plugin;
+
+		universeDir = new File(plugin.getDataFolder(), "data/universe/");
+		universeDir.mkdirs();
 	}
 
 	/**
 	 * Loads all universes into memory from files.
 	 */
 	public void loadUniverses() {
+		BSONDecoder decoder = new BasicBSONDecoder();
+		for (File file : universeDir.listFiles()) {
+			String fileName = file.getName();
+			if (!fileName.endsWith(".cou") || fileName.length() <= 4) {
+				continue;
+			}
 
+			byte[] data;
+			try {
+				data = FileUtils.readFileToByteArray(file);
+			} catch (IOException ex) {
+				plugin.getLogger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
+				continue;
+			}
+
+			BSONObject object = decoder.readObject(data);
+
+			Universe universe = Universe.fromBSONObject(object);
+			universes.put(universe.getName(), universe);
+		}
 	}
 
 	/**

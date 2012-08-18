@@ -54,9 +54,9 @@ import com.simplyian.colonies.data.Storable;
  */
 public class Universe implements Storable {
 	/**
-	 * The instance of ColoniesPlugin.
+	 * The name of the universe.
 	 */
-	private final ColoniesPlugin plugin;
+	private final String name;
 
 	/**
 	 * Contains the rules of this universe.
@@ -71,7 +71,7 @@ public class Universe implements Storable {
 	/**
 	 * The colonies in this universe manager.
 	 */
-	private Set<Colony> colonies;
+	private List<Colony> colonies;
 
 	/**
 	 * Contains the immediate children of each colony.
@@ -91,23 +91,27 @@ public class Universe implements Storable {
 	/**
 	 * C'tor
 	 */
-	public Universe(ColoniesPlugin plugin, UniverseRules properties) {
-		this.plugin = plugin;
-		this.rules = properties;
-
-		buildColonistCache();
+	public Universe(String name, UniverseRules properties) {
+		this(name, properties, new ArrayList<ColonyWorld>(), new ArrayList<Colony>(), new HashMap<Colony, Set<Colony>>());
 	}
 
 	/**
-	 * Initializes this universe.
+	 * C'tor
 	 * 
+	 * @param name
+	 * @param properties
+	 * @param worlds
 	 * @param colonies
 	 * @param children
 	 */
-	private void initialize(List<ColonyWorld> worlds, Set<Colony> colonies, Map<Colony, Set<Colony>> children) {
+	public Universe(String name, UniverseRules properties, List<ColonyWorld> worlds, List<Colony> colonies, Map<Colony, Set<Colony>> children) {
+		this.name = name;
+		this.rules = properties;
 		this.worlds = worlds;
 		this.colonies = colonies;
 		this.children = children;
+
+		buildColonistCache();
 
 		levels = new HashMap<ColonyLevel, Set<Colony>>();
 		for (Colony colony : colonies) {
@@ -142,6 +146,15 @@ public class Universe implements Storable {
 				return new Colonist(name, myColonies, Universe.this);
 			}
 		});
+	}
+
+	/**
+	 * Gets the name of this Universe.
+	 * 
+	 * @return
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -241,7 +254,7 @@ public class Universe implements Storable {
 		try {
 			return colonistCache.get(player);
 		} catch (ExecutionException ex) {
-			plugin.getLogger().log(Level.SEVERE, "Could not load a colonist! This is a PROBLEM!", ex);
+			ColoniesPlugin.logger().log(Level.SEVERE, "Could not load a colonist! This is a PROBLEM!", ex);
 			return null;
 		}
 	}
@@ -249,6 +262,9 @@ public class Universe implements Storable {
 	@Override
 	public BasicBSONObject toBSONObject() {
 		BasicBSONObject bson = new BasicBSONObject();
+
+		bson.put("name", name);
+		bson.put("rules", rules.getName());
 
 		BasicBSONList coloniesBson = new BasicBSONList();
 		BasicBSONObject childrenBson = new BasicBSONObject();
@@ -281,13 +297,14 @@ public class Universe implements Storable {
 			throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
 		}
 		BasicBSONObject bobject = (BasicBSONObject) object;
+
+		String aname = bobject.getString("name");
 		String rulesName = bobject.getString("rules");
 		UniverseRules rules = Colonies.getUniverseManager().getRules(rulesName);
 
 		if (rules == null) {
 			throw new IllegalStateException("Rules do not exist!");
 		}
-		Universe universe = new Universe(Colonies.getPlugin(), rules);
 
 		List<ColonyWorld> worlds = new ArrayList<ColonyWorld>();
 		Object worldsObj = bobject.get("worlds");
@@ -316,7 +333,7 @@ public class Universe implements Storable {
 			if (!(colonyBson instanceof BasicBSONObject)) {
 				throw new IllegalStateException("Invalid colony!");
 			}
-			Colony c = Colony.fromBSONObject(universe, (BasicBSONObject) colonyBson);
+			Colony c = Colony.fromBSONObject(rules, (BasicBSONObject) colonyBson);
 			colonies.put(c.getUid(), c);
 		}
 
@@ -348,7 +365,11 @@ public class Universe implements Storable {
 			children.put(c, childrenn);
 		}
 
-		universe.initialize(worlds, new HashSet<Colony>(colonies.valueCollection()), children);
+		List<Colony> colonyz = new ArrayList<Colony>(colonies.valueCollection());
+		Universe universe = new Universe(aname, rules, worlds, colonyz, children);
+		for (Colony colony : colonyz) {
+			colony.initialize(universe);
+		}
 		return universe;
 	}
 }
