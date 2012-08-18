@@ -64,6 +64,11 @@ public class Universe implements Storable {
 	private final UniverseRules rules;
 
 	/**
+	 * Contains the worlds in which this universe is part of.
+	 */
+	private List<ColonyWorld> worlds;
+
+	/**
 	 * The colonies in this universe manager.
 	 */
 	private Set<Colony> colonies;
@@ -99,7 +104,8 @@ public class Universe implements Storable {
 	 * @param colonies
 	 * @param children
 	 */
-	private void initialize(Set<Colony> colonies, Map<Colony, Set<Colony>> children) {
+	private void initialize(List<ColonyWorld> worlds, Set<Colony> colonies, Map<Colony, Set<Colony>> children) {
+		this.worlds = worlds;
 		this.colonies = colonies;
 		this.children = children;
 
@@ -154,6 +160,15 @@ public class Universe implements Storable {
 	 */
 	public List<Colony> getColonies() {
 		return new ArrayList<Colony>(colonies);
+	}
+
+	/**
+	 * Gets a list of all worlds this universe is part of.
+	 * 
+	 * @return
+	 */
+	public List<ColonyWorld> getWorlds() {
+		return new ArrayList<ColonyWorld>(worlds);
 	}
 
 	/**
@@ -272,8 +287,23 @@ public class Universe implements Storable {
 		if (rules == null) {
 			throw new IllegalStateException("Rules do not exist!");
 		}
-
 		Universe universe = new Universe(Colonies.getPlugin(), rules);
+
+		List<ColonyWorld> worlds = new ArrayList<ColonyWorld>();
+		Object worldsObj = bobject.get("worlds");
+		if (!(worldsObj instanceof BasicBSONList)) {
+			throw new IllegalStateException("ColonyWorlds object is not a list!!! ASDFASDF");
+		}
+		BasicBSONList worldsBson = (BasicBSONList) worldsObj;
+		for (Object worldName : worldsBson) {
+			String name = worldName.toString();
+			ColonyWorld world = Colonies.getUniverseManager().getWorld(name);
+			if (world == null) {
+				ColoniesPlugin.logger().log(Level.WARNING, "ColonyWorld `" + name + "' could not be found! (Did you delete it?)");
+			} else {
+				worlds.add(world);
+			}
+		}
 
 		Object coloniesObj = bobject.get("colonies");
 		if (!(coloniesObj instanceof BasicBSONList)) {
@@ -318,7 +348,7 @@ public class Universe implements Storable {
 			children.put(c, childrenn);
 		}
 
-		universe.initialize(new HashSet<Colony>(colonies.valueCollection()), children);
+		universe.initialize(worlds, new HashSet<Colony>(colonies.valueCollection()), children);
 		return universe;
 	}
 }
