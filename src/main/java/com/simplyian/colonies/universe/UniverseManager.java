@@ -106,4 +106,9 @@ public class UniverseManager {
 	public ColonyWorld getWorld(World world) {
 		return getWorld(world.getName());
 	}
+
+	public UniverseRules getRules(String rulesName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

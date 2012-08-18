@@ -48,6 +48,11 @@ public final class Colony implements Comparable<Colony>, Storable {
 	private final Universe universe;
 
 	/**
+	 * The unique identifier of this colony.
+	 */
+	private final long uid;
+
+	/**
 	 * The level of the colony.
 	 */
 	private final ColonyLevel level;
@@ -69,8 +74,8 @@ public final class Colony implements Comparable<Colony>, Storable {
 	 * @param universe
 	 * @param level
 	 */
-	public Colony(Universe universe, ColonyLevel level) {
-		this(universe, level, new TShortObjectHashMap<Object>(), new TObjectIntHashMap<String>());
+	public Colony(Universe universe, long uid, ColonyLevel level) {
+		this(universe, uid, level, new TShortObjectHashMap<Object>(), new TObjectIntHashMap<String>());
 	}
 
 	/**
@@ -81,29 +86,12 @@ public final class Colony implements Comparable<Colony>, Storable {
 	 * @param properties
 	 * @param players
 	 */
-	private Colony(Universe universe, ColonyLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
+	private Colony(Universe universe, long uid, ColonyLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
 		this.universe = universe;
+		this.uid = uid;
 		this.level = level;
 		this.properties = properties;
 		this.players = players;
-	}
-
-	/**
-	 * Gets the name of the colony.
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return getProperty(ColonyProperty.NAME).toString();
-	}
-
-	/**
-	 * Sets the name of the colony.
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		setProperty(ColonyProperty.NAME, name);
 	}
 
 	/**
@@ -113,6 +101,15 @@ public final class Colony implements Comparable<Colony>, Storable {
 	 */
 	public Universe getUniverse() {
 		return universe;
+	}
+
+	/**
+	 * Gets the UID of this Colony.
+	 * 
+	 * @return
+	 */
+	public long getUid() {
+		return uid;
 	}
 
 	/**
@@ -229,12 +226,13 @@ public final class Colony implements Comparable<Colony>, Storable {
 
 	@Override
 	public int compareTo(Colony o) {
-		return getName().compareTo(o.getName());
+		return getProperty(ColonyProperty.NAME).toString().compareTo(o.getProperty(ColonyProperty.NAME).toString());
 	}
 
 	public BasicBSONObject toBSONObject() {
 		BasicBSONObject object = new BasicBSONObject();
 
+		object.put("uid", uid);
 		object.put("level", level.getName());
 
 		final BasicBSONObject propertiesBson = new BasicBSONObject();
@@ -269,6 +267,9 @@ public final class Colony implements Comparable<Colony>, Storable {
 		}
 
 		BasicBSONObject bobject = (BasicBSONObject) object;
+
+		long uid = bobject.getLong("uid");
+
 		String levelName = bobject.getString("level");
 		ColonyLevel level = universe.getRules().getColonyLevel(levelName);
 		if (level == null) {
@@ -301,6 +302,6 @@ public final class Colony implements Comparable<Colony>, Storable {
 			players.put(entry.getKey(), mask);
 		}
 
-		return new Colony(universe, level, properties, players);
+		return new Colony(universe, uid, level, properties, players);
 	}
 }

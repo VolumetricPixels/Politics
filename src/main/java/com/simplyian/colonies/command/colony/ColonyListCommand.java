@@ -32,6 +32,7 @@ import com.simplyian.colonies.Colonies;
 import com.simplyian.colonies.MsgStyle;
 import com.simplyian.colonies.colony.Colony;
 import com.simplyian.colonies.colony.ColonyLevel;
+import com.simplyian.colonies.colony.ColonyProperty;
 import com.simplyian.colonies.universe.Universe;
 
 /**
@@ -95,7 +96,8 @@ public class ColonyListCommand extends ColonyCommand {
 
 		List<Colony> pageColonies = colonies.subList(min, max);
 		for (Colony colony : pageColonies) {
-			source.sendMessage(colony.getName()); // TODO prettify list
+			source.sendMessage(colony.getProperty(ColonyProperty.NAME));
+			// TODO prettify list
 		}
 	}
 

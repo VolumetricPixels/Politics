@@ -19,32 +19,40 @@
  */
 package com.simplyian.colonies.universe;
 
+import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.hash.TLongObjectHashMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+import org.bson.types.BasicBSONList;
 import org.spout.api.Server;
 import org.spout.api.Spout;
-import org.spout.api.command.Command;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.simplyian.colonies.Colonies;
 import com.simplyian.colonies.ColoniesPlugin;
 import com.simplyian.colonies.colony.Colonist;
 import com.simplyian.colonies.colony.Colony;
 import com.simplyian.colonies.colony.ColonyLevel;
+import com.simplyian.colonies.data.Storable;
 
 /**
  * Represents a headless group of all colonies within its scope.
  */
-public class Universe {
+public class Universe implements Storable {
 	/**
 	 * The instance of ColoniesPlugin.
 	 */
@@ -85,10 +93,15 @@ public class Universe {
 		buildColonistCache();
 	}
 
-	public void load() {
-		// TODO major
-		colonies = new HashSet<Colony>();
-		children = new HashMap<Colony, Set<Colony>>();
+	/**
+	 * Initializes this universe.
+	 * 
+	 * @param colonies
+	 * @param children
+	 */
+	private void initialize(Set<Colony> colonies, Map<Colony, Set<Colony>> children) {
+		this.colonies = colonies;
+		this.children = children;
 
 		levels = new HashMap<ColonyLevel, Set<Colony>>();
 		for (Colony colony : colonies) {
@@ -216,5 +229,96 @@ public class Universe {
 			plugin.getLogger().log(Level.SEVERE, "Could not load a colonist! This is a PROBLEM!", ex);
 			return null;
 		}
+	}
+
+	@Override
+	public BasicBSONObject toBSONObject() {
+		BasicBSONObject bson = new BasicBSONObject();
+
+		BasicBSONList coloniesBson = new BasicBSONList();
+		BasicBSONObject childrenBson = new BasicBSONObject();
+
+		for (Colony colony : colonies) {
+			// colonies
+			coloniesBson.add(colony.toBSONObject());
+
+			// children
+			BasicBSONList children = new BasicBSONList();
+			for (Colony child : colony.getColonies()) {
+				children.add(child.getUid());
+			}
+			childrenBson.put(Long.toHexString(colony.getUid()), children);
+		}
+		bson.put("colonies", coloniesBson);
+		bson.put("children", childrenBson);
+
+		return bson;
+	}
+
+	/**
+	 * Converts the given bson object into a new Universe.
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public static Universe fromBSONObject(BSONObject object) {
+		if (!(object instanceof BasicBSONObject)) {
+			throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
+		}
+		BasicBSONObject bobject = (BasicBSONObject) object;
+		String rulesName = bobject.getString("rules");
+		UniverseRules rules = Colonies.getUniverseManager().getRules(rulesName);
+
+		if (rules == null) {
+			throw new IllegalStateException("Rules do not exist!");
+		}
+
+		Universe universe = new Universe(Colonies.getPlugin(), rules);
+
+		Object coloniesObj = bobject.get("colonies");
+		if (!(coloniesObj instanceof BasicBSONList)) {
+			throw new IllegalStateException("colonies isn't a list?! wtfhax?");
+		}
+		BasicBSONList coloniesBson = (BasicBSONList) coloniesObj;
+
+		TLongObjectMap<Colony> colonies = new TLongObjectHashMap<Colony>();
+		for (Object colonyBson : coloniesBson) {
+			if (!(colonyBson instanceof BasicBSONObject)) {
+				throw new IllegalStateException("Invalid colony!");
+			}
+			Colony c = Colony.fromBSONObject(universe, (BasicBSONObject) colonyBson);
+			colonies.put(c.getUid(), c);
+		}
+
+		Map<Colony, Set<Colony>> children = new HashMap<Colony, Set<Colony>>();
+		Object childrenObj = bobject.get("children");
+		if (!(childrenObj instanceof BasicBSONObject)) {
+			throw new IllegalStateException("Missing children report!");
+		}
+		BasicBSONObject childrenBson = (BasicBSONObject) childrenObj;
+		for (Entry<String, Object> childEntry : childrenBson.entrySet()) {
+			String colonyId = childEntry.getKey();
+			long uid = Long.parseLong(colonyId, 16);
+			Colony c = colonies.get(uid);
+			if (c == null) {
+				throw new IllegalStateException("Unknown colony id " + Long.toHexString(uid));
+			}
+
+			Object childsObj = childEntry.getValue();
+			if (!(childsObj instanceof BasicBSONList)) {
+				throw new IllegalStateException("No bson list found for childsObj");
+			}
+			Set<Colony> childrenn = new HashSet<Colony>();
+			BasicBSONList childs = (BasicBSONList) childsObj;
+			for (Object childN : childs) {
+				long theuid = (Long) childN;
+				Colony ch = colonies.get(theuid);
+				childrenn.add(ch);
+			}
+			children.put(c, childrenn);
+		}
+
+		universe.initialize(new HashSet<Colony>(colonies.valueCollection()), children);
+		return universe;
 	}
 }
