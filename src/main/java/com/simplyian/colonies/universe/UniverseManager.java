@@ -35,6 +35,7 @@ import org.spout.api.geo.World;
 
 import com.simplyian.colonies.ColoniesPlugin;
 import com.simplyian.colonies.colony.ColonyLevel;
+import com.simplyian.colonies.plot.ColonyWorld;
 
 /**
  * Contains all universes.

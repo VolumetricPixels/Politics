@@ -48,6 +48,7 @@ import com.simplyian.colonies.colony.Colonist;
 import com.simplyian.colonies.colony.Colony;
 import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.data.Storable;
+import com.simplyian.colonies.plot.ColonyWorld;
 
 /**
  * Represents a headless group of all colonies within its scope.
