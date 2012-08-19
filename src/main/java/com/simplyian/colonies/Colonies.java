@@ -22,6 +22,8 @@ package com.simplyian.colonies;
 import org.spout.api.geo.World;
 
 import com.simplyian.colonies.colony.ColonyLevel;
+import com.simplyian.colonies.plot.ColoniesWorld;
+import com.simplyian.colonies.plot.PlotManager;
 import com.simplyian.colonies.universe.Universe;
 import com.simplyian.colonies.universe.UniverseManager;
 
@@ -45,12 +47,31 @@ public final class Colonies {
 	}
 
 	/**
+	 * Gets the PlotManager of the plugin.
+	 * 
+	 * @return
+	 */
+	public static PlotManager getPlotManager() {
+		return getPlugin().getPlotManager();
+	}
+
+	/**
 	 * Gets the UniverseManager of the plugin.
 	 * 
 	 * @return
 	 */
 	public static UniverseManager getUniverseManager() {
 		return getPlugin().getUniverseManager();
+	}
+
+	/**
+	 * Gets a ColoniesWorld by a world.
+	 * 
+	 * @param world
+	 * @return
+	 */
+	public static ColoniesWorld getWorld(World world) {
+		return getPlotManager().getWorld(world);
 	}
 
 	/**

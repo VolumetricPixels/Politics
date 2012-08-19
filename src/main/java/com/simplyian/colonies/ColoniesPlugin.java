@@ -24,28 +24,55 @@ import java.util.logging.Logger;
 
 import org.spout.api.plugin.CommonPlugin;
 
+import com.simplyian.colonies.plot.PlotManager;
 import com.simplyian.colonies.universe.UniverseManager;
 
 /**
  * Colonies plugin main class.
  */
 public class ColoniesPlugin extends CommonPlugin {
+	/**
+	 * Singleton.
+	 */
 	private static ColoniesPlugin instance;
 
+	/**
+	 * The plot manager.
+	 */
+	private PlotManager plotManager;
+
+	/**
+	 * The universe manager.
+	 */
 	private UniverseManager universeManager;
 
 	@Override
 	public void onEnable() {
 		instance = this;
 
+		plotManager = new PlotManager();
+
 		universeManager = new UniverseManager(this);
+		universeManager.loadRules();
+		universeManager.loadAll();
 
 		getLogger().log(Level.INFO, "Colonies enabled!");
 	}
 
 	@Override
 	public void onDisable() {
+		universeManager.saveAll();
+
 		getLogger().log(Level.INFO, "Colonies disabled!");
+	}
+
+	/**
+	 * Gets the PlotManager of the plugin.
+	 * 
+	 * @return
+	 */
+	public PlotManager getPlotManager() {
+		return plotManager;
 	}
 
 	/**

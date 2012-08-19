@@ -31,11 +31,14 @@ import org.bson.BSONEncoder;
 import org.bson.BSONObject;
 import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
+import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
+import org.spout.api.util.config.yaml.YamlConfiguration;
 
+import com.simplyian.colonies.Colonies;
 import com.simplyian.colonies.ColoniesPlugin;
 import com.simplyian.colonies.colony.ColonyLevel;
-import com.simplyian.colonies.plot.ColonyWorld;
+import com.simplyian.colonies.plot.ColoniesWorld;
 
 /**
  * Contains all universes.
@@ -47,19 +50,24 @@ public class UniverseManager {
 	private final ColoniesPlugin plugin;
 
 	/**
+	 * Rules directory;
+	 */
+	private final File rulesDir;
+
+	/**
 	 * Universe directory
 	 */
 	private final File universeDir;
 
 	/**
+	 * The rules of the universe.
+	 */
+	private Map<String, UniverseRules> rules;
+
+	/**
 	 * Universes mapped to their names.
 	 */
 	private Map<String, Universe> universes;
-
-	/**
-	 * World names mapped to ColonyWorlds.
-	 */
-	private Map<String, ColonyWorld> worlds = new HashMap<String, ColonyWorld>();
 
 	/**
 	 * C'tor
@@ -69,8 +77,8 @@ public class UniverseManager {
 	public UniverseManager(ColoniesPlugin plugin) {
 		this.plugin = plugin;
 
+		rulesDir = new File(plugin.getDataFolder(), "rules/");
 		universeDir = new File(plugin.getDataFolder(), "data/universe/");
-		universeDir.mkdirs();
 	}
 
 	/**
@@ -78,6 +86,8 @@ public class UniverseManager {
 	 */
 	public void loadAll() {
 		BSONDecoder decoder = new BasicBSONDecoder();
+		universes = new HashMap<String, Universe>();
+		universeDir.mkdirs();
 		for (File file : universeDir.listFiles()) {
 			String fileName = file.getName();
 			if (!fileName.endsWith(".cou") || fileName.length() <= 4) {
@@ -96,6 +106,31 @@ public class UniverseManager {
 
 			Universe universe = Universe.fromBSONObject(object);
 			universes.put(universe.getName(), universe);
+		}
+	}
+
+	/**
+	 * Loads the rules into memory.
+	 */
+	public void loadRules() {
+		rulesDir.mkdirs();
+		rules = new HashMap<String, UniverseRules>();
+		for (File file : rulesDir.listFiles()) {
+			String fileName = file.getName();
+			if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
+				continue;
+			}
+
+			YamlConfiguration configFile = new YamlConfiguration(file);
+			try {
+				configFile.load();
+			} catch (ConfigurationException ex) {
+				plugin.getLogger().log(Level.SEVERE, "Invalid universe YAML file `" + fileName + "'!", ex);
+			}
+
+			UniverseRules thisRules = UniverseRules.load(configFile);
+			String ruleName = thisRules.getName();
+			rules.put(ruleName.toLowerCase(), thisRules);
 		}
 	}
 
@@ -138,7 +173,7 @@ public class UniverseManager {
 	 * @return
 	 */
 	public Universe getUniverse(World world, ColonyLevel level) {
-		ColonyWorld cw = getWorld(world);
+		ColoniesWorld cw = Colonies.getWorld(world);
 		if (cw == null) {
 			return null;
 		}
@@ -146,27 +181,12 @@ public class UniverseManager {
 	}
 
 	/**
-	 * Gets a ColonyWorld from its name.
+	 * Gets the rules with the corresponding name.
 	 * 
-	 * @param name
+	 * @param rulesName
 	 * @return
 	 */
-	public ColonyWorld getWorld(String name) {
-		return worlds.get(name);
-	}
-
-	/**
-	 * Gets a ColonyWorld from its World.
-	 * 
-	 * @param world
-	 * @return
-	 */
-	public ColonyWorld getWorld(World world) {
-		return getWorld(world.getName());
-	}
-
 	public UniverseRules getRules(String rulesName) {
-		// TODO Auto-generated method stub
-		return null;
+		return rules.get(rulesName);
 	}
 }

@@ -48,7 +48,7 @@ import com.simplyian.colonies.colony.Colonist;
 import com.simplyian.colonies.colony.Colony;
 import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.data.Storable;
-import com.simplyian.colonies.plot.ColonyWorld;
+import com.simplyian.colonies.plot.ColoniesWorld;
 
 /**
  * Represents a headless group of all colonies within its scope.
@@ -67,7 +67,7 @@ public class Universe implements Storable {
 	/**
 	 * Contains the worlds in which this universe is part of.
 	 */
-	private List<ColonyWorld> worlds;
+	private List<ColoniesWorld> worlds;
 
 	/**
 	 * The colonies in this universe manager.
@@ -93,7 +93,7 @@ public class Universe implements Storable {
 	 * C'tor
 	 */
 	public Universe(String name, UniverseRules properties) {
-		this(name, properties, new ArrayList<ColonyWorld>(), new ArrayList<Colony>(), new HashMap<Colony, Set<Colony>>());
+		this(name, properties, new ArrayList<ColoniesWorld>(), new ArrayList<Colony>(), new HashMap<Colony, Set<Colony>>());
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class Universe implements Storable {
 	 * @param colonies
 	 * @param children
 	 */
-	public Universe(String name, UniverseRules properties, List<ColonyWorld> worlds, List<Colony> colonies, Map<Colony, Set<Colony>> children) {
+	public Universe(String name, UniverseRules properties, List<ColoniesWorld> worlds, List<Colony> colonies, Map<Colony, Set<Colony>> children) {
 		this.name = name;
 		this.rules = properties;
 		this.worlds = worlds;
@@ -181,8 +181,8 @@ public class Universe implements Storable {
 	 * 
 	 * @return
 	 */
-	public List<ColonyWorld> getWorlds() {
-		return new ArrayList<ColonyWorld>(worlds);
+	public List<ColoniesWorld> getWorlds() {
+		return new ArrayList<ColoniesWorld>(worlds);
 	}
 
 	/**
@@ -307,7 +307,7 @@ public class Universe implements Storable {
 			throw new IllegalStateException("Rules do not exist!");
 		}
 
-		List<ColonyWorld> worlds = new ArrayList<ColonyWorld>();
+		List<ColoniesWorld> worlds = new ArrayList<ColoniesWorld>();
 		Object worldsObj = bobject.get("worlds");
 		if (!(worldsObj instanceof BasicBSONList)) {
 			throw new IllegalStateException("ColonyWorlds object is not a list!!! ASDFASDF");
@@ -315,7 +315,7 @@ public class Universe implements Storable {
 		BasicBSONList worldsBson = (BasicBSONList) worldsObj;
 		for (Object worldName : worldsBson) {
 			String name = worldName.toString();
-			ColonyWorld world = Colonies.getUniverseManager().getWorld(name);
+			ColoniesWorld world = Colonies.getPlotManager().getWorld(name);
 			if (world == null) {
 				ColoniesPlugin.logger().log(Level.WARNING, "ColonyWorld `" + name + "' could not be found! (Did you delete it?)");
 			} else {

@@ -23,10 +23,13 @@ import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.universe.Universe;
 import com.simplyian.colonies.universe.UniverseManager;
 
-public class ColonyWorld {
+/**
+ * Represents a world containing plots.
+ */
+public class ColoniesWorld {
 	private final UniverseManager universeManager;
 
-	public ColonyWorld(UniverseManager universeManager) {
+	public ColoniesWorld(UniverseManager universeManager) {
 		this.universeManager = universeManager;
 	}
 
