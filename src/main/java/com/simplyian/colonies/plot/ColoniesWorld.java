@@ -19,22 +19,21 @@
  */
 package com.simplyian.colonies.plot;
 
+import com.simplyian.colonies.Colonies;
 import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.universe.Universe;
-import com.simplyian.colonies.universe.UniverseManager;
 
 /**
  * Represents a world containing plots.
  */
 public class ColoniesWorld {
-	private final UniverseManager universeManager;
 
-	public ColoniesWorld(UniverseManager universeManager) {
-		this.universeManager = universeManager;
+	public ColoniesWorld() {
+
 	}
 
 	public Universe getUniverse(ColonyLevel level) {
-		return null;
+		return Colonies.getUniverseManager().getUniverse(this, level);
 	}
 
 }

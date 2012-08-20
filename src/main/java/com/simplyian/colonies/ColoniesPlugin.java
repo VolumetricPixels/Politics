@@ -54,14 +54,14 @@ public class ColoniesPlugin extends CommonPlugin {
 
 		universeManager = new UniverseManager(this);
 		universeManager.loadRules();
-		universeManager.loadAll();
+		universeManager.loadUniverses();
 
 		getLogger().log(Level.INFO, "Colonies enabled!");
 	}
 
 	@Override
 	public void onDisable() {
-		universeManager.saveAll();
+		universeManager.saveUniverses();
 
 		getLogger().log(Level.INFO, "Colonies disabled!");
 	}

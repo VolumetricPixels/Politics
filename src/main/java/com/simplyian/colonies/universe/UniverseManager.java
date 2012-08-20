@@ -70,6 +70,11 @@ public class UniverseManager {
 	private Map<String, Universe> universes;
 
 	/**
+	 * Worlds mapped to their levels.
+	 */
+	private Map<ColoniesWorld, Map<ColonyLevel, Universe>> worldLevels;
+
+	/**
 	 * C'tor
 	 * 
 	 * @param plugin
@@ -79,34 +84,6 @@ public class UniverseManager {
 
 		rulesDir = new File(plugin.getDataFolder(), "rules/");
 		universeDir = new File(plugin.getDataFolder(), "data/universe/");
-	}
-
-	/**
-	 * Loads all universes into memory from files.
-	 */
-	public void loadAll() {
-		BSONDecoder decoder = new BasicBSONDecoder();
-		universes = new HashMap<String, Universe>();
-		universeDir.mkdirs();
-		for (File file : universeDir.listFiles()) {
-			String fileName = file.getName();
-			if (!fileName.endsWith(".cou") || fileName.length() <= 4) {
-				continue;
-			}
-
-			byte[] data;
-			try {
-				data = FileUtils.readFileToByteArray(file);
-			} catch (IOException ex) {
-				plugin.getLogger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
-				continue;
-			}
-
-			BSONObject object = decoder.readObject(data);
-
-			Universe universe = Universe.fromBSONObject(object);
-			universes.put(universe.getName(), universe);
-		}
 	}
 
 	/**
@@ -135,9 +112,55 @@ public class UniverseManager {
 	}
 
 	/**
+	 * Loads all universes into memory from files.
+	 */
+	public void loadUniverses() {
+		BSONDecoder decoder = new BasicBSONDecoder();
+		universes = new HashMap<String, Universe>();
+		universeDir.mkdirs();
+		for (File file : universeDir.listFiles()) {
+			String fileName = file.getName();
+			if (!fileName.endsWith(".cou") || fileName.length() <= 4) {
+				continue;
+			}
+
+			byte[] data;
+			try {
+				data = FileUtils.readFileToByteArray(file);
+			} catch (IOException ex) {
+				plugin.getLogger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
+				continue;
+			}
+
+			BSONObject object = decoder.readObject(data);
+
+			Universe universe = Universe.fromBSONObject(object);
+			universes.put(universe.getName(), universe);
+		}
+
+		// Populate World levels
+		worldLevels = new HashMap<ColoniesWorld, Map<ColonyLevel, Universe>>();
+		for (Universe universe : universes.values()) {
+			for (ColonyLevel level : universe.getRules().getColonyLevels()) {
+				for (ColoniesWorld world : universe.getWorlds()) {
+					Map<ColonyLevel, Universe> levelMap = worldLevels.get(world);
+					if (levelMap == null) {
+						levelMap = new HashMap<ColonyLevel, Universe>();
+						worldLevels.put(world, levelMap);
+					}
+					Universe prev = levelMap.put(level, universe);
+					if (prev != null) {
+						plugin.getLogger().log(Level.WARNING, "Multiple universes are conflicting on the same world! Universe name: " + universe.getName() + "; Rules name: " + universe.getRules().getName());
+					}
+				}
+			}
+		}
+	}
+
+	/**
 	 * Saves all universes in memory to files.
 	 */
-	public void saveAll() {
+	public void saveUniverses() {
 		BSONEncoder encoder = new BasicBSONEncoder();
 		universeDir.mkdirs();
 		for (Universe universe : universes.values()) {
@@ -166,7 +189,17 @@ public class UniverseManager {
 	}
 
 	/**
-	 * Gets the universe of the given CommandSource.
+	 * Gets the rules with the corresponding name.
+	 * 
+	 * @param rulesName
+	 * @return
+	 */
+	public UniverseRules getRules(String rulesName) {
+		return rules.get(rulesName);
+	}
+
+	/**
+	 * Gets a universe from its world and colony level.
 	 * 
 	 * @param world
 	 * @param level
@@ -177,16 +210,21 @@ public class UniverseManager {
 		if (cw == null) {
 			return null;
 		}
-		return cw.getUniverse(level);
+		return getUniverse(cw, level);
 	}
 
 	/**
-	 * Gets the rules with the corresponding name.
+	 * Gets the universe of the given CommandSource.
 	 * 
-	 * @param rulesName
+	 * @param world
+	 * @param level
 	 * @return
 	 */
-	public UniverseRules getRules(String rulesName) {
-		return rules.get(rulesName);
+	public Universe getUniverse(ColoniesWorld world, ColonyLevel level) {
+		Map<ColonyLevel, Universe> levelUniverses = worldLevels.get(world);
+		if (levelUniverses == null) {
+			return null;
+		}
+		return levelUniverses.get(world);
 	}
 }

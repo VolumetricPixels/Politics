@@ -19,6 +19,7 @@
  */
 package com.simplyian.colonies.universe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +28,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 
-import org.spout.api.command.Command;
 import org.spout.api.util.config.Configuration;
 import org.spout.api.util.config.ConfigurationNode;
 
@@ -63,16 +63,6 @@ public class UniverseRules {
 	public String getName() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/**
-	 * Gets the ColonyLevel with the given name.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public ColonyLevel getColonyLevel(String name) {
-		return colonyLevels.get(name.toLowerCase());
 	}
 
 	/**
@@ -137,5 +127,24 @@ public class UniverseRules {
 		}
 
 		return new UniverseRules(levelMap);
+	}
+
+	/**
+	 * Gets the colony levels of these UniverseRules.
+	 * 
+	 * @return
+	 */
+	public List<ColonyLevel> getColonyLevels() {
+		return new ArrayList<ColonyLevel>(colonyLevels.values());
+	}
+
+	/**
+	 * Gets the ColonyLevel with the given name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public ColonyLevel getColonyLevel(String name) {
+		return colonyLevels.get(name.toLowerCase());
 	}
 }
