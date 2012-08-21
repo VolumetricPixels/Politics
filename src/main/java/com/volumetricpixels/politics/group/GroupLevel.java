@@ -28,6 +28,11 @@ import com.google.common.collect.BiMap;
  */
 public final class GroupLevel {
 	/**
+	 * The ID of the GroupLevel.
+	 */
+	private final String id;
+
+	/**
 	 * The name of the GroupLevel.
 	 */
 	private final String name;
@@ -59,7 +64,8 @@ public final class GroupLevel {
 	 * @param name
 	 * @param rank
 	 */
-	public GroupLevel(String name, int rank, BiMap<Integer, String> roleNames, String plural) {
+	public GroupLevel(String id, String name, int rank, BiMap<Integer, String> roleNames, String plural) {
+		this.id = id;
 		this.name = name;
 		this.rank = rank;
 		this.roleNames = roleNames;
