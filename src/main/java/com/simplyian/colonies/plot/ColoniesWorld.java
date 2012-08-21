@@ -102,7 +102,7 @@ public class ColoniesWorld implements Storable {
 			long id = it.next();
 			Colony colony = Colonies.getUniverseManager().getColonyById(id);
 			if (colony == null) {
-				ownerIdList.remove(id);
+				ownerIdList.remove(id); // Colony no longer exists
 			} else {
 				ret.add(colony);
 			}
@@ -128,6 +128,9 @@ public class ColoniesWorld implements Storable {
 			it.advance();
 			String key = Long.toHexString(it.key());
 			TLongList theOwners = it.value();
+			if (theOwners.isEmpty()) {
+				continue; // No point in serializing an empty list
+			}
 			BasicBSONList theOwnersBson = new BasicBSONList();
 
 			TLongIterator theOwnersIt = theOwners.iterator();
