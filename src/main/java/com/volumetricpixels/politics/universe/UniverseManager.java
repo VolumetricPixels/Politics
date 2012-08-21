@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.universe;
+package com.volumetricpixels.politics.universe;
 
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
@@ -38,11 +38,11 @@ import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
 import org.spout.api.util.config.yaml.YamlConfiguration;
 
-import com.simplyian.colonies.Colonies;
-import com.simplyian.colonies.ColoniesPlugin;
-import com.simplyian.colonies.colony.Colony;
-import com.simplyian.colonies.colony.ColonyLevel;
-import com.simplyian.colonies.plot.ColoniesWorld;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.PoliticsPlugin;
+import com.volumetricpixels.politics.colony.Group;
+import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.plot.PoliticsWorld;
 
 /**
  * Contains all universes.
@@ -51,7 +51,7 @@ public class UniverseManager {
 	/**
 	 * Plugin instance
 	 */
-	private final ColoniesPlugin plugin;
+	private final PoliticsPlugin plugin;
 
 	/**
 	 * Rules directory;
@@ -74,21 +74,21 @@ public class UniverseManager {
 	private Map<String, Universe> universes;
 
 	/**
-	 * Stores colonies.
+	 * Stores groups.
 	 */
-	private TLongObjectMap<Colony> colonies;
+	private TLongObjectMap<Group> groups;
 
 	/**
 	 * Worlds mapped to their levels.
 	 */
-	private Map<ColoniesWorld, Map<ColonyLevel, Universe>> worldLevels;
+	private Map<PoliticsWorld, Map<GroupLevel, Universe>> worldLevels;
 
 	/**
 	 * C'tor
 	 * 
 	 * @param plugin
 	 */
-	public UniverseManager(ColoniesPlugin plugin) {
+	public UniverseManager(PoliticsPlugin plugin) {
 		this.plugin = plugin;
 
 		rulesDir = new File(plugin.getDataFolder(), "rules/");
@@ -126,7 +126,7 @@ public class UniverseManager {
 	public void loadUniverses() {
 		BSONDecoder decoder = new BasicBSONDecoder();
 		universes = new HashMap<String, Universe>();
-		colonies = new TLongObjectHashMap<Colony>();
+		groups = new TLongObjectHashMap<Group>();
 		universeDir.mkdirs();
 		for (File file : universeDir.listFiles()) {
 			String fileName = file.getName();
@@ -147,21 +147,21 @@ public class UniverseManager {
 			Universe universe = Universe.fromBSONObject(object);
 			universes.put(universe.getName(), universe);
 
-			for (Colony colony : universe.getColonies()) {
-				if (colonies.put(colony.getUid(), colony) != null) {
-					ColoniesPlugin.logger().log(Level.WARNING, "Duplicate colony id " + colony.getUid() + "!");
+			for (Group group : universe.getGroups()) {
+				if (groups.put(group.getUid(), group) != null) {
+					PoliticsPlugin.logger().log(Level.WARNING, "Duplicate group id " + group.getUid() + "!");
 				}
 			}
 		}
 
 		// Populate World levels
-		worldLevels = new HashMap<ColoniesWorld, Map<ColonyLevel, Universe>>();
+		worldLevels = new HashMap<PoliticsWorld, Map<GroupLevel, Universe>>();
 		for (Universe universe : universes.values()) {
-			for (ColonyLevel level : universe.getRules().getColonyLevels()) {
-				for (ColoniesWorld world : universe.getWorlds()) {
-					Map<ColonyLevel, Universe> levelMap = worldLevels.get(world);
+			for (GroupLevel level : universe.getRules().getGroupLevels()) {
+				for (PoliticsWorld world : universe.getWorlds()) {
+					Map<GroupLevel, Universe> levelMap = worldLevels.get(world);
 					if (levelMap == null) {
-						levelMap = new HashMap<ColonyLevel, Universe>();
+						levelMap = new HashMap<GroupLevel, Universe>();
 						worldLevels.put(world, levelMap);
 					}
 					Universe prev = levelMap.put(level, universe);
@@ -215,14 +215,14 @@ public class UniverseManager {
 	}
 
 	/**
-	 * Gets a universe from its world and colony level.
+	 * Gets a universe from its world and group level.
 	 * 
 	 * @param world
 	 * @param level
 	 * @return
 	 */
-	public Universe getUniverse(World world, ColonyLevel level) {
-		ColoniesWorld cw = Colonies.getWorld(world);
+	public Universe getUniverse(World world, GroupLevel level) {
+		PoliticsWorld cw = Politics.getWorld(world);
 		if (cw == null) {
 			return null;
 		}
@@ -230,13 +230,13 @@ public class UniverseManager {
 	}
 
 	/**
-	 * Gets a colony by its id.
+	 * Gets a group by its id.
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public Colony getColonyById(long id) {
-		return colonies.get(id);
+	public Group getGroupById(long id) {
+		return groups.get(id);
 	}
 
 	/**
@@ -246,8 +246,8 @@ public class UniverseManager {
 	 * @param level
 	 * @return
 	 */
-	public Universe getUniverse(ColoniesWorld world, ColonyLevel level) {
-		Map<ColonyLevel, Universe> levelUniverses = worldLevels.get(world);
+	public Universe getUniverse(PoliticsWorld world, GroupLevel level) {
+		Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
 		if (levelUniverses == null) {
 			return null;
 		}

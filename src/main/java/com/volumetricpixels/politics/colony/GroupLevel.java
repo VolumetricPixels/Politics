@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,31 +17,31 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.colony;
+package com.volumetricpixels.politics.colony;
 
 import java.util.Set;
 
 import com.google.common.collect.BiMap;
 
 /**
- * Represents a level of organization of a colony.
+ * Represents a level of organization of a group.
  */
-public final class ColonyLevel {
+public final class GroupLevel {
 	/**
-	 * The name of the ColonyLevel.
+	 * The name of the GroupLevel.
 	 */
 	private final String name;
 
 	/**
-	 * The rank of this ColonyLevel. Smaller means lower. For example, in Towny,
+	 * The rank of this GroupLevel. Smaller means lower. For example, in Towny,
 	 * a Nation would have a higher rank than a Town.
 	 */
 	private final int rank;
 
 	/**
-	 * Contains the allowed children for this ColonyLevel.
+	 * Contains the allowed children for this GroupLevel.
 	 */
-	private Set<ColonyLevel> allowedChildren;
+	private Set<GroupLevel> allowedChildren;
 
 	/**
 	 * Contains the names of roles corresponding to the given privilege set.
@@ -49,7 +49,7 @@ public final class ColonyLevel {
 	private final BiMap<Integer, String> roleNames;
 
 	/**
-	 * Plural form of this colony level name.
+	 * Plural form of this group level name.
 	 */
 	private final String plural;
 
@@ -59,7 +59,7 @@ public final class ColonyLevel {
 	 * @param name
 	 * @param rank
 	 */
-	public ColonyLevel(String name, int rank, BiMap<Integer, String> roleNames, String plural) {
+	public GroupLevel(String name, int rank, BiMap<Integer, String> roleNames, String plural) {
 		this.name = name;
 		this.rank = rank;
 		this.roleNames = roleNames;
@@ -72,12 +72,12 @@ public final class ColonyLevel {
 	 * @param set
 	 *            The set to use. This should be the only reference.
 	 */
-	public void setAllowedChildren(Set<ColonyLevel> set) {
+	public void setAllowedChildren(Set<GroupLevel> set) {
 		this.allowedChildren = set;
 	}
 
 	/**
-	 * Gets the name of this ColonyLevel.
+	 * Gets the name of this GroupLevel.
 	 * 
 	 * @return
 	 */
@@ -86,7 +86,7 @@ public final class ColonyLevel {
 	}
 
 	/**
-	 * Gets the rank of this ColonyLevel.
+	 * Gets the rank of this GroupLevel.
 	 * 
 	 * @return
 	 */
@@ -95,7 +95,7 @@ public final class ColonyLevel {
 	}
 
 	/**
-	 * Gets the plural form of this ColonyLevel.
+	 * Gets the plural form of this GroupLevel.
 	 * 
 	 * @return
 	 */
@@ -109,7 +109,7 @@ public final class ColonyLevel {
 	 * @param level
 	 * @return
 	 */
-	public boolean canBeChild(ColonyLevel level) {
+	public boolean canBeChild(GroupLevel level) {
 		return allowedChildren.contains(level);
 	}
 

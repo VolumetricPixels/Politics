@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.colony;
+package com.volumetricpixels.politics.colony;
 
 import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.iterator.TShortObjectIterator;
@@ -37,38 +37,38 @@ import org.bson.BasicBSONObject;
 import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 
-import com.simplyian.colonies.data.Storable;
-import com.simplyian.colonies.universe.Universe;
-import com.simplyian.colonies.universe.UniverseRules;
+import com.volumetricpixels.politics.data.Storable;
+import com.volumetricpixels.politics.universe.Universe;
+import com.volumetricpixels.politics.universe.UniverseRules;
 
 /**
- * Represents a colony of players.
+ * Represents a group of players.
  */
-public final class Colony implements Comparable<Colony>, Storable {
+public final class Group implements Comparable<Group>, Storable {
 	/**
-	 * The unique identifier of this colony. This is unique for the entire
+	 * The unique identifier of this group. This is unique for the entire
 	 * plugin.
 	 */
 	private final long uid;
 
 	/**
-	 * The level of the colony.
+	 * The level of the group.
 	 */
-	private final ColonyLevel level;
+	private final GroupLevel level;
 
 	/**
-	 * Properties of this colony.
+	 * Properties of this group.
 	 */
 	private final TShortObjectMap<Object> properties;
 
 	/**
-	 * The immediate players of this colony. The keys are the players, and the
+	 * The immediate players of this group. The keys are the players, and the
 	 * values are the player privileges.
 	 */
 	private final TObjectIntMap<String> players;
 
 	/**
-	 * The universe this colony is part of.
+	 * The universe this group is part of.
 	 */
 	private Universe universe;
 
@@ -78,7 +78,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 	 * @param universe
 	 * @param level
 	 */
-	public Colony(long uid, ColonyLevel level) {
+	public Group(long uid, GroupLevel level) {
 		this(uid, level, new TShortObjectHashMap<Object>(), new TObjectIntHashMap<String>());
 	}
 
@@ -90,7 +90,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 	 * @param properties
 	 * @param players
 	 */
-	private Colony(long uid, ColonyLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
+	private Group(long uid, GroupLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
 		this.uid = uid;
 		this.level = level;
 		this.properties = properties;
@@ -119,7 +119,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	/**
-	 * Gets the UID of this Colony.
+	 * Gets the UID of this Group.
 	 * 
 	 * @return
 	 */
@@ -128,42 +128,42 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	/**
-	 * Gets the colonies composing this colony.
+	 * Gets the groups composing this group.
 	 * 
 	 * @return
 	 */
-	public Set<Colony> getColonies() {
-		return universe.getChildColonies(this);
+	public Set<Group> getGroups() {
+		return universe.getChildGroups(this);
 	}
 
 	/**
-	 * Adds the given colony as a child of this colony.
+	 * Adds the given group as a child of this group.
 	 * 
-	 * @param colony
-	 * @return True if the given colony was able to be a child of the colony.
+	 * @param group
+	 * @return True if the given group was able to be a child of the group.
 	 */
-	public boolean addChildColony(Colony colony) {
-		return universe.addChildColony(this, colony);
+	public boolean addChildGroup(Group group) {
+		return universe.addChildGroup(this, group);
 	}
 
 	/**
-	 * Removes the given colony from this colony's children.
+	 * Removes the given group from this group's children.
 	 * 
-	 * @param colony
+	 * @param group
 	 * @return
 	 * 
-	 * @see Universe#removeChildColony(Colony, Colony)
+	 * @see Universe#removeChildGroup(Group, Group)
 	 */
-	public boolean removeChildColony(Colony colony) {
-		return universe.removeChildColony(this, colony);
+	public boolean removeChildGroup(Group group) {
+		return universe.removeChildGroup(this, group);
 	}
 
 	/**
-	 * Gets the ColonyLevel of this Colony.
+	 * Gets the GroupLevel of this Group.
 	 * 
 	 * @return
 	 */
-	public ColonyLevel getLevel() {
+	public GroupLevel getLevel() {
 		return level;
 	}
 
@@ -188,7 +188,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	/**
-	 * Gets the immediate players part of this colony.
+	 * Gets the immediate players part of this group.
 	 * 
 	 * @return
 	 */
@@ -197,7 +197,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	/**
-	 * Gets the immediate online players part of this colony.
+	 * Gets the immediate online players part of this group.
 	 * 
 	 * @return
 	 */
@@ -213,21 +213,21 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	/**
-	 * Gets all players part of this colony.
+	 * Gets all players part of this group.
 	 * 
 	 * @return
 	 */
 	public List<String> getPlayers() {
 		List<String> players = new ArrayList<String>();
-		for (Colony colony : getColonies()) {
-			players.addAll(colony.getPlayers());
+		for (Group group : getGroups()) {
+			players.addAll(group.getPlayers());
 		}
 		players.addAll(this.players.keySet());
 		return players;
 	}
 
 	/**
-	 * Returns true if the given player is an immediate member of this colony.
+	 * Returns true if the given player is an immediate member of this group.
 	 * 
 	 * @param player
 	 * @return
@@ -237,7 +237,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	/**
-	 * Checks if the given player is a member of this colony or child colonies.
+	 * Checks if the given player is a member of this group or child groups.
 	 * 
 	 * @param player
 	 * @return
@@ -247,8 +247,8 @@ public final class Colony implements Comparable<Colony>, Storable {
 			return true;
 		}
 
-		for (Colony colony : getColonies()) {
-			if (colony.isMember(player)) {
+		for (Group group : getGroups()) {
+			if (group.isMember(player)) {
 				return true;
 			}
 		}
@@ -256,8 +256,8 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	@Override
-	public int compareTo(Colony o) {
-		return getProperty(ColonyProperty.NAME).toString().compareTo(o.getProperty(ColonyProperty.NAME).toString());
+	public int compareTo(Group o) {
+		return getProperty(GroupProperty.NAME).toString().compareTo(o.getProperty(GroupProperty.NAME).toString());
 	}
 
 	public BasicBSONObject toBSONObject() {
@@ -286,13 +286,13 @@ public final class Colony implements Comparable<Colony>, Storable {
 	}
 
 	/**
-	 * Gets the Colony from the given BSONObject.
+	 * Gets the Group from the given BSONObject.
 	 * 
 	 * @param rules
 	 * @param object
 	 * @return
 	 */
-	public static Colony fromBSONObject(UniverseRules rules, BSONObject object) {
+	public static Group fromBSONObject(UniverseRules rules, BSONObject object) {
 		if (!(object instanceof BasicBSONObject)) {
 			throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
 		}
@@ -302,7 +302,7 @@ public final class Colony implements Comparable<Colony>, Storable {
 		long uid = bobject.getLong("uid");
 
 		String levelName = bobject.getString("level");
-		ColonyLevel level = rules.getColonyLevel(levelName);
+		GroupLevel level = rules.getGroupLevel(levelName);
 		if (level == null) {
 			throw new IllegalStateException("Unknown level type '" + level + "'! (Did the universe rules change?)");
 		}
@@ -333,6 +333,6 @@ public final class Colony implements Comparable<Colony>, Storable {
 			players.put(entry.getKey(), mask);
 		}
 
-		return new Colony(uid, level, properties, players);
+		return new Group(uid, level, properties, players);
 	}
 }

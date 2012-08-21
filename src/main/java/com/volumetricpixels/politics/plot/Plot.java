@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,22 +17,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.plot;
+package com.volumetricpixels.politics.plot;
 
 import gnu.trove.list.TLongList;
 
 import java.util.List;
 
-import com.simplyian.colonies.colony.Colony;
+import com.volumetricpixels.politics.colony.Group;
 
 /**
- * ColoniesWorld wrapper.
+ * GroupsWorld wrapper.
  */
 public class Plot {
 	/**
 	 * World of the plot.
 	 */
-	private final ColoniesWorld world;
+	private final PoliticsWorld world;
 
 	/**
 	 * X of the plot.
@@ -57,7 +57,7 @@ public class Plot {
 	 * @param y
 	 * @param z
 	 */
-	Plot(ColoniesWorld world, int x, int y, int z) {
+	Plot(PoliticsWorld world, int x, int y, int z) {
 		this.world = world;
 		this.x = x;
 		this.y = y;
@@ -67,7 +67,7 @@ public class Plot {
 	/**
 	 * @return the world
 	 */
-	public ColoniesWorld getWorld() {
+	public PoliticsWorld getWorld() {
 		return world;
 	}
 
@@ -106,7 +106,7 @@ public class Plot {
 	 * 
 	 * @return
 	 */
-	public List<Colony> getOwners() {
+	public List<Group> getOwners() {
 		return world.getOwners(x, y, z);
 	}
 }

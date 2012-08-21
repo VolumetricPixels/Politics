@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.universe;
+package com.volumetricpixels.politics.universe;
 
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
@@ -42,16 +42,16 @@ import org.spout.api.Spout;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.simplyian.colonies.Colonies;
-import com.simplyian.colonies.ColoniesPlugin;
-import com.simplyian.colonies.colony.Colonist;
-import com.simplyian.colonies.colony.Colony;
-import com.simplyian.colonies.colony.ColonyLevel;
-import com.simplyian.colonies.data.Storable;
-import com.simplyian.colonies.plot.ColoniesWorld;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.PoliticsPlugin;
+import com.volumetricpixels.politics.colony.Citizen;
+import com.volumetricpixels.politics.colony.Group;
+import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.data.Storable;
+import com.volumetricpixels.politics.plot.PoliticsWorld;
 
 /**
- * Represents a headless group of all colonies within its scope.
+ * Represents a headless group of all groups within its scope.
  */
 public class Universe implements Storable {
 	/**
@@ -67,33 +67,33 @@ public class Universe implements Storable {
 	/**
 	 * Contains the worlds in which this universe is part of.
 	 */
-	private List<ColoniesWorld> worlds;
+	private List<PoliticsWorld> worlds;
 
 	/**
-	 * The colonies in this universe manager.
+	 * The groups in this universe manager.
 	 */
-	private List<Colony> colonies;
+	private List<Group> groups;
 
 	/**
-	 * Contains the immediate children of each colony.
+	 * Contains the immediate children of each group.
 	 */
-	private Map<Colony, Set<Colony>> children;
+	private Map<Group, Set<Group>> children;
 
 	/**
-	 * Colonies in the given levels.
+	 * Groups in the given levels.
 	 */
-	private Map<ColonyLevel, Set<Colony>> levels;
+	private Map<GroupLevel, Set<Group>> levels;
 
 	/**
 	 * Cache containing colonists.
 	 */
-	private LoadingCache<String, Colonist> colonistCache;
+	private LoadingCache<String, Citizen> colonistCache;
 
 	/**
 	 * C'tor
 	 */
 	public Universe(String name, UniverseRules properties) {
-		this(name, properties, new ArrayList<ColoniesWorld>(), new ArrayList<Colony>(), new HashMap<Colony, Set<Colony>>());
+		this(name, properties, new ArrayList<PoliticsWorld>(), new ArrayList<Group>(), new HashMap<Group, Set<Group>>());
 	}
 
 	/**
@@ -102,26 +102,26 @@ public class Universe implements Storable {
 	 * @param name
 	 * @param properties
 	 * @param worlds
-	 * @param colonies
+	 * @param groups
 	 * @param children
 	 */
-	public Universe(String name, UniverseRules properties, List<ColoniesWorld> worlds, List<Colony> colonies, Map<Colony, Set<Colony>> children) {
+	public Universe(String name, UniverseRules properties, List<PoliticsWorld> worlds, List<Group> groups, Map<Group, Set<Group>> children) {
 		this.name = name;
 		this.rules = properties;
 		this.worlds = worlds;
-		this.colonies = colonies;
+		this.groups = groups;
 		this.children = children;
 
 		buildColonistCache();
 
-		levels = new HashMap<ColonyLevel, Set<Colony>>();
-		for (Colony colony : colonies) {
-			Set<Colony> level = levels.get(colony.getLevel());
+		levels = new HashMap<GroupLevel, Set<Group>>();
+		for (Group group : groups) {
+			Set<Group> level = levels.get(group.getLevel());
 			if (level == null) {
-				level = new HashSet<Colony>();
-				levels.put(colony.getLevel(), level);
+				level = new HashSet<Group>();
+				levels.put(group.getLevel(), level);
 			}
-			level.add(colony);
+			level.add(group);
 		}
 	}
 
@@ -135,16 +135,16 @@ public class Universe implements Storable {
 		builder.maximumSize(((Server) Spout.getEngine()).getMaxPlayers());
 		builder.expireAfterAccess(10L, TimeUnit.MINUTES);
 
-		colonistCache = builder.build(new CacheLoader<String, Colonist>() {
+		colonistCache = builder.build(new CacheLoader<String, Citizen>() {
 			@Override
-			public Colonist load(String name) throws Exception {
-				Set<Colony> myColonies = new HashSet<Colony>();
-				for (Colony colony : colonies) {
-					if (colony.isImmediateMember(name)) {
-						myColonies.add(colony);
+			public Citizen load(String name) throws Exception {
+				Set<Group> myGroups = new HashSet<Group>();
+				for (Group group : groups) {
+					if (group.isImmediateMember(name)) {
+						myGroups.add(group);
 					}
 				}
-				return new Colonist(name, myColonies, Universe.this);
+				return new Citizen(name, myGroups, Universe.this);
 			}
 		});
 	}
@@ -168,12 +168,12 @@ public class Universe implements Storable {
 	}
 
 	/**
-	 * Gets a list of all colonies in the universe.
+	 * Gets a list of all groups in the universe.
 	 * 
 	 * @return
 	 */
-	public List<Colony> getColonies() {
-		return new ArrayList<Colony>(colonies);
+	public List<Group> getGroups() {
+		return new ArrayList<Group>(groups);
 	}
 
 	/**
@@ -181,64 +181,64 @@ public class Universe implements Storable {
 	 * 
 	 * @return
 	 */
-	public List<ColoniesWorld> getWorlds() {
-		return new ArrayList<ColoniesWorld>(worlds);
+	public List<PoliticsWorld> getWorlds() {
+		return new ArrayList<PoliticsWorld>(worlds);
 	}
 
 	/**
-	 * Gets a list of all colonies with the given level in this universe.
+	 * Gets a list of all groups with the given level in this universe.
 	 * 
 	 * @param level
 	 * @return
 	 */
-	public List<Colony> getColonies(ColonyLevel level) {
-		return new ArrayList<Colony>(levels.get(level));
+	public List<Group> getGroups(GroupLevel level) {
+		return new ArrayList<Group>(levels.get(level));
 	}
 
 	/**
-	 * Gets the child colonies of the given colony.
+	 * Gets the child groups of the given group.
 	 * 
-	 * @param colony
+	 * @param group
 	 * @return
 	 */
-	public Set<Colony> getChildColonies(Colony colony) {
-		Set<Colony> childs = children.get(colony);
+	public Set<Group> getChildGroups(Group group) {
+		Set<Group> childs = children.get(group);
 		if (childs == null) {
-			return new HashSet<Colony>();
+			return new HashSet<Group>();
 		}
 		return childs;
 	}
 
 	/**
-	 * Adds the given child as a child for the given colony.
+	 * Adds the given child as a child for the given group.
 	 * 
-	 * @param colony
+	 * @param group
 	 * @param child
-	 * @return True if the colony could be made a child
+	 * @return True if the group could be made a child
 	 */
-	public boolean addChildColony(Colony colony, Colony child) {
-		if (!colony.getLevel().canBeChild(child.getLevel())) {
+	public boolean addChildGroup(Group group, Group child) {
+		if (!group.getLevel().canBeChild(child.getLevel())) {
 			return false;
 		}
 
-		Set<Colony> childs = children.get(colony);
+		Set<Group> childs = children.get(group);
 		if (childs == null) {
-			childs = new HashSet<Colony>();
+			childs = new HashSet<Group>();
 		}
 		childs.add(child);
 		return true;
 	}
 
 	/**
-	 * Removes the given child colony from the children of the given colony.
+	 * Removes the given child group from the children of the given group.
 	 * 
-	 * @param colony
+	 * @param group
 	 * @param child
 	 * @return True if the child was removed, false if the child was not a child
 	 *         in the first place
 	 */
-	public boolean removeChildColony(Colony colony, Colony child) {
-		Set<Colony> childs = children.get(colony);
+	public boolean removeChildGroup(Group group, Group child) {
+		Set<Group> childs = children.get(group);
 		if (childs == null) {
 			return false;
 		}
@@ -251,11 +251,11 @@ public class Universe implements Storable {
 	 * @param player
 	 * @return
 	 */
-	public Colonist getColonist(String player) {
+	public Citizen getColonist(String player) {
 		try {
 			return colonistCache.get(player);
 		} catch (ExecutionException ex) {
-			ColoniesPlugin.logger().log(Level.SEVERE, "Could not load a colonist! This is a PROBLEM!", ex);
+			PoliticsPlugin.logger().log(Level.SEVERE, "Could not load a colonist! This is a PROBLEM!", ex);
 			return null;
 		}
 	}
@@ -267,21 +267,21 @@ public class Universe implements Storable {
 		bson.put("name", name);
 		bson.put("rules", rules.getName());
 
-		BasicBSONList coloniesBson = new BasicBSONList();
+		BasicBSONList groupsBson = new BasicBSONList();
 		BasicBSONObject childrenBson = new BasicBSONObject();
 
-		for (Colony colony : colonies) {
-			// colonies
-			coloniesBson.add(colony.toBSONObject());
+		for (Group group : groups) {
+			// groups
+			groupsBson.add(group.toBSONObject());
 
 			// children
 			BasicBSONList children = new BasicBSONList();
-			for (Colony child : colony.getColonies()) {
+			for (Group child : group.getGroups()) {
 				children.add(child.getUid());
 			}
-			childrenBson.put(Long.toHexString(colony.getUid()), children);
+			childrenBson.put(Long.toHexString(group.getUid()), children);
 		}
-		bson.put("colonies", coloniesBson);
+		bson.put("groups", groupsBson);
 		bson.put("children", childrenBson);
 
 		return bson;
@@ -301,75 +301,75 @@ public class Universe implements Storable {
 
 		String aname = bobject.getString("name");
 		String rulesName = bobject.getString("rules");
-		UniverseRules rules = Colonies.getUniverseManager().getRules(rulesName);
+		UniverseRules rules = Politics.getUniverseManager().getRules(rulesName);
 
 		if (rules == null) {
 			throw new IllegalStateException("Rules do not exist!");
 		}
 
-		List<ColoniesWorld> worlds = new ArrayList<ColoniesWorld>();
+		List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
 		Object worldsObj = bobject.get("worlds");
 		if (!(worldsObj instanceof BasicBSONList)) {
-			throw new IllegalStateException("ColonyWorlds object is not a list!!! ASDFASDF");
+			throw new IllegalStateException("GroupWorlds object is not a list!!! ASDFASDF");
 		}
 		BasicBSONList worldsBson = (BasicBSONList) worldsObj;
 		for (Object worldName : worldsBson) {
 			String name = worldName.toString();
-			ColoniesWorld world = Colonies.getPlotManager().getWorld(name);
+			PoliticsWorld world = Politics.getPlotManager().getWorld(name);
 			if (world == null) {
-				ColoniesPlugin.logger().log(Level.WARNING, "ColonyWorld `" + name + "' could not be found! (Did you delete it?)");
+				PoliticsPlugin.logger().log(Level.WARNING, "GroupWorld `" + name + "' could not be found! (Did you delete it?)");
 			} else {
 				worlds.add(world);
 			}
 		}
 
-		Object coloniesObj = bobject.get("colonies");
-		if (!(coloniesObj instanceof BasicBSONList)) {
-			throw new IllegalStateException("colonies isn't a list?! wtfhax?");
+		Object groupsObj = bobject.get("groups");
+		if (!(groupsObj instanceof BasicBSONList)) {
+			throw new IllegalStateException("groups isn't a list?! wtfhax?");
 		}
-		BasicBSONList coloniesBson = (BasicBSONList) coloniesObj;
+		BasicBSONList groupsBson = (BasicBSONList) groupsObj;
 
-		TLongObjectMap<Colony> colonies = new TLongObjectHashMap<Colony>();
-		for (Object colonyBson : coloniesBson) {
-			if (!(colonyBson instanceof BasicBSONObject)) {
-				throw new IllegalStateException("Invalid colony!");
+		TLongObjectMap<Group> groups = new TLongObjectHashMap<Group>();
+		for (Object groupBson : groupsBson) {
+			if (!(groupBson instanceof BasicBSONObject)) {
+				throw new IllegalStateException("Invalid group!");
 			}
-			Colony c = Colony.fromBSONObject(rules, (BasicBSONObject) colonyBson);
-			colonies.put(c.getUid(), c);
+			Group c = Group.fromBSONObject(rules, (BasicBSONObject) groupBson);
+			groups.put(c.getUid(), c);
 		}
 
-		Map<Colony, Set<Colony>> children = new HashMap<Colony, Set<Colony>>();
+		Map<Group, Set<Group>> children = new HashMap<Group, Set<Group>>();
 		Object childrenObj = bobject.get("children");
 		if (!(childrenObj instanceof BasicBSONObject)) {
 			throw new IllegalStateException("Missing children report!");
 		}
 		BasicBSONObject childrenBson = (BasicBSONObject) childrenObj;
 		for (Entry<String, Object> childEntry : childrenBson.entrySet()) {
-			String colonyId = childEntry.getKey();
-			long uid = Long.parseLong(colonyId, 16);
-			Colony c = colonies.get(uid);
+			String groupId = childEntry.getKey();
+			long uid = Long.parseLong(groupId, 16);
+			Group c = groups.get(uid);
 			if (c == null) {
-				throw new IllegalStateException("Unknown colony id " + Long.toHexString(uid));
+				throw new IllegalStateException("Unknown group id " + Long.toHexString(uid));
 			}
 
 			Object childsObj = childEntry.getValue();
 			if (!(childsObj instanceof BasicBSONList)) {
 				throw new IllegalStateException("No bson list found for childsObj");
 			}
-			Set<Colony> childrenn = new HashSet<Colony>();
+			Set<Group> childrenn = new HashSet<Group>();
 			BasicBSONList childs = (BasicBSONList) childsObj;
 			for (Object childN : childs) {
 				long theuid = (Long) childN;
-				Colony ch = colonies.get(theuid);
+				Group ch = groups.get(theuid);
 				childrenn.add(ch);
 			}
 			children.put(c, childrenn);
 		}
 
-		List<Colony> colonyz = new ArrayList<Colony>(colonies.valueCollection());
-		Universe universe = new Universe(aname, rules, worlds, colonyz, children);
-		for (Colony colony : colonyz) {
-			colony.initialize(universe);
+		List<Group> groupz = new ArrayList<Group>(groups.valueCollection());
+		Universe universe = new Universe(aname, rules, worlds, groupz, children);
+		for (Group group : groupz) {
+			group.initialize(universe);
 		}
 		return universe;
 	}

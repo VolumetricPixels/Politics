@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,28 +17,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.command.colony;
+package com.volumetricpixels.politics.command.group;
 
 import java.util.List;
 
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
-import org.spout.api.command.CommandExecutor;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
-import com.simplyian.colonies.Colonies;
-import com.simplyian.colonies.MsgStyle;
-import com.simplyian.colonies.colony.Colony;
-import com.simplyian.colonies.colony.ColonyLevel;
-import com.simplyian.colonies.colony.ColonyProperty;
-import com.simplyian.colonies.universe.Universe;
+import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.colony.Group;
+import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.colony.GroupProperty;
+import com.volumetricpixels.politics.universe.Universe;
 
 /**
- * Colony list command
+ * Group list command
  */
-public class ColonyListCommand extends ColonyCommand {
+public class GroupListCommand extends GroupCommand {
 	public static final int PAGE_HEIGHT = 20;
 
 	/**
@@ -46,7 +45,7 @@ public class ColonyListCommand extends ColonyCommand {
 	 * 
 	 * @param level
 	 */
-	private ColonyListCommand(ColonyLevel level) {
+	private GroupListCommand(GroupLevel level) {
 		super(level);
 	}
 
@@ -61,13 +60,13 @@ public class ColonyListCommand extends ColonyCommand {
 				return;
 			}
 			String universeName = args.getFlagString('u');
-			universe = Colonies.getUniverse(universeName);
+			universe = Politics.getUniverse(universeName);
 			if (universe == null) {
 				source.sendMessage(MsgStyle.error(), "A universe with the name `" + universeName + "' does not exist.");
 				return;
 			}
 		} else {
-			universe = Colonies.getUniverse(((Player) source).getWorld(), level);
+			universe = Politics.getUniverse(((Player) source).getWorld(), level);
 			if (universe == null) {
 				source.sendMessage(MsgStyle.error(), "You can't use this command right now.");
 				return;
@@ -76,8 +75,8 @@ public class ColonyListCommand extends ColonyCommand {
 
 		source.sendMessage(MsgStyle.info(), "========= " + level.getPlural().toUpperCase() + " =========");
 
-		List<Colony> colonies = universe.getColonies(level);
-		if (colonies == null) {
+		List<Group> groups = universe.getGroups(level);
+		if (groups == null) {
 			source.sendMessage(MsgStyle.error(), "There are no " + level.getPlural() + ".");
 			return;
 		}
@@ -88,23 +87,23 @@ public class ColonyListCommand extends ColonyCommand {
 		}
 
 		int min = ((page - 1) * PAGE_HEIGHT) - 1; // Screen height
-		int max = Math.min(colonies.size(), page * PAGE_HEIGHT) - 2;
+		int max = Math.min(groups.size(), page * PAGE_HEIGHT) - 2;
 		if (max <= min) {
 			source.sendMessage(MsgStyle.error(), "There are no " + level.getPlural() + " on this page.");
 			return;
 		}
 
-		List<Colony> pageColonies = colonies.subList(min, max);
-		for (Colony colony : pageColonies) {
-			source.sendMessage(colony.getProperty(ColonyProperty.NAME));
+		List<Group> pageGroups = groups.subList(min, max);
+		for (Group group : pageGroups) {
+			source.sendMessage(group.getProperty(GroupProperty.NAME));
 			// TODO prettify list
 		}
 	}
 
-	public static ColonyListCommand register(Command parent, ColonyLevel level) {
-		ColonyListCommand executor = new ColonyListCommand(level);
+	public static GroupListCommand register(Command parent, GroupLevel level) {
+		GroupListCommand executor = new GroupListCommand(level);
 
-		Command cmd = parent.addSubCommand(Colonies.getPlugin(), "list");
+		Command cmd = parent.addSubCommand(Politics.getPlugin(), "list");
 		cmd.setExecutor(executor);
 		cmd.addAlias("ls");
 		cmd.setArgBounds(0, -1);

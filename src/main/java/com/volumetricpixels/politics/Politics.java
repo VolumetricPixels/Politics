@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,33 +17,33 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies;
+package com.volumetricpixels.politics;
 
 import org.spout.api.geo.World;
 
-import com.simplyian.colonies.colony.ColonyLevel;
-import com.simplyian.colonies.plot.ColoniesWorld;
-import com.simplyian.colonies.plot.PlotManager;
-import com.simplyian.colonies.universe.Universe;
-import com.simplyian.colonies.universe.UniverseManager;
+import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.plot.PlotManager;
+import com.volumetricpixels.politics.plot.PoliticsWorld;
+import com.volumetricpixels.politics.universe.Universe;
+import com.volumetricpixels.politics.universe.UniverseManager;
 
 /**
  * Static API access
  */
-public final class Colonies {
+public final class Politics {
 	/**
 	 * C'tor
 	 */
-	private Colonies() {
+	private Politics() {
 	}
 
 	/**
-	 * Gets the ColoniesPlugin instance.
+	 * Gets the GroupsPlugin instance.
 	 * 
 	 * @return
 	 */
-	public static ColoniesPlugin getPlugin() {
-		return ColoniesPlugin.getInstance();
+	public static PoliticsPlugin getPlugin() {
+		return PoliticsPlugin.getInstance();
 	}
 
 	/**
@@ -65,12 +65,12 @@ public final class Colonies {
 	}
 
 	/**
-	 * Gets a ColoniesWorld by a world.
+	 * Gets a GroupsWorld by a world.
 	 * 
 	 * @param world
 	 * @return
 	 */
-	public static ColoniesWorld getWorld(World world) {
+	public static PoliticsWorld getWorld(World world) {
 		return getPlotManager().getWorld(world);
 	}
 
@@ -85,13 +85,13 @@ public final class Colonies {
 	}
 
 	/**
-	 * Gets the universe corresponding with the given world and colony level.
+	 * Gets the universe corresponding with the given world and group level.
 	 * 
 	 * @param world
 	 * @param level
 	 * @return
 	 */
-	public static Universe getUniverse(World world, ColonyLevel level) {
+	public static Universe getUniverse(World world, GroupLevel level) {
 		return getUniverseManager().getUniverse(world, level);
 	}
 }
