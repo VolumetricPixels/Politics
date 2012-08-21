@@ -19,6 +19,15 @@
  */
 package com.volumetricpixels.politics.command;
 
-public class Commands {
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.command.group.GroupCommands;
+import com.volumetricpixels.politics.group.GroupLevel;
 
+public class Commands {
+	public static void registerAll() {
+		// Register all group commands
+		for (GroupLevel level : Politics.getUniverseManager().getGroupLevels()) {
+			GroupCommands.register(level);
+		}
+	}
 }

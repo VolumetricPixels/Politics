@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 import org.spout.api.plugin.CommonPlugin;
 
+import com.volumetricpixels.politics.command.Commands;
 import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.universe.UniverseManager;
 
@@ -53,9 +54,11 @@ public class PoliticsPlugin extends CommonPlugin {
 		plotManager = new PlotManager();
 		plotManager.loadWorlds();
 
-		universeManager = new UniverseManager(this);
+		universeManager = new UniverseManager();
 		universeManager.loadRules();
 		universeManager.loadUniverses();
+
+		Commands.registerAll();
 
 		getLogger().log(Level.INFO, "Groups enabled!");
 	}
