@@ -92,10 +92,13 @@ public class UniverseRules {
 			for (Entry<String, ConfigurationNode> entry : levelNode.getChildren().entrySet()) {
 				// Load id
 				String id = entry.getKey();
-				
+
 				// Load name
-				String levelName = entry.getValue().getNode("name").getString(id); // Allows ids for renaming
-				
+				String levelName = entry.getValue().getNode("name").getString(id); // Allows
+																					// ids
+																					// for
+																					// renaming
+
 				// Load rank
 				int rank = entry.getValue().getNode("rank").getInt();
 
@@ -125,7 +128,7 @@ public class UniverseRules {
 
 				// Create the level
 				GroupLevel level = new GroupLevel(id, levelName, rank, realRolesMap, plural);
-				levelMap.put(levelName.toLowerCase(), level);
+				levelMap.put(level.getId().toLowerCase(), level);
 				levels.put(level, children);
 			}
 

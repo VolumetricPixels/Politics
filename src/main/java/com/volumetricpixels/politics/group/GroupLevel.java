@@ -83,6 +83,15 @@ public final class GroupLevel {
 	}
 
 	/**
+	 * Gets the ID of this GroupLevel.
+	 * 
+	 * @return
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
 	 * Gets the name of this GroupLevel.
 	 * 
 	 * @return

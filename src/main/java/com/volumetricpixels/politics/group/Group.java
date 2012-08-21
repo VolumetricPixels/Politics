@@ -264,7 +264,7 @@ public final class Group implements Comparable<Group>, Storable {
 		BasicBSONObject object = new BasicBSONObject();
 
 		object.put("uid", uid);
-		object.put("level", level.getName());
+		object.put("level", level.getId());
 
 		final BasicBSONObject propertiesBson = new BasicBSONObject();
 		TShortObjectIterator<Object> pit = properties.iterator();
