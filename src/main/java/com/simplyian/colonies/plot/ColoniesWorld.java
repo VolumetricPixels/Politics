@@ -26,6 +26,8 @@ import gnu.trove.list.array.TLongArrayList;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.bson.BSONObject;
@@ -34,6 +36,7 @@ import org.bson.types.BasicBSONList;
 import org.spout.api.util.map.TInt21TripleObjectHashMap;
 
 import com.simplyian.colonies.Colonies;
+import com.simplyian.colonies.colony.Colony;
 import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.data.Storable;
 import com.simplyian.colonies.universe.Universe;
@@ -69,6 +72,42 @@ public class ColoniesWorld implements Storable {
 	 */
 	public String getName() {
 		return this.name;
+	}
+
+	/**
+	 * Gets the list of owners at the given location.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public TLongList getOwnerIds(int x, int y, int z) {
+		return new TLongArrayList(owners.get(x, y, z));
+	}
+
+	/**
+	 * Gets the owners of a given plot location within this world.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public List<Colony> getOwners(int x, int y, int z) {
+		TLongList ownerIdList = owners.get(x, y, z);
+		List<Colony> ret = new ArrayList<Colony>();
+		TLongIterator it = ownerIdList.iterator();
+		while (it.hasNext()) {
+			long id = it.next();
+			Colony colony = Colonies.getUniverseManager().getColonyById(id);
+			if (colony == null) {
+				ownerIdList.remove(id);
+			} else {
+				ret.add(colony);
+			}
+		}
+		return ret;
 	}
 
 	/**

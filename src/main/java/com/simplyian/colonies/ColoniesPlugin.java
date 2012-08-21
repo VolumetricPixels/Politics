@@ -62,6 +62,7 @@ public class ColoniesPlugin extends CommonPlugin {
 
 	@Override
 	public void onDisable() {
+		plotManager.saveAll();
 		universeManager.saveUniverses();
 
 		getLogger().log(Level.INFO, "Colonies disabled!");

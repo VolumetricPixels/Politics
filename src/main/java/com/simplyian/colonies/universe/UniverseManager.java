@@ -19,6 +19,9 @@
  */
 package com.simplyian.colonies.universe;
 
+import gnu.trove.map.TLongObjectMap;
+import gnu.trove.map.hash.TLongObjectHashMap;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,6 +40,7 @@ import org.spout.api.util.config.yaml.YamlConfiguration;
 
 import com.simplyian.colonies.Colonies;
 import com.simplyian.colonies.ColoniesPlugin;
+import com.simplyian.colonies.colony.Colony;
 import com.simplyian.colonies.colony.ColonyLevel;
 import com.simplyian.colonies.plot.ColoniesWorld;
 
@@ -68,6 +72,11 @@ public class UniverseManager {
 	 * Universes mapped to their names.
 	 */
 	private Map<String, Universe> universes;
+
+	/**
+	 * Stores colonies.
+	 */
+	private TLongObjectMap<Colony> colonies;
 
 	/**
 	 * Worlds mapped to their levels.
@@ -117,6 +126,7 @@ public class UniverseManager {
 	public void loadUniverses() {
 		BSONDecoder decoder = new BasicBSONDecoder();
 		universes = new HashMap<String, Universe>();
+		colonies = new TLongObjectHashMap<Colony>();
 		universeDir.mkdirs();
 		for (File file : universeDir.listFiles()) {
 			String fileName = file.getName();
@@ -136,6 +146,12 @@ public class UniverseManager {
 
 			Universe universe = Universe.fromBSONObject(object);
 			universes.put(universe.getName(), universe);
+
+			for (Colony colony : universe.getColonies()) {
+				if (colonies.put(colony.getUid(), colony) != null) {
+					ColoniesPlugin.logger().log(Level.WARNING, "Duplicate colony id " + colony.getUid() + "!");
+				}
+			}
 		}
 
 		// Populate World levels
@@ -211,6 +227,16 @@ public class UniverseManager {
 			return null;
 		}
 		return getUniverse(cw, level);
+	}
+
+	/**
+	 * Gets a colony by its id.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Colony getColonyById(long id) {
+		return colonies.get(id);
 	}
 
 	/**

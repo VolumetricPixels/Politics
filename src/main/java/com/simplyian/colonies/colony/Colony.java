@@ -44,7 +44,8 @@ import com.simplyian.colonies.universe.UniverseRules;
  */
 public final class Colony implements Comparable<Colony>, Storable {
 	/**
-	 * The unique identifier of this colony.
+	 * The unique identifier of this colony. This is unique for the entire
+	 * plugin.
 	 */
 	private final long uid;
 
