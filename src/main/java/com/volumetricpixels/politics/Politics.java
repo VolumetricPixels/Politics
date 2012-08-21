@@ -65,6 +65,16 @@ public final class Politics {
 	}
 
 	/**
+	 * Gets the plot at the given position.
+	 * 
+	 * @param position
+	 * @return
+	 */
+	public static Plot getPlotAt(Point position) {
+		return getPlotManager().getPlotAt(position);
+	}
+
+	/**
 	 * Gets a GroupsWorld by a world.
 	 * 
 	 * @param world

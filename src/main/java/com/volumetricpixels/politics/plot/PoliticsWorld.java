@@ -168,6 +168,18 @@ public class PoliticsWorld implements Storable {
 		return new Plot(this, x, y, z);
 	}
 
+	/**
+	 * Gets the plot at the given chunk position.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public Plot getPlotAtChunkPosition(int x, int y, int z) {
+		return getPlotAt(x / config.getPlotSizeX(), y / config.getPlotSizeY(), z / config.getPlotSizeZ());
+	}
+
 	@Override
 	public BSONObject toBSONObject() {
 		BasicBSONObject bson = new BasicBSONObject();

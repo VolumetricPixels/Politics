@@ -33,6 +33,8 @@ import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
 import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
+import org.spout.api.geo.cuboid.Chunk;
+import org.spout.api.geo.discrete.Point;
 import org.spout.api.util.config.Configuration;
 import org.spout.api.util.config.yaml.YamlConfiguration;
 
@@ -187,6 +189,52 @@ public class PlotManager {
 	 */
 	public PoliticsWorld getWorld(World world) {
 		return getWorld(world.getName());
+	}
+
+	/**
+	 * Gets the plot at the given chunk position.
+	 * 
+	 * @param world
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public Plot getPlotAtPosition(String world, int x, int y, int z) {
+		return getWorld(world).getPlotAtChunkPosition(x, y, z);
+	}
+
+	/**
+	 * Gets the plot at the given chunk position.
+	 * 
+	 * @param world
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public Plot getPlotAtPosition(World world, int x, int y, int z) {
+		return getWorld(world).getPlotAtChunkPosition(x, y, z);
+	}
+
+	/**
+	 * Gets the plot corresponding with the given Chunk.
+	 * 
+	 * @param chunk
+	 * @return
+	 */
+	public Plot getPlotAtChunk(Chunk chunk) {
+		return getWorld(chunk.getWorld()).getPlotAtChunkPosition(chunk.getX(), chunk.getY(), chunk.getZ());
+	}
+
+	/**
+	 * Gets the plot at the given position.
+	 * 
+	 * @param position
+	 * @return
+	 */
+	public Plot getPlotAt(Point position) {
+		return getPlotAtPosition(position.getWorld(), position.getChunkX(), position.getChunkY(), position.getChunkZ());
 	}
 
 	/**
