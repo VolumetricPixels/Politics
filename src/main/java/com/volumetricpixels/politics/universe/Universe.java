@@ -260,6 +260,15 @@ public class Universe implements Storable {
 		}
 	}
 
+	/**
+	 * Invalidates the given citizen.
+	 * 
+	 * @param citizen
+	 */
+	public void invalidateCitizen(String citizen) {
+		citizenCache.invalidate(citizen);
+	}
+
 	@Override
 	public BasicBSONObject toBSONObject() {
 		BasicBSONObject bson = new BasicBSONObject();

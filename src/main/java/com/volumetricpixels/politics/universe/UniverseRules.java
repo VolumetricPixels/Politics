@@ -94,10 +94,7 @@ public class UniverseRules {
 				String id = entry.getKey();
 
 				// Load name
-				String levelName = entry.getValue().getNode("name").getString(id); // Allows
-																					// ids
-																					// for
-																					// renaming
+				String levelName = entry.getValue().getNode("name").getString(id);
 
 				// Load rank
 				int rank = entry.getValue().getNode("rank").getInt();
