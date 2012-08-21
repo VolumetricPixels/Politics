@@ -19,12 +19,12 @@
  */
 package com.volumetricpixels.politics.group;
 
+import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TObjectIntIterator;
-import gnu.trove.iterator.TShortObjectIterator;
+import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
-import gnu.trove.map.TShortObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
-import gnu.trove.map.hash.TShortObjectHashMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public final class Group implements Comparable<Group>, Storable {
 	/**
 	 * Properties of this group.
 	 */
-	private final TShortObjectMap<Object> properties;
+	private final TIntObjectMap<Object> properties;
 
 	/**
 	 * The immediate players of this group. The keys are the players, and the
@@ -79,7 +79,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param level
 	 */
 	public Group(long uid, GroupLevel level) {
-		this(uid, level, new TShortObjectHashMap<Object>(), new TObjectIntHashMap<String>());
+		this(uid, level, new TIntObjectHashMap<Object>(), new TObjectIntHashMap<String>());
 	}
 
 	/**
@@ -90,7 +90,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param properties
 	 * @param players
 	 */
-	private Group(long uid, GroupLevel level, TShortObjectMap<Object> properties, TObjectIntMap<String> players) {
+	private Group(long uid, GroupLevel level, TIntObjectMap<Object> properties, TObjectIntMap<String> players) {
 		this.uid = uid;
 		this.level = level;
 		this.properties = properties;
@@ -173,7 +173,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param property
 	 * @return
 	 */
-	public Object getProperty(short property) {
+	public Object getProperty(int property) {
 		return properties.get(property);
 	}
 
@@ -183,7 +183,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param property
 	 * @param value
 	 */
-	public void setProperty(short property, Serializable value) {
+	public void setProperty(int property, Serializable value) {
 		properties.put(property, value);
 	}
 
@@ -267,7 +267,7 @@ public final class Group implements Comparable<Group>, Storable {
 		object.put("level", level.getId());
 
 		final BasicBSONObject propertiesBson = new BasicBSONObject();
-		TShortObjectIterator<Object> pit = properties.iterator();
+		TIntObjectIterator<Object> pit = properties.iterator();
 		while (pit.hasNext()) {
 			pit.advance();
 			propertiesBson.put(Integer.toHexString(pit.key()), pit.value());
@@ -313,12 +313,11 @@ public final class Group implements Comparable<Group>, Storable {
 			throw new IllegalStateException("WTF you screwed up the properties! CORRUPT!");
 		}
 		BasicBSONObject propertiesBson = (BasicBSONObject) propertiesObj;
-		TShortObjectMap<Object> properties = new TShortObjectHashMap<Object>();
+		TIntObjectMap<Object> properties = new TIntObjectHashMap<Object>();
 		for (Entry<String, Object> entry : propertiesBson.entrySet()) {
 			int realKey = Integer.valueOf(entry.getKey(), 16);
-			short realKeyShort = (short) realKey;
 			Object value = entry.getValue();
-			properties.put(realKeyShort, value);
+			properties.put(realKey, value);
 		}
 
 		// Players
