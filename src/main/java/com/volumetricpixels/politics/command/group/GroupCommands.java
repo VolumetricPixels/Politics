@@ -23,7 +23,7 @@ import org.spout.api.Spout;
 import org.spout.api.command.Command;
 
 import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.group.GroupLevel;
 
 /**
  * Group commands.

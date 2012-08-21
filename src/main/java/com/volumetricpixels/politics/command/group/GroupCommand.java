@@ -21,7 +21,7 @@ package com.volumetricpixels.politics.command.group;
 
 import org.spout.api.command.CommandExecutor;
 
-import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.group.GroupLevel;
 
 public abstract class GroupCommand implements CommandExecutor {
 	protected final GroupLevel level;
