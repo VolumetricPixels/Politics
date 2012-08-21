@@ -51,6 +51,7 @@ public class ColoniesPlugin extends CommonPlugin {
 		instance = this;
 
 		plotManager = new PlotManager();
+		plotManager.saveAll();
 
 		universeManager = new UniverseManager(this);
 		universeManager.loadRules();

@@ -19,10 +19,22 @@
  */
 package com.simplyian.colonies.plot;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
+import org.apache.commons.io.FileUtils;
+import org.bson.BSONDecoder;
+import org.bson.BSONEncoder;
+import org.bson.BSONObject;
+import org.bson.BasicBSONDecoder;
+import org.bson.BasicBSONEncoder;
 import org.spout.api.geo.World;
+
+import com.simplyian.colonies.Colonies;
+import com.simplyian.colonies.ColoniesPlugin;
 
 /**
  * Manages plots.
@@ -31,7 +43,69 @@ public class PlotManager {
 	/**
 	 * World names mapped to ColonyWorlds.
 	 */
-	private Map<String, ColoniesWorld> worlds = new HashMap<String, ColoniesWorld>();
+	private Map<String, ColoniesWorld> worlds;
+
+	/**
+	 * Directory containing the folders.
+	 */
+	private final File worldsDir;
+
+	/**
+	 * C'tor
+	 */
+	public PlotManager() {
+		worldsDir = new File(Colonies.getPlugin().getDataFolder(), "data/worlds/");
+	}
+
+	/**
+	 * Loads all ColoniesWorlds.
+	 */
+	public void loadAll() {
+		BSONDecoder decoder = new BasicBSONDecoder();
+		worlds = new HashMap<String, ColoniesWorld>();
+
+		worldsDir.mkdirs();
+		for (File file : worldsDir.listFiles()) {
+			String fileName = file.getName();
+			if (!fileName.endsWith(".cow") || fileName.length() <= 4) {
+				continue;
+			}
+			String worldName = fileName.substring(0, fileName.length() - 4);
+
+			byte[] data;
+			try {
+				data = FileUtils.readFileToByteArray(file);
+			} catch (IOException ex) {
+				ColoniesPlugin.logger().log(Level.SEVERE, "Could not read world file `" + fileName + "'!", ex);
+				continue;
+			}
+
+			BSONObject object = decoder.readObject(data);
+			ColoniesWorld world = ColoniesWorld.fromBSONObject(worldName, object);
+			worlds.put(world.getName(), world);
+		}
+	}
+
+	/**
+	 * Saves all ColoniesWorlds.
+	 */
+	public void saveAll() {
+		BSONEncoder encoder = new BasicBSONEncoder();
+		worldsDir.mkdirs();
+
+		for (ColoniesWorld world : worlds.values()) {
+			String fileName = world.getName() + ".cow";
+			File universeFile = new File(worldsDir, fileName);
+
+			byte[] data = encoder.encode(world.toBSONObject());
+			try {
+				FileUtils.writeByteArrayToFile(universeFile, data);
+			} catch (IOException ex) {
+				ColoniesPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
+				continue;
+			}
+		}
+	}
 
 	/**
 	 * Gets a ColonyWorld from its name.

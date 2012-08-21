@@ -43,6 +43,11 @@ import com.simplyian.colonies.universe.Universe;
  */
 public class ColoniesWorld implements Storable {
 	/**
+	 * The name of the ColoniesWorld.
+	 */
+	private final String name;
+
+	/**
 	 * Contains all owners corresponding to their proper positions.
 	 */
 	private final TInt21TripleObjectHashMap<TLongList> owners;
@@ -52,10 +57,26 @@ public class ColoniesWorld implements Storable {
 	 * 
 	 * @param owners
 	 */
-	private ColoniesWorld(TInt21TripleObjectHashMap<TLongList> owners) {
+	private ColoniesWorld(String name, TInt21TripleObjectHashMap<TLongList> owners) {
+		this.name = name;
 		this.owners = owners;
 	}
 
+	/**
+	 * Gets the name of the ColoniesWorld.
+	 * 
+	 * @return
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * Gets a universe from its ColonyLevel.
+	 * 
+	 * @param level
+	 * @return
+	 */
 	public Universe getUniverse(ColonyLevel level) {
 		return Colonies.getUniverseManager().getUniverse(this, level);
 	}
@@ -84,10 +105,11 @@ public class ColoniesWorld implements Storable {
 	/**
 	 * Gets a ColoniesWorld from a BSON object.
 	 * 
+	 * @param name
 	 * @param object
 	 * @return
 	 */
-	public static ColoniesWorld fromBSONObject(BSONObject object) {
+	public static ColoniesWorld fromBSONObject(String name, BSONObject object) {
 		if (!(object instanceof BasicBSONObject)) {
 			throw new IllegalArgumentException("object is not a BasicBSONObject!");
 		}
@@ -115,6 +137,6 @@ public class ColoniesWorld implements Storable {
 		}
 
 		TInt21TripleObjectHashMap<TLongList> owners = new TInt21TripleObjectHashMap<TLongList>(ownersLongs);
-		return new ColoniesWorld(owners);
+		return new ColoniesWorld(name, owners);
 	}
 }
