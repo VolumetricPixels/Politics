@@ -29,17 +29,17 @@ import com.volumetricpixels.politics.universe.Universe;
  */
 public class Citizen {
 	/**
-	 * The name of the colonist.
+	 * The name of the citizen.
 	 */
 	private final String name;
 
 	/**
-	 * The groups this colonist is part of.
+	 * The groups this citizen is part of.
 	 */
 	private final Set<Group> groups;
 
 	/**
-	 * The universe this colonist is part of.
+	 * The universe this citizen is part of.
 	 */
 	private final Universe universe;
 
@@ -47,9 +47,9 @@ public class Citizen {
 	 * C'tor
 	 * 
 	 * @param name
-	 *            The name of the colonist.
+	 *            The name of the citizen.
 	 * @param groups
-	 *            The groups of this colonist. This should be the only
+	 *            The groups of this citizen. This should be the only
 	 *            reference.
 	 * @param universe
 	 */
@@ -60,7 +60,7 @@ public class Citizen {
 	}
 
 	/**
-	 * Gets the name of this colonist.
+	 * Gets the name of this citizen.
 	 * 
 	 * @return
 	 */
@@ -69,7 +69,7 @@ public class Citizen {
 	}
 
 	/**
-	 * Gets the groups this colonist is part of.
+	 * Gets the groups this citizen is part of.
 	 * 
 	 * @return
 	 */
@@ -78,7 +78,7 @@ public class Citizen {
 	}
 
 	/**
-	 * Gets the universe this Colonist is part of.
+	 * Gets the universe this Citizen is part of.
 	 * 
 	 * @return
 	 */

@@ -85,9 +85,9 @@ public class Universe implements Storable {
 	private Map<GroupLevel, Set<Group>> levels;
 
 	/**
-	 * Cache containing colonists.
+	 * Cache containing citizens.
 	 */
-	private LoadingCache<String, Citizen> colonistCache;
+	private LoadingCache<String, Citizen> citizenCache;
 
 	/**
 	 * C'tor
@@ -112,7 +112,7 @@ public class Universe implements Storable {
 		this.groups = groups;
 		this.children = children;
 
-		buildColonistCache();
+		buildCitizenCache();
 
 		levels = new HashMap<GroupLevel, Set<Group>>();
 		for (Group group : groups) {
@@ -126,16 +126,16 @@ public class Universe implements Storable {
 	}
 
 	/**
-	 * Builds the colonist cache.
+	 * Builds the citizen cache.
 	 */
-	private void buildColonistCache() {
+	private void buildCitizenCache() {
 		// Build cache
 		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
 
 		builder.maximumSize(((Server) Spout.getEngine()).getMaxPlayers());
 		builder.expireAfterAccess(10L, TimeUnit.MINUTES);
 
-		colonistCache = builder.build(new CacheLoader<String, Citizen>() {
+		citizenCache = builder.build(new CacheLoader<String, Citizen>() {
 			@Override
 			public Citizen load(String name) throws Exception {
 				Set<Group> myGroups = new HashSet<Group>();
@@ -246,16 +246,16 @@ public class Universe implements Storable {
 	}
 
 	/**
-	 * Gets the colonist corresponding with the given player name.
+	 * Gets the citizen corresponding with the given player name.
 	 * 
 	 * @param player
 	 * @return
 	 */
-	public Citizen getColonist(String player) {
+	public Citizen getCitizen(String player) {
 		try {
-			return colonistCache.get(player);
+			return citizenCache.get(player);
 		} catch (ExecutionException ex) {
-			PoliticsPlugin.logger().log(Level.SEVERE, "Could not load a colonist! This is a PROBLEM!", ex);
+			PoliticsPlugin.logger().log(Level.SEVERE, "Could not load a citizen! This is a PROBLEM!", ex);
 			return null;
 		}
 	}
