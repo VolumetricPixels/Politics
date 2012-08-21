@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,20 +17,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.colony;
+package com.volumetricpixels.politics.command;
 
-/**
- * Colony property ids. Ids 1-1000 are reserved.
- */
-public final class ColonyProperty {
-	/**
-	 * C'tor
-	 */
-	private ColonyProperty() {
-	}
+public class Commands {
 
-	/**
-	 * Colony name.
-	 */
-	public static final short NAME = 0x0;
 }

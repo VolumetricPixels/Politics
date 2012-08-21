@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,26 +17,26 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.colony;
+package com.volumetricpixels.politics.colony;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.simplyian.colonies.universe.Universe;
+import com.volumetricpixels.politics.universe.Universe;
 
 /**
  * Represents a player.
  */
-public class Colonist {
+public class Citizen {
 	/**
 	 * The name of the colonist.
 	 */
 	private final String name;
 
 	/**
-	 * The colonies this colonist is part of.
+	 * The groups this colonist is part of.
 	 */
-	private final Set<Colony> colonies;
+	private final Set<Group> groups;
 
 	/**
 	 * The universe this colonist is part of.
@@ -48,14 +48,14 @@ public class Colonist {
 	 * 
 	 * @param name
 	 *            The name of the colonist.
-	 * @param colonies
-	 *            The colonies of this colonist. This should be the only
+	 * @param groups
+	 *            The groups of this colonist. This should be the only
 	 *            reference.
 	 * @param universe
 	 */
-	public Colonist(String name, Set<Colony> colonies, Universe universe) {
+	public Citizen(String name, Set<Group> groups, Universe universe) {
 		this.name = name;
-		this.colonies = colonies;
+		this.groups = groups;
 		this.universe = universe;
 	}
 
@@ -69,12 +69,12 @@ public class Colonist {
 	}
 
 	/**
-	 * Gets the colonies this colonist is part of.
+	 * Gets the groups this colonist is part of.
 	 * 
 	 * @return
 	 */
-	public Set<Colony> getColonies() {
-		return new HashSet<Colony>(colonies);
+	public Set<Group> getGroups() {
+		return new HashSet<Group>(groups);
 	}
 
 	/**

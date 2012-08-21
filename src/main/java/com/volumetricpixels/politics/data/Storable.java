@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,21 +17,18 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies;
+package com.volumetricpixels.politics.data;
 
-import org.spout.api.chat.style.ChatStyle;
+import org.bson.BSONObject;
 
 /**
- * Holds styles of messages.
- * 
- * TODO make these configurable
+ * Represents something that can be stored.
  */
-public class MsgStyle {
-	public static ChatStyle error() {
-		return ChatStyle.RED;
-	}
-
-	public static ChatStyle info() {
-		return ChatStyle.GOLD;
-	}
+public interface Storable {
+	/**
+	 * Converts this object into a BSON Object.
+	 * 
+	 * @return
+	 */
+	public BSONObject toBSONObject();
 }

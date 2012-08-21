@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.plot;
+package com.volumetricpixels.politics.plot;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,17 +33,17 @@ import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
 import org.spout.api.geo.World;
 
-import com.simplyian.colonies.Colonies;
-import com.simplyian.colonies.ColoniesPlugin;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.PoliticsPlugin;
 
 /**
  * Manages plots.
  */
 public class PlotManager {
 	/**
-	 * World names mapped to ColonyWorlds.
+	 * World names mapped to GroupWorlds.
 	 */
-	private Map<String, ColoniesWorld> worlds;
+	private Map<String, PoliticsWorld> worlds;
 
 	/**
 	 * Directory containing the folders.
@@ -54,15 +54,15 @@ public class PlotManager {
 	 * C'tor
 	 */
 	public PlotManager() {
-		worldsDir = new File(Colonies.getPlugin().getDataFolder(), "data/worlds/");
+		worldsDir = new File(Politics.getPlugin().getDataFolder(), "data/worlds/");
 	}
 
 	/**
-	 * Loads all ColoniesWorlds.
+	 * Loads all GroupsWorlds.
 	 */
 	public void loadAll() {
 		BSONDecoder decoder = new BasicBSONDecoder();
-		worlds = new HashMap<String, ColoniesWorld>();
+		worlds = new HashMap<String, PoliticsWorld>();
 
 		worldsDir.mkdirs();
 		for (File file : worldsDir.listFiles()) {
@@ -76,24 +76,24 @@ public class PlotManager {
 			try {
 				data = FileUtils.readFileToByteArray(file);
 			} catch (IOException ex) {
-				ColoniesPlugin.logger().log(Level.SEVERE, "Could not read world file `" + fileName + "'!", ex);
+				PoliticsPlugin.logger().log(Level.SEVERE, "Could not read world file `" + fileName + "'!", ex);
 				continue;
 			}
 
 			BSONObject object = decoder.readObject(data);
-			ColoniesWorld world = ColoniesWorld.fromBSONObject(worldName, object);
+			PoliticsWorld world = PoliticsWorld.fromBSONObject(worldName, object);
 			worlds.put(world.getName(), world);
 		}
 	}
 
 	/**
-	 * Saves all ColoniesWorlds.
+	 * Saves all GroupsWorlds.
 	 */
 	public void saveAll() {
 		BSONEncoder encoder = new BasicBSONEncoder();
 		worldsDir.mkdirs();
 
-		for (ColoniesWorld world : worlds.values()) {
+		for (PoliticsWorld world : worlds.values()) {
 			String fileName = world.getName() + ".cow";
 			File worldFile = new File(worldsDir, fileName);
 
@@ -101,20 +101,20 @@ public class PlotManager {
 			try {
 				FileUtils.writeByteArrayToFile(worldFile, data);
 			} catch (IOException ex) {
-				ColoniesPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
+				PoliticsPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
 				continue;
 			}
 		}
 	}
 
 	/**
-	 * Gets a ColonyWorld from its name.
+	 * Gets a GroupWorld from its name.
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public ColoniesWorld getWorld(String name) {
-		ColoniesWorld world = worlds.get(name);
+	public PoliticsWorld getWorld(String name) {
+		PoliticsWorld world = worlds.get(name);
 		if (world == null) {
 			world = createWorld(name);
 		}
@@ -122,23 +122,23 @@ public class PlotManager {
 	}
 
 	/**
-	 * Gets a ColonyWorld from its World.
+	 * Gets a GroupWorld from its World.
 	 * 
 	 * @param world
 	 * @return
 	 */
-	public ColoniesWorld getWorld(World world) {
+	public PoliticsWorld getWorld(World world) {
 		return getWorld(world.getName());
 	}
 
 	/**
-	 * Creates a new ColoniesWorld.
+	 * Creates a new GroupsWorld.
 	 * 
 	 * @param name
 	 * @return
 	 */
-	private ColoniesWorld createWorld(String name) {
-		ColoniesWorld world = new ColoniesWorld(name);
+	private PoliticsWorld createWorld(String name) {
+		PoliticsWorld world = new PoliticsWorld(name);
 		worlds.put(name, world);
 		return world;
 	}

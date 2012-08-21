@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.plot;
+package com.volumetricpixels.politics.plot;
 
 import gnu.trove.iterator.TLongIterator;
 import gnu.trove.iterator.TLongObjectIterator;
@@ -35,18 +35,18 @@ import org.bson.BasicBSONObject;
 import org.bson.types.BasicBSONList;
 import org.spout.api.util.map.TInt21TripleObjectHashMap;
 
-import com.simplyian.colonies.Colonies;
-import com.simplyian.colonies.colony.Colony;
-import com.simplyian.colonies.colony.ColonyLevel;
-import com.simplyian.colonies.data.Storable;
-import com.simplyian.colonies.universe.Universe;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.colony.Group;
+import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.data.Storable;
+import com.volumetricpixels.politics.universe.Universe;
 
 /**
  * Represents a world containing plots.
  */
-public class ColoniesWorld implements Storable {
+public class PoliticsWorld implements Storable {
 	/**
-	 * The name of the ColoniesWorld.
+	 * The name of the GroupsWorld.
 	 */
 	private final String name;
 
@@ -56,11 +56,11 @@ public class ColoniesWorld implements Storable {
 	private final TInt21TripleObjectHashMap<TLongList> owners;
 
 	/**
-	 * Creates a new ColoniesWorld.
+	 * Creates a new GroupsWorld.
 	 * 
 	 * @param name
 	 */
-	ColoniesWorld(String name) {
+	PoliticsWorld(String name) {
 		this(name, new TInt21TripleObjectHashMap<TLongList>());
 	}
 
@@ -69,13 +69,13 @@ public class ColoniesWorld implements Storable {
 	 * 
 	 * @param owners
 	 */
-	private ColoniesWorld(String name, TInt21TripleObjectHashMap<TLongList> owners) {
+	private PoliticsWorld(String name, TInt21TripleObjectHashMap<TLongList> owners) {
 		this.name = name;
 		this.owners = owners;
 	}
 
 	/**
-	 * Gets the name of the ColoniesWorld.
+	 * Gets the name of the GroupsWorld.
 	 * 
 	 * @return
 	 */
@@ -103,30 +103,30 @@ public class ColoniesWorld implements Storable {
 	 * @param z
 	 * @return
 	 */
-	public List<Colony> getOwners(int x, int y, int z) {
+	public List<Group> getOwners(int x, int y, int z) {
 		TLongList ownerIdList = owners.get(x, y, z);
-		List<Colony> ret = new ArrayList<Colony>();
+		List<Group> ret = new ArrayList<Group>();
 		TLongIterator it = ownerIdList.iterator();
 		while (it.hasNext()) {
 			long id = it.next();
-			Colony colony = Colonies.getUniverseManager().getColonyById(id);
-			if (colony == null) {
-				ownerIdList.remove(id); // Colony no longer exists
+			Group group = Politics.getUniverseManager().getGroupById(id);
+			if (group == null) {
+				ownerIdList.remove(id); // Group no longer exists
 			} else {
-				ret.add(colony);
+				ret.add(group);
 			}
 		}
 		return ret;
 	}
 
 	/**
-	 * Gets a universe from its ColonyLevel.
+	 * Gets a universe from its GroupLevel.
 	 * 
 	 * @param level
 	 * @return
 	 */
-	public Universe getUniverse(ColonyLevel level) {
-		return Colonies.getUniverseManager().getUniverse(this, level);
+	public Universe getUniverse(GroupLevel level) {
+		return Politics.getUniverseManager().getUniverse(this, level);
 	}
 
 	/**
@@ -166,13 +166,13 @@ public class ColoniesWorld implements Storable {
 	}
 
 	/**
-	 * Gets a ColoniesWorld from a BSON object.
+	 * Gets a GroupsWorld from a BSON object.
 	 * 
 	 * @param name
 	 * @param object
 	 * @return
 	 */
-	public static ColoniesWorld fromBSONObject(String name, BSONObject object) {
+	public static PoliticsWorld fromBSONObject(String name, BSONObject object) {
 		if (!(object instanceof BasicBSONObject)) {
 			throw new IllegalArgumentException("object is not a BasicBSONObject!");
 		}
@@ -200,6 +200,6 @@ public class ColoniesWorld implements Storable {
 		}
 
 		TInt21TripleObjectHashMap<TLongList> owners = new TInt21TripleObjectHashMap<TLongList>(ownersLongs);
-		return new ColoniesWorld(name, owners);
+		return new PoliticsWorld(name, owners);
 	}
 }

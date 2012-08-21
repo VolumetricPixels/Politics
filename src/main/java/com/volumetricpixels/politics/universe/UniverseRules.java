@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.universe;
+package com.volumetricpixels.politics.universe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,9 +33,9 @@ import org.spout.api.util.config.ConfigurationNode;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.simplyian.colonies.ColoniesPlugin;
-import com.simplyian.colonies.colony.ColonyLevel;
-import com.simplyian.colonies.colony.Privilege;
+import com.volumetricpixels.politics.PoliticsPlugin;
+import com.volumetricpixels.politics.colony.GroupLevel;
+import com.volumetricpixels.politics.colony.Privilege;
 
 /**
  * Represents the sum of the rules of a given universe. In essence, it is a
@@ -49,15 +49,15 @@ import com.simplyian.colonies.colony.Privilege;
  */
 public class UniverseRules {
 	/**
-	 * The ColonyLevels apparent in this Universe.
+	 * The GroupLevels apparent in this Universe.
 	 */
-	private final Map<String, ColonyLevel> colonyLevels;
+	private final Map<String, GroupLevel> groupLevels;
 
 	/**
 	 * C'tor
 	 */
-	private UniverseRules(Map<String, ColonyLevel> colonyLevels) {
-		this.colonyLevels = colonyLevels;
+	private UniverseRules(Map<String, GroupLevel> groupLevels) {
+		this.groupLevels = groupLevels;
 	}
 
 	public String getName() {
@@ -72,11 +72,11 @@ public class UniverseRules {
 	 * @return
 	 */
 	public static UniverseRules load(Configuration config) {
-		Map<String, ColonyLevel> levelMap = new HashMap<String, ColonyLevel>();
+		Map<String, GroupLevel> levelMap = new HashMap<String, GroupLevel>();
 		{ // Load levels
 
 			// Get the levels turned into objects
-			Map<ColonyLevel, List<String>> levels = new HashMap<ColonyLevel, List<String>>();
+			Map<GroupLevel, List<String>> levels = new HashMap<GroupLevel, List<String>>();
 
 			ConfigurationNode levelNode = config.getNode("levels");
 			for (Entry<String, ConfigurationNode> entry : levelNode.getChildren().entrySet()) {
@@ -99,7 +99,7 @@ public class UniverseRules {
 							Privilege p = Privilege.valueOf(priv);
 							mask &= p.getId();
 						} catch (IllegalArgumentException ex) {
-							ColoniesPlugin.logger().log(Level.WARNING, "Unknown privilege '" + priv + "'. Not adding.");
+							PoliticsPlugin.logger().log(Level.WARNING, "Unknown privilege '" + priv + "'. Not adding.");
 						}
 					}
 					rolesMap.put(mask, roleName);
@@ -110,16 +110,16 @@ public class UniverseRules {
 				String plural = entry.getValue().getNode("plural").getString(levelName + "s");
 
 				// Create the level
-				ColonyLevel level = new ColonyLevel(levelName, rank, realRolesMap, plural);
+				GroupLevel level = new GroupLevel(levelName, rank, realRolesMap, plural);
 				levelMap.put(levelName.toLowerCase(), level);
 				levels.put(level, children);
 			}
 
 			// Turn these levels into only objects
-			for (Entry<ColonyLevel, List<String>> levelEntry : levels.entrySet()) {
-				Set<ColonyLevel> allowed = new HashSet<ColonyLevel>();
+			for (Entry<GroupLevel, List<String>> levelEntry : levels.entrySet()) {
+				Set<GroupLevel> allowed = new HashSet<GroupLevel>();
 				for (String ln : levelEntry.getValue()) {
-					ColonyLevel level = levelMap.get(ln.toLowerCase());
+					GroupLevel level = levelMap.get(ln.toLowerCase());
 					allowed.add(level);
 				}
 				levelEntry.getKey().setAllowedChildren(allowed);
@@ -130,21 +130,21 @@ public class UniverseRules {
 	}
 
 	/**
-	 * Gets the colony levels of these UniverseRules.
+	 * Gets the group levels of these UniverseRules.
 	 * 
 	 * @return
 	 */
-	public List<ColonyLevel> getColonyLevels() {
-		return new ArrayList<ColonyLevel>(colonyLevels.values());
+	public List<GroupLevel> getGroupLevels() {
+		return new ArrayList<GroupLevel>(groupLevels.values());
 	}
 
 	/**
-	 * Gets the ColonyLevel with the given name.
+	 * Gets the GroupLevel with the given name.
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public ColonyLevel getColonyLevel(String name) {
-		return colonyLevels.get(name.toLowerCase());
+	public GroupLevel getGroupLevel(String name) {
+		return groupLevels.get(name.toLowerCase());
 	}
 }

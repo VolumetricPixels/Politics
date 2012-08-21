@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.colony;
+package com.volumetricpixels.politics.colony;
 
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -40,32 +40,32 @@ public enum Privilege {
 	CLAIM(0x2),
 
 	/**
-	 * Allows the player to disband the colony.
+	 * Allows the player to disband the group.
 	 */
 	DISBAND(0x4),
 
 	/**
-	 * Allows the player to view information about the colony.
+	 * Allows the player to view information about the group.
 	 */
 	INFO(0x8),
 
 	/**
-	 * Allows the player to leave the colony.
+	 * Allows the player to leave the group.
 	 */
 	LEAVE(0x10),
 
 	/**
-	 * Allows the player to check who in the colony is online.
+	 * Allows the player to check who in the group is online.
 	 */
 	ONLINE(0x20),
 
 	/**
-	 * Allows the player to add other players to the colony.
+	 * Allows the player to add other players to the group.
 	 */
 	ADD(0x40),
 
 	/**
-	 * Allows the player to kick others from the colony.
+	 * Allows the player to kick others from the group.
 	 */
 	KICK(0x80),
 
@@ -75,7 +75,7 @@ public enum Privilege {
 	SET_ROLE(0x100),
 
 	/**
-	 * Allows the player to teleport to the spawn of the colony.
+	 * Allows the player to teleport to the spawn of the group.
 	 */
 	SPAWN(0x200),
 

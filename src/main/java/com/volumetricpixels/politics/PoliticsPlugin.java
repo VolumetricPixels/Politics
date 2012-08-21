@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,24 +17,24 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies;
+package com.volumetricpixels.politics;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.spout.api.plugin.CommonPlugin;
 
-import com.simplyian.colonies.plot.PlotManager;
-import com.simplyian.colonies.universe.UniverseManager;
+import com.volumetricpixels.politics.plot.PlotManager;
+import com.volumetricpixels.politics.universe.UniverseManager;
 
 /**
- * Colonies plugin main class.
+ * Groups plugin main class.
  */
-public class ColoniesPlugin extends CommonPlugin {
+public class PoliticsPlugin extends CommonPlugin {
 	/**
 	 * Singleton.
 	 */
-	private static ColoniesPlugin instance;
+	private static PoliticsPlugin instance;
 
 	/**
 	 * The plot manager.
@@ -57,7 +57,7 @@ public class ColoniesPlugin extends CommonPlugin {
 		universeManager.loadRules();
 		universeManager.loadUniverses();
 
-		getLogger().log(Level.INFO, "Colonies enabled!");
+		getLogger().log(Level.INFO, "Groups enabled!");
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class ColoniesPlugin extends CommonPlugin {
 		plotManager.saveAll();
 		universeManager.saveUniverses();
 
-		getLogger().log(Level.INFO, "Colonies disabled!");
+		getLogger().log(Level.INFO, "Groups disabled!");
 	}
 
 	/**
@@ -87,11 +87,11 @@ public class ColoniesPlugin extends CommonPlugin {
 	}
 
 	/**
-	 * Gets the instance of ColoniesPlugin.
+	 * Gets the instance of GroupsPlugin.
 	 * 
 	 * @return
 	 */
-	public static ColoniesPlugin getInstance() {
+	public static PoliticsPlugin getInstance() {
 		return instance;
 	}
 

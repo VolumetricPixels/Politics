@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.simplyian</groupId>
-	<artifactId>colonies</artifactId>
+	<groupId>com.volumetricpixels</groupId>
+	<artifactId>politics</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<inceptionYear>2012</inceptionYear>
 
 	<!-- Description -->
-	<name>Colonies</name>
-	<url>http://thedevteam.org</url>
+	<url>http://volumetricpixels.com</url>
 	<description>${project.name} is a full-featured replacement for Towny, Factions, and other similar plugins built on the Spout platform.</description>
 
 	<!-- Properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>com.simplyian.colonies.ColoniesPlugin</mainClass>
+		<mainClass>com.volumetricpixels.politics.PoliticsPlugin</mainClass>
 		<apiVersion>dev-SNAPSHOT</apiVersion>
 		<buildNumber>0</buildNumber>
 
@@ -52,8 +51,8 @@
 
 	<!-- Organization -->
 	<organization>
-		<name>THEDevTeam</name>
-		<url>http://thedevteam.org</url>
+		<name>VolumetricPixels</name>
+		<url>http://volumetricpixels.com</url>
 	</organization>
 
 	<!-- Repository locations -->
@@ -167,8 +166,8 @@
 					<properties>
 						<name>${project.name}</name>
 						<url>${project.organization.url}</url>
-						<license>Apache License Version 2</license>
-						<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
+						<license>Affero General Public License Version 3</license>
+						<licenseUrl>http://www.gnu.org/licenses/agpl-3.0.txt</licenseUrl>
 						<copyright>Copyright (c) ${project.inceptionYear}-2012, ${project.organization.name}</copyright>
 					</properties>
 					<includes>
@@ -281,4 +280,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<name>Politics</name>
 </project>

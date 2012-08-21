@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,18 +17,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.data;
+package com.volumetricpixels.politics.command.group;
 
-import org.bson.BSONObject;
+import org.spout.api.Spout;
+import org.spout.api.command.Command;
+
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.colony.GroupLevel;
 
 /**
- * Represents something that can be stored.
+ * Group commands.
  */
-public interface Storable {
-	/**
-	 * Converts this object into a BSON Object.
-	 * 
-	 * @return
-	 */
-	public BSONObject toBSONObject();
+public class GroupCommands {
+	public static void register(GroupLevel level) {
+		Command cmd = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), level.getName().toLowerCase());
+
+		GroupListCommand.register(cmd, level);
+	}
 }

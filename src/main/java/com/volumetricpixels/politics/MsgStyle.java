@@ -1,8 +1,8 @@
 /*
- * This file is part of Colonies.
+ * This file is part of Politics.
  *
- * Copyright (c) 2012-2012, THEDevTeam <http://thedevteam.org/>
- * Colonies is licensed under the Apache License Version 2.
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,8 +17,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.simplyian.colonies.command;
+package com.volumetricpixels.politics;
 
-public class Commands {
+import org.spout.api.chat.style.ChatStyle;
 
+/**
+ * Holds styles of messages.
+ * 
+ * TODO make these configurable
+ */
+public class MsgStyle {
+	public static ChatStyle error() {
+		return ChatStyle.RED;
+	}
+
+	public static ChatStyle info() {
+		return ChatStyle.GOLD;
+	}
 }
