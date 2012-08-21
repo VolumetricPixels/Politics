@@ -1,3 +1,4 @@
-SpoutScript
+Politics
 ===========
-Coming soon!
+
+Politics is an upcoming community creation plugin for Spout.
