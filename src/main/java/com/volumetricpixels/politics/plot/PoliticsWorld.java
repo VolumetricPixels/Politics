@@ -84,6 +84,24 @@ public class PoliticsWorld implements Storable {
 	}
 
 	/**
+	 * Gets the internal list of owners of a given location. Creates this list
+	 * if it doesn't exist.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	TLongList getInternalOwnerList(int x, int y, int z) {
+		TLongList list = owners.get(x, y, z);
+		if (list == null) {
+			list = new TLongArrayList();
+			owners.put(x, y, z, list);
+		}
+		return list;
+	}
+
+	/**
 	 * Gets the list of owners at the given location.
 	 * 
 	 * @param x
@@ -92,7 +110,7 @@ public class PoliticsWorld implements Storable {
 	 * @return
 	 */
 	public TLongList getOwnerIds(int x, int y, int z) {
-		return new TLongArrayList(owners.get(x, y, z));
+		return new TLongArrayList(getInternalOwnerList(x, y, z));
 	}
 
 	/**
@@ -104,7 +122,7 @@ public class PoliticsWorld implements Storable {
 	 * @return
 	 */
 	public List<Group> getOwners(int x, int y, int z) {
-		TLongList ownerIdList = owners.get(x, y, z);
+		TLongList ownerIdList = getInternalOwnerList(x, y, z);
 		List<Group> ret = new ArrayList<Group>();
 		TLongIterator it = ownerIdList.iterator();
 		while (it.hasNext()) {

@@ -109,4 +109,68 @@ public class Plot {
 	public List<Group> getOwners() {
 		return world.getOwners(x, y, z);
 	}
+
+	/**
+	 * Adds an owner to the plot.
+	 * 
+	 * @param id
+	 */
+	public void addOwner(long id) {
+		TLongList list = world.getInternalOwnerList(x, y, z);
+		if (list.contains(id)) {
+			return; // Already added
+		}
+		list.add(id);
+	}
+
+	/**
+	 * Adds an owner to the plot.
+	 * 
+	 * @param group
+	 */
+	public void addOwner(Group group) {
+		addOwner(group.getUid());
+	}
+
+	/**
+	 * Removes an owner from the plot.
+	 * 
+	 * @param id
+	 */
+	public void removeOwner(long id) {
+		TLongList list = world.getInternalOwnerList(x, y, z);
+		if (!list.contains(id)) {
+			return; // Not in there
+		}
+		list.remove(id);
+	}
+
+	/**
+	 * Removes the given owner from this plot's owners.
+	 * 
+	 * @param group
+	 */
+	public void removeOwner(Group group) {
+		removeOwner(group.getUid());
+	}
+
+	/**
+	 * Returns true if the given owner id is an owner of this plot.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean isOwner(long id) {
+		return world.getInternalOwnerList(x, y, z).contains(id);
+	}
+
+	/**
+	 * Returns true if the given owner is an owner of this plot.
+	 * 
+	 * @param group
+	 * @return
+	 */
+	public boolean isOwner(Group group) {
+		return isOwner(group.getUid());
+	}
 }
