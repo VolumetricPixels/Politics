@@ -22,6 +22,7 @@ package com.volumetricpixels.politics.group;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
@@ -49,8 +50,7 @@ public class Citizen {
 	 * @param name
 	 *            The name of the citizen.
 	 * @param groups
-	 *            The groups of this citizen. This should be the only
-	 *            reference.
+	 *            The groups of this citizen. This should be the only reference.
 	 * @param universe
 	 */
 	public Citizen(String name, Set<Group> groups, Universe universe) {
@@ -84,5 +84,13 @@ public class Citizen {
 	 */
 	public Universe getUniverse() {
 		return universe;
+	}
+
+	/**
+	 * Invalidates this Citizen. This should happen when this Citizen is added
+	 * to a group.
+	 */
+	public void invalidate() {
+		universe.invalidateCitizen(name);
 	}
 }
