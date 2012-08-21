@@ -34,8 +34,8 @@ import org.spout.api.util.config.ConfigurationNode;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.volumetricpixels.politics.PoliticsPlugin;
-import com.volumetricpixels.politics.colony.GroupLevel;
-import com.volumetricpixels.politics.colony.Privilege;
+import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.Privilege;
 
 /**
  * Represents the sum of the rules of a given universe. In essence, it is a

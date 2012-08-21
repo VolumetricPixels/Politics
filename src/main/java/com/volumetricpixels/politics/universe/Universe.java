@@ -44,10 +44,10 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
-import com.volumetricpixels.politics.colony.Citizen;
-import com.volumetricpixels.politics.colony.Group;
-import com.volumetricpixels.politics.colony.GroupLevel;
 import com.volumetricpixels.politics.data.Storable;
+import com.volumetricpixels.politics.group.Citizen;
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupLevel;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 
 /**

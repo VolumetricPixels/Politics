@@ -23,7 +23,7 @@ import gnu.trove.list.TLongList;
 
 import java.util.List;
 
-import com.volumetricpixels.politics.colony.Group;
+import com.volumetricpixels.politics.group.Group;
 
 /**
  * GroupsWorld wrapper.
