@@ -106,6 +106,7 @@ public class UniverseManager {
 			if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
 				continue;
 			}
+			String name = fileName.substring(0, fileName.length() - 4);
 
 			YamlConfiguration configFile = new YamlConfiguration(file);
 			try {
@@ -114,7 +115,7 @@ public class UniverseManager {
 				plugin.getLogger().log(Level.SEVERE, "Invalid universe YAML file `" + fileName + "'!", ex);
 			}
 
-			UniverseRules thisRules = UniverseRules.load(configFile);
+			UniverseRules thisRules = UniverseRules.load(name, configFile);
 			String ruleName = thisRules.getName();
 			rules.put(ruleName.toLowerCase(), thisRules);
 		}

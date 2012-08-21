@@ -49,6 +49,11 @@ import com.volumetricpixels.politics.colony.Privilege;
  */
 public class UniverseRules {
 	/**
+	 * The name of these UniverseRules
+	 */
+	private final String name;
+
+	/**
 	 * The GroupLevels apparent in this Universe.
 	 */
 	private final Map<String, GroupLevel> groupLevels;
@@ -56,13 +61,18 @@ public class UniverseRules {
 	/**
 	 * C'tor
 	 */
-	private UniverseRules(Map<String, GroupLevel> groupLevels) {
+	private UniverseRules(String name, Map<String, GroupLevel> groupLevels) {
+		this.name = name;
 		this.groupLevels = groupLevels;
 	}
 
+	/**
+	 * Gets the name of these UniverseRules.
+	 * 
+	 * @return
+	 */
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	/**
@@ -71,7 +81,7 @@ public class UniverseRules {
 	 * @param config
 	 * @return
 	 */
-	public static UniverseRules load(Configuration config) {
+	public static UniverseRules load(String name, Configuration config) {
 		Map<String, GroupLevel> levelMap = new HashMap<String, GroupLevel>();
 		{ // Load levels
 
@@ -126,7 +136,7 @@ public class UniverseRules {
 			}
 		}
 
-		return new UniverseRules(levelMap);
+		return new UniverseRules(name, levelMap);
 	}
 
 	/**
