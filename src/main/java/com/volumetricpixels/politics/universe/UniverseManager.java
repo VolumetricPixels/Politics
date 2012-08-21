@@ -49,11 +49,6 @@ import com.volumetricpixels.politics.plot.PoliticsWorld;
  */
 public class UniverseManager {
 	/**
-	 * Plugin instance
-	 */
-	private final PoliticsPlugin plugin;
-
-	/**
 	 * Rules directory;
 	 */
 	private final File rulesDir;
@@ -88,11 +83,9 @@ public class UniverseManager {
 	 * 
 	 * @param plugin
 	 */
-	public UniverseManager(PoliticsPlugin plugin) {
-		this.plugin = plugin;
-
-		rulesDir = new File(plugin.getDataFolder(), "rules/");
-		universeDir = new File(plugin.getDataFolder(), "data/universe/");
+	public UniverseManager() {
+		rulesDir = new File(Politics.getPlugin().getDataFolder(), "rules/");
+		universeDir = new File(Politics.getPlugin().getDataFolder(), "data/universe/");
 	}
 
 	/**
@@ -112,7 +105,7 @@ public class UniverseManager {
 			try {
 				configFile.load();
 			} catch (ConfigurationException ex) {
-				plugin.getLogger().log(Level.SEVERE, "Invalid universe YAML file `" + fileName + "'!", ex);
+				PoliticsPlugin.logger().log(Level.SEVERE, "Invalid universe YAML file `" + fileName + "'!", ex);
 			}
 
 			UniverseRules thisRules = UniverseRules.load(name, configFile);
@@ -139,7 +132,7 @@ public class UniverseManager {
 			try {
 				data = FileUtils.readFileToByteArray(file);
 			} catch (IOException ex) {
-				plugin.getLogger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
+				PoliticsPlugin.logger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
 				continue;
 			}
 
@@ -167,7 +160,7 @@ public class UniverseManager {
 					}
 					Universe prev = levelMap.put(level, universe);
 					if (prev != null) {
-						plugin.getLogger().log(Level.WARNING, "Multiple universes are conflicting on the same world! Universe name: " + universe.getName() + "; Rules name: " + universe.getRules().getName());
+						PoliticsPlugin.logger().log(Level.WARNING, "Multiple universes are conflicting on the same world! Universe name: " + universe.getName() + "; Rules name: " + universe.getRules().getName());
 					}
 				}
 			}
@@ -188,7 +181,7 @@ public class UniverseManager {
 			try {
 				FileUtils.writeByteArrayToFile(universeFile, data);
 			} catch (IOException ex) {
-				plugin.getLogger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
+				PoliticsPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
 				continue;
 			}
 			// TODO make backups
