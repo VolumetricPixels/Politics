@@ -65,6 +65,8 @@ public class PoliticsPlugin extends CommonPlugin {
 
 	@Override
 	public void onDisable() {
+		instance = null;
+
 		plotManager.saveWorlds();
 		universeManager.saveUniverses();
 
