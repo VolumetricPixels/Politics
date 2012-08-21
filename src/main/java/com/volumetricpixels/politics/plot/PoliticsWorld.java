@@ -54,6 +54,11 @@ public class PoliticsWorld implements Storable {
 	private final String name;
 
 	/**
+	 * The config of the world.
+	 */
+	private final WorldConfig config;
+
+	/**
 	 * Contains all owners corresponding to their proper positions.
 	 */
 	private final TInt21TripleObjectHashMap<TIntList> owners;
@@ -63,8 +68,8 @@ public class PoliticsWorld implements Storable {
 	 * 
 	 * @param name
 	 */
-	PoliticsWorld(String name) {
-		this(name, new TInt21TripleObjectHashMap<TIntList>());
+	PoliticsWorld(String name, WorldConfig config) {
+		this(name, config, new TInt21TripleObjectHashMap<TIntList>());
 	}
 
 	/**
@@ -72,8 +77,9 @@ public class PoliticsWorld implements Storable {
 	 * 
 	 * @param owners
 	 */
-	private PoliticsWorld(String name, TInt21TripleObjectHashMap<TIntList> owners) {
+	private PoliticsWorld(String name, WorldConfig config, TInt21TripleObjectHashMap<TIntList> owners) {
 		this.name = name;
+		this.config = config;
 		this.owners = owners;
 	}
 
@@ -190,10 +196,11 @@ public class PoliticsWorld implements Storable {
 	 * Gets a GroupsWorld from a BSON object.
 	 * 
 	 * @param name
+	 * @param config
 	 * @param object
 	 * @return
 	 */
-	public static PoliticsWorld fromBSONObject(String name, BSONObject object) {
+	public static PoliticsWorld fromBSONObject(String name, WorldConfig config, BSONObject object) {
 		if (!(object instanceof BasicBSONObject)) {
 			throw new IllegalArgumentException("object is not a BasicBSONObject!");
 		}
@@ -221,6 +228,6 @@ public class PoliticsWorld implements Storable {
 		}
 
 		TInt21TripleObjectHashMap<TIntList> owners = new TInt21TripleObjectHashMap<TIntList>(ownersIds);
-		return new PoliticsWorld(name, owners);
+		return new PoliticsWorld(name, config, owners);
 	}
 }

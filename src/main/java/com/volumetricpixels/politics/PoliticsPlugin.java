@@ -51,7 +51,7 @@ public class PoliticsPlugin extends CommonPlugin {
 		instance = this;
 
 		plotManager = new PlotManager();
-		plotManager.loadAll();
+		plotManager.loadWorlds();
 
 		universeManager = new UniverseManager(this);
 		universeManager.loadRules();
@@ -62,7 +62,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
 	@Override
 	public void onDisable() {
-		plotManager.saveAll();
+		plotManager.saveWorlds();
 		universeManager.saveUniverses();
 
 		getLogger().log(Level.INFO, "Groups disabled!");

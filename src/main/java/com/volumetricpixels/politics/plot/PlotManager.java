@@ -31,7 +31,10 @@ import org.bson.BSONEncoder;
 import org.bson.BSONObject;
 import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
+import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
+import org.spout.api.util.config.Configuration;
+import org.spout.api.util.config.yaml.YamlConfiguration;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
@@ -41,9 +44,19 @@ import com.volumetricpixels.politics.PoliticsPlugin;
  */
 public class PlotManager {
 	/**
+	 * Configs of worlds.
+	 */
+	private Map<String, WorldConfig> configs;
+
+	/**
 	 * World names mapped to GroupWorlds.
 	 */
 	private Map<String, PoliticsWorld> worlds;
+
+	/**
+	 * World Configuration Directory
+	 */
+	private final File worldConfigDir;
 
 	/**
 	 * Directory containing the folders.
@@ -54,13 +67,33 @@ public class PlotManager {
 	 * C'tor
 	 */
 	public PlotManager() {
+		worldConfigDir = new File(Politics.getPlugin().getDataFolder(), "worlds/");
 		worldsDir = new File(Politics.getPlugin().getDataFolder(), "data/worlds/");
+	}
+
+	/**
+	 * Loads all World configurations.
+	 */
+	public void loadWorldConfigs() {
+		worldConfigDir.mkdirs();
+		configs = new HashMap<String, WorldConfig>();
+		for (File file : worldConfigDir.listFiles()) {
+			String fileName = file.getName();
+			if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
+				continue;
+			}
+			String name = fileName.substring(0, fileName.length() - 4);
+
+			Configuration config = new YamlConfiguration(file);
+			WorldConfig wc = WorldConfig.load(name, config);
+			configs.put(name, wc);
+		}
 	}
 
 	/**
 	 * Loads all GroupsWorlds.
 	 */
-	public void loadAll() {
+	public void loadWorlds() {
 		BSONDecoder decoder = new BasicBSONDecoder();
 		worlds = new HashMap<String, PoliticsWorld>();
 
@@ -80,8 +113,9 @@ public class PlotManager {
 				continue;
 			}
 
+			WorldConfig config = getWorldConfig(worldName);
 			BSONObject object = decoder.readObject(data);
-			PoliticsWorld world = PoliticsWorld.fromBSONObject(worldName, object);
+			PoliticsWorld world = PoliticsWorld.fromBSONObject(worldName, config, object);
 			worlds.put(world.getName(), world);
 		}
 	}
@@ -89,7 +123,7 @@ public class PlotManager {
 	/**
 	 * Saves all GroupsWorlds.
 	 */
-	public void saveAll() {
+	public void saveWorlds() {
 		BSONEncoder encoder = new BasicBSONEncoder();
 		worldsDir.mkdirs();
 
@@ -105,6 +139,30 @@ public class PlotManager {
 				continue;
 			}
 		}
+	}
+
+	/**
+	 * Gets the WorldConfig of the given world name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public WorldConfig getWorldConfig(String name) {
+		WorldConfig conf = configs.get(name);
+		if (conf == null) {
+			conf = new WorldConfig(name);
+			worldConfigDir.mkdirs();
+			File toSave = new File(worldConfigDir, name + ".yml");
+			Configuration tc = new YamlConfiguration(toSave);
+			conf.save(tc);
+			try {
+				tc.save();
+			} catch (ConfigurationException e) {
+				PoliticsPlugin.logger().log(Level.SEVERE, "Could not write a world config file!", e);
+			}
+			configs.put(name, conf);
+		}
+		return conf;
 	}
 
 	/**
@@ -138,7 +196,7 @@ public class PlotManager {
 	 * @return
 	 */
 	private PoliticsWorld createWorld(String name) {
-		PoliticsWorld world = new PoliticsWorld(name);
+		PoliticsWorld world = new PoliticsWorld(name, getWorldConfig(name));
 		worlds.put(name, world);
 		return world;
 	}
