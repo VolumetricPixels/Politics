@@ -95,11 +95,11 @@ public class PlotManager {
 
 		for (ColoniesWorld world : worlds.values()) {
 			String fileName = world.getName() + ".cow";
-			File universeFile = new File(worldsDir, fileName);
+			File worldFile = new File(worldsDir, fileName);
 
 			byte[] data = encoder.encode(world.toBSONObject());
 			try {
-				FileUtils.writeByteArrayToFile(universeFile, data);
+				FileUtils.writeByteArrayToFile(worldFile, data);
 			} catch (IOException ex) {
 				ColoniesPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
 				continue;
@@ -114,7 +114,11 @@ public class PlotManager {
 	 * @return
 	 */
 	public ColoniesWorld getWorld(String name) {
-		return worlds.get(name);
+		ColoniesWorld world = worlds.get(name);
+		if (world == null) {
+			world = createWorld(name);
+		}
+		return world;
 	}
 
 	/**
@@ -127,4 +131,15 @@ public class PlotManager {
 		return getWorld(world.getName());
 	}
 
+	/**
+	 * Creates a new ColoniesWorld.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	private ColoniesWorld createWorld(String name) {
+		ColoniesWorld world = new ColoniesWorld(name);
+		worlds.put(name, world);
+		return world;
+	}
 }

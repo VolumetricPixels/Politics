@@ -56,6 +56,15 @@ public class ColoniesWorld implements Storable {
 	private final TInt21TripleObjectHashMap<TLongList> owners;
 
 	/**
+	 * Creates a new ColoniesWorld.
+	 * 
+	 * @param name
+	 */
+	ColoniesWorld(String name) {
+		this(name, new TInt21TripleObjectHashMap<TLongList>());
+	}
+
+	/**
 	 * C'tor
 	 * 
 	 * @param owners
