@@ -34,6 +34,8 @@ import java.util.Set;
 
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
+import org.spout.api.Spout;
+import org.spout.api.entity.Player;
 
 import com.simplyian.colonies.data.Storable;
 import com.simplyian.colonies.universe.Universe;
@@ -190,8 +192,24 @@ public final class Colony implements Comparable<Colony>, Storable {
 	 * 
 	 * @return
 	 */
-	public Set<String> getImmediatePlayers() {
-		return players.keySet();
+	public List<String> getImmediatePlayers() {
+		return new ArrayList<String>(players.keySet());
+	}
+
+	/**
+	 * Gets the immediate online players part of this colony.
+	 * 
+	 * @return
+	 */
+	public List<Player> getImmediateOnlinePlayers() {
+		List<Player> players = new ArrayList<Player>();
+		for (String pn : getImmediatePlayers()) {
+			Player player = Spout.getEngine().getPlayer(pn, true);
+			if (player != null) {
+				players.add(player);
+			}
+		}
+		return players;
 	}
 
 	/**
