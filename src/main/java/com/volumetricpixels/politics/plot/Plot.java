@@ -19,7 +19,7 @@
  */
 package com.volumetricpixels.politics.plot;
 
-import gnu.trove.list.TLongList;
+import gnu.trove.list.TIntList;
 
 import java.util.List;
 
@@ -97,7 +97,7 @@ public class Plot {
 	 * 
 	 * @return
 	 */
-	public TLongList getOwnerIds() {
+	public TIntList getOwnerIds() {
 		return world.getOwnerIds(x, y, z);
 	}
 
@@ -115,8 +115,8 @@ public class Plot {
 	 * 
 	 * @param id
 	 */
-	public void addOwner(long id) {
-		TLongList list = world.getInternalOwnerList(x, y, z);
+	public void addOwner(int id) {
+		TIntList list = world.getInternalOwnerList(x, y, z);
 		if (list.contains(id)) {
 			return; // Already added
 		}
@@ -137,8 +137,8 @@ public class Plot {
 	 * 
 	 * @param id
 	 */
-	public void removeOwner(long id) {
-		TLongList list = world.getInternalOwnerList(x, y, z);
+	public void removeOwner(int id) {
+		TIntList list = world.getInternalOwnerList(x, y, z);
 		if (!list.contains(id)) {
 			return; // Not in there
 		}
@@ -160,7 +160,7 @@ public class Plot {
 	 * @param id
 	 * @return
 	 */
-	public boolean isOwner(long id) {
+	public boolean isOwner(int id) {
 		return world.getInternalOwnerList(x, y, z).contains(id);
 	}
 

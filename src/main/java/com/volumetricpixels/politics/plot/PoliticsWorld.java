@@ -19,9 +19,12 @@
  */
 package com.volumetricpixels.politics.plot;
 
+import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TLongIterator;
 import gnu.trove.iterator.TLongObjectIterator;
+import gnu.trove.list.TIntList;
 import gnu.trove.list.TLongList;
+import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TLongArrayList;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
@@ -53,7 +56,7 @@ public class PoliticsWorld implements Storable {
 	/**
 	 * Contains all owners corresponding to their proper positions.
 	 */
-	private final TInt21TripleObjectHashMap<TLongList> owners;
+	private final TInt21TripleObjectHashMap<TIntList> owners;
 
 	/**
 	 * Creates a new GroupsWorld.
@@ -61,7 +64,7 @@ public class PoliticsWorld implements Storable {
 	 * @param name
 	 */
 	PoliticsWorld(String name) {
-		this(name, new TInt21TripleObjectHashMap<TLongList>());
+		this(name, new TInt21TripleObjectHashMap<TIntList>());
 	}
 
 	/**
@@ -69,7 +72,7 @@ public class PoliticsWorld implements Storable {
 	 * 
 	 * @param owners
 	 */
-	private PoliticsWorld(String name, TInt21TripleObjectHashMap<TLongList> owners) {
+	private PoliticsWorld(String name, TInt21TripleObjectHashMap<TIntList> owners) {
 		this.name = name;
 		this.owners = owners;
 	}
@@ -92,10 +95,10 @@ public class PoliticsWorld implements Storable {
 	 * @param z
 	 * @return
 	 */
-	TLongList getInternalOwnerList(int x, int y, int z) {
-		TLongList list = owners.get(x, y, z);
+	TIntList getInternalOwnerList(int x, int y, int z) {
+		TIntList list = owners.get(x, y, z);
 		if (list == null) {
-			list = new TLongArrayList();
+			list = new TIntArrayList();
 			owners.put(x, y, z, list);
 		}
 		return list;
@@ -109,8 +112,8 @@ public class PoliticsWorld implements Storable {
 	 * @param z
 	 * @return
 	 */
-	public TLongList getOwnerIds(int x, int y, int z) {
-		return new TLongArrayList(getInternalOwnerList(x, y, z));
+	public TIntList getOwnerIds(int x, int y, int z) {
+		return new TIntArrayList(getInternalOwnerList(x, y, z));
 	}
 
 	/**
@@ -122,11 +125,11 @@ public class PoliticsWorld implements Storable {
 	 * @return
 	 */
 	public List<Group> getOwners(int x, int y, int z) {
-		TLongList ownerIdList = getInternalOwnerList(x, y, z);
+		TIntList ownerIdList = getInternalOwnerList(x, y, z);
 		List<Group> ret = new ArrayList<Group>();
-		TLongIterator it = ownerIdList.iterator();
+		TIntIterator it = ownerIdList.iterator();
 		while (it.hasNext()) {
-			long id = it.next();
+			int id = it.next();
 			Group group = Politics.getUniverseManager().getGroupById(id);
 			if (group == null) {
 				ownerIdList.remove(id); // Group no longer exists
@@ -162,17 +165,17 @@ public class PoliticsWorld implements Storable {
 	@Override
 	public BSONObject toBSONObject() {
 		BasicBSONObject bson = new BasicBSONObject();
-		TLongObjectIterator<TLongList> it = owners.iterator();
+		TLongObjectIterator<TIntList> it = owners.iterator();
 		while (it.hasNext()) {
 			it.advance();
 			String key = Long.toHexString(it.key());
-			TLongList theOwners = it.value();
+			TIntList theOwners = it.value();
 			if (theOwners.isEmpty()) {
 				continue; // No point in serializing an empty list
 			}
 			BasicBSONList theOwnersBson = new BasicBSONList();
 
-			TLongIterator theOwnersIt = theOwners.iterator();
+			TIntIterator theOwnersIt = theOwners.iterator();
 			while (theOwnersIt.hasNext()) {
 				long val = theOwnersIt.next();
 				theOwnersBson.add(val);
@@ -194,30 +197,30 @@ public class PoliticsWorld implements Storable {
 		if (!(object instanceof BasicBSONObject)) {
 			throw new IllegalArgumentException("object is not a BasicBSONObject!");
 		}
-		TLongObjectMap<TLongList> ownersLongs = new TLongObjectHashMap<TLongList>();
+		TLongObjectMap<TIntList> ownersIds = new TLongObjectHashMap<TIntList>();
 		BasicBSONObject bobject = (BasicBSONObject) object;
 		for (Entry<String, Object> entry : bobject.entrySet()) {
-			String longStr = entry.getKey();
-			long key = Long.parseLong(longStr, 16);
+			String intStr = entry.getKey();
+			int key = Integer.parseInt(intStr, 16);
 			Object listVal = entry.getValue();
 			if (!(listVal instanceof BasicBSONList)) {
 				throw new IllegalArgumentException("listVal is not a BasicBSONList!");
 			}
 
-			TLongList longs = new TLongArrayList();
+			TIntList longs = new TIntArrayList();
 			BasicBSONList list = (BasicBSONList) listVal;
 			for (Object obj : list) {
-				if (!(obj instanceof Long)) {
+				if (!(obj instanceof Integer)) {
 					throw new IllegalArgumentException("obj is not a Long!");
 				}
-				long val = ((Long) obj).longValue();
+				int val = ((Integer) obj).intValue();
 				longs.add(val);
 			}
 
-			ownersLongs.put(key, longs);
+			ownersIds.put(key, longs);
 		}
 
-		TInt21TripleObjectHashMap<TLongList> owners = new TInt21TripleObjectHashMap<TLongList>(ownersLongs);
+		TInt21TripleObjectHashMap<TIntList> owners = new TInt21TripleObjectHashMap<TIntList>(ownersIds);
 		return new PoliticsWorld(name, owners);
 	}
 }

@@ -49,7 +49,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * The unique identifier of this group. This is unique for the entire
 	 * plugin.
 	 */
-	private final long uid;
+	private final int uid;
 
 	/**
 	 * The level of the group.
@@ -78,7 +78,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param universe
 	 * @param level
 	 */
-	public Group(long uid, GroupLevel level) {
+	public Group(int uid, GroupLevel level) {
 		this(uid, level, new TIntObjectHashMap<Object>(), new TObjectIntHashMap<String>());
 	}
 
@@ -90,7 +90,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param properties
 	 * @param players
 	 */
-	private Group(long uid, GroupLevel level, TIntObjectMap<Object> properties, TObjectIntMap<String> players) {
+	private Group(int uid, GroupLevel level, TIntObjectMap<Object> properties, TObjectIntMap<String> players) {
 		this.uid = uid;
 		this.level = level;
 		this.properties = properties;
@@ -123,7 +123,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * 
 	 * @return
 	 */
-	public long getUid() {
+	public int getUid() {
 		return uid;
 	}
 
@@ -299,7 +299,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 		BasicBSONObject bobject = (BasicBSONObject) object;
 
-		long uid = bobject.getLong("uid");
+		int uid = bobject.getInt("uid");
 
 		String levelName = bobject.getString("level");
 		GroupLevel level = rules.getGroupLevel(levelName);
