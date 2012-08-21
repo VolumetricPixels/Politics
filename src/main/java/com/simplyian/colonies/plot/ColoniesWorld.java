@@ -120,6 +120,18 @@ public class ColoniesWorld implements Storable {
 		return Colonies.getUniverseManager().getUniverse(this, level);
 	}
 
+	/**
+	 * Gets the plot at the given location.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public Plot getPlotAt(int x, int y, int z) {
+		return new Plot(this, x, y, z);
+	}
+
 	@Override
 	public BSONObject toBSONObject() {
 		BasicBSONObject bson = new BasicBSONObject();
