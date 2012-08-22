@@ -22,6 +22,7 @@ package com.volumetricpixels.politics.command.group;
 import java.util.List;
 import java.util.Set;
 
+import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -42,27 +43,39 @@ public class GroupDeleteCommand extends GroupCommand {
 	public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
 		if (source instanceof Player) {
 			Set<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getCitizen(source.getName()).getGroups();
-			if (groups.isEmpty()) {
-				if (source.hasPermission("politics.admin.delgroup")) {
-					for (Group g : groups) {
-						if (g.getProperty(GroupProperty.TAG).equals(context.getString(0))) {
-							// TODO: Confirm and delete
-						}
+			if (source.hasPermission("politics.admin.delgroup")) {
+				for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
+					if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+					    deleteGroup(g);
+					    source.sendMessage("Deleted! " + context.getString(0));
+					    return;
 					}
-				} else {
-					source.sendMessage("no perms");
-				}
+		        }
+				source.sendMessage(ChatStyle.RED, "No such group!");
 			} else {
-				// TODO: Own group deletion
+			    for (Group g : groups) {
+			        if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+			            deleteGroup(g);
+			            source.sendMessage("Deleted! " + context.getString(0));
+			            return;
+			        }
+			    }
+			    source.sendMessage(ChatStyle.RED, "You can't do that!");
 			}
 		} else {
 			List<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getGroups();
 			for (Group g : groups) {
-				if (g.getProperty(GroupProperty.TAG).equals(context.getString(0))) {
-					// TODO: Confirm and delete
+				if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+				    deleteGroup(g);
+				    source.sendMessage("Deleted! " + context.getString(0));
+				    return;
 				}
 			}
 		}
+	}
+	
+	private void deleteGroup(Group g) {
+	    // TODO: Delete
 	}
 
 	public static GroupDeleteCommand register(Command parent, GroupLevel level) {
@@ -71,7 +84,7 @@ public class GroupDeleteCommand extends GroupCommand {
 		Command cmd = parent.addSubCommand(Politics.getPlugin(), "delete");
 		cmd.setExecutor(executor);
 		cmd.addAlias("del");
-		cmd.setArgBounds(1, -1);
+		cmd.setArgBounds(1, 1);
 		cmd.closeSubCommand();
 
 		return executor;

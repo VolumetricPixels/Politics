@@ -40,9 +40,7 @@ public class GroupCreateCommand extends GroupCommand {
             source.sendMessage("Consoles can't own " + cmd.getOwnerName() + "s");
         }
         
-        if (context.length() == 0) {
-            source.sendMessage("Usage: " + cmd.getHelp());
-        }
+        // TODO: Rest of command
     }
     
     public static GroupCreateCommand register(Command parent, GroupLevel level) {
@@ -51,7 +49,7 @@ public class GroupCreateCommand extends GroupCommand {
         Command cmd = parent.addSubCommand(Politics.getPlugin(), "list");
         cmd.setExecutor(executor);
         cmd.addAlias("ls");
-        cmd.setArgBounds(0, -1);
+        cmd.setArgBounds(1, 1);
         cmd.closeSubCommand();
 
         return executor;
