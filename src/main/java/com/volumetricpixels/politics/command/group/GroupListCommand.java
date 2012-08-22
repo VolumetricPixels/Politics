@@ -95,7 +95,7 @@ public class GroupListCommand extends GroupCommand {
 
 		List<Group> pageGroups = groups.subList(min, max);
 		for (Group group : pageGroups) {
-			source.sendMessage(group.getProperty(GroupProperty.NAME));
+			source.sendMessage(group.getProperty(GroupProperty.TAG));
 			// TODO prettify list
 		}
 	}

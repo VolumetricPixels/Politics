@@ -257,7 +257,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	@Override
 	public int compareTo(Group o) {
-		return getProperty(GroupProperty.NAME).toString().compareTo(o.getProperty(GroupProperty.NAME).toString());
+		return getProperty(GroupProperty.TAG).toString().compareTo(o.getProperty(GroupProperty.TAG).toString());
 	}
 
 	public BasicBSONObject toBSONObject() {

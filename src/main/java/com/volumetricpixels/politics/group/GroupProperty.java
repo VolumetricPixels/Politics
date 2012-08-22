@@ -32,5 +32,5 @@ public final class GroupProperty {
 	/**
 	 * Group name.
 	 */
-	public static final int NAME = 0x0;
+	public static final int TAG = 0x0;
 }

@@ -31,7 +31,7 @@ public class MsgStyle {
 		return ChatStyle.RED;
 	}
 
-	public static ChatStyle errorHilight() {
+	public static ChatStyle errorHighlight() {
 		return ChatStyle.YELLOW;
 	}
 
