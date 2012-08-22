@@ -34,4 +34,8 @@ public class MsgStyle {
 	public static ChatStyle info() {
 		return ChatStyle.GOLD;
 	}
+
+	public static ChatStyle success() {
+		return ChatStyle.BRIGHT_GREEN;
+	}
 }

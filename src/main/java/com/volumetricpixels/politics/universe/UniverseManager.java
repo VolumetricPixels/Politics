@@ -272,6 +272,33 @@ public class UniverseManager {
 	}
 
 	/**
+	 * Gets the group levels in the given world.
+	 * 
+	 * @param world
+	 * @return
+	 */
+	public List<GroupLevel> getLevelsOfWorld(PoliticsWorld world) {
+		Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
+		if (levelUniverses == null) {
+			return new ArrayList<GroupLevel>();
+		}
+		return new ArrayList<GroupLevel>(levelUniverses.keySet());
+	}
+
+	/**
+	 * Creates a new universe with the given name.
+	 * 
+	 * @param name
+	 * @param theRules
+	 * @return the created universe
+	 */
+	public Universe createUniverse(String name, UniverseRules theRules) {
+		Universe universe = new Universe(name, theRules);
+		universes.put(name, universe);
+		return universe;
+	}
+
+	/**
 	 * Gets the next ID to use for a group.
 	 * 
 	 * @return

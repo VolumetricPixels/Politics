@@ -180,6 +180,15 @@ public class PoliticsWorld implements Storable {
 		return getPlotAt(x / config.getPlotSizeX(), y / config.getPlotSizeY(), z / config.getPlotSizeZ());
 	}
 
+	/**
+	 * Gets the GroupLevels within this world.
+	 * 
+	 * @return
+	 */
+	public List<GroupLevel> getLevels() {
+		return Politics.getUniverseManager().getLevelsOfWorld(this);
+	}
+
 	@Override
 	public BSONObject toBSONObject() {
 		BasicBSONObject bson = new BasicBSONObject();

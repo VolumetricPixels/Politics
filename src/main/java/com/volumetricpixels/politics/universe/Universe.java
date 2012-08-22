@@ -172,6 +172,23 @@ public class Universe implements Storable {
 	}
 
 	/**
+	 * Adds the given PoliticsWorld to this Universe.
+	 * 
+	 * @param world
+	 * @return True if the add was successful
+	 */
+	public boolean addWorld(PoliticsWorld world) {
+		List<GroupLevel> levels = rules.getGroupLevels();
+		// Check if the rules are already there
+		for (GroupLevel level : world.getLevels()) {
+			if (levels.contains(level)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Gets a list of all worlds this universe is part of.
 	 * 
 	 * @return
