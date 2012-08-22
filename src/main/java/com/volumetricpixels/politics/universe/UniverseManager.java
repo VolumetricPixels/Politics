@@ -19,8 +19,8 @@
  */
 package com.volumetricpixels.politics.universe;
 
-import gnu.trove.map.TLongObjectMap;
-import gnu.trove.map.hash.TLongObjectHashMap;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,12 +73,17 @@ public class UniverseManager {
 	/**
 	 * Stores groups.
 	 */
-	private TLongObjectMap<Group> groups;
+	private TIntObjectMap<Group> groups;
 
 	/**
 	 * Worlds mapped to their levels.
 	 */
 	private Map<PoliticsWorld, Map<GroupLevel, Universe>> worldLevels;
+
+	/**
+	 * The next id to assign a Group.
+	 */
+	private int nextId = 0xffffffff;
 
 	/**
 	 * C'tor
@@ -122,7 +127,7 @@ public class UniverseManager {
 	public void loadUniverses() {
 		BSONDecoder decoder = new BasicBSONDecoder();
 		universes = new HashMap<String, Universe>();
-		groups = new TLongObjectHashMap<Group>();
+		groups = new TIntObjectHashMap<Group>();
 		universeDir.mkdirs();
 		for (File file : universeDir.listFiles()) {
 			String fileName = file.getName();
@@ -244,7 +249,7 @@ public class UniverseManager {
 	 * @param id
 	 * @return
 	 */
-	public Group getGroupById(long id) {
+	public Group getGroupById(int id) {
 		return groups.get(id);
 	}
 
@@ -261,5 +266,17 @@ public class UniverseManager {
 			return null;
 		}
 		return levelUniverses.get(world);
+	}
+
+	/**
+	 * Gets the next ID to use for a group.
+	 * 
+	 * @return
+	 */
+	public int nextId() {
+		while (getGroupById(nextId) != null) {
+			nextId++;
+		}
+		return nextId;
 	}
 }

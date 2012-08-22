@@ -20,8 +20,10 @@
 package com.volumetricpixels.politics;
 
 import org.spout.api.geo.World;
+import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.plot.Plot;
 import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
