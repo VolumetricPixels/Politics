@@ -290,9 +290,29 @@ public class Universe implements Storable {
 	 * @param group
 	 */
 	public void destroyGroup(Group group) {
+		destroyGroup(group, false);
+	}
+
+	/**
+	 * Destroys the given group and removes it from memory.
+	 * 
+	 * @param group
+	 *            The group to destroy
+	 * @param deep
+	 *            True if child groups should be deleted
+	 */
+	public void destroyGroup(Group group, boolean deep) {
 		groups.remove(group);
 		getInternalGroups(group.getLevel()).remove(group);
-		// TODO remove the group from the citizen cache and the children tree
+		for (String member : group.getPlayers()) {
+			invalidateCitizen(member);
+		}
+		if (deep) {
+			for (Group child : group.getGroups()) {
+				destroyGroup(child, true);
+			}
+		}
+		// TODO remove the group from the children tree
 	}
 
 	/**
