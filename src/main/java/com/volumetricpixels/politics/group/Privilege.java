@@ -89,13 +89,13 @@ public enum Privilege {
 	/**
 	 * The bit that represents the privilege.
 	 */
-	private int id;
+	private int mask;
 
 	/**
 	 * Private C'tor
 	 */
-	private Privilege(int id) {
-		this.id = id;
+	private Privilege(int mask) {
+		this.mask = mask;
 	}
 
 	/**
@@ -103,8 +103,8 @@ public enum Privilege {
 	 * 
 	 * @return
 	 */
-	public int getId() {
-		return id;
+	public int getMask() {
+		return mask;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public enum Privilege {
 	 * @return
 	 */
 	public boolean hasPrivilege(int bitset) {
-		return (id & bitset) == id;
+		return (mask & bitset) == mask;
 	}
 
 	/**

@@ -19,6 +19,9 @@
  */
 package com.volumetricpixels.politics.group;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.BiMap;
@@ -119,6 +122,15 @@ public final class GroupLevel {
 	}
 
 	/**
+	 * Gets the set of allowed children of this GroupLevel.
+	 * 
+	 * @return
+	 */
+	public Set<GroupLevel> getAllowedChildren() {
+		return new HashSet<GroupLevel>(allowedChildren);
+	}
+
+	/**
 	 * Returns true if this level can have children of the given level.
 	 * 
 	 * @param level
@@ -146,5 +158,14 @@ public final class GroupLevel {
 	 */
 	public int getPrivileges(String roleName) {
 		return roleNames.inverse().get(roleName).intValue();
+	}
+
+	/**
+	 * Gets the roles of the GroupLevel, named.
+	 * 
+	 * @return
+	 */
+	public Map<String, Integer> getRoles() {
+		return new HashMap<String, Integer>(roleNames.inverse());
 	}
 }

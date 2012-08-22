@@ -76,6 +76,57 @@ public class UniverseRules {
 	}
 
 	/**
+	 * Gets the group levels of these UniverseRules.
+	 * 
+	 * @return
+	 */
+	public List<GroupLevel> getGroupLevels() {
+		return new ArrayList<GroupLevel>(groupLevels.values());
+	}
+
+	/**
+	 * Gets the GroupLevel with the given name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public GroupLevel getGroupLevel(String name) {
+		return groupLevels.get(name.toLowerCase());
+	}
+
+	/**
+	 * Saves the UniverseRules to the given config.
+	 * 
+	 * @param config
+	 */
+	public void save(Configuration config) {
+		for (GroupLevel level : groupLevels.values()) {
+			String id = level.getId();
+			config.getNode("levels." + id + ".name").setValue(level.getName());
+			config.getNode("levels." + id + ".rank").setValue(level.getRank());
+			List<String> children = new ArrayList<String>();
+			for (GroupLevel child : level.getAllowedChildren()) {
+				children.add(child.getId());
+			}
+			config.getNode("levels." + id + ".children").setValue(children);
+			config.getNode("levels." + id + ".plural").setValue(level.getPlural());
+
+			for (Entry<String, Integer> role : level.getRoles().entrySet()) {
+				String roleName = role.getKey();
+				int value = role.getValue().intValue();
+				Set<Privilege> privs = Privilege.getPrivileges(value);
+
+				List<String> privNames = new ArrayList<String>();
+				for (Privilege priv : privs) {
+					privNames.add(priv.name());
+				}
+
+				config.getNode("levels." + id + ".roles." + roleName).setValue(privNames);
+			}
+		}
+	}
+
+	/**
 	 * Loads a UniverseRules from the given config.
 	 * 
 	 * @param config
@@ -104,14 +155,14 @@ public class UniverseRules {
 
 				// Load roles
 				Map<Integer, String> rolesMap = new HashMap<Integer, String>();
-				for (Entry<String, ConfigurationNode> roleEntry : entry.getValue().getChildren().entrySet()) {
+				for (Entry<String, ConfigurationNode> roleEntry : entry.getValue().getNode("roles").getChildren().entrySet()) {
 					String roleName = roleEntry.getKey();
 					List<String> privs = roleEntry.getValue().getStringList();
 					int mask = 0x0;
 					for (String priv : privs) {
 						try {
 							Privilege p = Privilege.valueOf(priv);
-							mask &= p.getId();
+							mask &= p.getMask();
 						} catch (IllegalArgumentException ex) {
 							PoliticsPlugin.logger().log(Level.WARNING, "Unknown privilege '" + priv + "'. Not adding.");
 						}
@@ -141,24 +192,5 @@ public class UniverseRules {
 		}
 
 		return new UniverseRules(name, levelMap);
-	}
-
-	/**
-	 * Gets the group levels of these UniverseRules.
-	 * 
-	 * @return
-	 */
-	public List<GroupLevel> getGroupLevels() {
-		return new ArrayList<GroupLevel>(groupLevels.values());
-	}
-
-	/**
-	 * Gets the GroupLevel with the given name.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public GroupLevel getGroupLevel(String name) {
-		return groupLevels.get(name.toLowerCase());
 	}
 }
