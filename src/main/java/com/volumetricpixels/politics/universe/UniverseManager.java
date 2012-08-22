@@ -152,6 +152,9 @@ public class UniverseManager {
 				if (groups.put(group.getUid(), group) != null) {
 					PoliticsPlugin.logger().log(Level.WARNING, "Duplicate group id " + group.getUid() + "!");
 				}
+				if (group.getUid() > nextId) {
+					nextId = group.getUid() + 1;
+				}
 			}
 		}
 
