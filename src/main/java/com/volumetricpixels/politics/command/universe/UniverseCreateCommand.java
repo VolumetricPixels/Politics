@@ -47,7 +47,7 @@ public class UniverseCreateCommand implements CommandExecutor {
 		String rules = args.getString(1).toLowerCase();
 		UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
 		if (theRules == null) {
-			source.sendMessage(MsgStyle.error(), "There is no set of rules named '" + rules + "'. To see the available rules, use `universe rules`.");
+			source.sendMessage(MsgStyle.error(), "There is no set of rules named '" + rules + "'. To see the available rules, use ", MsgStyle.errorHilight(), "universe rules", MsgStyle.errorHilight(), ".");
 			return;
 		}
 

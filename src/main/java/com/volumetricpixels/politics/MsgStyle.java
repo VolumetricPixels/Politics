@@ -31,6 +31,10 @@ public class MsgStyle {
 		return ChatStyle.RED;
 	}
 
+	public static ChatStyle errorHilight() {
+		return ChatStyle.YELLOW;
+	}
+
 	public static ChatStyle info() {
 		return ChatStyle.GOLD;
 	}
