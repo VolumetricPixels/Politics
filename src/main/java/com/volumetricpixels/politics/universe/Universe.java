@@ -285,6 +285,17 @@ public class Universe implements Storable {
 	}
 
 	/**
+	 * Destroys the given group and removes it from memory.
+	 * 
+	 * @param group
+	 */
+	public void destroyGroup(Group group) {
+		groups.remove(group);
+		getInternalGroups(group.getLevel()).remove(group);
+		// TODO remove the group from the citizen cache and the children tree
+	}
+
+	/**
 	 * Gets the citizen corresponding with the given player name.
 	 * 
 	 * @param player
