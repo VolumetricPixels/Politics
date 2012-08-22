@@ -312,7 +312,14 @@ public class Universe implements Storable {
 				destroyGroup(child, true);
 			}
 		}
-		// TODO remove the group from the children tree
+
+		children.remove(group);
+		// This can be expensive -- beware!
+		for (Set<Group> childrenOfAGroup : children.values()) {
+			if (childrenOfAGroup.contains(group)) {
+				childrenOfAGroup.remove(group);
+			}
+		}
 	}
 
 	/**
