@@ -46,36 +46,32 @@ public class GroupDeleteCommand extends GroupCommand {
 			if (source.hasPermission("politics.admin.delgroup")) {
 				for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
 					if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
-					    deleteGroup(g);
-					    source.sendMessage("Deleted! " + context.getString(0));
-					    return;
+						g.getUniverse().destroyGroup(g);
+						source.sendMessage("Deleted! " + context.getString(0));
+						return;
 					}
-		        }
+				}
 				source.sendMessage(ChatStyle.RED, "No such group!");
 			} else {
-			    for (Group g : groups) {
-			        if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
-			            deleteGroup(g);
-			            source.sendMessage("Deleted! " + context.getString(0));
-			            return;
-			        }
-			    }
-			    source.sendMessage(ChatStyle.RED, "You can't do that!");
+				for (Group g : groups) {
+					if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+						g.getUniverse().destroyGroup(g);
+						source.sendMessage("Deleted! " + context.getString(0));
+						return;
+					}
+				}
+				source.sendMessage(ChatStyle.RED, "You can't do that!");
 			}
 		} else {
 			List<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getGroups();
 			for (Group g : groups) {
 				if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
-				    deleteGroup(g);
-				    source.sendMessage("Deleted! " + context.getString(0));
-				    return;
+					g.getUniverse().destroyGroup(g);
+					source.sendMessage("Deleted! " + context.getString(0));
+					return;
 				}
 			}
 		}
-	}
-	
-	private void deleteGroup(Group g) {
-	    // TODO: Delete
 	}
 
 	public static GroupDeleteCommand register(Command parent, GroupLevel level) {
