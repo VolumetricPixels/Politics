@@ -153,7 +153,7 @@ public class UniverseManager {
 					PoliticsPlugin.logger().log(Level.WARNING, "Duplicate group id " + group.getUid() + "!");
 				}
 				if (group.getUid() > nextId) {
-					nextId = group.getUid() + 1;
+					nextId = group.getUid();
 				}
 			}
 		}
