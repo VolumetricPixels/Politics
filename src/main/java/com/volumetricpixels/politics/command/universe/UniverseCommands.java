@@ -35,7 +35,8 @@ public class UniverseCommands {
 		Command cmd = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), "universe");
 
 		UniverseCreateCommand.register(cmd);
-
+		UniverseDestroyCommand.register(cmd);
+		
 		cmd.closeSubCommand();
 	}
 }
