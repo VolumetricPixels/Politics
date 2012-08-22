@@ -23,8 +23,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.scheduler.TaskPriority;
 
 import com.volumetricpixels.politics.command.Commands;
+import com.volumetricpixels.politics.data.SaveTask;
 import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.universe.UniverseManager;
 
@@ -59,6 +61,9 @@ public class PoliticsPlugin extends CommonPlugin {
 		universeManager.loadUniverses();
 
 		Commands.registerAll();
+
+		// Save task
+		getEngine().getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);
 
 		getLogger().log(Level.INFO, "Groups enabled!");
 	}
