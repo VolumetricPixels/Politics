@@ -82,7 +82,7 @@ public class Universe implements Storable {
 	/**
 	 * Groups in the given levels.
 	 */
-	private Map<GroupLevel, Set<Group>> levels;
+	private Map<GroupLevel, List<Group>> levels;
 
 	/**
 	 * Cache containing citizens.
@@ -114,14 +114,9 @@ public class Universe implements Storable {
 
 		buildCitizenCache();
 
-		levels = new HashMap<GroupLevel, Set<Group>>();
+		levels = new HashMap<GroupLevel, List<Group>>();
 		for (Group group : groups) {
-			Set<Group> level = levels.get(group.getLevel());
-			if (level == null) {
-				level = new HashSet<Group>();
-				levels.put(group.getLevel(), level);
-			}
-			level.add(group);
+			getInternalGroups(group.getLevel()).add(group);
 		}
 	}
 
@@ -192,7 +187,22 @@ public class Universe implements Storable {
 	 * @return
 	 */
 	public List<Group> getGroups(GroupLevel level) {
-		return new ArrayList<Group>(levels.get(level));
+		return new ArrayList<Group>(getInternalGroups(level));
+	}
+
+	/**
+	 * Gets the internal groups corresponding with the given level.
+	 * 
+	 * @param level
+	 * @return
+	 */
+	private List<Group> getInternalGroups(GroupLevel level) {
+		List<Group> levelGroups = levels.get(level);
+		if (levelGroups == null) {
+			levelGroups = new ArrayList<Group>();
+			levels.put(level, levelGroups);
+		}
+		return levelGroups;
 	}
 
 	/**
@@ -202,6 +212,19 @@ public class Universe implements Storable {
 	 * @return
 	 */
 	public Set<Group> getChildGroups(Group group) {
+		return new HashSet<Group>(getInternalChildGroups(group));
+	}
+
+	/**
+	 * Gets the internal child groups of the given group.
+	 * 
+	 * @param group
+	 * @return
+	 */
+	private Set<Group> getInternalChildGroups(Group group) {
+		if (group == null) {
+			return new HashSet<Group>();
+		}
 		Set<Group> childs = children.get(group);
 		if (childs == null) {
 			return new HashSet<Group>();
@@ -243,6 +266,22 @@ public class Universe implements Storable {
 			return false;
 		}
 		return childs.remove(child);
+	}
+
+	/**
+	 * Creates a new group with the given level.
+	 * 
+	 * @param level
+	 * @return
+	 */
+	public Group createGroup(GroupLevel level) {
+		Group group = new Group(Politics.getUniverseManager().nextId(), level);
+
+		// Update the three lists
+		groups.add(group);
+		getInternalGroups(level).add(group);
+
+		return group;
 	}
 
 	/**
