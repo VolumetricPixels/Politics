@@ -19,9 +19,6 @@
  */
 package com.volumetricpixels.politics.command.universe;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.spout.api.Spout;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
@@ -32,6 +29,7 @@ import org.spout.api.geo.World;
 
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
@@ -47,7 +45,7 @@ public class UniverseCreateCommand implements CommandExecutor {
 		String rules = args.getString(1).toLowerCase();
 		UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
 		if (theRules == null) {
-			source.sendMessage(MsgStyle.error(), "There is no set of rules named '" + rules + "'. To see the available rules, use ", MsgStyle.errorHilight(), "universe rules", MsgStyle.errorHilight(), ".");
+			source.sendMessage(MsgStyle.error(), "There is no set of rules named ", MsgStyle.errorHilight(), rules, MsgStyle.error(), ". To see the available rules, use ", MsgStyle.errorHilight(), "universe rules", MsgStyle.error(), ".");
 			return;
 		}
 
@@ -73,6 +71,7 @@ public class UniverseCreateCommand implements CommandExecutor {
 			Politics.getUniverseManager().destroyUniverse(universe);
 		}
 
+		PoliticsEventFactory.callUniverseCreateEvent(universe);
 		source.sendMessage(MsgStyle.success(), "A new universe has been created named '" + name + "' with the rules '" + rules + "'.");
 	}
 

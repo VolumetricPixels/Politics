@@ -24,7 +24,9 @@ import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
 
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
+import com.volumetricpixels.politics.event.universe.UniverseCreateEvent;
 import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.universe.Universe;
 
 public class PoliticsEventFactory {
 	/**
@@ -37,6 +39,16 @@ public class PoliticsEventFactory {
 	 */
 	public static PlayerChangePlotEvent callPlayerChangePlotEvent(Player player, Plot from, Plot to) {
 		return callEvent(new PlayerChangePlotEvent(player, from, to));
+	}
+
+	/**
+	 * Calls a new universe create event.
+	 * 
+	 * @param universe
+	 * @return
+	 */
+	public static UniverseCreateEvent callUniverseCreateEvent(Universe universe) {
+		return callEvent(new UniverseCreateEvent(universe));
 	}
 
 	/**
