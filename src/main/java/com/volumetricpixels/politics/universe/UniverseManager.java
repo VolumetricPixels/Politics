@@ -299,6 +299,18 @@ public class UniverseManager {
 	}
 
 	/**
+	 * Destroys the given universe.
+	 * 
+	 * @param universe
+	 */
+	public void destroyUniverse(Universe universe) {
+		universes.remove(universe.getName());
+		for (Group group : universe.getGroups()) {
+			universe.destroyGroup(group);
+		}
+	}
+
+	/**
 	 * Gets the next ID to use for a group.
 	 * 
 	 * @return

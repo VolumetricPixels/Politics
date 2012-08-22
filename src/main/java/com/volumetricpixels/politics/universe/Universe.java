@@ -294,7 +294,6 @@ public class Universe implements Storable {
 	public Group createGroup(GroupLevel level) {
 		Group group = new Group(Politics.getUniverseManager().nextId(), level);
 
-		// Update the three lists
 		groups.add(group);
 		getInternalGroups(level).add(group);
 

@@ -70,8 +70,9 @@ public class UniverseCreateCommand implements CommandExecutor {
 
 		if (worlds <= 0) {
 			source.sendMessage(MsgStyle.error(), "There were no valid worlds specified.");
+			Politics.getUniverseManager().destroyUniverse(universe);
 		}
-		// TODO destroy universe
+
 		source.sendMessage(MsgStyle.success(), "A new universe has been created named '" + name + "' with the rules '" + rules + "'.");
 	}
 
