@@ -33,5 +33,7 @@ public class GroupCommands {
 		Command cmd = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), level.getName().toLowerCase());
 
 		GroupListCommand.register(cmd, level);
+
+		cmd.closeSubCommand();
 	}
 }

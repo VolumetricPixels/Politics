@@ -17,19 +17,25 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.data;
+package com.volumetricpixels.politics.command.universe;
+
+import org.spout.api.Spout;
+import org.spout.api.command.Command;
 
 import com.volumetricpixels.politics.Politics;
 
 /**
- * Saves everything in the plugin worth saving.
+ * Contains commands related to Universes.
  */
-public class SaveTask implements Runnable {
+public class UniverseCommands {
+	/**
+	 * Registers all universe commands.
+	 */
+	public static void registerAll() {
+		Command cmd = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), "universe");
 
-	@Override
-	public void run() {
-		Politics.getPlotManager().saveWorlds();
-		Politics.getUniverseManager().saveUniverses();
+		UniverseCreateCommand.register(cmd);
+
+		cmd.closeSubCommand();
 	}
-
 }

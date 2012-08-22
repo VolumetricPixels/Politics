@@ -21,13 +21,22 @@ package com.volumetricpixels.politics.command;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.group.GroupCommands;
+import com.volumetricpixels.politics.command.universe.UniverseCommands;
 import com.volumetricpixels.politics.group.GroupLevel;
 
+/**
+ * Registration for all commands.
+ */
 public class Commands {
+	/**
+	 * Registers all commands.
+	 */
 	public static void registerAll() {
 		// Register all group commands
 		for (GroupLevel level : Politics.getUniverseManager().getGroupLevels()) {
 			GroupCommands.register(level);
 		}
+		
+		UniverseCommands.registerAll();
 	}
 }
