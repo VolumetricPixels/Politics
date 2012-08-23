@@ -19,23 +19,32 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import org.spout.api.Spout;
 import org.spout.api.command.Command;
 
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.command.Commands;
 import com.volumetricpixels.politics.group.GroupLevel;
 
 /**
  * Group commands.
  */
-public class GroupCommands {
-	public static void register(GroupLevel level) {
-		Command cmd = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), level.getName().toLowerCase());
+public class GroupCommands extends Commands {
+	/**
+	 * The level of these GroupCommands.
+	 */
+	private final GroupLevel level;
 
-		// Register commands. Commands do not actually register if they have no
-		// aliases.
+	/**
+	 * C'tor
+	 * 
+	 * @param level
+	 */
+	public GroupCommands(GroupLevel level) {
+		super(level.getName().toLowerCase());
+		this.level = level;
+	}
+
+	@Override
+	public void setup(Command cmd) {
 		(new GroupListCommand(level)).register(cmd);
-
-		cmd.closeSubCommand();
 	}
 }
