@@ -37,7 +37,14 @@ import com.volumetricpixels.politics.universe.UniverseRules;
 /**
  * Used to create universes.
  */
-public class UniverseCreateCommand implements CommandExecutor {
+public class UniverseCreateCommand extends UniverseCommand {
+
+	/**
+	 * C'tor
+	 */
+	public UniverseCreateCommand() {
+		super("create");
+	}
 
 	@Override
 	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
@@ -75,18 +82,16 @@ public class UniverseCreateCommand implements CommandExecutor {
 		source.sendMessage(MsgStyle.success(), "A new universe has been created named '" + name + "' with the rules '" + rules + "'.");
 	}
 
-	public static Command register(Command parent) {
-		UniverseCreateCommand exec = new UniverseCreateCommand();
+	@Override
+	protected String[] getAliases() {
+		return new String[] { "new", "c", "n" };
+	}
 
-		Command cmd = parent.addSubCommand(Politics.getPlugin(), "create");
-		cmd.addAlias("new", "c", "n");
+	@Override
+	public void setupCommand(Command cmd) {
 		cmd.setArgBounds(2, -1);
-		cmd.setExecutor(exec);
 		cmd.setHelp("Creates a new Universe with the given rules.");
-		cmd.setUsage("create <name> <rules> [worlds...]");
+		cmd.setUsage("<name> <rules> [worlds...]");
 		cmd.setPermissions(true, "politics.admin.universe.create");
-		cmd.closeSubCommand();
-
-		return cmd;
 	}
 }

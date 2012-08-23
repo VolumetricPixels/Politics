@@ -17,58 +17,66 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.command.group;
-
-import java.util.List;
+package com.volumetricpixels.politics.command;
 
 import org.spout.api.command.Command;
+import org.spout.api.command.CommandExecutor;
 
 import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.command.PCommand;
-import com.volumetricpixels.politics.group.GroupLevel;
 
 /**
- * A group-related command.
+ * Represents a command that can be run in Politics. Helps out with command
+ * registration.
  */
-public abstract class GroupCommand extends PCommand {
+public abstract class PCommand implements CommandExecutor {
 	/**
-	 * Level of this GroupCommand.
+	 * The primary name of this command.
 	 */
-	protected final GroupLevel level;
-
-	/**
-	 * Aliases of this GroupCommand.
-	 */
-	private List<String> aliases;
+	protected String primary = null;
 
 	/**
 	 * C'tor
 	 * 
-	 * @param level
 	 * @param primary
 	 */
-	public GroupCommand(GroupLevel level, String primary) {
-		super(primary.toLowerCase());
-		this.level = level;
-
-		// Load the primary and aliases
-		aliases = level.getAliases(this.primary);
-		if (aliases.size() <= 0) {
-			this.primary = null;
-			return;
-		}
-
-		int index = aliases.indexOf(this.primary);
-		if (index != -1) {
-			aliases.remove(index);
-		} else {
-			this.primary = aliases.get(0);
-			aliases.remove(0);
-		}
+	protected PCommand(String primary) {
+		this.primary = primary;
 	}
 
-	@Override
+	/**
+	 * Registers this command with the given parent.
+	 * 
+	 * @param parent
+	 * @return
+	 */
+	public Command register(Command parent) {
+		if (primary == null) {
+			return null; // No registration
+		}
+
+		Command cmd = parent.addSubCommand(Politics.getPlugin(), primary);
+		cmd.setExecutor(this);
+		cmd.addAlias(getAliases());
+		setupCommand(cmd);
+		cmd.closeSubCommand();
+		return cmd;
+	}
+
+	/**
+	 * Gets the aliases for this command.
+	 * 
+	 * @return
+	 */
 	protected String[] getAliases() {
-		return aliases.toArray(new String[0]);
+		return new String[0];
+	}
+
+	/**
+	 * Sets up the command created.
+	 * 
+	 * @param cmd
+	 */
+	public void setupCommand(Command cmd) {
+		cmd.setArgBounds(0, -1);
 	}
 }

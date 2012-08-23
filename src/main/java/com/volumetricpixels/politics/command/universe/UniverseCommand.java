@@ -19,24 +19,18 @@
  */
 package com.volumetricpixels.politics.command.universe;
 
-import org.spout.api.Spout;
-import org.spout.api.command.Command;
-
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.command.PCommand;
 
 /**
- * Contains commands related to Universes.
+ * A Universe-related command.
  */
-public class UniverseCommands {
+public abstract class UniverseCommand extends PCommand {
 	/**
-	 * Registers all universe commands.
+	 * C'tor
+	 * 
+	 * @param primary
 	 */
-	public static void registerAll() {
-		Command cmd = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), "universe");
-
-		(new UniverseCreateCommand()).register(cmd);
-		(new UniverseDestroyCommand()).register(cmd);
-
-		cmd.closeSubCommand();
+	public UniverseCommand(String primary) {
+		super(primary);
 	}
 }

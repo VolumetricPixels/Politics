@@ -32,7 +32,14 @@ import com.volumetricpixels.politics.universe.Universe;
 /**
  * Destroys a universe and all of its groups.
  */
-public class UniverseDestroyCommand implements CommandExecutor {
+public class UniverseDestroyCommand extends UniverseCommand {
+
+	/**
+	 * C'tor
+	 */
+	public UniverseDestroyCommand() {
+		super("destroy");
+	}
 
 	@Override
 	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
@@ -46,18 +53,16 @@ public class UniverseDestroyCommand implements CommandExecutor {
 		source.sendMessage(MsgStyle.success(), "The universe has been destroyed, sir.");
 	}
 
-	public static Command register(Command parent) {
-		UniverseCreateCommand exec = new UniverseCreateCommand();
+	@Override
+	protected String[] getAliases() {
+		return new String[] { "delete", "d" };
+	}
 
-		Command cmd = parent.addSubCommand(Politics.getPlugin(), "destroy");
-		cmd.addAlias("delete", "d");
+	@Override
+	public void setupCommand(Command cmd) {
 		cmd.setArgBounds(1, -1);
-		cmd.setExecutor(exec);
 		cmd.setHelp("Destroys the given universe.");
 		cmd.setUsage("destroy <name>");
 		cmd.setPermissions(true, "politics.admin.universe.destroy");
-		cmd.closeSubCommand();
-
-		return cmd;
 	}
 }
