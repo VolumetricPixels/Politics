@@ -27,6 +27,7 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
+import com.google.common.collect.Lists;
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
@@ -100,15 +101,33 @@ public class GroupListCommand extends GroupCommand {
 		}
 	}
 
-	public static GroupListCommand register(Command parent, GroupLevel level) {
+	public static Command register(Command parent, GroupLevel level) {
+		List<String> commands = level.getAliases("list");
+
+		if (commands.size() <= 0) {
+			return null;
+		}
+
+		String primary;
+		int index = commands.indexOf("list");
+		if (index != -1) {
+			primary = "list";
+			commands.remove(index);
+		} else {
+			primary = commands.get(0);
+			commands.remove(0);
+		}
+
 		GroupListCommand executor = new GroupListCommand(level);
 
 		Command cmd = parent.addSubCommand(Politics.getPlugin(), "list");
 		cmd.setExecutor(executor);
-		cmd.addAlias("ls");
+		if (commands.size() > 0) {
+			cmd.addAlias(commands.toArray(new String[0]));
+		}
 		cmd.setArgBounds(0, -1);
 		cmd.closeSubCommand();
 
-		return executor;
+		return cmd;
 	}
 }

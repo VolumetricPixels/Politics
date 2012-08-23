@@ -32,6 +32,8 @@ public class GroupCommands {
 	public static void register(GroupLevel level) {
 		Command cmd = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), level.getName().toLowerCase());
 
+		// Register commands. Commands do not actually register if they have no
+		// aliases.
 		GroupListCommand.register(cmd, level);
 
 		cmd.closeSubCommand();

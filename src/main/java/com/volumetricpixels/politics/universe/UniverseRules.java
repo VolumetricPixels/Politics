@@ -139,23 +139,25 @@ public class UniverseRules {
 			// Get the levels turned into objects
 			Map<GroupLevel, List<String>> levels = new HashMap<GroupLevel, List<String>>();
 
-			ConfigurationNode levelNode = config.getNode("levels");
-			for (Entry<String, ConfigurationNode> entry : levelNode.getChildren().entrySet()) {
+			ConfigurationNode levelsNode = config.getNode("levels");
+			for (Entry<String, ConfigurationNode> entry : levelsNode.getChildren().entrySet()) {
 				// Load id
 				String id = entry.getKey();
 
+				ConfigurationNode levelNode = entry.getValue();
+
 				// Load name
-				String levelName = entry.getValue().getNode("name").getString(id);
+				String levelName = levelNode.getNode("name").getString(id);
 
 				// Load rank
-				int rank = entry.getValue().getNode("rank").getInt();
+				int rank = levelNode.getNode("rank").getInt();
 
 				// Load children
-				List<String> children = entry.getValue().getNode("children").getStringList();
+				List<String> children = levelNode.getNode("children").getStringList();
 
 				// Load roles
 				Map<Integer, String> rolesMap = new HashMap<Integer, String>();
-				for (Entry<String, ConfigurationNode> roleEntry : entry.getValue().getNode("roles").getChildren().entrySet()) {
+				for (Entry<String, ConfigurationNode> roleEntry : levelNode.getNode("roles").getChildren().entrySet()) {
 					String roleName = roleEntry.getKey();
 					List<String> privs = roleEntry.getValue().getStringList();
 					int mask = 0x0;
@@ -172,10 +174,55 @@ public class UniverseRules {
 				BiMap<Integer, String> realRolesMap = ImmutableBiMap.<Integer, String> builder().putAll(rolesMap).build();
 
 				// Load plural
-				String plural = entry.getValue().getNode("plural").getString(levelName + "s");
+				String plural = levelNode.getNode("plural").getString(levelName + "s");
+
+				// Load allowed commands
+				Map<String, List<String>> commands = new HashMap<String, List<String>>();
+				{
+					// Set for checking for alias overlaps.
+					Set<String> alreadyLoadedCommands = new HashSet<String>();
+
+					ConfigurationNode commandNode = levelNode.getNode("commands");
+					for (Entry<String, ConfigurationNode> commandAliasEntry : commandNode.getChildren().entrySet()) {
+						String commandName = commandAliasEntry.getKey().toLowerCase();
+
+						// Get the list we're putting aliases in
+						List<String> theAliases = commands.get(name);
+						if (theAliases == null) {
+							theAliases = new ArrayList<String>();
+							commands.put(name, theAliases);
+						}
+
+						ConfigurationNode aliasesNode = commandAliasEntry.getValue();
+
+						// Check for list, if so add specified aliases. Does not
+						// include the normal name unless explicitly specified.
+						if (aliasesNode.getValue() instanceof List) {
+							List<String> aliases = aliasesNode.getStringList();
+							for (String alias : aliases) {
+								alias = alias.toLowerCase();
+								if (alreadyLoadedCommands.contains(alias)) {
+									PoliticsPlugin.logger().log(Level.WARNING, "Duplicate entry for command `" + alias + "'; not adding it to aliases for " + commandName + ".");
+									continue;
+								}
+								theAliases.add(alias);
+								alreadyLoadedCommands.add(alias);
+							}
+
+							// Else, we don't care, they specified it.
+						} else {
+							if (alreadyLoadedCommands.contains(commandName)) {
+								PoliticsPlugin.logger().log(Level.WARNING, "Duplicate entry for command `" + commandName + "'; not adding " + commandName + ".");
+								continue;
+							}
+							theAliases.add(commandName);
+							alreadyLoadedCommands.add(commandName);
+						}
+					}
+				}
 
 				// Create the level
-				GroupLevel level = new GroupLevel(id, levelName, rank, realRolesMap, plural);
+				GroupLevel level = new GroupLevel(id, levelName, rank, realRolesMap, plural, commands);
 				levelMap.put(level.getId().toLowerCase(), level);
 				levels.put(level, children);
 			}

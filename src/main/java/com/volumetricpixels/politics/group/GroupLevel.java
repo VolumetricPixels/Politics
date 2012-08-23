@@ -19,8 +19,10 @@
  */
 package com.volumetricpixels.politics.group;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -62,17 +64,23 @@ public final class GroupLevel {
 	private final String plural;
 
 	/**
+	 * The commands allowed in the UniverseRules along with their aliases.
+	 */
+	private final Map<String, List<String>> commands;
+
+	/**
 	 * C'tor
 	 * 
 	 * @param name
 	 * @param rank
 	 */
-	public GroupLevel(String id, String name, int rank, BiMap<Integer, String> roleNames, String plural) {
+	public GroupLevel(String id, String name, int rank, BiMap<Integer, String> roleNames, String plural, Map<String, List<String>> commands) {
 		this.id = id;
 		this.name = name;
 		this.rank = rank;
 		this.roleNames = roleNames;
 		this.plural = plural;
+		this.commands = commands;
 	}
 
 	/**
@@ -167,5 +175,16 @@ public final class GroupLevel {
 	 */
 	public Map<String, Integer> getRoles() {
 		return new HashMap<String, Integer>(roleNames.inverse());
+	}
+
+	/**
+	 * Gets the aliases of the given command.
+	 * 
+	 * @param command
+	 * @return the ArrayList of aliases; an empty ArrayList if there are no
+	 *         aliases thus the command should not exist
+	 */
+	public List<String> getAliases(String command) {
+		return new ArrayList<String>(commands.get(command.toLowerCase()));
 	}
 }
