@@ -46,8 +46,8 @@ public class GroupListCommand extends GroupCommand {
 	 * 
 	 * @param level
 	 */
-	private GroupListCommand(GroupLevel level) {
-		super(level);
+	public GroupListCommand(GroupLevel level) {
+		super(level, "list");
 	}
 
 	@Override
@@ -99,35 +99,5 @@ public class GroupListCommand extends GroupCommand {
 			source.sendMessage(group.getProperty(GroupProperty.TAG));
 			// TODO prettify list
 		}
-	}
-
-	public static Command register(Command parent, GroupLevel level) {
-		List<String> commands = level.getAliases("list");
-
-		if (commands.size() <= 0) {
-			return null;
-		}
-
-		String primary;
-		int index = commands.indexOf("list");
-		if (index != -1) {
-			primary = "list";
-			commands.remove(index);
-		} else {
-			primary = commands.get(0);
-			commands.remove(0);
-		}
-
-		GroupListCommand executor = new GroupListCommand(level);
-
-		Command cmd = parent.addSubCommand(Politics.getPlugin(), "list");
-		cmd.setExecutor(executor);
-		if (commands.size() > 0) {
-			cmd.addAlias(commands.toArray(new String[0]));
-		}
-		cmd.setArgBounds(0, -1);
-		cmd.closeSubCommand();
-
-		return cmd;
 	}
 }

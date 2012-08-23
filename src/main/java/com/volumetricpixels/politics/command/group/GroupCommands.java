@@ -34,7 +34,7 @@ public class GroupCommands {
 
 		// Register commands. Commands do not actually register if they have no
 		// aliases.
-		GroupListCommand.register(cmd, level);
+		(new GroupListCommand(level)).register(cmd);
 
 		cmd.closeSubCommand();
 	}

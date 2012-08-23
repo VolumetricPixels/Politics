@@ -36,7 +36,7 @@ import com.volumetricpixels.politics.group.GroupProperty;
 
 public class GroupDeleteCommand extends GroupCommand {
 	public GroupDeleteCommand(GroupLevel level) {
-		super(level);
+		super(level, "delete");
 	}
 
 	@Override
@@ -74,15 +74,15 @@ public class GroupDeleteCommand extends GroupCommand {
 		}
 	}
 
-	public static GroupDeleteCommand register(Command parent, GroupLevel level) {
-		GroupDeleteCommand executor = new GroupDeleteCommand(level);
-
-		Command cmd = parent.addSubCommand(Politics.getPlugin(), "delete");
-		cmd.setExecutor(executor);
-		cmd.addAlias("del");
-		cmd.setArgBounds(1, 1);
-		cmd.closeSubCommand();
-
-		return executor;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.volumetricpixels.politics.command.group.GroupCommand#setupCommand
+	 * (org.spout.api.command.Command)
+	 */
+	@Override
+	public void setupCommand(Command cmd) {
+		cmd.setArgBounds(1, -1);
 	}
 }

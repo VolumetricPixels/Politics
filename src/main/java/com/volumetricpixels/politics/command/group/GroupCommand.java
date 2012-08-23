@@ -19,18 +19,72 @@
  */
 package com.volumetricpixels.politics.command.group;
 
+import java.util.List;
+
+import org.spout.api.command.Command;
 import org.spout.api.command.CommandExecutor;
 
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.GroupLevel;
 
+/**
+ * A group-related command.
+ */
 public abstract class GroupCommand implements CommandExecutor {
 	protected final GroupLevel level;
+	protected final String primary;
 
-	public GroupCommand(GroupLevel level) {
+	/**
+	 * C'tor
+	 * 
+	 * @param level
+	 * @param primary
+	 */
+	public GroupCommand(GroupLevel level, String primary) {
 		this.level = level;
+		this.primary = primary.toLowerCase();
 	}
 
-	public GroupLevel getLevel() {
-		return level;
+	/**
+	 * Registers the command with the given parent.
+	 * 
+	 * @param parent
+	 * @return
+	 */
+	public Command register(Command parent) {
+		List<String> commands = level.getAliases("list");
+
+		if (commands.size() <= 0) {
+			return null;
+		}
+
+		String primary;
+		int index = commands.indexOf("list");
+		if (index != -1) {
+			primary = "list";
+			commands.remove(index);
+		} else {
+			primary = commands.get(0);
+			commands.remove(0);
+		}
+
+		Command cmd = parent.addSubCommand(Politics.getPlugin(), primary);
+		cmd.setExecutor(this);
+		if (commands.size() > 0) {
+			cmd.addAlias(commands.toArray(new String[0]));
+		}
+		setupCommand(cmd);
+		cmd.closeSubCommand();
+
+		return cmd;
+	}
+
+	/**
+	 * Sets up the command created.
+	 * 
+	 * @param cmd
+	 */
+	public void setupCommand(Command cmd) {
+		cmd.setArgBounds(0, -1);
 	}
 }

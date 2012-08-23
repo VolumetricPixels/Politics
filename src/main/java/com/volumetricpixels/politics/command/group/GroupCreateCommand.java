@@ -30,29 +30,28 @@ import com.volumetricpixels.politics.group.GroupLevel;
 
 public class GroupCreateCommand extends GroupCommand {
 
-    private GroupCreateCommand(GroupLevel level) {
-        super(level);
-    }
+	private GroupCreateCommand(GroupLevel level) {
+		super(level, "create");
+	}
 
-    @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        if (!(source instanceof Player)) {
-            source.sendMessage("Consoles can't own " + cmd.getOwnerName() + "s");
-        }
-        
-        // TODO: Rest of command
-    }
-    
-    public static GroupCreateCommand register(Command parent, GroupLevel level) {
-        GroupCreateCommand executor = new GroupCreateCommand(level);
+	@Override
+	public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+		if (!(source instanceof Player)) {
+			source.sendMessage("Consoles can't own " + cmd.getOwnerName() + "s");
+		}
 
-        Command cmd = parent.addSubCommand(Politics.getPlugin(), "list");
-        cmd.setExecutor(executor);
-        cmd.addAlias("ls");
-        cmd.setArgBounds(1, 1);
-        cmd.closeSubCommand();
+		// TODO: Rest of command
+	}
 
-        return executor;
-    }
-    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.volumetricpixels.politics.command.group.GroupCommand#setupCommand
+	 * (org.spout.api.command.Command)
+	 */
+	@Override
+	public void setupCommand(Command cmd) {
+		cmd.setArgBounds(1, -1);
+	}
 }
