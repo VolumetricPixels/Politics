@@ -24,9 +24,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
+
+import org.spout.api.util.config.ConfigurationNode;
 
 import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
+import com.volumetricpixels.politics.PoliticsPlugin;
 
 /**
  * Represents a level of organization of a group.
@@ -186,5 +192,100 @@ public final class GroupLevel {
 	 */
 	public List<String> getAliases(String command) {
 		return new ArrayList<String>(commands.get(command.toLowerCase()));
+	}
+
+	/**
+	 * Loads a GroupLevel.
+	 * 
+	 * @param id
+	 * @param node
+	 * @param levels
+	 *            The map that the level names are stored in.
+	 * @return
+	 */
+	public static GroupLevel loadGroupLevel(String id, ConfigurationNode node, Map<GroupLevel, List<String>> levels) {
+		// Load name
+		String levelName = node.getNode("name").getString(id);
+
+		// Make id lowercase
+		id = id.toLowerCase();
+
+		// Load rank
+		int rank = node.getNode("rank").getInt();
+
+		// Load children
+		List<String> children = node.getNode("children").getStringList();
+
+		// Load roles
+		Map<Integer, String> rolesMap = new HashMap<Integer, String>();
+		for (Entry<String, ConfigurationNode> roleEntry : node.getNode("roles").getChildren().entrySet()) {
+			String roleName = roleEntry.getKey();
+			List<String> privs = roleEntry.getValue().getStringList();
+			int mask = 0x0;
+			for (String priv : privs) {
+				try {
+					Privilege p = Privilege.valueOf(priv);
+					mask &= p.getMask();
+				} catch (IllegalArgumentException ex) {
+					PoliticsPlugin.logger().log(Level.WARNING, "Unknown privilege '" + priv + "'. Not adding.");
+				}
+			}
+			rolesMap.put(mask, roleName);
+		}
+		BiMap<Integer, String> realRolesMap = ImmutableBiMap.<Integer, String> builder().putAll(rolesMap).build();
+
+		// Load plural
+		String plural = node.getNode("plural").getString(levelName + "s");
+
+		// Load allowed commands
+		Map<String, List<String>> commands = new HashMap<String, List<String>>();
+
+		// Set for checking for alias overlaps.
+		Set<String> alreadyLoadedCommands = new HashSet<String>();
+
+		// Command node
+		ConfigurationNode commandNode = node.getNode("commands");
+		for (Entry<String, ConfigurationNode> commandAliasEntry : commandNode.getChildren().entrySet()) {
+			// Name of the command we want to alias
+			String commandName = commandAliasEntry.getKey().toLowerCase();
+
+			// Get the list we're putting aliases in
+			List<String> theAliases = commands.get(commandName);
+			if (theAliases == null) {
+				theAliases = new ArrayList<String>();
+				commands.put(commandName, theAliases);
+			}
+
+			ConfigurationNode aliasesNode = commandAliasEntry.getValue();
+
+			// Check for list, if so add specified aliases. Does not
+			// include the normal name unless explicitly specified.
+			if (aliasesNode.getValue() instanceof List) {
+				List<String> aliases = aliasesNode.getStringList();
+				for (String alias : aliases) {
+					alias = alias.toLowerCase();
+					if (alreadyLoadedCommands.contains(alias)) {
+						PoliticsPlugin.logger().log(Level.WARNING, "Duplicate entry for command `" + alias + "'; not adding it to aliases for " + commandName + ".");
+						continue;
+					}
+					theAliases.add(alias);
+					alreadyLoadedCommands.add(alias);
+				}
+
+				// Else, we don't care, they specified it.
+			} else {
+				if (alreadyLoadedCommands.contains(commandName)) {
+					PoliticsPlugin.logger().log(Level.WARNING, "Duplicate entry for command `" + commandName + "'; not adding " + commandName + ".");
+					continue;
+				}
+				theAliases.add(commandName);
+				alreadyLoadedCommands.add(commandName);
+			}
+		}
+
+		GroupLevel theLevel = new GroupLevel(id, levelName, rank, realRolesMap, plural, commands);
+		// Children so we can get our allowed children in the future
+		levels.put(theLevel, children);
+		return theLevel;
 	}
 }
