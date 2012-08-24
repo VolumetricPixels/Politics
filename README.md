@@ -1,6 +1,8 @@
 Politics
 ===========
 
+![Brock Obama](http://i.imgur.com/3jv8G.jpg)
+
 Politics is a sub-community management plugin for [Spout](http://spout.org).
 
 License
