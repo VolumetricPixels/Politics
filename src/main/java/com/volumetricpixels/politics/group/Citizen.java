@@ -71,6 +71,22 @@ public class Citizen {
 	}
 
 	/**
+	 * Gets the groups of the given level this citizen is part of.
+	 * 
+	 * @param level
+	 * @return
+	 */
+	public Set<Group> getGroups(GroupLevel level) {
+		Set<Group> groups = new HashSet<Group>();
+		for (Group group : getGroups()) {
+			if (group.getLevel().equals(level)) {
+				groups.add(group);
+			}
+		}
+		return groups;
+	}
+
+	/**
 	 * Gets the universe this Citizen is part of.
 	 * 
 	 * @return

@@ -357,7 +357,7 @@ public class Universe implements Storable {
 	 */
 	public Set<Group> getCitizenGroups(String player) {
 		try {
-			return citizenGroupCache.get(player);
+			return new HashSet<Group>(citizenGroupCache.get(player));
 		} catch (ExecutionException e) {
 			PoliticsPlugin.logger().log(Level.SEVERE, "Could not load a set of citizen groups! This is a PROBLEM!", e);
 			return null;

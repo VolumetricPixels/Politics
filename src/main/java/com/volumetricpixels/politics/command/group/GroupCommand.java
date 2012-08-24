@@ -25,6 +25,7 @@ import org.spout.api.entity.Player;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.PCommand;
+import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 
@@ -71,6 +72,20 @@ public abstract class GroupCommand extends PCommand {
 	@Override
 	protected String[] getAliases() {
 		return aliases.toArray(new String[0]);
+	}
+
+	/**
+	 * Gets the citizen corresponding with the given player.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public Citizen getCitizen(Player player) {
+		Universe universe = getUniverse(player);
+		if (universe != null) {
+			return universe.getCitizen(player.getName());
+		}
+		return null;
 	}
 
 	/**
