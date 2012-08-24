@@ -87,7 +87,7 @@ public class Citizen {
 
 	/**
 	 * Invalidates this Citizen. This should happen when this Citizen is added
-	 * to a group.
+	 * to or removed from a group.
 	 */
 	public void invalidate() {
 		universe.invalidateCitizen(name);
