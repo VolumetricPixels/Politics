@@ -12,7 +12,7 @@ Compiling
 Spout uses Maven to handle its dependencies.
 
 * Install [Maven 2 or 3](http://maven.apache.org/download.html)
-* Checkout this repo and run: `mvn clean package install`
+* Checkout this repo and run: `mvn`
 
 Coding and Pull Request Formatting
 ----------------------------------
