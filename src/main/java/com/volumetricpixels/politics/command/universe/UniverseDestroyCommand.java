@@ -21,7 +21,6 @@ package com.volumetricpixels.politics.command.universe;
 
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
-import org.spout.api.command.CommandExecutor;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 

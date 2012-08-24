@@ -20,12 +20,9 @@
 package com.volumetricpixels.politics.plot;
 
 import gnu.trove.iterator.TIntIterator;
-import gnu.trove.iterator.TLongIterator;
 import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.list.TIntList;
-import gnu.trove.list.TLongList;
 import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.list.array.TLongArrayList;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 

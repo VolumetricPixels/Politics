@@ -27,7 +27,6 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
-import com.google.common.collect.Lists;
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;

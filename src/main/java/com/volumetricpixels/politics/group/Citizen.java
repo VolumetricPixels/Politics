@@ -22,7 +22,6 @@ package com.volumetricpixels.politics.group;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
