@@ -3,6 +3,10 @@ Politics
 
 Politics is a sub-community management plugin for [Spout](http://spout.org).
 
+License
+-------
+Politics is licensed under the [Affero General Public License Version 3][License]. Please see the `LICENSE.txt` file for details.
+
 Compiling
 ---------
 Spout uses Maven to handle its dependencies.
@@ -24,3 +28,6 @@ Coding and Pull Request Formatting
 * You may have more than one commit in a pull request if the commits are separate changes, otherwise squash them.
 
 **Please follow the above conventions if you want your pull request(s) accepted.**
+
+[License]: http://www.gnu.org/licenses/agpl.html
+
