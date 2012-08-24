@@ -52,7 +52,7 @@ public class MainListener implements Listener {
 		Plot now = Politics.getPlotAt(to);
 
 		// Check for different plot
-		if (prev == now) {
+		if (prev.equals(now)) {
 			return;
 		}
 
