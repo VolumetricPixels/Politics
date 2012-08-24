@@ -31,10 +31,10 @@ public class GroupInfoCommand extends GroupCommand {
 				sb.append(group.getProperty(0x1)).append(", ");
 			}
 		}
-		p.sendMessage(ChatStyle.BLUE + "============= INFO =============");
-		p.sendMessage(ChatStyle.DARK_GREEN + "Current Group: " + Politics.getPlotAt(p.getPosition()));
-		p.sendMessage(ChatStyle.DARK_GREEN + "Immediate Groups: " + sb.toString().substring(0, sb.length()-2));
+		p.sendMessage(ChatStyle.BLUE, "============= INFO =============");
+		p.sendMessage(ChatStyle.DARK_GREEN, "Current Group: " + Politics.getPlotAt(p.getPosition()));
+		p.sendMessage(ChatStyle.DARK_GREEN, "Immediate Groups: " + sb.toString().substring(0, sb.length()-2));
 		//p.sendMessage(ChatStyle.DARK_GREEN + "Current Universe: " + Politics.getUniverseManager().get);
-		p.sendMessage(ChatStyle.BLUE + "================================");
+		p.sendMessage(ChatStyle.BLUE, "================================");
 	}
 }
