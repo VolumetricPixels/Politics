@@ -30,7 +30,12 @@ public final class GroupProperty {
 	}
 
 	/**
-	 * Group name.
+	 * Group tag.
 	 */
 	public static final int TAG = 0x0;
+	
+	/**
+	 * Group name
+	 */
+	public static final int NAME = 0x1;
 }

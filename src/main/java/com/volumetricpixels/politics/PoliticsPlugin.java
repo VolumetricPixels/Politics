@@ -68,7 +68,7 @@ public class PoliticsPlugin extends CommonPlugin {
 		// Save task
 		getEngine().getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);
 
-		getLogger().log(Level.INFO, "Groups enabled!");
+		getLogger().log(Level.INFO, "Politics enabled!");
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class PoliticsPlugin extends CommonPlugin {
 		plotManager.saveWorlds();
 		universeManager.saveUniverses();
 
-		getLogger().log(Level.INFO, "Groups disabled!");
+		getLogger().log(Level.INFO, "Politics disabled!");
 	}
 
 	/**
