@@ -195,6 +195,35 @@ public final class GroupLevel {
 	}
 
 	/**
+	 * Saves this GroupLevel to the provided node.
+	 * 
+	 * @param node
+	 */
+	public void save(ConfigurationNode node) {
+		node.getNode("name").setValue(name);
+		node.getNode("rank").setValue(rank);
+		List<String> children = new ArrayList<String>();
+		for (GroupLevel child : getAllowedChildren()) {
+			children.add(child.getId());
+		}
+		node.getNode("children").setValue(children);
+		node.getNode("plural").setValue(plural);
+
+		for (Entry<String, Integer> role : getRoles().entrySet()) {
+			String roleName = role.getKey();
+			int value = role.getValue().intValue();
+			Set<Privilege> privs = Privilege.getPrivileges(value);
+
+			List<String> privNames = new ArrayList<String>();
+			for (Privilege priv : privs) {
+				privNames.add(priv.name());
+			}
+
+			node.getNode("roles." + roleName).setValue(privNames);
+		}
+	}
+
+	/**
 	 * Loads a GroupLevel.
 	 * 
 	 * @param id
@@ -203,7 +232,7 @@ public final class GroupLevel {
 	 *            The map that the level names are stored in.
 	 * @return
 	 */
-	public static GroupLevel loadGroupLevel(String id, ConfigurationNode node, Map<GroupLevel, List<String>> levels) {
+	public static GroupLevel load(String id, ConfigurationNode node, Map<GroupLevel, List<String>> levels) {
 		// Load name
 		String levelName = node.getNode("name").getString(id);
 

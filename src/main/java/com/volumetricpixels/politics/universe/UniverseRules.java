@@ -101,28 +101,8 @@ public class UniverseRules {
 	 */
 	public void save(Configuration config) {
 		for (GroupLevel level : groupLevels.values()) {
-			String id = level.getId();
-			config.getNode("levels." + id + ".name").setValue(level.getName());
-			config.getNode("levels." + id + ".rank").setValue(level.getRank());
-			List<String> children = new ArrayList<String>();
-			for (GroupLevel child : level.getAllowedChildren()) {
-				children.add(child.getId());
-			}
-			config.getNode("levels." + id + ".children").setValue(children);
-			config.getNode("levels." + id + ".plural").setValue(level.getPlural());
-
-			for (Entry<String, Integer> role : level.getRoles().entrySet()) {
-				String roleName = role.getKey();
-				int value = role.getValue().intValue();
-				Set<Privilege> privs = Privilege.getPrivileges(value);
-
-				List<String> privNames = new ArrayList<String>();
-				for (Privilege priv : privs) {
-					privNames.add(priv.name());
-				}
-
-				config.getNode("levels." + id + ".roles." + roleName).setValue(privNames);
-			}
+			ConfigurationNode node = config.getNode("levels." + level.getId());
+			level.save(node);
 		}
 	}
 
@@ -141,7 +121,7 @@ public class UniverseRules {
 
 			ConfigurationNode levelsNode = config.getNode("levels");
 			for (Entry<String, ConfigurationNode> entry : levelsNode.getChildren().entrySet()) {
-				GroupLevel level = GroupLevel.loadGroupLevel(entry.getKey(), entry.getValue(), levels);
+				GroupLevel level = GroupLevel.load(entry.getKey(), entry.getValue(), levels);
 				levelMap.put(level.getId(), level);
 			}
 
