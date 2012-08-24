@@ -39,7 +39,6 @@ public class MainListener implements Listener {
 		if (!(event.getEntity() instanceof Player)) {
 			return;
 		}
-
 		Point from = event.getFrom();
 		Point to = event.getTo();
 

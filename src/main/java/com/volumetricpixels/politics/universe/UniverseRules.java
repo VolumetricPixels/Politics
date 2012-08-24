@@ -26,16 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Level;
 
 import org.spout.api.util.config.Configuration;
 import org.spout.api.util.config.ConfigurationNode;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
-import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.group.GroupLevel;
-import com.volumetricpixels.politics.group.Privilege;
 
 /**
  * Represents the sum of the rules of a given universe. In essence, it is a

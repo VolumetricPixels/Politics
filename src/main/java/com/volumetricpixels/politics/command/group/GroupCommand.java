@@ -21,9 +21,6 @@ package com.volumetricpixels.politics.command.group;
 
 import java.util.List;
 
-import org.spout.api.command.Command;
-
-import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.GroupLevel;
 
