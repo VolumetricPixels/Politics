@@ -80,10 +80,10 @@ public class Citizen {
 	}
 
 	/**
-	 * Invalidates this Citizen. This should happen when this Citizen is added
-	 * to or removed from a group.
+	 * Invalidates this Citizen's groups. This should happen when this Citizen
+	 * is added to or removed from a group.
 	 */
-	public void invalidate() {
-		universe.invalidateCitizen(name);
+	public void invalidateGroups() {
+		universe.invalidateCitizenGroups(name);
 	}
 }

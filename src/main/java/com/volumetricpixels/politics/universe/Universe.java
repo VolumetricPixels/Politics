@@ -321,7 +321,7 @@ public class Universe implements Storable {
 		groups.remove(group);
 		getInternalGroups(group.getLevel()).remove(group);
 		for (String member : group.getPlayers()) {
-			invalidateCitizen(member);
+			invalidateCitizenGroups(member);
 		}
 		if (deep) {
 			for (Group child : group.getGroups()) {
@@ -369,7 +369,7 @@ public class Universe implements Storable {
 	 * 
 	 * @param citizen
 	 */
-	public void invalidateCitizen(String citizen) {
+	public void invalidateCitizenGroups(String citizen) {
 		citizenGroupCache.invalidate(citizen);
 	}
 
