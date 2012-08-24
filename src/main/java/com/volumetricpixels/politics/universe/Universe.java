@@ -87,7 +87,7 @@ public class Universe implements Storable {
 	/**
 	 * Cache containing citizens.
 	 */
-	private LoadingCache<String, Citizen> citizenCache;
+	private LoadingCache<String, Set<Group>> citizenGroupCache;
 
 	/**
 	 * C'tor
@@ -130,16 +130,16 @@ public class Universe implements Storable {
 		builder.maximumSize(((Server) Spout.getEngine()).getMaxPlayers());
 		builder.expireAfterAccess(10L, TimeUnit.MINUTES);
 
-		citizenCache = builder.build(new CacheLoader<String, Citizen>() {
+		citizenGroupCache = builder.build(new CacheLoader<String, Set<Group>>() {
 			@Override
-			public Citizen load(String name) throws Exception {
+			public Set<Group> load(String name) throws Exception {
 				Set<Group> myGroups = new HashSet<Group>();
 				for (Group group : groups) {
 					if (group.isImmediateMember(name)) {
 						myGroups.add(group);
 					}
 				}
-				return new Citizen(name, myGroups, Universe.this);
+				return myGroups;
 			}
 		});
 	}
@@ -342,24 +342,35 @@ public class Universe implements Storable {
 	 * Gets the citizen corresponding with the given player name.
 	 * 
 	 * @param player
+	 *            The player name, case-sensitive.
 	 * @return
 	 */
 	public Citizen getCitizen(String player) {
+		return new Citizen(player, this);
+	}
+
+	/**
+	 * Gets the groups of the given citizen.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public Set<Group> getCitizenGroups(String player) {
 		try {
-			return citizenCache.get(player);
-		} catch (ExecutionException ex) {
-			PoliticsPlugin.logger().log(Level.SEVERE, "Could not load a citizen! This is a PROBLEM!", ex);
+			return citizenGroupCache.get(player);
+		} catch (ExecutionException e) {
+			PoliticsPlugin.logger().log(Level.SEVERE, "Could not load a set of citizen groups! This is a PROBLEM!", e);
 			return null;
 		}
 	}
 
 	/**
-	 * Invalidates the given citizen.
+	 * Invalidates the given Set of groups for the given citizen.
 	 * 
 	 * @param citizen
 	 */
 	public void invalidateCitizen(String citizen) {
-		citizenCache.invalidate(citizen);
+		citizenGroupCache.invalidate(citizen);
 	}
 
 	@Override

@@ -34,11 +34,6 @@ public class Citizen {
 	private final String name;
 
 	/**
-	 * The groups this citizen is part of.
-	 */
-	private final Set<Group> groups;
-
-	/**
 	 * The universe this citizen is part of.
 	 */
 	private final Universe universe;
@@ -52,9 +47,8 @@ public class Citizen {
 	 *            The groups of this citizen. This should be the only reference.
 	 * @param universe
 	 */
-	public Citizen(String name, Set<Group> groups, Universe universe) {
+	public Citizen(String name, Universe universe) {
 		this.name = name;
-		this.groups = groups;
 		this.universe = universe;
 	}
 
@@ -73,7 +67,7 @@ public class Citizen {
 	 * @return
 	 */
 	public Set<Group> getGroups() {
-		return new HashSet<Group>(groups);
+		return universe.getCitizenGroups(name);
 	}
 
 	/**
