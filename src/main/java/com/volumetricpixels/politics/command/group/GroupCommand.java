@@ -21,8 +21,12 @@ package com.volumetricpixels.politics.command.group;
 
 import java.util.List;
 
+import org.spout.api.entity.Player;
+
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.universe.Universe;
 
 /**
  * A group-related command.
@@ -67,5 +71,15 @@ public abstract class GroupCommand extends PCommand {
 	@Override
 	protected String[] getAliases() {
 		return aliases.toArray(new String[0]);
+	}
+
+	/**
+	 * Gets the universe of the given player in relation to this command.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public Universe getUniverse(Player player) {
+		return Politics.getUniverse(player.getWorld(), level);
 	}
 }
