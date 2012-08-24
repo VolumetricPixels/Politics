@@ -131,7 +131,7 @@ public class UniverseManager {
 		universeDir.mkdirs();
 		for (File file : universeDir.listFiles()) {
 			String fileName = file.getName();
-			if (!fileName.endsWith(".cou") || fileName.length() <= 4) {
+			if (!fileName.endsWith(".ptu") || fileName.length() <= 4) {
 				continue;
 			}
 

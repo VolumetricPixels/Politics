@@ -102,7 +102,7 @@ public class PlotManager {
 		worldsDir.mkdirs();
 		for (File file : worldsDir.listFiles()) {
 			String fileName = file.getName();
-			if (!fileName.endsWith(".cow") || fileName.length() <= 4) {
+			if (!fileName.endsWith(".ptw") || fileName.length() <= 4) {
 				continue;
 			}
 			String worldName = fileName.substring(0, fileName.length() - 4);
