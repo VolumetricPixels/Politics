@@ -60,9 +60,9 @@ public final class GroupLevel {
 	private Set<GroupLevel> allowedChildren;
 
 	/**
-	 * Contains the names of roles corresponding to the given privilege set.
+	 * Roles mapped to their ids.
 	 */
-	private final BiMap<Integer, String> roleNames;
+	private final Map<String, Role> roles;
 
 	/**
 	 * Plural form of this group level name.
@@ -80,11 +80,11 @@ public final class GroupLevel {
 	 * @param name
 	 * @param rank
 	 */
-	public GroupLevel(String id, String name, int rank, BiMap<Integer, String> roleNames, String plural, Map<String, List<String>> commands) {
+	public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands) {
 		this.id = id;
 		this.name = name;
 		this.rank = rank;
-		this.roleNames = roleNames;
+		this.roles = roles;
 		this.plural = plural;
 		this.commands = commands;
 	}
@@ -155,32 +155,12 @@ public final class GroupLevel {
 	}
 
 	/**
-	 * Gets the role name of the given privilege set.
-	 * 
-	 * @param privileges
-	 * @return
-	 */
-	public String getRoleName(int privileges) {
-		return roleNames.get(Integer.valueOf(privileges));
-	}
-
-	/**
-	 * Gets the privileges of the given role name.
-	 * 
-	 * @param roleName
-	 * @return
-	 */
-	public int getPrivileges(String roleName) {
-		return roleNames.inverse().get(roleName).intValue();
-	}
-
-	/**
 	 * Gets the roles of the GroupLevel, named.
 	 * 
 	 * @return
 	 */
-	public Map<String, Integer> getRoles() {
-		return new HashMap<String, Integer>(roleNames.inverse());
+	public Map<String, Role> getRoles() {
+		return new HashMap<String, Role>(roles);
 	}
 
 	/**
@@ -192,6 +172,16 @@ public final class GroupLevel {
 	 */
 	public List<String> getAliases(String command) {
 		return new ArrayList<String>(commands.get(command.toLowerCase()));
+	}
+
+	/**
+	 * Gets a Role from its id.
+	 * 
+	 * @param roleId
+	 * @return 
+	 */
+	public Role getRole(String roleId) {
+		return roles.get(roleId.toLowerCase());
 	}
 
 	/**
@@ -209,10 +199,10 @@ public final class GroupLevel {
 		node.getNode("children").setValue(children);
 		node.getNode("plural").setValue(plural);
 
-		for (Entry<String, Integer> role : getRoles().entrySet()) {
+		for (Entry<String, Role> role : roles.entrySet()) {
 			String roleName = role.getKey();
-			int value = role.getValue().intValue();
-			Set<Privilege> privs = Privilege.getPrivileges(value);
+			Role value = role.getValue();
+			Set<Privilege> privs = Privilege.getPrivileges(value.getBitset());
 
 			List<String> privNames = new ArrayList<String>();
 			for (Privilege priv : privs) {
@@ -246,22 +236,12 @@ public final class GroupLevel {
 		List<String> children = node.getNode("children").getStringList();
 
 		// Load roles
-		Map<Integer, String> rolesMap = new HashMap<Integer, String>();
+		Map<String, Role> rolesMap = new HashMap<String, Role>();
 		for (Entry<String, ConfigurationNode> roleEntry : node.getNode("roles").getChildren().entrySet()) {
-			String roleName = roleEntry.getKey();
-			List<String> privs = roleEntry.getValue().getStringList();
-			int mask = 0x0;
-			for (String priv : privs) {
-				try {
-					Privilege p = Privilege.valueOf(priv);
-					mask &= p.getMask();
-				} catch (IllegalArgumentException ex) {
-					PoliticsPlugin.logger().log(Level.WARNING, "Unknown privilege '" + priv + "'. Not adding.");
-				}
-			}
-			rolesMap.put(mask, roleName);
+			String roleId = roleEntry.getKey();
+			Role role = Role.load(roleId, roleEntry.getValue());
+			rolesMap.put(roleId, role);
 		}
-		BiMap<Integer, String> realRolesMap = ImmutableBiMap.<Integer, String> builder().putAll(rolesMap).build();
 
 		// Load plural
 		String plural = node.getNode("plural").getString(levelName + "s");
@@ -312,7 +292,7 @@ public final class GroupLevel {
 			}
 		}
 
-		GroupLevel theLevel = new GroupLevel(id, levelName, rank, realRolesMap, plural, commands);
+		GroupLevel theLevel = new GroupLevel(id, levelName, rank, rolesMap, plural, commands);
 		// Children so we can get our allowed children in the future
 		levels.put(theLevel, children);
 		return theLevel;

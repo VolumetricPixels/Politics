@@ -20,11 +20,8 @@
 package com.volumetricpixels.politics.group;
 
 import gnu.trove.iterator.TIntObjectIterator;
-import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
-import gnu.trove.map.hash.TObjectIntHashMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +37,8 @@ import org.spout.api.entity.Player;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a group of players.
@@ -65,7 +64,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * The immediate players of this group. The keys are the players, and the
 	 * values are the player privileges.
 	 */
-	private final TObjectIntMap<String> players;
+	private final Map<String, Role> players;
 
 	/**
 	 * The universe this group is part of.
@@ -79,7 +78,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param level
 	 */
 	public Group(int uid, GroupLevel level) {
-		this(uid, level, new TIntObjectHashMap<Object>(), new TObjectIntHashMap<String>());
+		this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>());
 	}
 
 	/**
@@ -90,7 +89,7 @@ public final class Group implements Comparable<Group>, Storable {
 	 * @param properties
 	 * @param players
 	 */
-	private Group(int uid, GroupLevel level, TIntObjectMap<Object> properties, TObjectIntMap<String> players) {
+	private Group(int uid, GroupLevel level, TIntObjectMap<Object> properties, Map<String, Role> players) {
 		this.uid = uid;
 		this.level = level;
 		this.properties = properties;
@@ -290,12 +289,10 @@ public final class Group implements Comparable<Group>, Storable {
 		object.put("properties", propertiesBson);
 
 		final BasicBSONObject playersBson = new BasicBSONObject();
-		TObjectIntIterator<String> lit = players.iterator();
-		while (lit.hasNext()) {
-			lit.advance();
-			playersBson.put(lit.key(), lit.value());
+		for (Entry<String, Role> roleEntry : players.entrySet()) {
+			playersBson.put(roleEntry.getKey(), roleEntry.getValue().getId());
 		}
-		object.put("players", lit);
+		object.put("players", playersBson);
 
 		return object;
 	}
@@ -341,10 +338,11 @@ public final class Group implements Comparable<Group>, Storable {
 			throw new IllegalStateException("Stupid server admin... don't mess with the data!");
 		}
 		BasicBSONObject playersBson = (BasicBSONObject) playersObj;
-		TObjectIntMap<String> players = new TObjectIntHashMap<String>();
+		Map<String, Role> players = new HashMap<String, Role>();
 		for (Entry<String, Object> entry : playersBson.entrySet()) {
-			int mask = ((Integer) entry.getValue()).intValue();
-			players.put(entry.getKey(), mask);
+			String roleId = entry.getValue().toString();
+			Role role = level.getRole(roleId);
+			players.put(entry.getKey(), role);
 		}
 
 		return new Group(uid, level, properties, players);
