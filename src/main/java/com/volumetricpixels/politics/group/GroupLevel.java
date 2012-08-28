@@ -245,15 +245,16 @@ public final class GroupLevel {
 	 * @param node
 	 */
 	public void save(ConfigurationNode node) {
-		node.getNode("name").setValue(name);
-		node.getNode("rank").setValue(rank);
+		node.getChild("name").setValue(name);
+		node.getChild("rank").setValue(rank);
 		List<String> children = new ArrayList<String>();
 		for (GroupLevel child : getAllowedChildren()) {
 			children.add(child.getId());
 		}
-		node.getNode("children").setValue(children);
-		node.getNode("plural").setValue(plural);
+		node.getChild("children").setValue(children);
+		node.getChild("plural").setValue(plural);
 
+		ConfigurationNode rolesNode = node.getChild("roles");
 		for (Entry<String, Role> role : roles.entrySet()) {
 			String roleName = role.getKey();
 			Role value = role.getValue();
@@ -264,8 +265,13 @@ public final class GroupLevel {
 				privNames.add(priv.name());
 			}
 
-			node.getNode("roles." + roleName).setValue(privNames);
+			rolesNode.getChild(roleName).setValue(privNames);
 		}
+
+		// TODO track serialization
+
+		node.getChild("initial").setValue(initial.getId());
+		node.getChild("founder").setValue(founder.getId());
 	}
 
 	/**
