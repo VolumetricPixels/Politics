@@ -45,6 +45,7 @@ levels:
             - resident
             - assistant
             - mayor
+        initial: resident
         founder: mayor
     nation:
         name: Nation

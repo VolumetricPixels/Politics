@@ -80,6 +80,11 @@ public final class GroupLevel {
 	private final Map<String, Track> tracks;
 
 	/**
+	 * The initial role of the group level.
+	 */
+	private final Role initial;
+
+	/**
 	 * The founding role of the group level.
 	 */
 	private final Role founder;
@@ -97,9 +102,10 @@ public final class GroupLevel {
 	 * @param plural
 	 * @param commands
 	 * @param tracks
+	 * @param initial
 	 * @param founder
 	 */
-	public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands, Map<String, Track> tracks, Role founder) {
+	public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands, Map<String, Track> tracks, Role initial, Role founder) {
 		this.id = id;
 		this.name = name;
 		this.rank = rank;
@@ -107,6 +113,7 @@ public final class GroupLevel {
 		this.plural = plural;
 		this.commands = commands;
 		this.tracks = tracks;
+		this.initial = initial;
 		this.founder = founder;
 	}
 
@@ -215,6 +222,15 @@ public final class GroupLevel {
 	}
 
 	/**
+	 * Gets the initial role of a member of the group.
+	 *
+	 * @return
+	 */
+	public Role getInitial() {
+		return initial;
+	}
+
+	/**
 	 * Gets the role of a founder of the group.
 	 *
 	 * @return
@@ -280,6 +296,9 @@ public final class GroupLevel {
 			Role role = Role.load(roleId, roleEntry.getValue());
 			rolesMap.put(roleId, role);
 		}
+		if (rolesMap.isEmpty()) {
+			throw new IllegalStateException("No roles specified for the GroupLevel '" + levelName + "'.");
+		}
 
 		// Load plural
 		String plural = node.getNode("plural").getString(levelName + "s");
@@ -337,6 +356,25 @@ public final class GroupLevel {
 			tracks.put(track.getId(), track);
 		}
 
+		String initialName = node.getChild("resident").getString();
+		Role initial;
+		if (initialName == null) {
+			int lowest = Integer.MAX_VALUE;
+			Role lowestRole = null;
+			for (Role role : rolesMap.values()) {
+				if (role.getRank() <= lowest) { // Incase of max value for rank
+					lowest = role.getRank();
+					lowestRole = role;
+				}
+			}
+			initial = lowestRole;
+		} else {
+			initial = rolesMap.get(initialName.toLowerCase());
+			if (initial == null) {
+				throw new IllegalStateException("Invalid initial role '" + initialName + "'.");
+			}
+		}
+
 		String founderName = node.getChild("founder").getString();
 		Role founder;
 		if (founderName == null) {
@@ -356,7 +394,7 @@ public final class GroupLevel {
 			}
 		}
 
-		GroupLevel theLevel = new GroupLevel(id, levelName, rank, rolesMap, plural, commands, tracks, founder);
+		GroupLevel theLevel = new GroupLevel(id, levelName, rank, rolesMap, plural, commands, tracks, initial, founder);
 		// Children so we can get our allowed children in the future
 		levels.put(theLevel, children);
 		return theLevel;
