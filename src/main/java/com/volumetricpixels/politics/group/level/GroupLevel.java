@@ -381,7 +381,7 @@ public final class GroupLevel {
 			tracks.put("default", def);
 		}
 
-		String initialName = node.getChild("resident").getString();
+		String initialName = node.getChild("initial").getString();
 		Role initial;
 		if (initialName == null) {
 			int lowest = Integer.MAX_VALUE;
