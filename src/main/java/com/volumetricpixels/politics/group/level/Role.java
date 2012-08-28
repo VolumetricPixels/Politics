@@ -11,7 +11,7 @@ import org.spout.api.util.config.ConfigurationNode;
 /**
  * A role.
  */
-public class Role {
+public class Role implements Comparable<Role> {
 	/**
 	 * The string id of the role. All lowercase.
 	 */
@@ -104,5 +104,13 @@ public class Role {
 		}
 		int rank = node.getNode("rank").getInt(1);
 		return new Role(id, name, mask, rank);
+	}
+
+	@Override
+	public int compareTo(Role other) {
+		if (rank == other.getRank()) {
+			return id.compareToIgnoreCase(other.getId());
+		}
+		return rank - other.getRank();
 	}
 }

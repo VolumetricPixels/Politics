@@ -31,7 +31,7 @@ public class Track implements Iterable<Role> {
 	 * @param id
 	 * @param roles
 	 */
-	private Track(String id, List<Role> roles) {
+	Track(String id, List<Role> roles) {
 		this.id = id;
 		this.roles = roles;
 	}

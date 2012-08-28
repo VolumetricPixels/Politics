@@ -19,9 +19,6 @@
  */
 package com.volumetricpixels.politics.group.level;
 
-import com.volumetricpixels.politics.group.level.Role;
-import com.volumetricpixels.politics.group.level.Track;
-import com.volumetricpixels.politics.group.level.Privilege;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,9 +30,8 @@ import java.util.logging.Level;
 
 import org.spout.api.util.config.ConfigurationNode;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 import com.volumetricpixels.politics.PoliticsPlugin;
+import java.util.*;
 
 /**
  * Represents a level of organization of a group.
@@ -225,6 +221,15 @@ public final class GroupLevel {
 	}
 
 	/**
+	 * Gets the default track of the GroupLevel.
+	 *
+	 * @return
+	 */
+	public Track getDefaultTrack() {
+		return getTrack("default");
+	}
+
+	/**
 	 * Gets the initial role of a member of the group.
 	 *
 	 * @return
@@ -363,6 +368,17 @@ public final class GroupLevel {
 		for (Entry<String, ConfigurationNode> trackEntry : tracksNode.getChildren().entrySet()) {
 			Track track = Track.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
 			tracks.put(track.getId(), track);
+		}
+		if (!tracks.containsKey("default")) {
+			Track def;
+			if (tracks.isEmpty()) {
+				List<Role> rolesSorted = new LinkedList<Role>(rolesMap.values());
+				Collections.sort(rolesSorted);
+				def = new Track("default", rolesSorted);
+			} else {
+				def = tracks.entrySet().iterator().next().getValue();
+			}
+			tracks.put("default", def);
 		}
 
 		String initialName = node.getChild("resident").getString();
