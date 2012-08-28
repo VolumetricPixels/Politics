@@ -30,7 +30,7 @@ import java.util.Set;
 import org.spout.api.util.config.Configuration;
 import org.spout.api.util.config.ConfigurationNode;
 
-import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 
 /**
  * Represents the sum of the rules of a given universe. In essence, it is a

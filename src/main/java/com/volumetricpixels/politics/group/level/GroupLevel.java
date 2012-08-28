@@ -17,8 +17,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.group;
+package com.volumetricpixels.politics.group.level;
 
+import com.volumetricpixels.politics.group.level.Role;
+import com.volumetricpixels.politics.group.level.Track;
+import com.volumetricpixels.politics.group.level.Privilege;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

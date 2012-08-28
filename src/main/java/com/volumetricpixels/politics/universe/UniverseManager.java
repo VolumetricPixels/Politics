@@ -43,7 +43,7 @@ import org.spout.api.util.config.yaml.YamlConfiguration;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 
 /**

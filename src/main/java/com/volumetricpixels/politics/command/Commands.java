@@ -25,7 +25,7 @@ import org.spout.api.command.Command;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.group.GroupCommands;
 import com.volumetricpixels.politics.command.universe.UniverseCommands;
-import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 
 /**
  * Registration for all commands.

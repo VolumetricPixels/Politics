@@ -26,7 +26,7 @@ import org.spout.api.entity.Player;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.Citizen;
-import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**

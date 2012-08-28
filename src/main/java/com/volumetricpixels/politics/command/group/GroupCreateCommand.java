@@ -25,7 +25,7 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
-import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 
 public class GroupCreateCommand extends GroupCommand {
 

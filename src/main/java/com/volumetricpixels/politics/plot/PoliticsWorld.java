@@ -38,7 +38,7 @@ import org.spout.api.util.map.TInt21TripleObjectHashMap;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**

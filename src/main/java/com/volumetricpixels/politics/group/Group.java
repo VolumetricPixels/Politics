@@ -19,6 +19,8 @@
  */
 package com.volumetricpixels.politics.group;
 
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Role;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;

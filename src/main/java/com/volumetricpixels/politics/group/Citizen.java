@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.group;
 
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import java.util.HashSet;
 import java.util.Set;
 

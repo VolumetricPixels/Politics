@@ -47,7 +47,7 @@ import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.GroupLevel;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 
 /**

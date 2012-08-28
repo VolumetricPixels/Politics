@@ -1,4 +1,4 @@
-package com.volumetricpixels.politics.group;
+package com.volumetricpixels.politics.group.level;
 
 import com.volumetricpixels.politics.PoliticsPlugin;
 import java.util.ArrayList;
