@@ -75,25 +75,45 @@ public final class GroupLevel {
 	private final Map<String, List<String>> commands;
 
 	/**
+	 * The tracks of the group level.
+	 */
+	private final Map<String, Track> tracks;
+
+	/**
+	 * The founding role of the group level.
+	 */
+	private final Role founder;
+
+	/**
 	 * C'tor
-	 * 
+	 *
+	 * There must be a better way... if final doesn't really matter then I will
+	 * switch from it.
+	 *
+	 * @param id
 	 * @param name
 	 * @param rank
+	 * @param roles
+	 * @param plural
+	 * @param commands
+	 * @param tracks
+	 * @param founder
 	 */
-	public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands) {
+	public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands, Map<String, Track> tracks, Role founder) {
 		this.id = id;
 		this.name = name;
 		this.rank = rank;
 		this.roles = roles;
 		this.plural = plural;
 		this.commands = commands;
+		this.tracks = tracks;
+		this.founder = founder;
 	}
 
 	/**
 	 * Sets the allowed children to the given set.
-	 * 
-	 * @param set
-	 *            The set to use. This should be the only reference.
+	 *
+	 * @param set The set to use. This should be the only reference.
 	 */
 	public void setAllowedChildren(Set<GroupLevel> set) {
 		this.allowedChildren = set;
@@ -101,7 +121,7 @@ public final class GroupLevel {
 
 	/**
 	 * Gets the ID of this GroupLevel.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getId() {
@@ -110,7 +130,7 @@ public final class GroupLevel {
 
 	/**
 	 * Gets the name of this GroupLevel.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getName() {
@@ -119,7 +139,7 @@ public final class GroupLevel {
 
 	/**
 	 * Gets the rank of this GroupLevel.
-	 * 
+	 *
 	 * @return
 	 */
 	public int getRank() {
@@ -128,7 +148,7 @@ public final class GroupLevel {
 
 	/**
 	 * Gets the plural form of this GroupLevel.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getPlural() {
@@ -137,7 +157,7 @@ public final class GroupLevel {
 
 	/**
 	 * Gets the set of allowed children of this GroupLevel.
-	 * 
+	 *
 	 * @return
 	 */
 	public Set<GroupLevel> getAllowedChildren() {
@@ -146,7 +166,7 @@ public final class GroupLevel {
 
 	/**
 	 * Returns true if this level can have children of the given level.
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
@@ -156,7 +176,7 @@ public final class GroupLevel {
 
 	/**
 	 * Gets the roles of the GroupLevel, named.
-	 * 
+	 *
 	 * @return
 	 */
 	public Map<String, Role> getRoles() {
@@ -165,10 +185,10 @@ public final class GroupLevel {
 
 	/**
 	 * Gets the aliases of the given command.
-	 * 
+	 *
 	 * @param command
 	 * @return the ArrayList of aliases; an empty ArrayList if there are no
-	 *         aliases thus the command should not exist
+	 * aliases thus the command should not exist
 	 */
 	public List<String> getAliases(String command) {
 		return new ArrayList<String>(commands.get(command.toLowerCase()));
@@ -176,17 +196,36 @@ public final class GroupLevel {
 
 	/**
 	 * Gets a Role from its id.
-	 * 
+	 *
 	 * @param roleId
-	 * @return 
+	 * @return
 	 */
 	public Role getRole(String roleId) {
 		return roles.get(roleId.toLowerCase());
 	}
 
 	/**
+	 * Gets the track with the given id.
+	 *
+	 * @param id
+	 * @return
+	 */
+	public Track getTrack(String id) {
+		return tracks.get(id.toLowerCase());
+	}
+
+	/**
+	 * Gets the role of a founder of the group.
+	 *
+	 * @return
+	 */
+	public Role getFounder() {
+		return founder;
+	}
+
+	/**
 	 * Saves this GroupLevel to the provided node.
-	 * 
+	 *
 	 * @param node
 	 */
 	public void save(ConfigurationNode node) {
@@ -215,11 +254,10 @@ public final class GroupLevel {
 
 	/**
 	 * Loads a GroupLevel.
-	 * 
+	 *
 	 * @param id
 	 * @param node
-	 * @param levels
-	 *            The map that the level names are stored in.
+	 * @param levels The map that the level names are stored in.
 	 * @return
 	 */
 	public static GroupLevel load(String id, ConfigurationNode node, Map<GroupLevel, List<String>> levels) {
@@ -292,7 +330,33 @@ public final class GroupLevel {
 			}
 		}
 
-		GroupLevel theLevel = new GroupLevel(id, levelName, rank, rolesMap, plural, commands);
+		Map<String, Track> tracks = new HashMap<String, Track>();
+		ConfigurationNode tracksNode = node.getChild("tracks");
+		for (Entry<String, ConfigurationNode> trackEntry : tracksNode.getChildren().entrySet()) {
+			Track track = Track.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
+			tracks.put(track.getId(), track);
+		}
+
+		String founderName = node.getChild("founder").getString();
+		Role founder;
+		if (founderName == null) {
+			int highest = 0;
+			Role highestRole = null;
+			for (Role role : rolesMap.values()) {
+				if (role.getRank() > highest) {
+					highest = role.getRank();
+					highestRole = role;
+				}
+			}
+			founder = highestRole;
+		} else {
+			founder = rolesMap.get(founderName.toLowerCase());
+			if (founder == null) {
+				throw new IllegalStateException("Invalid founder role '" + founderName + "'.");
+			}
+		}
+
+		GroupLevel theLevel = new GroupLevel(id, levelName, rank, rolesMap, plural, commands, tracks, founder);
 		// Children so we can get our allowed children in the future
 		levels.put(theLevel, children);
 		return theLevel;

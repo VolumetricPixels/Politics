@@ -60,9 +60,9 @@ public enum Privilege {
 	ONLINE(0x20),
 
 	/**
-	 * Allows the player to add other players to the group.
+	 * Allows the player to invite  other players to the group.
 	 */
-	ADD(0x40),
+	INVITE(0x40),
 
 	/**
 	 * Allows the player to kick others from the group.

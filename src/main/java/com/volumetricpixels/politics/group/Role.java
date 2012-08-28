@@ -75,6 +75,15 @@ public class Role {
 	}
 
 	/**
+	 * Gets the rank of the role.
+	 *
+	 * @return
+	 */
+	public int getRank() {
+		return rank;
+	}
+
+	/**
 	 * Loads a role from a string id and node.
 	 *
 	 * @param id

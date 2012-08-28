@@ -8,7 +8,44 @@ levels:
                 name: Resident
                 privileges:
                 - BUILD
-                rank: 12
+                - INFO
+                - LEAVE
+                - ONLINE
+                - SPAWN
+                rank: 100
+            assistant:
+                name: Assistant
+                privileges:
+                - BUILD
+                - INFO
+                - LEAVE
+                - ONLINE
+                - INVITE
+                - KICK
+                - SET_ROLE
+                - SPAWN
+                rank: 200
+            mayor:
+                name: Mayor
+                privileges:
+                - BUILD
+                - CLAIM
+                - DISBAND
+                - INFO
+                - LEAVE
+                - ONLINE
+                - INVITE
+                - KICK
+                - SET_ROLE
+                - SPAWN
+                - UNCLAIM
+                rank: 300
+        tracks:
+            default:
+            - resident
+            - assistant
+            - mayor
+        founder: mayor
     nation:
         name: Nation
         rank: 2
