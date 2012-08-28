@@ -2,11 +2,16 @@ levels:
     town:
         name: Town
         rank: 1
-        children:
-        - nation
+        children: []
         roles:
             resident:
                 name: Resident
                 privileges:
                 - BUILD
+                rank: 12
     nation:
+        name: Nation
+        rank: 2
+        children:
+        - nation
+        roles: []
