@@ -54,6 +54,34 @@ public class Track implements Iterable<Role> {
 		return new LinkedList<Role>(roles);
 	}
 
+	/**
+	 * Gets the role before the given role.
+	 *
+	 * @param role
+	 * @return
+	 */
+	public Role getPreviousRole(Role role) {
+		int index = roles.indexOf(role);
+		if (index < 0 || index <= 0) {
+			return null;
+		}
+		return roles.get(index - 1);
+	}
+
+	/**
+	 * Gets the role after the given role.
+	 *
+	 * @param role
+	 * @return
+	 */
+	public Role getNextRole(Role role) {
+		int index = roles.indexOf(role);
+		if (index < 0 || index + 2 > roles.size()) {
+			return null;
+		}
+		return roles.get(index + 1);
+	}
+
 	@Override
 	public Iterator<Role> iterator() {
 		return roles.listIterator();
