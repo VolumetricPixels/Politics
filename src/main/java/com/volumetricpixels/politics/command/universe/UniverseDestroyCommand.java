@@ -44,12 +44,12 @@ public class UniverseDestroyCommand extends UniverseCommand {
 	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
 		Universe universe = Politics.getUniverse(args.getString(0));
 		if (universe == null) {
-			source.sendMessage(MsgStyle.error(), "The universe '" + args.getString(0) + "' doesn't exist.");
+			source.sendMessage(MsgStyle.ERROR, "The universe '" + args.getString(0) + "' doesn't exist.");
 			return;
 		}
 
 		Politics.getUniverseManager().destroyUniverse(universe);
-		source.sendMessage(MsgStyle.success(), "The universe has been destroyed, sir.");
+		source.sendMessage(MsgStyle.SUCCESS, "The universe has been destroyed, sir.");
 	}
 
 	@Override

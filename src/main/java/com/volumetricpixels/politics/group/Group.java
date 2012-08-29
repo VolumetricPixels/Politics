@@ -41,6 +41,7 @@ import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
 import java.util.HashMap;
 import java.util.Map;
+import org.spout.api.Server;
 
 /**
  * Represents a group of players.
@@ -75,7 +76,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * C'tor
-	 * 
+	 *
 	 * @param universe
 	 * @param level
 	 */
@@ -85,7 +86,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * C'tor
-	 * 
+	 *
 	 * @param universe
 	 * @param level
 	 * @param properties
@@ -100,7 +101,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Initializes the universe.
-	 * 
+	 *
 	 * @param universe
 	 */
 	public void initialize(Universe universe) {
@@ -112,7 +113,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the universe of this Group.
-	 * 
+	 *
 	 * @return
 	 */
 	public Universe getUniverse() {
@@ -121,7 +122,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the UID of this Group.
-	 * 
+	 *
 	 * @return
 	 */
 	public int getUid() {
@@ -130,7 +131,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the groups composing this group.
-	 * 
+	 *
 	 * @return
 	 */
 	public Set<Group> getGroups() {
@@ -139,7 +140,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Adds the given group as a child of this group.
-	 * 
+	 *
 	 * @param group
 	 * @return True if the given group was able to be a child of the group.
 	 */
@@ -149,10 +150,10 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Removes the given group from this group's children.
-	 * 
+	 *
 	 * @param group
 	 * @return
-	 * 
+	 *
 	 * @see Universe#removeChildGroup(Group, Group)
 	 */
 	public boolean removeChildGroup(Group group) {
@@ -161,7 +162,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the GroupLevel of this Group.
-	 * 
+	 *
 	 * @return
 	 */
 	public GroupLevel getLevel() {
@@ -170,7 +171,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the value of a property.
-	 * 
+	 *
 	 * @param property
 	 * @return
 	 */
@@ -180,7 +181,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets a property as a String.
-	 * 
+	 *
 	 * @param property
 	 * @return
 	 */
@@ -194,7 +195,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Sets the value of a property.
-	 * 
+	 *
 	 * @param property
 	 * @param value
 	 */
@@ -204,7 +205,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the immediate players part of this group.
-	 * 
+	 *
 	 * @return
 	 */
 	public List<String> getImmediatePlayers() {
@@ -213,13 +214,13 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the immediate online players part of this group.
-	 * 
+	 *
 	 * @return
 	 */
 	public List<Player> getImmediateOnlinePlayers() {
 		List<Player> players = new ArrayList<Player>();
 		for (String pn : getImmediatePlayers()) {
-			Player player = Spout.getEngine().getPlayer(pn, true);
+			Player player = ((Server) Spout.getEngine()).getPlayer(pn, true);
 			if (player != null) {
 				players.add(player);
 			}
@@ -229,7 +230,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets all players part of this group.
-	 * 
+	 *
 	 * @return
 	 */
 	public List<String> getPlayers() {
@@ -243,7 +244,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Returns true if the given player is an immediate member of this group.
-	 * 
+	 *
 	 * @param player
 	 * @return
 	 */
@@ -253,7 +254,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Checks if the given player is a member of this group or child groups.
-	 * 
+	 *
 	 * @param player
 	 * @return
 	 */
@@ -301,7 +302,7 @@ public final class Group implements Comparable<Group>, Storable {
 
 	/**
 	 * Gets the Group from the given BSONObject.
-	 * 
+	 *
 	 * @param rules
 	 * @param object
 	 * @return

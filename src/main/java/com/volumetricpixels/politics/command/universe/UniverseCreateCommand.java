@@ -51,7 +51,7 @@ public class UniverseCreateCommand extends UniverseCommand {
 		String rules = args.getString(1).toLowerCase();
 		UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
 		if (theRules == null) {
-			source.sendMessage(MsgStyle.error(), "There is no set of rules named ", MsgStyle.errorHighlight(), rules, MsgStyle.error(), ". To see the available rules, use ", MsgStyle.errorHighlight(), "universe rules", MsgStyle.error(), ".");
+			source.sendMessage(MsgStyle.ERROR, "There is no set of rules named ", MsgStyle.ERROR_HIGHLIGHT, rules, MsgStyle.ERROR, ". To see the available rules, use ", MsgStyle.ERROR_HIGHLIGHT, "universe rules", MsgStyle.ERROR, ".");
 			return;
 		}
 
@@ -73,12 +73,12 @@ public class UniverseCreateCommand extends UniverseCommand {
 		}
 
 		if (worlds <= 0) {
-			source.sendMessage(MsgStyle.error(), "There were no valid worlds specified.");
+			source.sendMessage(MsgStyle.ERROR, "There were no valid worlds specified.");
 			Politics.getUniverseManager().destroyUniverse(universe);
 		}
 
 		PoliticsEventFactory.callUniverseCreateEvent(universe);
-		source.sendMessage(MsgStyle.success(), "A new universe has been created named '" + name + "' with the rules '" + rules + "'.");
+		source.sendMessage(MsgStyle.SUCCESS, "A new universe has been created named '" + name + "' with the rules '" + rules + "'.");
 	}
 
 	@Override

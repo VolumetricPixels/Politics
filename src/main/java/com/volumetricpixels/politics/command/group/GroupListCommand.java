@@ -56,28 +56,28 @@ public class GroupListCommand extends GroupCommand {
 		// Get le universe
 		if (!(source instanceof Player)) {
 			if (!args.hasFlag('u')) {
-				source.sendMessage(MsgStyle.error(), "You need to specify a universe. Add `-u universename' to your command to make it so.");
+				source.sendMessage(MsgStyle.ERROR, "You need to specify a universe. Add `-u universename' to your command to make it so.");
 				return;
 			}
 			String universeName = args.getFlagString('u');
 			universe = Politics.getUniverse(universeName);
 			if (universe == null) {
-				source.sendMessage(MsgStyle.error(), "A universe with the name `" + universeName + "' does not exist.");
+				source.sendMessage(MsgStyle.ERROR, "A universe with the name `" + universeName + "' does not exist.");
 				return;
 			}
 		} else {
 			universe = Politics.getUniverse(((Player) source).getWorld(), level);
 			if (universe == null) {
-				source.sendMessage(MsgStyle.error(), "You can't use this command right now.");
+				source.sendMessage(MsgStyle.ERROR, "You can't use this command right now.");
 				return;
 			}
 		}
 
-		source.sendMessage(MsgStyle.info(), "========= " + level.getPlural().toUpperCase() + " =========");
+		source.sendMessage(MsgStyle.INFO, "========= " + level.getPlural().toUpperCase() + " =========");
 
 		List<Group> groups = universe.getGroups(level);
 		if (groups == null) {
-			source.sendMessage(MsgStyle.error(), "There are no " + level.getPlural() + ".");
+			source.sendMessage(MsgStyle.ERROR, "There are no " + level.getPlural() + ".");
 			return;
 		}
 
@@ -89,7 +89,7 @@ public class GroupListCommand extends GroupCommand {
 		int min = ((page - 1) * PAGE_HEIGHT) - 1; // Screen height
 		int max = Math.min(groups.size(), page * PAGE_HEIGHT) - 2;
 		if (max <= min) {
-			source.sendMessage(MsgStyle.error(), "There are no " + level.getPlural() + " on this page.");
+			source.sendMessage(MsgStyle.ERROR, "There are no " + level.getPlural() + " on this page.");
 			return;
 		}
 

@@ -23,23 +23,28 @@ import org.spout.api.chat.style.ChatStyle;
 
 /**
  * Holds styles of messages.
- * 
+ *
  * TODO make these configurable
  */
 public class MsgStyle {
-	public static ChatStyle error() {
-		return ChatStyle.RED;
-	}
+	/**
+	 * Error color
+	 */
+	public static final ChatStyle ERROR = ChatStyle.RED;
 
-	public static ChatStyle errorHighlight() {
-		return ChatStyle.YELLOW;
-	}
+	/**
+	 * Error highlight color
+	 */
+	public static final ChatStyle ERROR_HIGHLIGHT = ChatStyle.YELLOW;
 
-	public static ChatStyle info() {
-		return ChatStyle.GOLD;
-	}
+	/**
+	 * Info color
+	 */
+	public static final ChatStyle INFO = ChatStyle.GOLD;
 
-	public static ChatStyle success() {
-		return ChatStyle.BRIGHT_GREEN;
-	}
+	/**
+	 * Success color
+	 */
+	public static final ChatStyle SUCCESS = ChatStyle.BRIGHT_GREEN;
+
 }

@@ -50,13 +50,13 @@ public class GroupInfoCommand extends GroupCommand {
 		Player p = (Player) source;
 		Citizen citizen = getCitizen(p);
 		if (citizen == null) {
-			source.sendMessage(MsgStyle.error(), "You can't use this command in this world.");
+			source.sendMessage(MsgStyle.ERROR, "You can't use this command in this world.");
 			return;
 		}
 
 		Set<Group> groups = citizen.getGroups(level);
 		if (groups.size() <= 0) {
-			source.sendMessage(MsgStyle.error(), "You aren't in a " + level.getName() + ".");
+			source.sendMessage(MsgStyle.ERROR, "You aren't in a " + level.getName() + ".");
 		}
 
 		p.sendMessage(ChatStyle.BLUE, "============= INFO =============");
