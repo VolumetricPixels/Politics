@@ -19,28 +19,28 @@
  */
 package com.volumetricpixels.politics.command.universe;
 
+import com.volumetricpixels.politics.MsgStyle;
 import org.spout.api.command.Command;
-
-import com.volumetricpixels.politics.command.Commands;
+import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandSource;
+import org.spout.api.exception.CommandException;
 
 /**
- * Contains commands related to Universes.
+ * Allows manipulation and creation of rules.
  */
-public class UniverseCommands extends Commands {
+public class UniverseRulesCommand extends UniverseCommand {
 	/**
 	 * C'tor
 	 */
-	public UniverseCommands() {
-		super("universe");
+	public UniverseRulesCommand() {
+		super("rules");
 	}
 
-	/**
-	 * Registers all universe commands.
-	 */
 	@Override
-	public void setup(Command cmd) {
-		(new UniverseCreateCommand()).register(cmd);
-		(new UniverseDestroyCommand()).register(cmd);
-		(new UniverseRulesCommand()).register(cmd);
+	public void processCommand(CommandSource cs, Command cmnd, CommandContext cc) throws CommandException {
+		if (!cs.hasPermission("politics.commands.rules")) {
+			cs.sendMessage(MsgStyle.ERROR, "You aren't allowed to use this command.");
+			return;
+		}
 	}
 }
