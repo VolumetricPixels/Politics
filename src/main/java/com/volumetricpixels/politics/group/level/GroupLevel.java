@@ -248,6 +248,15 @@ public final class GroupLevel {
 	}
 
 	/**
+	 * Checks if this GroupLevel can be founded.
+	 *
+	 * @return
+	 */
+	public boolean canFound() {
+		return founder != null;
+	}
+
+	/**
 	 * Saves this GroupLevel to the provided node.
 	 *
 	 * @param node
@@ -310,9 +319,6 @@ public final class GroupLevel {
 			Role role = Role.load(roleId, roleEntry.getValue());
 			rolesMap.put(roleId, role);
 		}
-		if (rolesMap.isEmpty()) {
-			throw new IllegalStateException("No roles specified for the GroupLevel '" + levelName + "'.");
-		}
 
 		// Load plural
 		String plural = node.getNode("plural").getString(levelName + "s");
@@ -363,59 +369,66 @@ public final class GroupLevel {
 			}
 		}
 
+		// Our variables
 		Map<String, Track> tracks = new HashMap<String, Track>();
-		ConfigurationNode tracksNode = node.getChild("tracks");
-		for (Entry<String, ConfigurationNode> trackEntry : tracksNode.getChildren().entrySet()) {
-			Track track = Track.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
-			tracks.put(track.getId(), track);
-		}
-		if (!tracks.containsKey("default")) {
-			Track def;
-			if (tracks.isEmpty()) {
-				List<Role> rolesSorted = new LinkedList<Role>(rolesMap.values());
-				Collections.sort(rolesSorted);
-				def = new Track("default", rolesSorted);
-			} else {
-				def = tracks.entrySet().iterator().next().getValue();
-			}
-			tracks.put("default", def);
-		}
-
-		String initialName = node.getChild("initial").getString();
 		Role initial;
-		if (initialName == null) {
-			int lowest = Integer.MAX_VALUE;
-			Role lowestRole = null;
-			for (Role role : rolesMap.values()) {
-				if (role.getRank() <= lowest) { // Incase of max value for rank
-					lowest = role.getRank();
-					lowestRole = role;
-				}
-			}
-			initial = lowestRole;
-		} else {
-			initial = rolesMap.get(initialName.toLowerCase());
-			if (initial == null) {
-				throw new IllegalStateException("Invalid initial role '" + initialName + "'.");
-			}
-		}
-
-		String founderName = node.getChild("founder").getString();
 		Role founder;
-		if (founderName == null) {
-			int highest = 0;
-			Role highestRole = null;
-			for (Role role : rolesMap.values()) {
-				if (role.getRank() > highest) {
-					highest = role.getRank();
-					highestRole = role;
+
+		if (rolesMap.isEmpty()) {
+			initial = null;
+			founder = null;
+		} else {
+			ConfigurationNode tracksNode = node.getChild("tracks");
+			for (Entry<String, ConfigurationNode> trackEntry : tracksNode.getChildren().entrySet()) {
+				Track track = Track.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
+				tracks.put(track.getId(), track);
+			}
+			if (!tracks.containsKey("default")) {
+				Track def;
+				if (tracks.isEmpty()) {
+					List<Role> rolesSorted = new LinkedList<Role>(rolesMap.values());
+					Collections.sort(rolesSorted);
+					def = new Track("default", rolesSorted);
+				} else {
+					def = tracks.entrySet().iterator().next().getValue();
+				}
+				tracks.put("default", def);
+			}
+
+			String initialName = node.getChild("initial").getString();
+			if (initialName == null) {
+				int lowest = Integer.MAX_VALUE;
+				Role lowestRole = null;
+				for (Role role : rolesMap.values()) {
+					if (role.getRank() <= lowest) { // Incase of max value for rank
+						lowest = role.getRank();
+						lowestRole = role;
+					}
+				}
+				initial = lowestRole;
+			} else {
+				initial = rolesMap.get(initialName.toLowerCase());
+				if (initial == null) {
+					throw new IllegalStateException("Invalid initial role '" + initialName + "'.");
 				}
 			}
-			founder = highestRole;
-		} else {
-			founder = rolesMap.get(founderName.toLowerCase());
-			if (founder == null) {
-				throw new IllegalStateException("Invalid founder role '" + founderName + "'.");
+
+			String founderName = node.getChild("founder").getString();
+			if (founderName == null) {
+				int highest = 0;
+				Role highestRole = null;
+				for (Role role : rolesMap.values()) {
+					if (role.getRank() > highest) {
+						highest = role.getRank();
+						highestRole = role;
+					}
+				}
+				founder = highestRole;
+			} else {
+				founder = rolesMap.get(founderName.toLowerCase());
+				if (founder == null) {
+					throw new IllegalStateException("Invalid founder role '" + founderName + "'.");
+				}
 			}
 		}
 
