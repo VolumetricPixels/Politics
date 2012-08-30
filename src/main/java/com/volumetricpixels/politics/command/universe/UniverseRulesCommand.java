@@ -38,7 +38,7 @@ public class UniverseRulesCommand extends UniverseCommand {
 
 	@Override
 	public void processCommand(CommandSource cs, Command cmnd, CommandContext cc) throws CommandException {
-		if (!cs.hasPermission("politics.commands.rules")) {
+		if (!cs.hasPermission("politics.commands.universe.rules")) {
 			cs.sendMessage(MsgStyle.ERROR, "You aren't allowed to use this command.");
 			return;
 		}
