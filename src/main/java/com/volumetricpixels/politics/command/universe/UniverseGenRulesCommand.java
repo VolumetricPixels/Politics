@@ -26,19 +26,19 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
 /**
- * Lists available rules.
+ * Creates Universe rules.
  */
-public class UniverseRulesCommand extends UniverseCommand {
+public class UniverseGenRulesCommand extends UniverseCommand {
 	/**
 	 * C'tor
 	 */
-	public UniverseRulesCommand() {
-		super("rules");
+	public UniverseGenRulesCommand() {
+		super("genrules");
 	}
 
 	@Override
 	public void processCommand(CommandSource cs, Command cmnd, CommandContext cc) throws CommandException {
-		if (!cs.hasPermission("politics.commands.universe.rules")) {
+		if (!cs.hasPermission("politics.commands.universe.genrules")) {
 			cs.sendMessage(MsgStyle.ERROR, "You aren't allowed to use this command.");
 			return;
 		}
