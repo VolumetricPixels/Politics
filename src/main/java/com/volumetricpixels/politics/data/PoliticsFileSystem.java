@@ -23,7 +23,7 @@ import com.volumetricpixels.politics.Politics;
 import java.io.File;
 
 /**
- * Manages... data?
+ * Manages all Files in Politics
  */
 public class PoliticsFileSystem {
 	/**
