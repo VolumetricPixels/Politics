@@ -87,7 +87,7 @@ public class UniverseManager {
 
 	/**
 	 * C'tor
-	 * 
+	 *
 	 * @param plugin
 	 */
 	public UniverseManager() {
@@ -200,7 +200,7 @@ public class UniverseManager {
 
 	/**
 	 * Gets a universe by its name.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -210,7 +210,7 @@ public class UniverseManager {
 
 	/**
 	 * Gets the rules with the corresponding name.
-	 * 
+	 *
 	 * @param rulesName
 	 * @return
 	 */
@@ -219,8 +219,17 @@ public class UniverseManager {
 	}
 
 	/**
+	 * Returns a list of all UniverseRules.
+	 *
+	 * @return
+	 */
+	public List<UniverseRules> listRules() {
+		return new ArrayList<UniverseRules>(rules.values());
+	}
+
+	/**
 	 * Gets a universe from its world and group level.
-	 * 
+	 *
 	 * @param world
 	 * @param level
 	 * @return
@@ -235,7 +244,7 @@ public class UniverseManager {
 
 	/**
 	 * Gets a list of all GroupLevels.
-	 * 
+	 *
 	 * @return
 	 */
 	public List<GroupLevel> getGroupLevels() {
@@ -248,7 +257,7 @@ public class UniverseManager {
 
 	/**
 	 * Gets a group by its id.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -258,7 +267,7 @@ public class UniverseManager {
 
 	/**
 	 * Gets the universe of the given CommandSource.
-	 * 
+	 *
 	 * @param world
 	 * @param level
 	 * @return
@@ -273,7 +282,7 @@ public class UniverseManager {
 
 	/**
 	 * Gets the group levels in the given world.
-	 * 
+	 *
 	 * @param world
 	 * @return
 	 */
@@ -287,7 +296,7 @@ public class UniverseManager {
 
 	/**
 	 * Creates a new universe with the given name.
-	 * 
+	 *
 	 * @param name
 	 * @param theRules
 	 * @return the created universe
@@ -300,7 +309,7 @@ public class UniverseManager {
 
 	/**
 	 * Destroys the given universe.
-	 * 
+	 *
 	 * @param universe
 	 */
 	public void destroyUniverse(Universe universe) {
@@ -312,7 +321,7 @@ public class UniverseManager {
 
 	/**
 	 * Gets the next ID to use for a group.
-	 * 
+	 *
 	 * @return
 	 */
 	public int nextId() {

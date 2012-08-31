@@ -35,18 +35,21 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 /**
  * Represents the sum of the rules of a given universe. In essence, it is a
  * configuration object.
- * 
- * <p>
- * "...the conclusion is not so much that the Universe is fine-tuned for fun
+ *
+ * <p> "...the conclusion is not so much that the Universe is fine-tuned for fun
  * gameplay; rather it is fine-tuned for the building blocks and environments
- * that fun gameplay requires". - adapted from Paul Davies
- * </p>
+ * that fun gameplay requires". - adapted from Paul Davies </p>
  */
 public class UniverseRules {
 	/**
-	 * The name of these UniverseRules
+	 * The name of these UniverseRules.
 	 */
 	private final String name;
+
+	/**
+	 * The description of these UniverseRules.
+	 */
+	private final String description;
 
 	/**
 	 * The GroupLevels apparent in this Universe.
@@ -56,14 +59,15 @@ public class UniverseRules {
 	/**
 	 * C'tor
 	 */
-	private UniverseRules(String name, Map<String, GroupLevel> groupLevels) {
+	private UniverseRules(String name, String description, Map<String, GroupLevel> groupLevels) {
 		this.name = name;
+		this.description = description;
 		this.groupLevels = groupLevels;
 	}
 
 	/**
 	 * Gets the name of these UniverseRules.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getName() {
@@ -71,8 +75,17 @@ public class UniverseRules {
 	}
 
 	/**
+	 * Gets the description of these UniverseRules.
+	 *
+	 * @return
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
 	 * Gets the group levels of these UniverseRules.
-	 * 
+	 *
 	 * @return
 	 */
 	public List<GroupLevel> getGroupLevels() {
@@ -81,7 +94,7 @@ public class UniverseRules {
 
 	/**
 	 * Gets the GroupLevel with the given name.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -91,7 +104,7 @@ public class UniverseRules {
 
 	/**
 	 * Saves the UniverseRules to the given config.
-	 * 
+	 *
 	 * @param config
 	 */
 	public void save(Configuration config) {
@@ -103,11 +116,13 @@ public class UniverseRules {
 
 	/**
 	 * Loads a UniverseRules from the given config.
-	 * 
+	 *
 	 * @param config
 	 * @return
 	 */
 	public static UniverseRules load(String name, Configuration config) {
+		String description = config.getChild("description").getString("No description given.");
+
 		Map<String, GroupLevel> levelMap = new HashMap<String, GroupLevel>();
 		{ // Load levels
 
@@ -131,6 +146,6 @@ public class UniverseRules {
 			}
 		}
 
-		return new UniverseRules(name, levelMap);
+		return new UniverseRules(name, description, levelMap);
 	}
 }

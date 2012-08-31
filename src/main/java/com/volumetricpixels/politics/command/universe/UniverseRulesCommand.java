@@ -20,6 +20,9 @@
 package com.volumetricpixels.politics.command.universe;
 
 import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.universe.UniverseRules;
+import java.util.List;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -37,7 +40,11 @@ public class UniverseRulesCommand extends UniverseCommand {
 	}
 
 	@Override
-	public void processCommand(CommandSource cs, Command cmnd, CommandContext cc) throws CommandException {
+	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
+		List<UniverseRules> ruleList = Politics.getUniverseManager().listRules();
+		for (UniverseRules rules : ruleList) {
+			source.sendMessage(MsgStyle.INFO, rules.getName() + " - " + rules.getDescription());
+		}
 	}
 
 	@Override
