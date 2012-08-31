@@ -51,16 +51,6 @@ import com.volumetricpixels.politics.plot.PoliticsWorld;
  */
 public class UniverseManager {
 	/**
-	 * Rules directory;
-	 */
-	private final File rulesDir;
-
-	/**
-	 * Universe directory
-	 */
-	private final File universeDir;
-
-	/**
 	 * The rules of the universe.
 	 */
 	private Map<String, UniverseRules> rules;
@@ -91,17 +81,15 @@ public class UniverseManager {
 	 * @param plugin
 	 */
 	public UniverseManager() {
-		rulesDir = new File(Politics.getPlugin().getDataFolder(), "rules/");
-		universeDir = new File(Politics.getPlugin().getDataFolder(), "data/universe/");
 	}
 
 	/**
 	 * Loads the rules into memory.
 	 */
 	public void loadRules() {
-		rulesDir.mkdirs();
+		Politics.getFileSystem().getRulesDir().mkdirs();
 		rules = new HashMap<String, UniverseRules>();
-		for (File file : rulesDir.listFiles()) {
+		for (File file : Politics.getFileSystem().getRulesDir().listFiles()) {
 			String fileName = file.getName();
 			if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
 				continue;
@@ -128,8 +116,8 @@ public class UniverseManager {
 		BSONDecoder decoder = new BasicBSONDecoder();
 		universes = new HashMap<String, Universe>();
 		groups = new TIntObjectHashMap<Group>();
-		universeDir.mkdirs();
-		for (File file : universeDir.listFiles()) {
+		Politics.getFileSystem().getUniversesDir().mkdirs();
+		for (File file : Politics.getFileSystem().getUniversesDir().listFiles()) {
 			String fileName = file.getName();
 			if (!fileName.endsWith(".ptu") || fileName.length() <= 4) {
 				continue;
@@ -182,10 +170,10 @@ public class UniverseManager {
 	 */
 	public void saveUniverses() {
 		BSONEncoder encoder = new BasicBSONEncoder();
-		universeDir.mkdirs();
+		Politics.getFileSystem().getUniversesDir().mkdirs();
 		for (Universe universe : universes.values()) {
 			String fileName = universe.getName() + ".cou";
-			File universeFile = new File(universeDir, fileName);
+			File universeFile = new File(Politics.getFileSystem().getUniversesDir(), fileName);
 
 			byte[] data = encoder.encode(universe.toBSONObject());
 			try {

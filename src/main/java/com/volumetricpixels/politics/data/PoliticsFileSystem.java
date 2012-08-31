@@ -27,9 +27,24 @@ import java.io.File;
  */
 public class PoliticsFileSystem {
 	/**
-	 * Directory containing rules.
+	 * Rules directory;
 	 */
 	private final File rulesDir;
+
+	/**
+	 * Universe directory
+	 */
+	private final File universesDir;
+
+	/**
+	 * World Configuration Directory
+	 */
+	private final File worldConfigDir;
+
+	/**
+	 * Directory containing the folders.
+	 */
+	private final File worldsDir;
 
 	/**
 	 * C'tor
@@ -38,6 +53,10 @@ public class PoliticsFileSystem {
 		File base = Politics.getPlugin().getDataFolder();
 
 		rulesDir = new File(base, "rules/");
+		worldConfigDir = new File(base, "worlds/");
+
+		worldsDir = new File(base, "data/worlds/");
+		universesDir = new File(base, "data/universes/");
 	}
 
 	/**
@@ -47,5 +66,32 @@ public class PoliticsFileSystem {
 	 */
 	public File getRulesDir() {
 		return rulesDir;
+	}
+
+	/**
+	 * Gets the world config directory.
+	 *
+	 * @return
+	 */
+	public File getWorldConfigDir() {
+		return worldConfigDir;
+	}
+
+	/**
+	 * Gets the universes directory.
+	 *
+	 * @return
+	 */
+	public File getUniversesDir() {
+		return universesDir;
+	}
+
+	/**
+	 * Gets the worlds directory.
+	 *
+	 * @return
+	 */
+	public File getWorldsDir() {
+		return worldsDir;
 	}
 }

@@ -56,30 +56,18 @@ public class PlotManager {
 	private Map<String, PoliticsWorld> worlds;
 
 	/**
-	 * World Configuration Directory
-	 */
-	private final File worldConfigDir;
-
-	/**
-	 * Directory containing the folders.
-	 */
-	private final File worldsDir;
-
-	/**
 	 * C'tor
 	 */
 	public PlotManager() {
-		worldConfigDir = new File(Politics.getPlugin().getDataFolder(), "worlds/");
-		worldsDir = new File(Politics.getPlugin().getDataFolder(), "data/worlds/");
 	}
 
 	/**
 	 * Loads all World configurations.
 	 */
 	public void loadWorldConfigs() {
-		worldConfigDir.mkdirs();
+		Politics.getFileSystem().getWorldConfigDir().mkdirs();
 		configs = new HashMap<String, WorldConfig>();
-		for (File file : worldConfigDir.listFiles()) {
+		for (File file : Politics.getFileSystem().getWorldConfigDir().listFiles()) {
 			String fileName = file.getName();
 			if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
 				continue;
@@ -99,8 +87,8 @@ public class PlotManager {
 		BSONDecoder decoder = new BasicBSONDecoder();
 		worlds = new HashMap<String, PoliticsWorld>();
 
-		worldsDir.mkdirs();
-		for (File file : worldsDir.listFiles()) {
+		Politics.getFileSystem().getWorldsDir().mkdirs();
+		for (File file : Politics.getFileSystem().getWorldsDir().listFiles()) {
 			String fileName = file.getName();
 			if (!fileName.endsWith(".ptw") || fileName.length() <= 4) {
 				continue;
@@ -127,11 +115,11 @@ public class PlotManager {
 	 */
 	public void saveWorlds() {
 		BSONEncoder encoder = new BasicBSONEncoder();
-		worldsDir.mkdirs();
+		Politics.getFileSystem().getWorldsDir().mkdirs();
 
 		for (PoliticsWorld world : worlds.values()) {
 			String fileName = world.getName() + ".cow";
-			File worldFile = new File(worldsDir, fileName);
+			File worldFile = new File(Politics.getFileSystem().getWorldsDir(), fileName);
 
 			byte[] data = encoder.encode(world.toBSONObject());
 			try {
@@ -145,7 +133,7 @@ public class PlotManager {
 
 	/**
 	 * Gets the WorldConfig of the given world name.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -153,8 +141,8 @@ public class PlotManager {
 		WorldConfig conf = configs.get(name);
 		if (conf == null) {
 			conf = new WorldConfig(name);
-			worldConfigDir.mkdirs();
-			File toSave = new File(worldConfigDir, name + ".yml");
+			Politics.getFileSystem().getWorldConfigDir().mkdirs();
+			File toSave = new File(Politics.getFileSystem().getWorldConfigDir(), name + ".yml");
 			Configuration tc = new YamlConfiguration(toSave);
 			conf.save(tc);
 			try {
@@ -169,7 +157,7 @@ public class PlotManager {
 
 	/**
 	 * Gets a GroupWorld from its name.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -183,7 +171,7 @@ public class PlotManager {
 
 	/**
 	 * Gets a GroupWorld from its World.
-	 * 
+	 *
 	 * @param world
 	 * @return
 	 */
@@ -193,7 +181,7 @@ public class PlotManager {
 
 	/**
 	 * Gets the plot at the given chunk position.
-	 * 
+	 *
 	 * @param world
 	 * @param x
 	 * @param y
@@ -206,7 +194,7 @@ public class PlotManager {
 
 	/**
 	 * Gets the plot at the given chunk position.
-	 * 
+	 *
 	 * @param world
 	 * @param x
 	 * @param y
@@ -219,7 +207,7 @@ public class PlotManager {
 
 	/**
 	 * Gets the plot corresponding with the given Chunk.
-	 * 
+	 *
 	 * @param chunk
 	 * @return
 	 */
@@ -229,7 +217,7 @@ public class PlotManager {
 
 	/**
 	 * Gets the plot at the given position.
-	 * 
+	 *
 	 * @param position
 	 * @return
 	 */
@@ -239,7 +227,7 @@ public class PlotManager {
 
 	/**
 	 * Creates a new GroupsWorld.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
