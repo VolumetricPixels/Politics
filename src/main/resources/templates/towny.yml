@@ -48,6 +48,14 @@ levels:
             - mayor
         initial: resident
         founder: mayor
+        commands:
+            create:
+            - create
+            - new
+            destroy:
+            - destroy
+            - delete
+            - disband
     nation:
         name: Nation
         rank: 2
