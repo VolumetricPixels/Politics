@@ -49,7 +49,7 @@ public abstract class PCommand implements CommandExecutor {
 	 * @param parent
 	 * @return
 	 */
-	public Command register(Command parent) {
+	public final Command register(Command parent) {
 		if (primary == null) {
 			return null; // No registration
 		}

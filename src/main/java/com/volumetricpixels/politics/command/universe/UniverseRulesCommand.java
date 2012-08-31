@@ -38,9 +38,18 @@ public class UniverseRulesCommand extends UniverseCommand {
 
 	@Override
 	public void processCommand(CommandSource cs, Command cmnd, CommandContext cc) throws CommandException {
-		if (!cs.hasPermission("politics.commands.universe.rules")) {
-			cs.sendMessage(MsgStyle.ERROR, "You aren't allowed to use this command.");
-			return;
-		}
+	}
+
+	@Override
+	protected String[] getAliases() {
+		return new String[]{"r"};
+	}
+
+	@Override
+	public void setupCommand(Command cmd) {
+		cmd.setArgBounds(1, -1);
+		cmd.setHelp("Lists all possible rules to use.");
+		cmd.setUsage("");
+		cmd.setPermissions(true, "politics.admin.universe.rules");
 	}
 }

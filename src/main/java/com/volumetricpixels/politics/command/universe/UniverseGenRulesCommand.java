@@ -37,10 +37,20 @@ public class UniverseGenRulesCommand extends UniverseCommand {
 	}
 
 	@Override
-	public void processCommand(CommandSource cs, Command cmnd, CommandContext cc) throws CommandException {
-		if (!cs.hasPermission("politics.commands.universe.genrules")) {
-			cs.sendMessage(MsgStyle.ERROR, "You aren't allowed to use this command.");
-			return;
-		}
+	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
+		String templateName = args.getString(0);
+	}
+
+	@Override
+	protected String[] getAliases() {
+		return new String[]{"gr"};
+	}
+
+	@Override
+	public void setupCommand(Command cmd) {
+		cmd.setArgBounds(1, -1);
+		cmd.setHelp("Generates a set of rules.");
+		cmd.setUsage("<template> [-f] [-n name]");
+		cmd.setPermissions(true, "politics.admin.universe.genrules");
 	}
 }
