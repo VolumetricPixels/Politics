@@ -60,6 +60,13 @@ public class UniverseCreateCommand extends UniverseCommand {
 			return;
 		}
 
+		boolean force = args.hasFlag('f');
+		Universe existing = Politics.getUniverse(name);
+		if (existing != null) {
+			source.sendMessage(MsgStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `", MsgStyle.ERROR_HIGHLIGHT, "universe destroy", MsgStyle.ERROR, "' command if you wish to overwrite that universe.");
+			return;
+		}
+
 		String rules = args.getString(1).toLowerCase();
 		UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
 		if (theRules == null) {
