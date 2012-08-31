@@ -19,15 +19,15 @@
  */
 package com.volumetricpixels.politics;
 
-import org.spout.api.geo.World;
-import org.spout.api.geo.discrete.Point;
-
+import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.Plot;
 import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseManager;
+import org.spout.api.geo.World;
+import org.spout.api.geo.discrete.Point;
 
 /**
  * Static API access
@@ -41,7 +41,7 @@ public final class Politics {
 
 	/**
 	 * Gets the GroupsPlugin instance.
-	 * 
+	 *
 	 * @return
 	 */
 	public static PoliticsPlugin getPlugin() {
@@ -49,8 +49,17 @@ public final class Politics {
 	}
 
 	/**
+	 * Gets the PoliticsFileSystem of the plugin.
+	 *
+	 * @return
+	 */
+	public static PoliticsFileSystem getFileSystem() {
+		return getPlugin().getFileSystem();
+	}
+
+	/**
 	 * Gets the PlotManager of the plugin.
-	 * 
+	 *
 	 * @return
 	 */
 	public static PlotManager getPlotManager() {
@@ -59,7 +68,7 @@ public final class Politics {
 
 	/**
 	 * Gets the UniverseManager of the plugin.
-	 * 
+	 *
 	 * @return
 	 */
 	public static UniverseManager getUniverseManager() {
@@ -68,7 +77,7 @@ public final class Politics {
 
 	/**
 	 * Gets the plot at the given position.
-	 * 
+	 *
 	 * @param position
 	 * @return
 	 */
@@ -78,7 +87,7 @@ public final class Politics {
 
 	/**
 	 * Gets a GroupsWorld by a world.
-	 * 
+	 *
 	 * @param world
 	 * @return
 	 */
@@ -88,7 +97,7 @@ public final class Politics {
 
 	/**
 	 * Gets a Universe by its name.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -98,7 +107,7 @@ public final class Politics {
 
 	/**
 	 * Gets the universe corresponding with the given world and group level.
-	 * 
+	 *
 	 * @param world
 	 * @param level
 	 * @return

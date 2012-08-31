@@ -26,6 +26,7 @@ import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.scheduler.TaskPriority;
 
 import com.volumetricpixels.politics.command.Commands;
+import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.data.SaveTask;
 import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.universe.UniverseManager;
@@ -40,6 +41,11 @@ public class PoliticsPlugin extends CommonPlugin {
 	private static PoliticsPlugin instance;
 
 	/**
+	 * The file system.
+	 */
+	private PoliticsFileSystem fileSystem;
+
+	/**
 	 * The plot manager.
 	 */
 	private PlotManager plotManager;
@@ -52,6 +58,8 @@ public class PoliticsPlugin extends CommonPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
+
+		fileSystem = new PoliticsFileSystem();
 
 		plotManager = new PlotManager();
 		plotManager.loadWorlds();
@@ -82,8 +90,17 @@ public class PoliticsPlugin extends CommonPlugin {
 	}
 
 	/**
+	 * Gets the PoliticsFileSystem of the plugin.
+	 *
+	 * @return
+	 */
+	public PoliticsFileSystem getFileSystem() {
+		return fileSystem;
+	}
+
+	/**
 	 * Gets the PlotManager of the plugin.
-	 * 
+	 *
 	 * @return
 	 */
 	public PlotManager getPlotManager() {
@@ -92,7 +109,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
 	/**
 	 * Gets the UniverseManager of the plugin.
-	 * 
+	 *
 	 * @return
 	 */
 	public UniverseManager getUniverseManager() {
@@ -101,7 +118,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
 	/**
 	 * Gets the instance of GroupsPlugin.
-	 * 
+	 *
 	 * @return
 	 */
 	public static PoliticsPlugin getInstance() {
@@ -110,7 +127,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
 	/**
 	 * Gets the logger of the plugin.
-	 * 
+	 *
 	 * @return
 	 */
 	public static Logger logger() {

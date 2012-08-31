@@ -29,8 +29,8 @@ public final class RuleTemplates {
 	 * Copies a template with the given name to a new ruleset with the given
 	 * name.
 	 *
-	 * @param name
-	 * @param as
+	 * @param name The name of the template.
+	 * @param as The new name of the copied template.
 	 */
 	public static void copyTemplate(String name, String as) {
 		InputStream templateStream = RuleTemplates.class.getResourceAsStream("templates/" + name.toLowerCase() + ".yml");
@@ -44,7 +44,7 @@ public final class RuleTemplates {
 			PoliticsPlugin.logger().log(Level.SEVERE, "Could not read template " + name + "!", ex);
 		}
 
-		File dest = new File(Politics.getPlugin().getDataFolder(), "templates/" + as + ".yml");
+		File dest = new File(Politics.getFileSystem().getRulesDir(), as.toLowerCase() + ".yml");
 		try {
 			FileUtils.writeStringToFile(dest, writer.toString());
 		} catch (IOException ex) {

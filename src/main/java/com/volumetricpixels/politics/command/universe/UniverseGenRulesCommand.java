@@ -20,6 +20,10 @@
 package com.volumetricpixels.politics.command.universe;
 
 import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.universe.RuleTemplates;
+import com.volumetricpixels.politics.universe.UniverseRules;
+import java.util.Set;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -38,7 +42,24 @@ public class UniverseGenRulesCommand extends UniverseCommand {
 
 	@Override
 	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-		String templateName = args.getString(0);
+		String templateName = args.getString(0).toLowerCase();
+		Set<String> templateNames = RuleTemplates.listTemplateNames();
+		if (!templateNames.contains(templateName)) {
+			source.sendMessage(MsgStyle.ERROR, "A template with the name of '" + templateName + "' does not exist.");
+			return;
+		}
+
+		String name = args.getFlagString('n', templateName).toLowerCase();
+		UniverseRules existing = Politics.getUniverseManager().getRules(name);
+
+		boolean force = args.hasFlag('f');
+		if (existing != null && !force) {
+			source.sendMessage(MsgStyle.ERROR, "A set of rules with the name of '" + name + "' already exists. Use the '-f' option to overwrite an existing rule set.");
+			return;
+		}
+
+		RuleTemplates.copyTemplate(templateName, name);
+		source.sendMessage(MsgStyle.SUCCESS, "A new set of rules named '" + name + "' based on the template '" + templateName + "' has been generated. Please restart the server to see your changes.");
 	}
 
 	@Override
