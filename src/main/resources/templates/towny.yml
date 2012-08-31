@@ -1,3 +1,4 @@
+description: Provides a gameplay style similar to that of the Towny plugin.
 levels:
     town:
         name: Town
