@@ -37,7 +37,6 @@ import com.volumetricpixels.politics.universe.UniverseRules;
  * Used to create universes.
  */
 public class UniverseCreateCommand extends UniverseCommand {
-
 	/**
 	 * C'tor
 	 */
@@ -48,6 +47,17 @@ public class UniverseCreateCommand extends UniverseCommand {
 	@Override
 	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
 		String name = args.getString(0).toLowerCase();
+
+		if (name.contains(" ")) {
+			source.sendMessage(MsgStyle.ERROR, "Spaces are not allowed in universe names.");
+			return;
+		}
+
+		if (name.contains("/")) {
+			source.sendMessage(MsgStyle.ERROR, "Slashes are not allowed in universe names.");
+			return;
+		}
+
 		String rules = args.getString(1).toLowerCase();
 		UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
 		if (theRules == null) {
@@ -83,7 +93,7 @@ public class UniverseCreateCommand extends UniverseCommand {
 
 	@Override
 	protected String[] getAliases() {
-		return new String[] { "new", "c", "n" };
+		return new String[]{"new", "c", "n"};
 	}
 
 	@Override
