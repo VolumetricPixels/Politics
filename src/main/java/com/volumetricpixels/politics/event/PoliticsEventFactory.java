@@ -25,13 +25,14 @@ import org.spout.api.event.Event;
 
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.event.universe.UniverseCreateEvent;
+import com.volumetricpixels.politics.event.universe.UniverseDestroyEvent;
 import com.volumetricpixels.politics.plot.Plot;
 import com.volumetricpixels.politics.universe.Universe;
 
 public class PoliticsEventFactory {
 	/**
 	 * Calls a new plot change event.
-	 * 
+	 *
 	 * @param player
 	 * @param from
 	 * @param to
@@ -43,7 +44,7 @@ public class PoliticsEventFactory {
 
 	/**
 	 * Calls a new universe create event.
-	 * 
+	 *
 	 * @param universe
 	 * @return
 	 */
@@ -52,8 +53,18 @@ public class PoliticsEventFactory {
 	}
 
 	/**
+	 * Calls a new universe destroy event.
+	 *
+	 * @param universe
+	 * @return
+	 */
+	public static UniverseDestroyEvent callUniverseDestroyEvent(Universe universe) {
+		return callEvent(new UniverseDestroyEvent(universe));
+	}
+
+	/**
 	 * Calls the given event.
-	 * 
+	 *
 	 * @param event
 	 */
 	private static <T extends Event> T callEvent(T event) {

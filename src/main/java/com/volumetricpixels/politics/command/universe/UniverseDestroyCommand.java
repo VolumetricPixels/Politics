@@ -26,13 +26,13 @@ import org.spout.api.exception.CommandException;
 
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
  * Destroys a universe and all of its groups.
  */
 public class UniverseDestroyCommand extends UniverseCommand {
-
 	/**
 	 * C'tor
 	 */
@@ -44,17 +44,18 @@ public class UniverseDestroyCommand extends UniverseCommand {
 	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
 		Universe universe = Politics.getUniverse(args.getString(0));
 		if (universe == null) {
-			source.sendMessage(MsgStyle.ERROR, "The universe '" + args.getString(0) + "' doesn't exist.");
+			source.sendMessage(MsgStyle.ERROR, "A universe with the name '" + args.getString(0) + "' doesn't exist.");
 			return;
 		}
 
 		Politics.getUniverseManager().destroyUniverse(universe);
+		PoliticsEventFactory.callUniverseDestroyEvent(universe);
 		source.sendMessage(MsgStyle.SUCCESS, "The universe has been destroyed, sir.");
 	}
 
 	@Override
 	protected String[] getAliases() {
-		return new String[] { "delete", "d" };
+		return new String[]{"delete", "d"};
 	}
 
 	@Override
