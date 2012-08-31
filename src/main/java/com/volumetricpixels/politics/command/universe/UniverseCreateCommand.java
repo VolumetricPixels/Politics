@@ -32,6 +32,8 @@ import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to create universes.
@@ -65,28 +67,31 @@ public class UniverseCreateCommand extends UniverseCommand {
 			return;
 		}
 
-		Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
-
-		int worlds = 0;
-		if (args.length() > 2) {
-			for (int i = 2; i < args.length(); i++) {
-				String worldName = args.getString(i);
-				World spoutWorld = Spout.getEngine().getWorld(worldName);
-				if (spoutWorld == null) {
+		String worldsStr = args.getString(2);
+		List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
+		if (worldsStr == null) {
+			for (World world : Spout.getEngine().getWorlds()) {
+				worlds.add(Politics.getWorld(world));
+			}
+		} else {
+			String[] worldNames = worldsStr.split(",");
+			for (String worldName : worldNames) {
+				String trimmed = worldName.trim();
+				World world = Spout.getEngine().getWorld(trimmed);
+				if (world == null) {
 					continue;
 				}
-				PoliticsWorld pw = Politics.getWorld(spoutWorld);
-				if (universe.addWorld(pw)) {
-					worlds++;
-				}
+				PoliticsWorld pw = Politics.getWorld(world);
+				worlds.add(pw);
 			}
 		}
 
-		if (worlds <= 0) {
+		if (worlds.size() <= 0) {
 			source.sendMessage(MsgStyle.ERROR, "There were no valid worlds specified.");
-			Politics.getUniverseManager().destroyUniverse(universe);
+			return;
 		}
 
+		Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
 		PoliticsEventFactory.callUniverseCreateEvent(universe);
 		source.sendMessage(MsgStyle.SUCCESS, "A new universe has been created named '" + name + "' with the rules '" + rules + "'.");
 	}
