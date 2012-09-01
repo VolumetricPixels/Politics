@@ -22,6 +22,7 @@ package com.volumetricpixels.politics.command.group;
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -70,9 +71,22 @@ public class GroupCreateCommand extends GroupCommand {
 			}
 		}
 
+		// Name
+		StringBuilder nameBuilder = new StringBuilder();
+		for (int i = 0; i < context.length(); i++) {
+			nameBuilder.append(context.getString(i)).append(' ');
+		}
+		String name = nameBuilder.toString().trim();
+
+		// Tag
+		String tag = context.getFlagString('t', name.toLowerCase().replace(" ", "-"));
+
 		// Create le group
 		Group group = universe.createGroup(level);
 		group.setRole(founderName, level.getFounder());
+		group.setProperty(GroupProperty.NAME, name);
+		group.setProperty(GroupProperty.TAG, tag);
+
 		source.sendMessage(MsgStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
 	}
 
@@ -80,7 +94,7 @@ public class GroupCreateCommand extends GroupCommand {
 	public void setupCommand(Command cmd) {
 		cmd.setArgBounds(1, -1);
 		cmd.setHelp("Creates a new " + level.getName() + ".");
-		cmd.setUsage("<name> [-f founder] [-u universe]");
+		cmd.setUsage("<name> [-f founder] [-u universe] [-t tag]");
 		cmd.setPermissions(true, "politics.group." + level.getId() + ".create");
 	}
 }
