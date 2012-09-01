@@ -55,7 +55,7 @@ public class UniverseCreateCommand extends UniverseCommand {
 			return;
 		}
 
-		if (name.contains("/")) {
+		if (name.contains("/") || name.contains("\\")) {
 			source.sendMessage(MsgStyle.ERROR, "Slashes are not allowed in universe names.");
 			return;
 		}
@@ -100,7 +100,7 @@ public class UniverseCreateCommand extends UniverseCommand {
 
 		Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
 		PoliticsEventFactory.callUniverseCreateEvent(universe);
-		source.sendMessage(MsgStyle.SUCCESS, "A new universe has been created named '" + name + "' with the rules '" + rules + "'.");
+		source.sendMessage(MsgStyle.SUCCESS, "You have created the universe '" + name + "' with the rules '" + rules + "'.");
 	}
 
 	@Override

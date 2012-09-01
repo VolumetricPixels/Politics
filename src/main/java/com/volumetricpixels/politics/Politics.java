@@ -26,6 +26,7 @@ import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseManager;
+
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;
 
@@ -40,7 +41,7 @@ public final class Politics {
 	}
 
 	/**
-	 * Gets the GroupsPlugin instance.
+	 * Gets the PoliticsPlugin instance.
 	 *
 	 * @return
 	 */

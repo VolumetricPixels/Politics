@@ -24,14 +24,14 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.universe.Universe;
+
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
-
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.universe.Universe;
 
 public class GroupCreateCommand extends GroupCommand {
 	private GroupCreateCommand(GroupLevel level) {
