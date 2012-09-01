@@ -25,10 +25,10 @@ import org.bson.BSONObject;
  * Represents something that can be stored.
  */
 public interface Storable {
-	/**
-	 * Converts this object into a BSON Object.
-	 * 
-	 * @return
-	 */
-	public BSONObject toBSONObject();
+    /**
+     * Converts this object into a BSON Object.
+     *
+     * @return
+     */
+    public BSONObject toBSONObject();
 }

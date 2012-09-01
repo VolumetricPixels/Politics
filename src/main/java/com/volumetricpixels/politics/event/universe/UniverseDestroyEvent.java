@@ -27,28 +27,28 @@ import com.volumetricpixels.politics.universe.Universe;
  * Called when a universe is destroyed using the universe destruction command.
  */
 public class UniverseDestroyEvent extends UniverseEvent {
-	private static HandlerList handlers = new HandlerList();
+    private static HandlerList handlers = new HandlerList();
 
-	/**
-	 * C'tor
-	 *
-	 * @param universe
-	 */
-	public UniverseDestroyEvent(Universe universe) {
-		super(universe);
-	}
+    /**
+     * C'tor
+     *
+     * @param universe
+     */
+    public UniverseDestroyEvent(Universe universe) {
+        super(universe);
+    }
 
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
 
-	/**
-	 * Gets the handler list of this event.
-	 *
-	 * @return
-	 */
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
+    /**
+     * Gets the handler list of this event.
+     *
+     * @return
+     */
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

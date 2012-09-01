@@ -34,73 +34,73 @@ import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
 public class GroupCreateCommand extends GroupCommand {
-	private GroupCreateCommand(GroupLevel level) {
-		super(level, "create");
-	}
+    private GroupCreateCommand(GroupLevel level) {
+        super(level, "create");
+    }
 
-	@Override
-	public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-		// Get le founder
-		String founderName = null;
-		if (source instanceof Player) {
-			founderName = source.getName();
-		}
-		if (source.hasPermission("politics.admin.group." + level.getId() + ".create")) {
-			founderName = context.getFlagString('f', founderName);
-		}
-		// Check for a founder, this would only happen if he is not a player
-		if (founderName == null) {
-			source.sendMessage(MsgStyle.ERROR, "The founder for the to-be-created " + level.getName() + " is unknown. A founder can be specified with the `-f' option.");
-			return;
-		}
+    @Override
+    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+        // Get le founder
+        String founderName = null;
+        if (source instanceof Player) {
+            founderName = source.getName();
+        }
+        if (source.hasPermission("politics.admin.group." + level.getId() + ".create")) {
+            founderName = context.getFlagString('f', founderName);
+        }
+        // Check for a founder, this would only happen if he is not a player
+        if (founderName == null) {
+            source.sendMessage(MsgStyle.ERROR, "The founder for the to-be-created " + level.getName() + " is unknown. A founder can be specified with the `-f' option.");
+            return;
+        }
 
-		// Get le universe
-		String universeName = context.getFlagString('u');
-		Universe universe = null;
-		if (universeName == null) {
-			if (source instanceof Player) {
-				universe = getUniverse((Player) source);
-			} else {
-				source.sendMessage(MsgStyle.ERROR, "Please specify the universe you wish to use with the `-u' option.");
-				return;
-			}
-		} else {
-			universe = Politics.getUniverse(universeName);
-			if (universe == null) {
-				source.sendMessage(MsgStyle.ERROR, "The universe you specified does not exist.");
-				return;
-			}
-		}
+        // Get le universe
+        String universeName = context.getFlagString('u');
+        Universe universe = null;
+        if (universeName == null) {
+            if (source instanceof Player) {
+                universe = getUniverse((Player) source);
+            } else {
+                source.sendMessage(MsgStyle.ERROR, "Please specify the universe you wish to use with the `-u' option.");
+                return;
+            }
+        } else {
+            universe = Politics.getUniverse(universeName);
+            if (universe == null) {
+                source.sendMessage(MsgStyle.ERROR, "The universe you specified does not exist.");
+                return;
+            }
+        }
 
-		// Name
-		StringBuilder nameBuilder = new StringBuilder();
-		for (int i = 0; i < context.length(); i++) {
-			nameBuilder.append(context.getString(i)).append(' ');
-		}
-		String name = nameBuilder.toString().trim();
+        // Name
+        StringBuilder nameBuilder = new StringBuilder();
+        for (int i = 0; i < context.length(); i++) {
+            nameBuilder.append(context.getString(i)).append(' ');
+        }
+        String name = nameBuilder.toString().trim();
 
-		// Tag
-		String tag = context.getFlagString('t', name.toLowerCase().replace(" ", "-"));
+        // Tag
+        String tag = context.getFlagString('t', name.toLowerCase().replace(" ", "-"));
 
-		// Create le group
-		Group group = universe.createGroup(level);
-		group.setRole(founderName, level.getFounder());
-		group.setProperty(GroupProperty.NAME, name);
-		group.setProperty(GroupProperty.TAG, tag);
+        // Create le group
+        Group group = universe.createGroup(level);
+        group.setRole(founderName, level.getFounder());
+        group.setProperty(GroupProperty.NAME, name);
+        group.setProperty(GroupProperty.TAG, tag);
 
-		if (PoliticsEventFactory.callGroupCreateEvent(group, source).isCancelled()) {
-			universe.destroyGroup(group);
-			return;
-		}
+        if (PoliticsEventFactory.callGroupCreateEvent(group, source).isCancelled()) {
+            universe.destroyGroup(group);
+            return;
+        }
 
-		source.sendMessage(MsgStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
-	}
+        source.sendMessage(MsgStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
+    }
 
-	@Override
-	public void setupCommand(Command cmd) {
-		cmd.setArgBounds(1, -1);
-		cmd.setHelp("Creates a new " + level.getName() + ".");
-		cmd.setUsage("<name> [-f founder] [-u universe] [-t tag]");
-		cmd.setPermissions(true, "politics.group." + level.getId() + ".create");
-	}
+    @Override
+    public void setupCommand(Command cmd) {
+        cmd.setArgBounds(1, -1);
+        cmd.setHelp("Creates a new " + level.getName() + ".");
+        cmd.setUsage("<name> [-f founder] [-u universe] [-t tag]");
+        cmd.setPermissions(true, "politics.group." + level.getId() + ".create");
+    }
 }

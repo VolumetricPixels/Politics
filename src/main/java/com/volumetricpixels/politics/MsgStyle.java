@@ -27,24 +27,24 @@ import org.spout.api.chat.style.ChatStyle;
  * TODO make these configurable
  */
 public class MsgStyle {
-	/**
-	 * Error color
-	 */
-	public static final ChatStyle ERROR = ChatStyle.RED;
+    /**
+     * Error color
+     */
+    public static final ChatStyle ERROR = ChatStyle.RED;
 
-	/**
-	 * Error highlight color
-	 */
-	public static final ChatStyle ERROR_HIGHLIGHT = ChatStyle.YELLOW;
+    /**
+     * Error highlight color
+     */
+    public static final ChatStyle ERROR_HIGHLIGHT = ChatStyle.YELLOW;
 
-	/**
-	 * Info color
-	 */
-	public static final ChatStyle INFO = ChatStyle.GOLD;
+    /**
+     * Info color
+     */
+    public static final ChatStyle INFO = ChatStyle.GOLD;
 
-	/**
-	 * Success color
-	 */
-	public static final ChatStyle SUCCESS = ChatStyle.BRIGHT_GREEN;
+    /**
+     * Success color
+     */
+    public static final ChatStyle SUCCESS = ChatStyle.BRIGHT_GREEN;
 
 }

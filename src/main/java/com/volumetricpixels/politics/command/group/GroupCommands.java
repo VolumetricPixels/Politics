@@ -28,24 +28,24 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * Group commands.
  */
 public class GroupCommands extends Commands {
-	/**
-	 * The level of these GroupCommands.
-	 */
-	private final GroupLevel level;
+    /**
+     * The level of these GroupCommands.
+     */
+    private final GroupLevel level;
 
-	/**
-	 * C'tor
-	 * 
-	 * @param level
-	 */
-	public GroupCommands(GroupLevel level) {
-		super(level.getName().toLowerCase());
-		this.level = level;
-	}
+    /**
+     * C'tor
+     *
+     * @param level
+     */
+    public GroupCommands(GroupLevel level) {
+        super(level.getName().toLowerCase());
+        this.level = level;
+    }
 
-	@Override
-	public void setup(Command cmd) {
-		(new GroupInfoCommand(level)).register(cmd);
-		(new GroupListCommand(level)).register(cmd);
-	}
+    @Override
+    public void setup(Command cmd) {
+        (new GroupInfoCommand(level)).register(cmd);
+        (new GroupListCommand(level)).register(cmd);
+    }
 }

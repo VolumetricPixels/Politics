@@ -35,102 +35,102 @@ import com.volumetricpixels.politics.universe.UniverseManager;
  * Groups plugin main class.
  */
 public class PoliticsPlugin extends CommonPlugin {
-	/**
-	 * Singleton.
-	 */
-	private static PoliticsPlugin instance;
+    /**
+     * Singleton.
+     */
+    private static PoliticsPlugin instance;
 
-	/**
-	 * The file system.
-	 */
-	private PoliticsFileSystem fileSystem;
+    /**
+     * The file system.
+     */
+    private PoliticsFileSystem fileSystem;
 
-	/**
-	 * The plot manager.
-	 */
-	private PlotManager plotManager;
+    /**
+     * The plot manager.
+     */
+    private PlotManager plotManager;
 
-	/**
-	 * The universe manager.
-	 */
-	private UniverseManager universeManager;
+    /**
+     * The universe manager.
+     */
+    private UniverseManager universeManager;
 
-	@Override
-	public void onEnable() {
-		instance = this;
+    @Override
+    public void onEnable() {
+        instance = this;
 
-		fileSystem = new PoliticsFileSystem();
+        fileSystem = new PoliticsFileSystem();
 
-		plotManager = new PlotManager();
-		plotManager.loadWorlds();
+        plotManager = new PlotManager();
+        plotManager.loadWorlds();
 
-		universeManager = new UniverseManager();
-		universeManager.loadRules();
-		universeManager.loadUniverses();
+        universeManager = new UniverseManager();
+        universeManager.loadRules();
+        universeManager.loadUniverses();
 
-		Commands.registerAll();
+        Commands.registerAll();
 
-		// Listeners
-		getEngine().getEventManager().registerEvents(new MainListener(), this);
+        // Listeners
+        getEngine().getEventManager().registerEvents(new MainListener(), this);
 
-		// Save task
-		getEngine().getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);
+        // Save task
+        getEngine().getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);
 
-		getLogger().log(Level.INFO, "Politics enabled!");
-	}
+        getLogger().log(Level.INFO, "Politics enabled!");
+    }
 
-	@Override
-	public void onDisable() {
-		instance = null;
+    @Override
+    public void onDisable() {
+        instance = null;
 
-		plotManager.saveWorlds();
-		universeManager.saveUniverses();
+        plotManager.saveWorlds();
+        universeManager.saveUniverses();
 
-		getLogger().log(Level.INFO, "Politics disabled!");
-	}
+        getLogger().log(Level.INFO, "Politics disabled!");
+    }
 
-	/**
-	 * Gets the PoliticsFileSystem of the plugin.
-	 *
-	 * @return
-	 */
-	public PoliticsFileSystem getFileSystem() {
-		return fileSystem;
-	}
+    /**
+     * Gets the PoliticsFileSystem of the plugin.
+     *
+     * @return
+     */
+    public PoliticsFileSystem getFileSystem() {
+        return fileSystem;
+    }
 
-	/**
-	 * Gets the PlotManager of the plugin.
-	 *
-	 * @return
-	 */
-	public PlotManager getPlotManager() {
-		return plotManager;
-	}
+    /**
+     * Gets the PlotManager of the plugin.
+     *
+     * @return
+     */
+    public PlotManager getPlotManager() {
+        return plotManager;
+    }
 
-	/**
-	 * Gets the UniverseManager of the plugin.
-	 *
-	 * @return
-	 */
-	public UniverseManager getUniverseManager() {
-		return universeManager;
-	}
+    /**
+     * Gets the UniverseManager of the plugin.
+     *
+     * @return
+     */
+    public UniverseManager getUniverseManager() {
+        return universeManager;
+    }
 
-	/**
-	 * Gets the instance of GroupsPlugin.
-	 *
-	 * @return
-	 */
-	public static PoliticsPlugin getInstance() {
-		return instance;
-	}
+    /**
+     * Gets the instance of GroupsPlugin.
+     *
+     * @return
+     */
+    public static PoliticsPlugin getInstance() {
+        return instance;
+    }
 
-	/**
-	 * Gets the logger of the plugin.
-	 *
-	 * @return
-	 */
-	public static Logger logger() {
-		return instance.getLogger();
-	}
+    /**
+     * Gets the logger of the plugin.
+     *
+     * @return
+     */
+    public static Logger logger() {
+        return instance.getLogger();
+    }
 }

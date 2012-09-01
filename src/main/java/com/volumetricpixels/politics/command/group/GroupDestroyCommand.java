@@ -35,50 +35,50 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.GroupProperty;
 
 public class GroupDestroyCommand extends GroupCommand {
-	public GroupDestroyCommand(GroupLevel level) {
-		super(level, "destroy");
-	}
+    public GroupDestroyCommand(GroupLevel level) {
+        super(level, "destroy");
+    }
 
-	@Override
-	public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-		if (source instanceof Player) {
-			Set<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getCitizen(source.getName()).getGroups();
-			if (source.hasPermission("politics.admin.delgroup")) {
-				for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
-					if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
-						g.getUniverse().destroyGroup(g);
-						source.sendMessage("Deleted! " + context.getString(0));
-						return;
-					}
-				}
-				source.sendMessage(ChatStyle.RED, "No such group!");
-			} else {
-				for (Group g : groups) {
-					if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
-						g.getUniverse().destroyGroup(g);
-						source.sendMessage("Deleted! " + context.getString(0));
-						return;
-					}
-				}
-				source.sendMessage(ChatStyle.RED, "You can't do that!");
-			}
-		} else {
-			List<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getGroups();
-			for (Group g : groups) {
-				if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
-					g.getUniverse().destroyGroup(g);
-					source.sendMessage("Deleted! " + context.getString(0));
-					return;
-				}
-			}
-		}
-	}
+    @Override
+    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+        if (source instanceof Player) {
+            Set<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getCitizen(source.getName()).getGroups();
+            if (source.hasPermission("politics.admin.delgroup")) {
+                for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
+                    if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+                        g.getUniverse().destroyGroup(g);
+                        source.sendMessage("Deleted! " + context.getString(0));
+                        return;
+                    }
+                }
+                source.sendMessage(ChatStyle.RED, "No such group!");
+            } else {
+                for (Group g : groups) {
+                    if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+                        g.getUniverse().destroyGroup(g);
+                        source.sendMessage("Deleted! " + context.getString(0));
+                        return;
+                    }
+                }
+                source.sendMessage(ChatStyle.RED, "You can't do that!");
+            }
+        } else {
+            List<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getGroups();
+            for (Group g : groups) {
+                if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+                    g.getUniverse().destroyGroup(g);
+                    source.sendMessage("Deleted! " + context.getString(0));
+                    return;
+                }
+            }
+        }
+    }
 
-	@Override
-	public void setupCommand(Command cmd) {
-		cmd.setArgBounds(1, -1);
-		cmd.setHelp("Destroys your " + level.getName() + ".");
-		cmd.setUsage("<template> [-f] [-n name]");
-		cmd.setPermissions(true, "politics.group." + level.getId() + ".destroy");
-	}
+    @Override
+    public void setupCommand(Command cmd) {
+        cmd.setArgBounds(1, -1);
+        cmd.setHelp("Destroys your " + level.getName() + ".");
+        cmd.setUsage("<template> [-f] [-n name]");
+        cmd.setPermissions(true, "politics.group." + level.getId() + ".destroy");
+    }
 }

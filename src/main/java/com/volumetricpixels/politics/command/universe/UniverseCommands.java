@@ -27,20 +27,20 @@ import com.volumetricpixels.politics.command.Commands;
  * Contains commands related to Universes.
  */
 public class UniverseCommands extends Commands {
-	/**
-	 * C'tor
-	 */
-	public UniverseCommands() {
-		super("universe");
-	}
+    /**
+     * C'tor
+     */
+    public UniverseCommands() {
+        super("universe");
+    }
 
-	/**
-	 * Registers all universe commands.
-	 */
-	@Override
-	public void setup(Command cmd) {
-		(new UniverseCreateCommand()).register(cmd);
-		(new UniverseDestroyCommand()).register(cmd);
-		(new UniverseRulesCommand()).register(cmd);
-	}
+    /**
+     * Registers all universe commands.
+     */
+    @Override
+    public void setup(Command cmd) {
+        (new UniverseCreateCommand()).register(cmd);
+        (new UniverseDestroyCommand()).register(cmd);
+        (new UniverseRulesCommand()).register(cmd);
+    }
 }

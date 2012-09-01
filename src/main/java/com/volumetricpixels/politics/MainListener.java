@@ -34,33 +34,33 @@ import com.volumetricpixels.politics.plot.Plot;
  * The main listener of the plugin.
  */
 public class MainListener implements Listener {
-	@EventHandler(order = Order.EARLIEST)
-	public void onEntityMove(EntityMoveEvent event) {
-		if (!(event.getEntity() instanceof Player)) {
-			return;
-		}
-		Point from = event.getFrom();
-		Point to = event.getTo();
+    @EventHandler(order = Order.EARLIEST)
+    public void onEntityMove(EntityMoveEvent event) {
+        if (!(event.getEntity() instanceof Player)) {
+            return;
+        }
+        Point from = event.getFrom();
+        Point to = event.getTo();
 
-		// Check for chunk movement
-		if (from.getChunkX() != to.getChunkX() || from.getChunkY() != to.getChunkY() || from.getChunkZ() != to.getChunkZ()) {
-			return;
-		}
+        // Check for chunk movement
+        if (from.getChunkX() != to.getChunkX() || from.getChunkY() != to.getChunkY() || from.getChunkZ() != to.getChunkZ()) {
+            return;
+        }
 
-		Player player = (Player) event.getEntity();
-		Plot prev = Politics.getPlotAt(from);
-		Plot now = Politics.getPlotAt(to);
+        Player player = (Player) event.getEntity();
+        Plot prev = Politics.getPlotAt(from);
+        Plot now = Politics.getPlotAt(to);
 
-		// Check for different plot
-		if (prev.equals(now)) {
-			return;
-		}
+        // Check for different plot
+        if (prev.equals(now)) {
+            return;
+        }
 
-		// Call event
-		PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
-		if (pcpe.isCancelled()) {
-			event.setCancelled(true);
-		}
+        // Call event
+        PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
+        if (pcpe.isCancelled()) {
+            event.setCancelled(true);
+        }
 
-	}
+    }
 }

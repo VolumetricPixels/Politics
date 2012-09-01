@@ -29,148 +29,148 @@ import com.volumetricpixels.politics.group.Group;
  * GroupsWorld wrapper.
  */
 public class Plot {
-	/**
-	 * World of the plot.
-	 */
-	private final PoliticsWorld world;
+    /**
+     * World of the plot.
+     */
+    private final PoliticsWorld world;
 
-	/**
-	 * X of the plot.
-	 */
-	private final int x;
+    /**
+     * X of the plot.
+     */
+    private final int x;
 
-	/**
-	 * Y of the plot.
-	 */
-	private final int y;
+    /**
+     * Y of the plot.
+     */
+    private final int y;
 
-	/**
-	 * Z of the plot.
-	 */
-	private final int z;
+    /**
+     * Z of the plot.
+     */
+    private final int z;
 
-	/**
-	 * C'tor
-	 * 
-	 * @param world
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
-	Plot(PoliticsWorld world, int x, int y, int z) {
-		this.world = world;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+    /**
+     * C'tor
+     *
+     * @param world
+     * @param x
+     * @param y
+     * @param z
+     */
+    Plot(PoliticsWorld world, int x, int y, int z) {
+        this.world = world;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 
-	/**
-	 * @return the world
-	 */
-	public PoliticsWorld getWorld() {
-		return world;
-	}
+    /**
+     * @return the world
+     */
+    public PoliticsWorld getWorld() {
+        return world;
+    }
 
-	/**
-	 * @return the x
-	 */
-	public int getX() {
-		return x;
-	}
+    /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
 
-	/**
-	 * @return the y
-	 */
-	public int getY() {
-		return y;
-	}
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
 
-	/**
-	 * @return the z
-	 */
-	public int getZ() {
-		return z;
-	}
+    /**
+     * @return the z
+     */
+    public int getZ() {
+        return z;
+    }
 
-	/**
-	 * Gets the IDs of the owners of the plot.
-	 * 
-	 * @return
-	 */
-	public TIntList getOwnerIds() {
-		return world.getOwnerIds(x, y, z);
-	}
+    /**
+     * Gets the IDs of the owners of the plot.
+     *
+     * @return
+     */
+    public TIntList getOwnerIds() {
+        return world.getOwnerIds(x, y, z);
+    }
 
-	/**
-	 * Gets the list of the owners of the plot.
-	 * 
-	 * @return
-	 */
-	public List<Group> getOwners() {
-		return world.getOwners(x, y, z);
-	}
+    /**
+     * Gets the list of the owners of the plot.
+     *
+     * @return
+     */
+    public List<Group> getOwners() {
+        return world.getOwners(x, y, z);
+    }
 
-	/**
-	 * Adds an owner to the plot.
-	 * 
-	 * @param id
-	 */
-	public void addOwner(int id) {
-		TIntList list = world.getInternalOwnerList(x, y, z);
-		if (list.contains(id)) {
-			return; // Already added
-		}
-		list.add(id);
-	}
+    /**
+     * Adds an owner to the plot.
+     *
+     * @param id
+     */
+    public void addOwner(int id) {
+        TIntList list = world.getInternalOwnerList(x, y, z);
+        if (list.contains(id)) {
+            return; // Already added
+        }
+        list.add(id);
+    }
 
-	/**
-	 * Adds an owner to the plot.
-	 * 
-	 * @param group
-	 */
-	public void addOwner(Group group) {
-		addOwner(group.getUid());
-	}
+    /**
+     * Adds an owner to the plot.
+     *
+     * @param group
+     */
+    public void addOwner(Group group) {
+        addOwner(group.getUid());
+    }
 
-	/**
-	 * Removes an owner from the plot.
-	 * 
-	 * @param id
-	 */
-	public void removeOwner(int id) {
-		TIntList list = world.getInternalOwnerList(x, y, z);
-		if (!list.contains(id)) {
-			return; // Not in there
-		}
-		list.remove(id);
-	}
+    /**
+     * Removes an owner from the plot.
+     *
+     * @param id
+     */
+    public void removeOwner(int id) {
+        TIntList list = world.getInternalOwnerList(x, y, z);
+        if (!list.contains(id)) {
+            return; // Not in there
+        }
+        list.remove(id);
+    }
 
-	/**
-	 * Removes the given owner from this plot's owners.
-	 * 
-	 * @param group
-	 */
-	public void removeOwner(Group group) {
-		removeOwner(group.getUid());
-	}
+    /**
+     * Removes the given owner from this plot's owners.
+     *
+     * @param group
+     */
+    public void removeOwner(Group group) {
+        removeOwner(group.getUid());
+    }
 
-	/**
-	 * Returns true if the given owner id is an owner of this plot.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public boolean isOwner(int id) {
-		return world.getInternalOwnerList(x, y, z).contains(id);
-	}
+    /**
+     * Returns true if the given owner id is an owner of this plot.
+     *
+     * @param id
+     * @return
+     */
+    public boolean isOwner(int id) {
+        return world.getInternalOwnerList(x, y, z).contains(id);
+    }
 
-	/**
-	 * Returns true if the given owner is an owner of this plot.
-	 * 
-	 * @param group
-	 * @return
-	 */
-	public boolean isOwner(Group group) {
-		return isOwner(group.getUid());
-	}
+    /**
+     * Returns true if the given owner is an owner of this plot.
+     *
+     * @param group
+     * @return
+     */
+    public boolean isOwner(Group group) {
+        return isOwner(group.getUid());
+    }
 }

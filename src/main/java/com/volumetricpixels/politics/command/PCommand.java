@@ -29,54 +29,54 @@ import com.volumetricpixels.politics.Politics;
  * registration.
  */
 public abstract class PCommand implements CommandExecutor {
-	/**
-	 * The primary name of this command.
-	 */
-	protected String primary = null;
+    /**
+     * The primary name of this command.
+     */
+    protected String primary = null;
 
-	/**
-	 * C'tor
-	 * 
-	 * @param primary
-	 */
-	protected PCommand(String primary) {
-		this.primary = primary;
-	}
+    /**
+     * C'tor
+     *
+     * @param primary
+     */
+    protected PCommand(String primary) {
+        this.primary = primary;
+    }
 
-	/**
-	 * Registers this command with the given parent.
-	 * 
-	 * @param parent
-	 * @return
-	 */
-	public final Command register(Command parent) {
-		if (primary == null) {
-			return null; // No registration
-		}
+    /**
+     * Registers this command with the given parent.
+     *
+     * @param parent
+     * @return
+     */
+    public final Command register(Command parent) {
+        if (primary == null) {
+            return null; // No registration
+        }
 
-		Command cmd = parent.addSubCommand(Politics.getPlugin(), primary);
-		cmd.setExecutor(this);
-		cmd.addAlias(getAliases());
-		setupCommand(cmd);
-		cmd.closeSubCommand();
-		return cmd;
-	}
+        Command cmd = parent.addSubCommand(Politics.getPlugin(), primary);
+        cmd.setExecutor(this);
+        cmd.addAlias(getAliases());
+        setupCommand(cmd);
+        cmd.closeSubCommand();
+        return cmd;
+    }
 
-	/**
-	 * Gets the aliases for this command.
-	 * 
-	 * @return
-	 */
-	protected String[] getAliases() {
-		return new String[0];
-	}
+    /**
+     * Gets the aliases for this command.
+     *
+     * @return
+     */
+    protected String[] getAliases() {
+        return new String[0];
+    }
 
-	/**
-	 * Sets up the command created.
-	 * 
-	 * @param cmd
-	 */
-	public void setupCommand(Command cmd) {
-		cmd.setArgBounds(0, -1);
-	}
+    /**
+     * Sets up the command created.
+     *
+     * @param cmd
+     */
+    public void setupCommand(Command cmd) {
+        cmd.setArgBounds(0, -1);
+    }
 }

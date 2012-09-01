@@ -34,86 +34,86 @@ import org.spout.api.geo.discrete.Point;
  * Static API access
  */
 public final class Politics {
-	/**
-	 * C'tor
-	 */
-	private Politics() {
-	}
+    /**
+     * C'tor
+     */
+    private Politics() {
+    }
 
-	/**
-	 * Gets the PoliticsPlugin instance.
-	 *
-	 * @return
-	 */
-	public static PoliticsPlugin getPlugin() {
-		return PoliticsPlugin.getInstance();
-	}
+    /**
+     * Gets the PoliticsPlugin instance.
+     *
+     * @return
+     */
+    public static PoliticsPlugin getPlugin() {
+        return PoliticsPlugin.getInstance();
+    }
 
-	/**
-	 * Gets the PoliticsFileSystem of the plugin.
-	 *
-	 * @return
-	 */
-	public static PoliticsFileSystem getFileSystem() {
-		return getPlugin().getFileSystem();
-	}
+    /**
+     * Gets the PoliticsFileSystem of the plugin.
+     *
+     * @return
+     */
+    public static PoliticsFileSystem getFileSystem() {
+        return getPlugin().getFileSystem();
+    }
 
-	/**
-	 * Gets the PlotManager of the plugin.
-	 *
-	 * @return
-	 */
-	public static PlotManager getPlotManager() {
-		return getPlugin().getPlotManager();
-	}
+    /**
+     * Gets the PlotManager of the plugin.
+     *
+     * @return
+     */
+    public static PlotManager getPlotManager() {
+        return getPlugin().getPlotManager();
+    }
 
-	/**
-	 * Gets the UniverseManager of the plugin.
-	 *
-	 * @return
-	 */
-	public static UniverseManager getUniverseManager() {
-		return getPlugin().getUniverseManager();
-	}
+    /**
+     * Gets the UniverseManager of the plugin.
+     *
+     * @return
+     */
+    public static UniverseManager getUniverseManager() {
+        return getPlugin().getUniverseManager();
+    }
 
-	/**
-	 * Gets the plot at the given position.
-	 *
-	 * @param position
-	 * @return
-	 */
-	public static Plot getPlotAt(Point position) {
-		return getPlotManager().getPlotAt(position);
-	}
+    /**
+     * Gets the plot at the given position.
+     *
+     * @param position
+     * @return
+     */
+    public static Plot getPlotAt(Point position) {
+        return getPlotManager().getPlotAt(position);
+    }
 
-	/**
-	 * Gets a GroupsWorld by a world.
-	 *
-	 * @param world
-	 * @return
-	 */
-	public static PoliticsWorld getWorld(World world) {
-		return getPlotManager().getWorld(world);
-	}
+    /**
+     * Gets a GroupsWorld by a world.
+     *
+     * @param world
+     * @return
+     */
+    public static PoliticsWorld getWorld(World world) {
+        return getPlotManager().getWorld(world);
+    }
 
-	/**
-	 * Gets a Universe by its name.
-	 *
-	 * @param name
-	 * @return
-	 */
-	public static Universe getUniverse(String name) {
-		return getUniverseManager().getUniverse(name);
-	}
+    /**
+     * Gets a Universe by its name.
+     *
+     * @param name
+     * @return
+     */
+    public static Universe getUniverse(String name) {
+        return getUniverseManager().getUniverse(name);
+    }
 
-	/**
-	 * Gets the universe corresponding with the given world and group level.
-	 *
-	 * @param world
-	 * @param level
-	 * @return
-	 */
-	public static Universe getUniverse(World world, GroupLevel level) {
-		return getUniverseManager().getUniverse(world, level);
-	}
+    /**
+     * Gets the universe corresponding with the given world and group level.
+     *
+     * @param world
+     * @param level
+     * @return
+     */
+    public static Universe getUniverse(World world, GroupLevel level) {
+        return getUniverseManager().getUniverse(world, level);
+    }
 }

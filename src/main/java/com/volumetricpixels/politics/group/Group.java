@@ -47,326 +47,326 @@ import org.spout.api.Server;
  * Represents a group of players.
  */
 public final class Group implements Comparable<Group>, Storable {
-	/**
-	 * The unique identifier of this group. This is unique for the entire
-	 * plugin.
-	 */
-	private final int uid;
+    /**
+     * The unique identifier of this group. This is unique for the entire
+     * plugin.
+     */
+    private final int uid;
 
-	/**
-	 * The level of the group.
-	 */
-	private final GroupLevel level;
+    /**
+     * The level of the group.
+     */
+    private final GroupLevel level;
 
-	/**
-	 * Properties of this group.
-	 */
-	private final TIntObjectMap<Object> properties;
+    /**
+     * Properties of this group.
+     */
+    private final TIntObjectMap<Object> properties;
 
-	/**
-	 * The immediate players of this group. The keys are the players, and the
-	 * values are the player privileges.
-	 */
-	private final Map<String, Role> players;
+    /**
+     * The immediate players of this group. The keys are the players, and the
+     * values are the player privileges.
+     */
+    private final Map<String, Role> players;
 
-	/**
-	 * The universe this group is part of.
-	 */
-	private Universe universe;
+    /**
+     * The universe this group is part of.
+     */
+    private Universe universe;
 
-	/**
-	 * C'tor
-	 *
-	 * @param universe
-	 * @param level
-	 */
-	public Group(int uid, GroupLevel level) {
-		this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>());
-	}
+    /**
+     * C'tor
+     *
+     * @param universe
+     * @param level
+     */
+    public Group(int uid, GroupLevel level) {
+        this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>());
+    }
 
-	/**
-	 * C'tor
-	 *
-	 * @param universe
-	 * @param level
-	 * @param properties
-	 * @param players
-	 */
-	private Group(int uid, GroupLevel level, TIntObjectMap<Object> properties, Map<String, Role> players) {
-		this.uid = uid;
-		this.level = level;
-		this.properties = properties;
-		this.players = players;
-	}
+    /**
+     * C'tor
+     *
+     * @param universe
+     * @param level
+     * @param properties
+     * @param players
+     */
+    private Group(int uid, GroupLevel level, TIntObjectMap<Object> properties, Map<String, Role> players) {
+        this.uid = uid;
+        this.level = level;
+        this.properties = properties;
+        this.players = players;
+    }
 
-	/**
-	 * Initializes the universe.
-	 *
-	 * @param universe
-	 */
-	public void initialize(Universe universe) {
-		if (universe != null) {
-			throw new IllegalStateException("Someone is trying to screw with the plugin!");
-		}
-		this.universe = universe;
-	}
+    /**
+     * Initializes the universe.
+     *
+     * @param universe
+     */
+    public void initialize(Universe universe) {
+        if (universe != null) {
+            throw new IllegalStateException("Someone is trying to screw with the plugin!");
+        }
+        this.universe = universe;
+    }
 
-	/**
-	 * Gets the universe of this Group.
-	 *
-	 * @return
-	 */
-	public Universe getUniverse() {
-		return universe;
-	}
+    /**
+     * Gets the universe of this Group.
+     *
+     * @return
+     */
+    public Universe getUniverse() {
+        return universe;
+    }
 
-	/**
-	 * Gets the UID of this Group.
-	 *
-	 * @return
-	 */
-	public int getUid() {
-		return uid;
-	}
+    /**
+     * Gets the UID of this Group.
+     *
+     * @return
+     */
+    public int getUid() {
+        return uid;
+    }
 
-	/**
-	 * Gets the groups composing this group.
-	 *
-	 * @return
-	 */
-	public Set<Group> getGroups() {
-		return universe.getChildGroups(this);
-	}
+    /**
+     * Gets the groups composing this group.
+     *
+     * @return
+     */
+    public Set<Group> getGroups() {
+        return universe.getChildGroups(this);
+    }
 
-	/**
-	 * Adds the given group as a child of this group.
-	 *
-	 * @param group
-	 * @return True if the given group was able to be a child of the group.
-	 */
-	public boolean addChildGroup(Group group) {
-		return universe.addChildGroup(this, group);
-	}
+    /**
+     * Adds the given group as a child of this group.
+     *
+     * @param group
+     * @return True if the given group was able to be a child of the group.
+     */
+    public boolean addChildGroup(Group group) {
+        return universe.addChildGroup(this, group);
+    }
 
-	/**
-	 * Removes the given group from this group's children.
-	 *
-	 * @param group
-	 * @return
-	 *
-	 * @see Universe#removeChildGroup(Group, Group)
-	 */
-	public boolean removeChildGroup(Group group) {
-		return universe.removeChildGroup(this, group);
-	}
+    /**
+     * Removes the given group from this group's children.
+     *
+     * @param group
+     * @return
+     *
+     * @see Universe#removeChildGroup(Group, Group)
+     */
+    public boolean removeChildGroup(Group group) {
+        return universe.removeChildGroup(this, group);
+    }
 
-	/**
-	 * Gets the GroupLevel of this Group.
-	 *
-	 * @return
-	 */
-	public GroupLevel getLevel() {
-		return level;
-	}
+    /**
+     * Gets the GroupLevel of this Group.
+     *
+     * @return
+     */
+    public GroupLevel getLevel() {
+        return level;
+    }
 
-	/**
-	 * Gets the value of a property.
-	 *
-	 * @param property
-	 * @return
-	 */
-	public Object getProperty(int property) {
-		return properties.get(property);
-	}
+    /**
+     * Gets the value of a property.
+     *
+     * @param property
+     * @return
+     */
+    public Object getProperty(int property) {
+        return properties.get(property);
+    }
 
-	/**
-	 * Gets a property as a String.
-	 *
-	 * @param property
-	 * @return
-	 */
-	public String getStringProperty(int property) {
-		Object p = getProperty(property);
-		if (p != null) {
-			return p.toString();
-		}
-		return null;
-	}
+    /**
+     * Gets a property as a String.
+     *
+     * @param property
+     * @return
+     */
+    public String getStringProperty(int property) {
+        Object p = getProperty(property);
+        if (p != null) {
+            return p.toString();
+        }
+        return null;
+    }
 
-	/**
-	 * Sets the value of a property.
-	 *
-	 * @param property
-	 * @param value
-	 */
-	public void setProperty(int property, Serializable value) {
-		properties.put(property, value);
-	}
+    /**
+     * Sets the value of a property.
+     *
+     * @param property
+     * @param value
+     */
+    public void setProperty(int property, Serializable value) {
+        properties.put(property, value);
+    }
 
-	/**
-	 * Gets the immediate players part of this group.
-	 *
-	 * @return
-	 */
-	public List<String> getImmediatePlayers() {
-		return new ArrayList<String>(players.keySet());
-	}
+    /**
+     * Gets the immediate players part of this group.
+     *
+     * @return
+     */
+    public List<String> getImmediatePlayers() {
+        return new ArrayList<String>(players.keySet());
+    }
 
-	/**
-	 * Gets the immediate online players part of this group.
-	 *
-	 * @return
-	 */
-	public List<Player> getImmediateOnlinePlayers() {
-		List<Player> players = new ArrayList<Player>();
-		for (String pn : getImmediatePlayers()) {
-			Player player = ((Server) Spout.getEngine()).getPlayer(pn, true);
-			if (player != null) {
-				players.add(player);
-			}
-		}
-		return players;
-	}
+    /**
+     * Gets the immediate online players part of this group.
+     *
+     * @return
+     */
+    public List<Player> getImmediateOnlinePlayers() {
+        List<Player> players = new ArrayList<Player>();
+        for (String pn : getImmediatePlayers()) {
+            Player player = ((Server) Spout.getEngine()).getPlayer(pn, true);
+            if (player != null) {
+                players.add(player);
+            }
+        }
+        return players;
+    }
 
-	/**
-	 * Gets all players part of this group.
-	 *
-	 * @return
-	 */
-	public List<String> getPlayers() {
-		List<String> players = new ArrayList<String>();
-		for (Group group : getGroups()) {
-			players.addAll(group.getPlayers());
-		}
-		players.addAll(this.players.keySet());
-		return players;
-	}
+    /**
+     * Gets all players part of this group.
+     *
+     * @return
+     */
+    public List<String> getPlayers() {
+        List<String> players = new ArrayList<String>();
+        for (Group group : getGroups()) {
+            players.addAll(group.getPlayers());
+        }
+        players.addAll(this.players.keySet());
+        return players;
+    }
 
-	/**
-	 * Returns true if the given player is an immediate member of this group.
-	 *
-	 * @param player
-	 * @return
-	 */
-	public boolean isImmediateMember(String player) {
-		return players.containsKey(player);
-	}
+    /**
+     * Returns true if the given player is an immediate member of this group.
+     *
+     * @param player
+     * @return
+     */
+    public boolean isImmediateMember(String player) {
+        return players.containsKey(player);
+    }
 
-	/**
-	 * Checks if the given player is a member of this group or child groups.
-	 *
-	 * @param player
-	 * @return
-	 */
-	public boolean isMember(String player) {
-		if (isImmediateMember(player)) {
-			return true;
-		}
+    /**
+     * Checks if the given player is a member of this group or child groups.
+     *
+     * @param player
+     * @return
+     */
+    public boolean isMember(String player) {
+        if (isImmediateMember(player)) {
+            return true;
+        }
 
-		for (Group group : getGroups()) {
-			if (group.isMember(player)) {
-				return true;
-			}
-		}
-		return false;
-	}
+        for (Group group : getGroups()) {
+            if (group.isMember(player)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * Sets the role of the given player to the given role.
-	 *
-	 * @param player
-	 * @param role
-	 */
-	public void setRole(String player, Role role) {
-		players.put(player, role);
-	}
+    /**
+     * Sets the role of the given player to the given role.
+     *
+     * @param player
+     * @param role
+     */
+    public void setRole(String player, Role role) {
+        players.put(player, role);
+    }
 
-	/**
-	 * Removes the role of the given player from this group.
-	 *
-	 * @param player
-	 */
-	public void removeRole(String player) {
-		players.remove(player);
-	}
+    /**
+     * Removes the role of the given player from this group.
+     *
+     * @param player
+     */
+    public void removeRole(String player) {
+        players.remove(player);
+    }
 
-	@Override
-	public int compareTo(Group o) {
-		return getProperty(GroupProperty.TAG).toString().compareTo(o.getProperty(GroupProperty.TAG).toString());
-	}
+    @Override
+    public int compareTo(Group o) {
+        return getProperty(GroupProperty.TAG).toString().compareTo(o.getProperty(GroupProperty.TAG).toString());
+    }
 
-	@Override
-	public BasicBSONObject toBSONObject() {
-		BasicBSONObject object = new BasicBSONObject();
+    @Override
+    public BasicBSONObject toBSONObject() {
+        BasicBSONObject object = new BasicBSONObject();
 
-		object.put("uid", uid);
-		object.put("level", level.getId());
+        object.put("uid", uid);
+        object.put("level", level.getId());
 
-		final BasicBSONObject propertiesBson = new BasicBSONObject();
-		TIntObjectIterator<Object> pit = properties.iterator();
-		while (pit.hasNext()) {
-			pit.advance();
-			propertiesBson.put(Integer.toHexString(pit.key()), pit.value());
-		}
-		object.put("properties", propertiesBson);
+        final BasicBSONObject propertiesBson = new BasicBSONObject();
+        TIntObjectIterator<Object> pit = properties.iterator();
+        while (pit.hasNext()) {
+            pit.advance();
+            propertiesBson.put(Integer.toHexString(pit.key()), pit.value());
+        }
+        object.put("properties", propertiesBson);
 
-		final BasicBSONObject playersBson = new BasicBSONObject();
-		for (Entry<String, Role> roleEntry : players.entrySet()) {
-			playersBson.put(roleEntry.getKey(), roleEntry.getValue().getId());
-		}
-		object.put("players", playersBson);
+        final BasicBSONObject playersBson = new BasicBSONObject();
+        for (Entry<String, Role> roleEntry : players.entrySet()) {
+            playersBson.put(roleEntry.getKey(), roleEntry.getValue().getId());
+        }
+        object.put("players", playersBson);
 
-		return object;
-	}
+        return object;
+    }
 
-	/**
-	 * Gets the Group from the given BSONObject.
-	 *
-	 * @param rules
-	 * @param object
-	 * @return
-	 */
-	public static Group fromBSONObject(UniverseRules rules, BSONObject object) {
-		if (!(object instanceof BasicBSONObject)) {
-			throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
-		}
+    /**
+     * Gets the Group from the given BSONObject.
+     *
+     * @param rules
+     * @param object
+     * @return
+     */
+    public static Group fromBSONObject(UniverseRules rules, BSONObject object) {
+        if (!(object instanceof BasicBSONObject)) {
+            throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
+        }
 
-		BasicBSONObject bobject = (BasicBSONObject) object;
+        BasicBSONObject bobject = (BasicBSONObject) object;
 
-		int uid = bobject.getInt("uid");
+        int uid = bobject.getInt("uid");
 
-		String levelName = bobject.getString("level");
-		GroupLevel level = rules.getGroupLevel(levelName);
-		if (level == null) {
-			throw new IllegalStateException("Unknown level type '" + level + "'! (Did the universe rules change?)");
-		}
+        String levelName = bobject.getString("level");
+        GroupLevel level = rules.getGroupLevel(levelName);
+        if (level == null) {
+            throw new IllegalStateException("Unknown level type '" + level + "'! (Did the universe rules change?)");
+        }
 
-		// Properties
-		Object propertiesObj = bobject.get("properties");
-		if (!(propertiesObj instanceof BasicBSONObject)) {
-			throw new IllegalStateException("WTF you screwed up the properties! CORRUPT!");
-		}
-		BasicBSONObject propertiesBson = (BasicBSONObject) propertiesObj;
-		TIntObjectMap<Object> properties = new TIntObjectHashMap<Object>();
-		for (Entry<String, Object> entry : propertiesBson.entrySet()) {
-			int realKey = Integer.valueOf(entry.getKey(), 16);
-			Object value = entry.getValue();
-			properties.put(realKey, value);
-		}
+        // Properties
+        Object propertiesObj = bobject.get("properties");
+        if (!(propertiesObj instanceof BasicBSONObject)) {
+            throw new IllegalStateException("WTF you screwed up the properties! CORRUPT!");
+        }
+        BasicBSONObject propertiesBson = (BasicBSONObject) propertiesObj;
+        TIntObjectMap<Object> properties = new TIntObjectHashMap<Object>();
+        for (Entry<String, Object> entry : propertiesBson.entrySet()) {
+            int realKey = Integer.valueOf(entry.getKey(), 16);
+            Object value = entry.getValue();
+            properties.put(realKey, value);
+        }
 
-		// Players
-		Object playersObj = bobject.get("players");
-		if (!(playersObj instanceof BasicBSONObject)) {
-			throw new IllegalStateException("Stupid server admin... don't mess with the data!");
-		}
-		BasicBSONObject playersBson = (BasicBSONObject) playersObj;
-		Map<String, Role> players = new HashMap<String, Role>();
-		for (Entry<String, Object> entry : playersBson.entrySet()) {
-			String roleId = entry.getValue().toString();
-			Role role = level.getRole(roleId);
-			players.put(entry.getKey(), role);
-		}
+        // Players
+        Object playersObj = bobject.get("players");
+        if (!(playersObj instanceof BasicBSONObject)) {
+            throw new IllegalStateException("Stupid server admin... don't mess with the data!");
+        }
+        BasicBSONObject playersBson = (BasicBSONObject) playersObj;
+        Map<String, Role> players = new HashMap<String, Role>();
+        for (Entry<String, Object> entry : playersBson.entrySet()) {
+            String roleId = entry.getValue().toString();
+            Role role = level.getRole(roleId);
+            players.put(entry.getKey(), role);
+        }
 
-		return new Group(uid, level, properties, players);
-	}
+        return new Group(uid, level, properties, players);
+    }
 }

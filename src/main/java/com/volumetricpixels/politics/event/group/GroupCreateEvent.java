@@ -28,58 +28,58 @@ import org.spout.api.event.HandlerList;
  * Called when a group is created.
  */
 public final class GroupCreateEvent extends GroupEvent implements Cancellable {
-	private static final HandlerList handlers = new HandlerList();
+    private static final HandlerList handlers = new HandlerList();
 
-	/**
-	 * The creator of the group.
-	 */
-	private final CommandSource creator;
+    /**
+     * The creator of the group.
+     */
+    private final CommandSource creator;
 
-	/**
-	 * C'tor
-	 *
-	 * @param group
-	 * @param creator
-	 */
-	public GroupCreateEvent(Group group, CommandSource creator) {
-		super(group);
-		this.creator = creator;
-	}
+    /**
+     * C'tor
+     *
+     * @param group
+     * @param creator
+     */
+    public GroupCreateEvent(Group group, CommandSource creator) {
+        super(group);
+        this.creator = creator;
+    }
 
-	/**
-	 * Gets the creator of the group.
-	 *
-	 * @return
-	 */
-	public CommandSource getCreator() {
-		return creator;
-	}
+    /**
+     * Gets the creator of the group.
+     *
+     * @return
+     */
+    public CommandSource getCreator() {
+        return creator;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isCancelled() {
-		return super.isCancelled();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isCancelled() {
+        return super.isCancelled();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setCancelled(boolean cancelled) {
-		super.setCancelled(cancelled);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public void setCancelled(boolean cancelled) {
+        super.setCancelled(cancelled);
+    }
 
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
 
-	/**
-	 * Gets the HandlerList of the event.
-	 *
-	 * @return
-	 */
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
+    /**
+     * Gets the HandlerList of the event.
+     *
+     * @return
+     */
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

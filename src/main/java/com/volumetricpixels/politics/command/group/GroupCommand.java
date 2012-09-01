@@ -33,68 +33,68 @@ import com.volumetricpixels.politics.universe.Universe;
  * A group-related command.
  */
 public abstract class GroupCommand extends PCommand {
-	/**
-	 * Level of this GroupCommand.
-	 */
-	protected final GroupLevel level;
+    /**
+     * Level of this GroupCommand.
+     */
+    protected final GroupLevel level;
 
-	/**
-	 * Aliases of this GroupCommand.
-	 */
-	private List<String> aliases;
+    /**
+     * Aliases of this GroupCommand.
+     */
+    private List<String> aliases;
 
-	/**
-	 * C'tor
-	 * 
-	 * @param level
-	 * @param primary
-	 */
-	public GroupCommand(GroupLevel level, String primary) {
-		super(primary.toLowerCase());
-		this.level = level;
+    /**
+     * C'tor
+     *
+     * @param level
+     * @param primary
+     */
+    public GroupCommand(GroupLevel level, String primary) {
+        super(primary.toLowerCase());
+        this.level = level;
 
-		// Load the primary and aliases
-		aliases = level.getAliases(this.primary);
-		if (aliases.size() <= 0) {
-			this.primary = null;
-			return;
-		}
+        // Load the primary and aliases
+        aliases = level.getAliases(this.primary);
+        if (aliases.size() <= 0) {
+            this.primary = null;
+            return;
+        }
 
-		int index = aliases.indexOf(this.primary);
-		if (index != -1) {
-			aliases.remove(index);
-		} else {
-			this.primary = aliases.get(0);
-			aliases.remove(0);
-		}
-	}
+        int index = aliases.indexOf(this.primary);
+        if (index != -1) {
+            aliases.remove(index);
+        } else {
+            this.primary = aliases.get(0);
+            aliases.remove(0);
+        }
+    }
 
-	@Override
-	protected String[] getAliases() {
-		return aliases.toArray(new String[0]);
-	}
+    @Override
+    protected String[] getAliases() {
+        return aliases.toArray(new String[0]);
+    }
 
-	/**
-	 * Gets the citizen corresponding with the given player.
-	 * 
-	 * @param player
-	 * @return
-	 */
-	public Citizen getCitizen(Player player) {
-		Universe universe = getUniverse(player);
-		if (universe != null) {
-			return universe.getCitizen(player.getName());
-		}
-		return null;
-	}
+    /**
+     * Gets the citizen corresponding with the given player.
+     *
+     * @param player
+     * @return
+     */
+    public Citizen getCitizen(Player player) {
+        Universe universe = getUniverse(player);
+        if (universe != null) {
+            return universe.getCitizen(player.getName());
+        }
+        return null;
+    }
 
-	/**
-	 * Gets the universe of the given player in relation to this command.
-	 * 
-	 * @param player
-	 * @return
-	 */
-	public Universe getUniverse(Player player) {
-		return Politics.getUniverse(player.getWorld(), level);
-	}
+    /**
+     * Gets the universe of the given player in relation to this command.
+     *
+     * @param player
+     * @return
+     */
+    public Universe getUniverse(Player player) {
+        return Politics.getUniverse(player.getWorld(), level);
+    }
 }

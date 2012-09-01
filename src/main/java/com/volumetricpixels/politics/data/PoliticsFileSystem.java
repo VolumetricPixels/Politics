@@ -26,72 +26,72 @@ import java.io.File;
  * Manages all Files in Politics
  */
 public class PoliticsFileSystem {
-	/**
-	 * Rules directory;
-	 */
-	private final File rulesDir;
+    /**
+     * Rules directory;
+     */
+    private final File rulesDir;
 
-	/**
-	 * Universe directory
-	 */
-	private final File universesDir;
+    /**
+     * Universe directory
+     */
+    private final File universesDir;
 
-	/**
-	 * World Configuration Directory
-	 */
-	private final File worldConfigDir;
+    /**
+     * World Configuration Directory
+     */
+    private final File worldConfigDir;
 
-	/**
-	 * Directory containing the folders.
-	 */
-	private final File worldsDir;
+    /**
+     * Directory containing the folders.
+     */
+    private final File worldsDir;
 
-	/**
-	 * C'tor
-	 */
-	public PoliticsFileSystem() {
-		File base = Politics.getPlugin().getDataFolder();
+    /**
+     * C'tor
+     */
+    public PoliticsFileSystem() {
+        File base = Politics.getPlugin().getDataFolder();
 
-		rulesDir = new File(base, "rules/");
-		worldConfigDir = new File(base, "worlds/");
+        rulesDir = new File(base, "rules/");
+        worldConfigDir = new File(base, "worlds/");
 
-		worldsDir = new File(base, "data/worlds/");
-		universesDir = new File(base, "data/universes/");
-	}
+        worldsDir = new File(base, "data/worlds/");
+        universesDir = new File(base, "data/universes/");
+    }
 
-	/**
-	 * Gets the rules directory.
-	 *
-	 * @return
-	 */
-	public File getRulesDir() {
-		return rulesDir;
-	}
+    /**
+     * Gets the rules directory.
+     *
+     * @return
+     */
+    public File getRulesDir() {
+        return rulesDir;
+    }
 
-	/**
-	 * Gets the world config directory.
-	 *
-	 * @return
-	 */
-	public File getWorldConfigDir() {
-		return worldConfigDir;
-	}
+    /**
+     * Gets the world config directory.
+     *
+     * @return
+     */
+    public File getWorldConfigDir() {
+        return worldConfigDir;
+    }
 
-	/**
-	 * Gets the universes directory.
-	 *
-	 * @return
-	 */
-	public File getUniversesDir() {
-		return universesDir;
-	}
+    /**
+     * Gets the universes directory.
+     *
+     * @return
+     */
+    public File getUniversesDir() {
+        return universesDir;
+    }
 
-	/**
-	 * Gets the worlds directory.
-	 *
-	 * @return
-	 */
-	public File getWorldsDir() {
-		return worldsDir;
-	}
+    /**
+     * Gets the worlds directory.
+     *
+     * @return
+     */
+    public File getWorldsDir() {
+        return worldsDir;
+    }
 }

@@ -50,272 +50,272 @@ import com.volumetricpixels.politics.plot.PoliticsWorld;
  * Contains all universes.
  */
 public class UniverseManager {
-	/**
-	 * The rules of the universe.
-	 */
-	private Map<String, UniverseRules> rules;
+    /**
+     * The rules of the universe.
+     */
+    private Map<String, UniverseRules> rules;
 
-	/**
-	 * Universes mapped to their names.
-	 */
-	private Map<String, Universe> universes;
+    /**
+     * Universes mapped to their names.
+     */
+    private Map<String, Universe> universes;
 
-	/**
-	 * Stores groups.
-	 */
-	private TIntObjectMap<Group> groups;
+    /**
+     * Stores groups.
+     */
+    private TIntObjectMap<Group> groups;
 
-	/**
-	 * Worlds mapped to their levels.
-	 */
-	private Map<PoliticsWorld, Map<GroupLevel, Universe>> worldLevels;
+    /**
+     * Worlds mapped to their levels.
+     */
+    private Map<PoliticsWorld, Map<GroupLevel, Universe>> worldLevels;
 
-	/**
-	 * The next id to assign a Group.
-	 */
-	private int nextId = 0xffffffff;
+    /**
+     * The next id to assign a Group.
+     */
+    private int nextId = 0xffffffff;
 
-	/**
-	 * C'tor
-	 *
-	 * @param plugin
-	 */
-	public UniverseManager() {
-	}
+    /**
+     * C'tor
+     *
+     * @param plugin
+     */
+    public UniverseManager() {
+    }
 
-	/**
-	 * Loads the rules into memory.
-	 */
-	public void loadRules() {
-		Politics.getFileSystem().getRulesDir().mkdirs();
-		rules = new HashMap<String, UniverseRules>();
-		for (File file : Politics.getFileSystem().getRulesDir().listFiles()) {
-			String fileName = file.getName();
-			if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
-				continue;
-			}
-			String name = fileName.substring(0, fileName.length() - 4);
+    /**
+     * Loads the rules into memory.
+     */
+    public void loadRules() {
+        Politics.getFileSystem().getRulesDir().mkdirs();
+        rules = new HashMap<String, UniverseRules>();
+        for (File file : Politics.getFileSystem().getRulesDir().listFiles()) {
+            String fileName = file.getName();
+            if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
+                continue;
+            }
+            String name = fileName.substring(0, fileName.length() - 4);
 
-			YamlConfiguration configFile = new YamlConfiguration(file);
-			try {
-				configFile.load();
-			} catch (ConfigurationException ex) {
-				PoliticsPlugin.logger().log(Level.SEVERE, "Invalid universe YAML file `" + fileName + "'!", ex);
-			}
+            YamlConfiguration configFile = new YamlConfiguration(file);
+            try {
+                configFile.load();
+            } catch (ConfigurationException ex) {
+                PoliticsPlugin.logger().log(Level.SEVERE, "Invalid universe YAML file `" + fileName + "'!", ex);
+            }
 
-			UniverseRules thisRules = UniverseRules.load(name, configFile);
-			String ruleName = thisRules.getName();
-			rules.put(ruleName.toLowerCase(), thisRules);
-		}
-	}
+            UniverseRules thisRules = UniverseRules.load(name, configFile);
+            String ruleName = thisRules.getName();
+            rules.put(ruleName.toLowerCase(), thisRules);
+        }
+    }
 
-	/**
-	 * Loads all universes into memory from files.
-	 */
-	public void loadUniverses() {
-		BSONDecoder decoder = new BasicBSONDecoder();
-		universes = new HashMap<String, Universe>();
-		groups = new TIntObjectHashMap<Group>();
-		Politics.getFileSystem().getUniversesDir().mkdirs();
-		for (File file : Politics.getFileSystem().getUniversesDir().listFiles()) {
-			String fileName = file.getName();
-			if (!fileName.endsWith(".ptu") || fileName.length() <= 4) {
-				continue;
-			}
+    /**
+     * Loads all universes into memory from files.
+     */
+    public void loadUniverses() {
+        BSONDecoder decoder = new BasicBSONDecoder();
+        universes = new HashMap<String, Universe>();
+        groups = new TIntObjectHashMap<Group>();
+        Politics.getFileSystem().getUniversesDir().mkdirs();
+        for (File file : Politics.getFileSystem().getUniversesDir().listFiles()) {
+            String fileName = file.getName();
+            if (!fileName.endsWith(".ptu") || fileName.length() <= 4) {
+                continue;
+            }
 
-			byte[] data;
-			try {
-				data = FileUtils.readFileToByteArray(file);
-			} catch (IOException ex) {
-				PoliticsPlugin.logger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
-				continue;
-			}
+            byte[] data;
+            try {
+                data = FileUtils.readFileToByteArray(file);
+            } catch (IOException ex) {
+                PoliticsPlugin.logger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
+                continue;
+            }
 
-			BSONObject object = decoder.readObject(data);
+            BSONObject object = decoder.readObject(data);
 
-			Universe universe = Universe.fromBSONObject(object);
-			universes.put(universe.getName(), universe);
+            Universe universe = Universe.fromBSONObject(object);
+            universes.put(universe.getName(), universe);
 
-			for (Group group : universe.getGroups()) {
-				if (groups.put(group.getUid(), group) != null) {
-					PoliticsPlugin.logger().log(Level.WARNING, "Duplicate group id " + group.getUid() + "!");
-				}
-				if (group.getUid() > nextId) {
-					nextId = group.getUid();
-				}
-			}
-		}
+            for (Group group : universe.getGroups()) {
+                if (groups.put(group.getUid(), group) != null) {
+                    PoliticsPlugin.logger().log(Level.WARNING, "Duplicate group id " + group.getUid() + "!");
+                }
+                if (group.getUid() > nextId) {
+                    nextId = group.getUid();
+                }
+            }
+        }
 
-		// Populate World levels
-		worldLevels = new HashMap<PoliticsWorld, Map<GroupLevel, Universe>>();
-		for (Universe universe : universes.values()) {
-			for (GroupLevel level : universe.getRules().getGroupLevels()) {
-				for (PoliticsWorld world : universe.getWorlds()) {
-					Map<GroupLevel, Universe> levelMap = worldLevels.get(world);
-					if (levelMap == null) {
-						levelMap = new HashMap<GroupLevel, Universe>();
-						worldLevels.put(world, levelMap);
-					}
-					Universe prev = levelMap.put(level, universe);
-					if (prev != null) {
-						PoliticsPlugin.logger().log(Level.WARNING, "Multiple universes are conflicting on the same world! Universe name: " + universe.getName() + "; Rules name: " + universe.getRules().getName());
-					}
-				}
-			}
-		}
-	}
+        // Populate World levels
+        worldLevels = new HashMap<PoliticsWorld, Map<GroupLevel, Universe>>();
+        for (Universe universe : universes.values()) {
+            for (GroupLevel level : universe.getRules().getGroupLevels()) {
+                for (PoliticsWorld world : universe.getWorlds()) {
+                    Map<GroupLevel, Universe> levelMap = worldLevels.get(world);
+                    if (levelMap == null) {
+                        levelMap = new HashMap<GroupLevel, Universe>();
+                        worldLevels.put(world, levelMap);
+                    }
+                    Universe prev = levelMap.put(level, universe);
+                    if (prev != null) {
+                        PoliticsPlugin.logger().log(Level.WARNING, "Multiple universes are conflicting on the same world! Universe name: " + universe.getName() + "; Rules name: " + universe.getRules().getName());
+                    }
+                }
+            }
+        }
+    }
 
-	/**
-	 * Saves all universes in memory to files.
-	 */
-	public void saveUniverses() {
-		BSONEncoder encoder = new BasicBSONEncoder();
-		Politics.getFileSystem().getUniversesDir().mkdirs();
-		for (Universe universe : universes.values()) {
-			String fileName = universe.getName() + ".cou";
-			File universeFile = new File(Politics.getFileSystem().getUniversesDir(), fileName);
+    /**
+     * Saves all universes in memory to files.
+     */
+    public void saveUniverses() {
+        BSONEncoder encoder = new BasicBSONEncoder();
+        Politics.getFileSystem().getUniversesDir().mkdirs();
+        for (Universe universe : universes.values()) {
+            String fileName = universe.getName() + ".cou";
+            File universeFile = new File(Politics.getFileSystem().getUniversesDir(), fileName);
 
-			byte[] data = encoder.encode(universe.toBSONObject());
-			try {
-				FileUtils.writeByteArrayToFile(universeFile, data);
-			} catch (IOException ex) {
-				PoliticsPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
-				continue;
-			}
-			// TODO make backups
-		}
-	}
+            byte[] data = encoder.encode(universe.toBSONObject());
+            try {
+                FileUtils.writeByteArrayToFile(universeFile, data);
+            } catch (IOException ex) {
+                PoliticsPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
+                continue;
+            }
+            // TODO make backups
+        }
+    }
 
-	/**
-	 * Gets a universe by its name.
-	 *
-	 * @param name
-	 * @return
-	 */
-	public Universe getUniverse(String name) {
-		return universes.get(name.toLowerCase());
-	}
+    /**
+     * Gets a universe by its name.
+     *
+     * @param name
+     * @return
+     */
+    public Universe getUniverse(String name) {
+        return universes.get(name.toLowerCase());
+    }
 
-	/**
-	 * Gets the rules with the corresponding name.
-	 *
-	 * @param rulesName
-	 * @return
-	 */
-	public UniverseRules getRules(String rulesName) {
-		return rules.get(rulesName);
-	}
+    /**
+     * Gets the rules with the corresponding name.
+     *
+     * @param rulesName
+     * @return
+     */
+    public UniverseRules getRules(String rulesName) {
+        return rules.get(rulesName);
+    }
 
-	/**
-	 * Returns a list of all UniverseRules.
-	 *
-	 * @return
-	 */
-	public List<UniverseRules> listRules() {
-		return new ArrayList<UniverseRules>(rules.values());
-	}
+    /**
+     * Returns a list of all UniverseRules.
+     *
+     * @return
+     */
+    public List<UniverseRules> listRules() {
+        return new ArrayList<UniverseRules>(rules.values());
+    }
 
-	/**
-	 * Gets a universe from its world and group level.
-	 *
-	 * @param world
-	 * @param level
-	 * @return
-	 */
-	public Universe getUniverse(World world, GroupLevel level) {
-		PoliticsWorld cw = Politics.getWorld(world);
-		if (cw == null) {
-			return null;
-		}
-		return getUniverse(cw, level);
-	}
+    /**
+     * Gets a universe from its world and group level.
+     *
+     * @param world
+     * @param level
+     * @return
+     */
+    public Universe getUniverse(World world, GroupLevel level) {
+        PoliticsWorld cw = Politics.getWorld(world);
+        if (cw == null) {
+            return null;
+        }
+        return getUniverse(cw, level);
+    }
 
-	/**
-	 * Gets a list of all GroupLevels.
-	 *
-	 * @return
-	 */
-	public List<GroupLevel> getGroupLevels() {
-		List<GroupLevel> ret = new ArrayList<GroupLevel>();
-		for (UniverseRules rules : this.rules.values()) {
-			ret.addAll(rules.getGroupLevels());
-		}
-		return ret;
-	}
+    /**
+     * Gets a list of all GroupLevels.
+     *
+     * @return
+     */
+    public List<GroupLevel> getGroupLevels() {
+        List<GroupLevel> ret = new ArrayList<GroupLevel>();
+        for (UniverseRules rules : this.rules.values()) {
+            ret.addAll(rules.getGroupLevels());
+        }
+        return ret;
+    }
 
-	/**
-	 * Gets a group by its id.
-	 *
-	 * @param id
-	 * @return
-	 */
-	public Group getGroupById(int id) {
-		return groups.get(id);
-	}
+    /**
+     * Gets a group by its id.
+     *
+     * @param id
+     * @return
+     */
+    public Group getGroupById(int id) {
+        return groups.get(id);
+    }
 
-	/**
-	 * Gets the universe of the given CommandSource.
-	 *
-	 * @param world
-	 * @param level
-	 * @return
-	 */
-	public Universe getUniverse(PoliticsWorld world, GroupLevel level) {
-		Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
-		if (levelUniverses == null) {
-			return null;
-		}
-		return levelUniverses.get(world);
-	}
+    /**
+     * Gets the universe of the given CommandSource.
+     *
+     * @param world
+     * @param level
+     * @return
+     */
+    public Universe getUniverse(PoliticsWorld world, GroupLevel level) {
+        Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
+        if (levelUniverses == null) {
+            return null;
+        }
+        return levelUniverses.get(world);
+    }
 
-	/**
-	 * Gets the group levels in the given world.
-	 *
-	 * @param world
-	 * @return
-	 */
-	public List<GroupLevel> getLevelsOfWorld(PoliticsWorld world) {
-		Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
-		if (levelUniverses == null) {
-			return new ArrayList<GroupLevel>();
-		}
-		return new ArrayList<GroupLevel>(levelUniverses.keySet());
-	}
+    /**
+     * Gets the group levels in the given world.
+     *
+     * @param world
+     * @return
+     */
+    public List<GroupLevel> getLevelsOfWorld(PoliticsWorld world) {
+        Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
+        if (levelUniverses == null) {
+            return new ArrayList<GroupLevel>();
+        }
+        return new ArrayList<GroupLevel>(levelUniverses.keySet());
+    }
 
-	/**
-	 * Creates a new universe with the given name.
-	 *
-	 * @param name
-	 * @param theRules
-	 * @return the created universe
-	 */
-	public Universe createUniverse(String name, UniverseRules theRules) {
-		Universe universe = new Universe(name, theRules);
-		universes.put(name, universe);
-		return universe;
-	}
+    /**
+     * Creates a new universe with the given name.
+     *
+     * @param name
+     * @param theRules
+     * @return the created universe
+     */
+    public Universe createUniverse(String name, UniverseRules theRules) {
+        Universe universe = new Universe(name, theRules);
+        universes.put(name, universe);
+        return universe;
+    }
 
-	/**
-	 * Destroys the given universe.
-	 *
-	 * @param universe
-	 */
-	public void destroyUniverse(Universe universe) {
-		universes.remove(universe.getName());
-		for (Group group : universe.getGroups()) {
-			universe.destroyGroup(group);
-		}
-	}
+    /**
+     * Destroys the given universe.
+     *
+     * @param universe
+     */
+    public void destroyUniverse(Universe universe) {
+        universes.remove(universe.getName());
+        for (Group group : universe.getGroups()) {
+            universe.destroyGroup(group);
+        }
+    }
 
-	/**
-	 * Gets the next ID to use for a group.
-	 *
-	 * @return
-	 */
-	public int nextId() {
-		while (getGroupById(nextId) != null) {
-			nextId++;
-		}
-		return nextId;
-	}
+    /**
+     * Gets the next ID to use for a group.
+     *
+     * @return
+     */
+    public int nextId() {
+        while (getGroupById(nextId) != null) {
+            nextId++;
+        }
+        return nextId;
+    }
 }

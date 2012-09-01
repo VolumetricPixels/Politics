@@ -35,37 +35,36 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.GroupProperty;
 
 public class GroupInfoCommand extends GroupCommand {
+    public GroupInfoCommand(GroupLevel level) {
+        super(level, "info");
+    }
 
-	public GroupInfoCommand(GroupLevel level) {
-		super(level, "info");
-	}
+    @Override
+    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+        if (!(source instanceof Player)) {
+            source.sendMessage("Consoles are part of a group");
+            return;
+        }
 
-	@Override
-	public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-		if (!(source instanceof Player)) {
-			source.sendMessage("Consoles are part of a group");
-			return;
-		}
+        Player p = (Player) source;
+        Citizen citizen = getCitizen(p);
+        if (citizen == null) {
+            source.sendMessage(MsgStyle.ERROR, "You can't use this command in this world.");
+            return;
+        }
 
-		Player p = (Player) source;
-		Citizen citizen = getCitizen(p);
-		if (citizen == null) {
-			source.sendMessage(MsgStyle.ERROR, "You can't use this command in this world.");
-			return;
-		}
+        Set<Group> groups = citizen.getGroups(level);
+        if (groups.size() <= 0) {
+            source.sendMessage(MsgStyle.ERROR, "You aren't in a " + level.getName() + ".");
+        }
 
-		Set<Group> groups = citizen.getGroups(level);
-		if (groups.size() <= 0) {
-			source.sendMessage(MsgStyle.ERROR, "You aren't in a " + level.getName() + ".");
-		}
+        p.sendMessage(ChatStyle.BLUE, "============= INFO =============");
+        p.sendMessage(ChatStyle.DARK_GREEN, "Current Group: " + groups.iterator().next().getStringProperty(GroupProperty.NAME));
+        p.sendMessage(ChatStyle.BLUE, "================================");
+    }
 
-		p.sendMessage(ChatStyle.BLUE, "============= INFO =============");
-		p.sendMessage(ChatStyle.DARK_GREEN, "Current Group: " + groups.iterator().next().getStringProperty(GroupProperty.NAME));
-		p.sendMessage(ChatStyle.BLUE, "================================");
-	}
-
-	@Override
-	public void setupCommand(Command cmd) {
-		cmd.setHelp("Gets information about the current group you are in.");
-	}
+    @Override
+    public void setupCommand(Command cmd) {
+        cmd.setHelp("Gets information about the current group you are in.");
+    }
 }

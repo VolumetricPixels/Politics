@@ -33,36 +33,36 @@ import com.volumetricpixels.politics.universe.Universe;
  * Destroys a universe and all of its groups.
  */
 public class UniverseDestroyCommand extends UniverseCommand {
-	/**
-	 * C'tor
-	 */
-	public UniverseDestroyCommand() {
-		super("destroy");
-	}
+    /**
+     * C'tor
+     */
+    public UniverseDestroyCommand() {
+        super("destroy");
+    }
 
-	@Override
-	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-		Universe universe = Politics.getUniverse(args.getString(0));
-		if (universe == null) {
-			source.sendMessage(MsgStyle.ERROR, "A universe with the name '" + args.getString(0) + "' doesn't exist.");
-			return;
-		}
+    @Override
+    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
+        Universe universe = Politics.getUniverse(args.getString(0));
+        if (universe == null) {
+            source.sendMessage(MsgStyle.ERROR, "A universe with the name '" + args.getString(0) + "' doesn't exist.");
+            return;
+        }
 
-		Politics.getUniverseManager().destroyUniverse(universe);
-		PoliticsEventFactory.callUniverseDestroyEvent(universe);
-		source.sendMessage(MsgStyle.SUCCESS, "The universe has been destroyed, sir.");
-	}
+        Politics.getUniverseManager().destroyUniverse(universe);
+        PoliticsEventFactory.callUniverseDestroyEvent(universe);
+        source.sendMessage(MsgStyle.SUCCESS, "The universe has been destroyed, sir.");
+    }
 
-	@Override
-	protected String[] getAliases() {
-		return new String[]{"delete", "d"};
-	}
+    @Override
+    protected String[] getAliases() {
+        return new String[]{"delete", "d"};
+    }
 
-	@Override
-	public void setupCommand(Command cmd) {
-		cmd.setArgBounds(1, -1);
-		cmd.setHelp("Destroys the given universe.");
-		cmd.setUsage("destroy <name>");
-		cmd.setPermissions(true, "politics.admin.universe.destroy");
-	}
+    @Override
+    public void setupCommand(Command cmd) {
+        cmd.setArgBounds(1, -1);
+        cmd.setHelp("Destroys the given universe.");
+        cmd.setUsage("destroy <name>");
+        cmd.setPermissions(true, "politics.admin.universe.destroy");
+    }
 }

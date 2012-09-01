@@ -45,195 +45,195 @@ import com.volumetricpixels.politics.PoliticsPlugin;
  * Manages plots.
  */
 public class PlotManager {
-	/**
-	 * Configs of worlds.
-	 */
-	private Map<String, WorldConfig> configs;
+    /**
+     * Configs of worlds.
+     */
+    private Map<String, WorldConfig> configs;
 
-	/**
-	 * World names mapped to GroupWorlds.
-	 */
-	private Map<String, PoliticsWorld> worlds;
+    /**
+     * World names mapped to GroupWorlds.
+     */
+    private Map<String, PoliticsWorld> worlds;
 
-	/**
-	 * C'tor
-	 */
-	public PlotManager() {
-	}
+    /**
+     * C'tor
+     */
+    public PlotManager() {
+    }
 
-	/**
-	 * Loads all World configurations.
-	 */
-	public void loadWorldConfigs() {
-		Politics.getFileSystem().getWorldConfigDir().mkdirs();
-		configs = new HashMap<String, WorldConfig>();
-		for (File file : Politics.getFileSystem().getWorldConfigDir().listFiles()) {
-			String fileName = file.getName();
-			if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
-				continue;
-			}
-			String name = fileName.substring(0, fileName.length() - 4);
+    /**
+     * Loads all World configurations.
+     */
+    public void loadWorldConfigs() {
+        Politics.getFileSystem().getWorldConfigDir().mkdirs();
+        configs = new HashMap<String, WorldConfig>();
+        for (File file : Politics.getFileSystem().getWorldConfigDir().listFiles()) {
+            String fileName = file.getName();
+            if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
+                continue;
+            }
+            String name = fileName.substring(0, fileName.length() - 4);
 
-			Configuration config = new YamlConfiguration(file);
-			WorldConfig wc = WorldConfig.load(name, config);
-			configs.put(name, wc);
-		}
-	}
+            Configuration config = new YamlConfiguration(file);
+            WorldConfig wc = WorldConfig.load(name, config);
+            configs.put(name, wc);
+        }
+    }
 
-	/**
-	 * Loads all GroupsWorlds.
-	 */
-	public void loadWorlds() {
-		BSONDecoder decoder = new BasicBSONDecoder();
-		worlds = new HashMap<String, PoliticsWorld>();
+    /**
+     * Loads all GroupsWorlds.
+     */
+    public void loadWorlds() {
+        BSONDecoder decoder = new BasicBSONDecoder();
+        worlds = new HashMap<String, PoliticsWorld>();
 
-		Politics.getFileSystem().getWorldsDir().mkdirs();
-		for (File file : Politics.getFileSystem().getWorldsDir().listFiles()) {
-			String fileName = file.getName();
-			if (!fileName.endsWith(".ptw") || fileName.length() <= 4) {
-				continue;
-			}
-			String worldName = fileName.substring(0, fileName.length() - 4);
+        Politics.getFileSystem().getWorldsDir().mkdirs();
+        for (File file : Politics.getFileSystem().getWorldsDir().listFiles()) {
+            String fileName = file.getName();
+            if (!fileName.endsWith(".ptw") || fileName.length() <= 4) {
+                continue;
+            }
+            String worldName = fileName.substring(0, fileName.length() - 4);
 
-			byte[] data;
-			try {
-				data = FileUtils.readFileToByteArray(file);
-			} catch (IOException ex) {
-				PoliticsPlugin.logger().log(Level.SEVERE, "Could not read world file `" + fileName + "'!", ex);
-				continue;
-			}
+            byte[] data;
+            try {
+                data = FileUtils.readFileToByteArray(file);
+            } catch (IOException ex) {
+                PoliticsPlugin.logger().log(Level.SEVERE, "Could not read world file `" + fileName + "'!", ex);
+                continue;
+            }
 
-			WorldConfig config = getWorldConfig(worldName);
-			BSONObject object = decoder.readObject(data);
-			PoliticsWorld world = PoliticsWorld.fromBSONObject(worldName, config, object);
-			worlds.put(world.getName(), world);
-		}
-	}
+            WorldConfig config = getWorldConfig(worldName);
+            BSONObject object = decoder.readObject(data);
+            PoliticsWorld world = PoliticsWorld.fromBSONObject(worldName, config, object);
+            worlds.put(world.getName(), world);
+        }
+    }
 
-	/**
-	 * Saves all GroupsWorlds.
-	 */
-	public void saveWorlds() {
-		BSONEncoder encoder = new BasicBSONEncoder();
-		Politics.getFileSystem().getWorldsDir().mkdirs();
+    /**
+     * Saves all GroupsWorlds.
+     */
+    public void saveWorlds() {
+        BSONEncoder encoder = new BasicBSONEncoder();
+        Politics.getFileSystem().getWorldsDir().mkdirs();
 
-		for (PoliticsWorld world : worlds.values()) {
-			String fileName = world.getName() + ".cow";
-			File worldFile = new File(Politics.getFileSystem().getWorldsDir(), fileName);
+        for (PoliticsWorld world : worlds.values()) {
+            String fileName = world.getName() + ".cow";
+            File worldFile = new File(Politics.getFileSystem().getWorldsDir(), fileName);
 
-			byte[] data = encoder.encode(world.toBSONObject());
-			try {
-				FileUtils.writeByteArrayToFile(worldFile, data);
-			} catch (IOException ex) {
-				PoliticsPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
-				continue;
-			}
-		}
-	}
+            byte[] data = encoder.encode(world.toBSONObject());
+            try {
+                FileUtils.writeByteArrayToFile(worldFile, data);
+            } catch (IOException ex) {
+                PoliticsPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
+                continue;
+            }
+        }
+    }
 
-	/**
-	 * Gets the WorldConfig of the given world name.
-	 *
-	 * @param name
-	 * @return
-	 */
-	public WorldConfig getWorldConfig(String name) {
-		WorldConfig conf = configs.get(name);
-		if (conf == null) {
-			conf = new WorldConfig(name);
-			Politics.getFileSystem().getWorldConfigDir().mkdirs();
-			File toSave = new File(Politics.getFileSystem().getWorldConfigDir(), name + ".yml");
-			Configuration tc = new YamlConfiguration(toSave);
-			conf.save(tc);
-			try {
-				tc.save();
-			} catch (ConfigurationException e) {
-				PoliticsPlugin.logger().log(Level.SEVERE, "Could not write a world config file!", e);
-			}
-			configs.put(name, conf);
-		}
-		return conf;
-	}
+    /**
+     * Gets the WorldConfig of the given world name.
+     *
+     * @param name
+     * @return
+     */
+    public WorldConfig getWorldConfig(String name) {
+        WorldConfig conf = configs.get(name);
+        if (conf == null) {
+            conf = new WorldConfig(name);
+            Politics.getFileSystem().getWorldConfigDir().mkdirs();
+            File toSave = new File(Politics.getFileSystem().getWorldConfigDir(), name + ".yml");
+            Configuration tc = new YamlConfiguration(toSave);
+            conf.save(tc);
+            try {
+                tc.save();
+            } catch (ConfigurationException e) {
+                PoliticsPlugin.logger().log(Level.SEVERE, "Could not write a world config file!", e);
+            }
+            configs.put(name, conf);
+        }
+        return conf;
+    }
 
-	/**
-	 * Gets a GroupWorld from its name.
-	 *
-	 * @param name
-	 * @return
-	 */
-	public PoliticsWorld getWorld(String name) {
-		PoliticsWorld world = worlds.get(name);
-		if (world == null) {
-			world = createWorld(name);
-		}
-		return world;
-	}
+    /**
+     * Gets a GroupWorld from its name.
+     *
+     * @param name
+     * @return
+     */
+    public PoliticsWorld getWorld(String name) {
+        PoliticsWorld world = worlds.get(name);
+        if (world == null) {
+            world = createWorld(name);
+        }
+        return world;
+    }
 
-	/**
-	 * Gets a GroupWorld from its World.
-	 *
-	 * @param world
-	 * @return
-	 */
-	public PoliticsWorld getWorld(World world) {
-		return getWorld(world.getName());
-	}
+    /**
+     * Gets a GroupWorld from its World.
+     *
+     * @param world
+     * @return
+     */
+    public PoliticsWorld getWorld(World world) {
+        return getWorld(world.getName());
+    }
 
-	/**
-	 * Gets the plot at the given chunk position.
-	 *
-	 * @param world
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @return
-	 */
-	public Plot getPlotAtPosition(String world, int x, int y, int z) {
-		return getWorld(world).getPlotAtChunkPosition(x, y, z);
-	}
+    /**
+     * Gets the plot at the given chunk position.
+     *
+     * @param world
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public Plot getPlotAtPosition(String world, int x, int y, int z) {
+        return getWorld(world).getPlotAtChunkPosition(x, y, z);
+    }
 
-	/**
-	 * Gets the plot at the given chunk position.
-	 *
-	 * @param world
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @return
-	 */
-	public Plot getPlotAtPosition(World world, int x, int y, int z) {
-		return getWorld(world).getPlotAtChunkPosition(x, y, z);
-	}
+    /**
+     * Gets the plot at the given chunk position.
+     *
+     * @param world
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public Plot getPlotAtPosition(World world, int x, int y, int z) {
+        return getWorld(world).getPlotAtChunkPosition(x, y, z);
+    }
 
-	/**
-	 * Gets the plot corresponding with the given Chunk.
-	 *
-	 * @param chunk
-	 * @return
-	 */
-	public Plot getPlotAtChunk(Chunk chunk) {
-		return getWorld(chunk.getWorld()).getPlotAtChunkPosition(chunk.getX(), chunk.getY(), chunk.getZ());
-	}
+    /**
+     * Gets the plot corresponding with the given Chunk.
+     *
+     * @param chunk
+     * @return
+     */
+    public Plot getPlotAtChunk(Chunk chunk) {
+        return getWorld(chunk.getWorld()).getPlotAtChunkPosition(chunk.getX(), chunk.getY(), chunk.getZ());
+    }
 
-	/**
-	 * Gets the plot at the given position.
-	 *
-	 * @param position
-	 * @return
-	 */
-	public Plot getPlotAt(Point position) {
-		return getPlotAtPosition(position.getWorld(), position.getChunkX(), position.getChunkY(), position.getChunkZ());
-	}
+    /**
+     * Gets the plot at the given position.
+     *
+     * @param position
+     * @return
+     */
+    public Plot getPlotAt(Point position) {
+        return getPlotAtPosition(position.getWorld(), position.getChunkX(), position.getChunkY(), position.getChunkZ());
+    }
 
-	/**
-	 * Creates a new GroupsWorld.
-	 *
-	 * @param name
-	 * @return
-	 */
-	private PoliticsWorld createWorld(String name) {
-		PoliticsWorld world = new PoliticsWorld(name, getWorldConfig(name));
-		worlds.put(name, world);
-		return world;
-	}
+    /**
+     * Creates a new GroupsWorld.
+     *
+     * @param name
+     * @return
+     */
+    private PoliticsWorld createWorld(String name) {
+        PoliticsWorld world = new PoliticsWorld(name, getWorldConfig(name));
+        worlds.put(name, world);
+        return world;
+    }
 }

@@ -36,55 +36,55 @@ import org.spout.api.command.CommandSource;
  * Factory for creating events.
  */
 public class PoliticsEventFactory {
-	/**
-	 * Calls a new group create event.
-	 * 
-	 * @param group
-	 * @param creator
-	 * @return 
-	 */
-	public static GroupCreateEvent callGroupCreateEvent(Group group, CommandSource creator) {
-		return callEvent(new GroupCreateEvent(group, creator));
-	}
-	
-	/**
-	 * Calls a new plot change event.
-	 *
-	 * @param player
-	 * @param from
-	 * @param to
-	 * @return
-	 */
-	public static PlayerChangePlotEvent callPlayerChangePlotEvent(Player player, Plot from, Plot to) {
-		return callEvent(new PlayerChangePlotEvent(player, from, to));
-	}
+    /**
+     * Calls a new group create event.
+     *
+     * @param group
+     * @param creator
+     * @return
+     */
+    public static GroupCreateEvent callGroupCreateEvent(Group group, CommandSource creator) {
+        return callEvent(new GroupCreateEvent(group, creator));
+    }
 
-	/**
-	 * Calls a new universe create event.
-	 *
-	 * @param universe
-	 * @return
-	 */
-	public static UniverseCreateEvent callUniverseCreateEvent(Universe universe) {
-		return callEvent(new UniverseCreateEvent(universe));
-	}
+    /**
+     * Calls a new plot change event.
+     *
+     * @param player
+     * @param from
+     * @param to
+     * @return
+     */
+    public static PlayerChangePlotEvent callPlayerChangePlotEvent(Player player, Plot from, Plot to) {
+        return callEvent(new PlayerChangePlotEvent(player, from, to));
+    }
 
-	/**
-	 * Calls a new universe destroy event.
-	 *
-	 * @param universe
-	 * @return
-	 */
-	public static UniverseDestroyEvent callUniverseDestroyEvent(Universe universe) {
-		return callEvent(new UniverseDestroyEvent(universe));
-	}
+    /**
+     * Calls a new universe create event.
+     *
+     * @param universe
+     * @return
+     */
+    public static UniverseCreateEvent callUniverseCreateEvent(Universe universe) {
+        return callEvent(new UniverseCreateEvent(universe));
+    }
 
-	/**
-	 * Calls the given event.
-	 *
-	 * @param event
-	 */
-	private static <T extends Event> T callEvent(T event) {
-		return Spout.getEngine().getEventManager().callEvent(event);
-	}
+    /**
+     * Calls a new universe destroy event.
+     *
+     * @param universe
+     * @return
+     */
+    public static UniverseDestroyEvent callUniverseDestroyEvent(Universe universe) {
+        return callEvent(new UniverseDestroyEvent(universe));
+    }
+
+    /**
+     * Calls the given event.
+     *
+     * @param event
+     */
+    private static <T extends Event> T callEvent(T event) {
+        return Spout.getEngine().getEventManager().callEvent(event);
+    }
 }

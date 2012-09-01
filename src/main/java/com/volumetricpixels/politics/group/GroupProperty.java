@@ -23,19 +23,19 @@ package com.volumetricpixels.politics.group;
  * Group property ids. Ids 0x0-0xfff are reserved.
  */
 public final class GroupProperty {
-	/**
-	 * C'tor
-	 */
-	private GroupProperty() {
-	}
+    /**
+     * C'tor
+     */
+    private GroupProperty() {
+    }
+    /**
+     * Group tag.
+     */
+    public static final int TAG = 0x0;
 
-	/**
-	 * Group tag.
-	 */
-	public static final int TAG = 0x0;
-	
-	/**
-	 * Group name
-	 */
-	public static final int NAME = 0x1;
+    /**
+     * Group name
+     */
+    public static final int NAME = 0x1;
+
 }

@@ -25,12 +25,12 @@ import com.volumetricpixels.politics.command.PCommand;
  * A Universe-related command.
  */
 public abstract class UniverseCommand extends PCommand {
-	/**
-	 * C'tor
-	 * 
-	 * @param primary
-	 */
-	public UniverseCommand(String primary) {
-		super(primary);
-	}
+    /**
+     * C'tor
+     *
+     * @param primary
+     */
+    public UniverseCommand(String primary) {
+        super(primary);
+    }
 }

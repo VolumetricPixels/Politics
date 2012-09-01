@@ -30,74 +30,74 @@ import com.volumetricpixels.politics.plot.Plot;
  * Called when a player changes the plot they are in.
  */
 public final class PlayerChangePlotEvent extends PlayerEvent implements Cancellable {
-	private static final HandlerList handlers = new HandlerList();
+    private static final HandlerList handlers = new HandlerList();
 
-	/**
-	 * From plot
-	 */
-	private final Plot from;
+    /**
+     * From plot
+     */
+    private final Plot from;
 
-	/**
-	 * To plot
-	 */
-	private final Plot to;
+    /**
+     * To plot
+     */
+    private final Plot to;
 
-	/**
-	 * C'tor
-	 * 
-	 * @param p
-	 * @param from
-	 * @param to
-	 */
-	public PlayerChangePlotEvent(Player p, Plot from, Plot to) {
-		super(p);
-		this.from = from;
-		this.to = to;
-	}
+    /**
+     * C'tor
+     *
+     * @param p
+     * @param from
+     * @param to
+     */
+    public PlayerChangePlotEvent(Player p, Plot from, Plot to) {
+        super(p);
+        this.from = from;
+        this.to = to;
+    }
 
-	/**
-	 * Gets the plot the player left.
-	 * 
-	 * @return
-	 */
-	public Plot getFrom() {
-		return from;
-	}
+    /**
+     * Gets the plot the player left.
+     *
+     * @return
+     */
+    public Plot getFrom() {
+        return from;
+    }
 
-	/**
-	 * Gets the plot the player entered.
-	 * 
-	 * @return
-	 */
-	public Plot getTo() {
-		return to;
-	}
+    /**
+     * Gets the plot the player entered.
+     *
+     * @return
+     */
+    public Plot getTo() {
+        return to;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isCancelled(boolean cancelled) {
-		return super.isCancelled();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isCancelled(boolean cancelled) {
+        return super.isCancelled();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setCancelled(boolean cancelled) {
-		super.setCancelled(cancelled);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public void setCancelled(boolean cancelled) {
+        super.setCancelled(cancelled);
+    }
 
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
 
-	/**
-	 * Gets the HandlerList of the event.
-	 * 
-	 * @return
-	 */
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
+    /**
+     * Gets the HandlerList of the event.
+     *
+     * @return
+     */
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

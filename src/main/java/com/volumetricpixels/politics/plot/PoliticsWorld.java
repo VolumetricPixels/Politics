@@ -45,207 +45,207 @@ import com.volumetricpixels.politics.universe.Universe;
  * Represents a world containing plots.
  */
 public class PoliticsWorld implements Storable {
-	/**
-	 * The name of the GroupsWorld.
-	 */
-	private final String name;
+    /**
+     * The name of the GroupsWorld.
+     */
+    private final String name;
 
-	/**
-	 * The config of the world.
-	 */
-	private final WorldConfig config;
+    /**
+     * The config of the world.
+     */
+    private final WorldConfig config;
 
-	/**
-	 * Contains all owners corresponding to their proper positions.
-	 */
-	private final TInt21TripleObjectHashMap<TIntList> owners;
+    /**
+     * Contains all owners corresponding to their proper positions.
+     */
+    private final TInt21TripleObjectHashMap<TIntList> owners;
 
-	/**
-	 * Creates a new GroupsWorld.
-	 * 
-	 * @param name
-	 */
-	PoliticsWorld(String name, WorldConfig config) {
-		this(name, config, new TInt21TripleObjectHashMap<TIntList>());
-	}
+    /**
+     * Creates a new GroupsWorld.
+     *
+     * @param name
+     */
+    PoliticsWorld(String name, WorldConfig config) {
+        this(name, config, new TInt21TripleObjectHashMap<TIntList>());
+    }
 
-	/**
-	 * C'tor
-	 * 
-	 * @param owners
-	 */
-	private PoliticsWorld(String name, WorldConfig config, TInt21TripleObjectHashMap<TIntList> owners) {
-		this.name = name;
-		this.config = config;
-		this.owners = owners;
-	}
+    /**
+     * C'tor
+     *
+     * @param owners
+     */
+    private PoliticsWorld(String name, WorldConfig config, TInt21TripleObjectHashMap<TIntList> owners) {
+        this.name = name;
+        this.config = config;
+        this.owners = owners;
+    }
 
-	/**
-	 * Gets the name of the GroupsWorld.
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Gets the name of the GroupsWorld.
+     *
+     * @return
+     */
+    public String getName() {
+        return this.name;
+    }
 
-	/**
-	 * Gets the internal list of owners of a given location. Creates this list
-	 * if it doesn't exist.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @return
-	 */
-	TIntList getInternalOwnerList(int x, int y, int z) {
-		TIntList list = owners.get(x, y, z);
-		if (list == null) {
-			list = new TIntArrayList();
-			owners.put(x, y, z, list);
-		}
-		return list;
-	}
+    /**
+     * Gets the internal list of owners of a given location. Creates this list
+     * if it doesn't exist.
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    TIntList getInternalOwnerList(int x, int y, int z) {
+        TIntList list = owners.get(x, y, z);
+        if (list == null) {
+            list = new TIntArrayList();
+            owners.put(x, y, z, list);
+        }
+        return list;
+    }
 
-	/**
-	 * Gets the list of owners at the given location.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @return
-	 */
-	public TIntList getOwnerIds(int x, int y, int z) {
-		return new TIntArrayList(getInternalOwnerList(x, y, z));
-	}
+    /**
+     * Gets the list of owners at the given location.
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public TIntList getOwnerIds(int x, int y, int z) {
+        return new TIntArrayList(getInternalOwnerList(x, y, z));
+    }
 
-	/**
-	 * Gets the owners of a given plot location within this world.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @return
-	 */
-	public List<Group> getOwners(int x, int y, int z) {
-		TIntList ownerIdList = getInternalOwnerList(x, y, z);
-		List<Group> ret = new ArrayList<Group>();
-		TIntIterator it = ownerIdList.iterator();
-		while (it.hasNext()) {
-			int id = it.next();
-			Group group = Politics.getUniverseManager().getGroupById(id);
-			if (group == null) {
-				ownerIdList.remove(id); // Group no longer exists
-			} else {
-				ret.add(group);
-			}
-		}
-		return ret;
-	}
+    /**
+     * Gets the owners of a given plot location within this world.
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public List<Group> getOwners(int x, int y, int z) {
+        TIntList ownerIdList = getInternalOwnerList(x, y, z);
+        List<Group> ret = new ArrayList<Group>();
+        TIntIterator it = ownerIdList.iterator();
+        while (it.hasNext()) {
+            int id = it.next();
+            Group group = Politics.getUniverseManager().getGroupById(id);
+            if (group == null) {
+                ownerIdList.remove(id); // Group no longer exists
+            } else {
+                ret.add(group);
+            }
+        }
+        return ret;
+    }
 
-	/**
-	 * Gets a universe from its GroupLevel.
-	 * 
-	 * @param level
-	 * @return
-	 */
-	public Universe getUniverse(GroupLevel level) {
-		return Politics.getUniverseManager().getUniverse(this, level);
-	}
+    /**
+     * Gets a universe from its GroupLevel.
+     *
+     * @param level
+     * @return
+     */
+    public Universe getUniverse(GroupLevel level) {
+        return Politics.getUniverseManager().getUniverse(this, level);
+    }
 
-	/**
-	 * Gets the plot at the given location.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @return
-	 */
-	public Plot getPlotAt(int x, int y, int z) {
-		return new Plot(this, x, y, z);
-	}
+    /**
+     * Gets the plot at the given location.
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public Plot getPlotAt(int x, int y, int z) {
+        return new Plot(this, x, y, z);
+    }
 
-	/**
-	 * Gets the plot at the given chunk position.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @return
-	 */
-	public Plot getPlotAtChunkPosition(int x, int y, int z) {
-		return getPlotAt(x / config.getPlotSizeX(), y / config.getPlotSizeY(), z / config.getPlotSizeZ());
-	}
+    /**
+     * Gets the plot at the given chunk position.
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public Plot getPlotAtChunkPosition(int x, int y, int z) {
+        return getPlotAt(x / config.getPlotSizeX(), y / config.getPlotSizeY(), z / config.getPlotSizeZ());
+    }
 
-	/**
-	 * Gets the GroupLevels within this world.
-	 * 
-	 * @return
-	 */
-	public List<GroupLevel> getLevels() {
-		return Politics.getUniverseManager().getLevelsOfWorld(this);
-	}
+    /**
+     * Gets the GroupLevels within this world.
+     *
+     * @return
+     */
+    public List<GroupLevel> getLevels() {
+        return Politics.getUniverseManager().getLevelsOfWorld(this);
+    }
 
-	@Override
-	public BSONObject toBSONObject() {
-		BasicBSONObject bson = new BasicBSONObject();
-		TLongObjectIterator<TIntList> it = owners.iterator();
-		while (it.hasNext()) {
-			it.advance();
-			String key = Long.toHexString(it.key());
-			TIntList theOwners = it.value();
-			if (theOwners.isEmpty()) {
-				continue; // No point in serializing an empty list
-			}
-			BasicBSONList theOwnersBson = new BasicBSONList();
+    @Override
+    public BSONObject toBSONObject() {
+        BasicBSONObject bson = new BasicBSONObject();
+        TLongObjectIterator<TIntList> it = owners.iterator();
+        while (it.hasNext()) {
+            it.advance();
+            String key = Long.toHexString(it.key());
+            TIntList theOwners = it.value();
+            if (theOwners.isEmpty()) {
+                continue; // No point in serializing an empty list
+            }
+            BasicBSONList theOwnersBson = new BasicBSONList();
 
-			TIntIterator theOwnersIt = theOwners.iterator();
-			while (theOwnersIt.hasNext()) {
-				long val = theOwnersIt.next();
-				theOwnersBson.add(val);
-			}
+            TIntIterator theOwnersIt = theOwners.iterator();
+            while (theOwnersIt.hasNext()) {
+                long val = theOwnersIt.next();
+                theOwnersBson.add(val);
+            }
 
-			bson.put(key, theOwnersBson);
-		}
-		return bson;
-	}
+            bson.put(key, theOwnersBson);
+        }
+        return bson;
+    }
 
-	/**
-	 * Gets a GroupsWorld from a BSON object.
-	 * 
-	 * @param name
-	 * @param config
-	 * @param object
-	 * @return
-	 */
-	public static PoliticsWorld fromBSONObject(String name, WorldConfig config, BSONObject object) {
-		if (!(object instanceof BasicBSONObject)) {
-			throw new IllegalArgumentException("object is not a BasicBSONObject!");
-		}
-		TLongObjectMap<TIntList> ownersIds = new TLongObjectHashMap<TIntList>();
-		BasicBSONObject bobject = (BasicBSONObject) object;
-		for (Entry<String, Object> entry : bobject.entrySet()) {
-			String intStr = entry.getKey();
-			int key = Integer.parseInt(intStr, 16);
-			Object listVal = entry.getValue();
-			if (!(listVal instanceof BasicBSONList)) {
-				throw new IllegalArgumentException("listVal is not a BasicBSONList!");
-			}
+    /**
+     * Gets a GroupsWorld from a BSON object.
+     *
+     * @param name
+     * @param config
+     * @param object
+     * @return
+     */
+    public static PoliticsWorld fromBSONObject(String name, WorldConfig config, BSONObject object) {
+        if (!(object instanceof BasicBSONObject)) {
+            throw new IllegalArgumentException("object is not a BasicBSONObject!");
+        }
+        TLongObjectMap<TIntList> ownersIds = new TLongObjectHashMap<TIntList>();
+        BasicBSONObject bobject = (BasicBSONObject) object;
+        for (Entry<String, Object> entry : bobject.entrySet()) {
+            String intStr = entry.getKey();
+            int key = Integer.parseInt(intStr, 16);
+            Object listVal = entry.getValue();
+            if (!(listVal instanceof BasicBSONList)) {
+                throw new IllegalArgumentException("listVal is not a BasicBSONList!");
+            }
 
-			TIntList longs = new TIntArrayList();
-			BasicBSONList list = (BasicBSONList) listVal;
-			for (Object obj : list) {
-				if (!(obj instanceof Integer)) {
-					throw new IllegalArgumentException("obj is not a Long!");
-				}
-				int val = ((Integer) obj).intValue();
-				longs.add(val);
-			}
+            TIntList longs = new TIntArrayList();
+            BasicBSONList list = (BasicBSONList) listVal;
+            for (Object obj : list) {
+                if (!(obj instanceof Integer)) {
+                    throw new IllegalArgumentException("obj is not a Long!");
+                }
+                int val = ((Integer) obj).intValue();
+                longs.add(val);
+            }
 
-			ownersIds.put(key, longs);
-		}
+            ownersIds.put(key, longs);
+        }
 
-		TInt21TripleObjectHashMap<TIntList> owners = new TInt21TripleObjectHashMap<TIntList>(ownersIds);
-		return new PoliticsWorld(name, config, owners);
-	}
+        TInt21TripleObjectHashMap<TIntList> owners = new TInt21TripleObjectHashMap<TIntList>(ownersIds);
+        return new PoliticsWorld(name, config, owners);
+    }
 }

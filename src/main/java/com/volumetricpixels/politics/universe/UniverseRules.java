@@ -41,111 +41,111 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * that fun gameplay requires". - adapted from Paul Davies </p>
  */
 public class UniverseRules {
-	/**
-	 * The name of these UniverseRules.
-	 */
-	private final String name;
+    /**
+     * The name of these UniverseRules.
+     */
+    private final String name;
 
-	/**
-	 * The description of these UniverseRules.
-	 */
-	private final String description;
+    /**
+     * The description of these UniverseRules.
+     */
+    private final String description;
 
-	/**
-	 * The GroupLevels apparent in this Universe.
-	 */
-	private final Map<String, GroupLevel> groupLevels;
+    /**
+     * The GroupLevels apparent in this Universe.
+     */
+    private final Map<String, GroupLevel> groupLevels;
 
-	/**
-	 * C'tor
-	 */
-	private UniverseRules(String name, String description, Map<String, GroupLevel> groupLevels) {
-		this.name = name;
-		this.description = description;
-		this.groupLevels = groupLevels;
-	}
+    /**
+     * C'tor
+     */
+    private UniverseRules(String name, String description, Map<String, GroupLevel> groupLevels) {
+        this.name = name;
+        this.description = description;
+        this.groupLevels = groupLevels;
+    }
 
-	/**
-	 * Gets the name of these UniverseRules.
-	 *
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Gets the name of these UniverseRules.
+     *
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Gets the description of these UniverseRules.
-	 *
-	 * @return
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * Gets the description of these UniverseRules.
+     *
+     * @return
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * Gets the group levels of these UniverseRules.
-	 *
-	 * @return
-	 */
-	public List<GroupLevel> getGroupLevels() {
-		return new ArrayList<GroupLevel>(groupLevels.values());
-	}
+    /**
+     * Gets the group levels of these UniverseRules.
+     *
+     * @return
+     */
+    public List<GroupLevel> getGroupLevels() {
+        return new ArrayList<GroupLevel>(groupLevels.values());
+    }
 
-	/**
-	 * Gets the GroupLevel with the given name.
-	 *
-	 * @param name
-	 * @return
-	 */
-	public GroupLevel getGroupLevel(String name) {
-		return groupLevels.get(name.toLowerCase());
-	}
+    /**
+     * Gets the GroupLevel with the given name.
+     *
+     * @param name
+     * @return
+     */
+    public GroupLevel getGroupLevel(String name) {
+        return groupLevels.get(name.toLowerCase());
+    }
 
-	/**
-	 * Saves the UniverseRules to the given config.
-	 *
-	 * @param config
-	 */
-	public void save(Configuration config) {
-		for (GroupLevel level : groupLevels.values()) {
-			ConfigurationNode node = config.getNode("levels." + level.getId());
-			level.save(node);
-		}
-	}
+    /**
+     * Saves the UniverseRules to the given config.
+     *
+     * @param config
+     */
+    public void save(Configuration config) {
+        for (GroupLevel level : groupLevels.values()) {
+            ConfigurationNode node = config.getNode("levels." + level.getId());
+            level.save(node);
+        }
+    }
 
-	/**
-	 * Loads a UniverseRules from the given config.
-	 *
-	 * @param config
-	 * @return
-	 */
-	public static UniverseRules load(String name, Configuration config) {
-		String description = config.getChild("description").getString("No description given.");
+    /**
+     * Loads a UniverseRules from the given config.
+     *
+     * @param config
+     * @return
+     */
+    public static UniverseRules load(String name, Configuration config) {
+        String description = config.getChild("description").getString("No description given.");
 
-		Map<String, GroupLevel> levelMap = new HashMap<String, GroupLevel>();
-		{ // Load levels
+        Map<String, GroupLevel> levelMap = new HashMap<String, GroupLevel>();
+        { // Load levels
 
-			// Get the levels turned into objects
-			Map<GroupLevel, List<String>> levels = new HashMap<GroupLevel, List<String>>();
+            // Get the levels turned into objects
+            Map<GroupLevel, List<String>> levels = new HashMap<GroupLevel, List<String>>();
 
-			ConfigurationNode levelsNode = config.getNode("levels");
-			for (Entry<String, ConfigurationNode> entry : levelsNode.getChildren().entrySet()) {
-				GroupLevel level = GroupLevel.load(entry.getKey(), entry.getValue(), levels);
-				levelMap.put(level.getId(), level);
-			}
+            ConfigurationNode levelsNode = config.getNode("levels");
+            for (Entry<String, ConfigurationNode> entry : levelsNode.getChildren().entrySet()) {
+                GroupLevel level = GroupLevel.load(entry.getKey(), entry.getValue(), levels);
+                levelMap.put(level.getId(), level);
+            }
 
-			// Turn these levels into only objects
-			for (Entry<GroupLevel, List<String>> levelEntry : levels.entrySet()) {
-				Set<GroupLevel> allowed = new HashSet<GroupLevel>();
-				for (String ln : levelEntry.getValue()) {
-					GroupLevel level = levelMap.get(ln.toLowerCase());
-					allowed.add(level);
-				}
-				levelEntry.getKey().setAllowedChildren(allowed);
-			}
-		}
+            // Turn these levels into only objects
+            for (Entry<GroupLevel, List<String>> levelEntry : levels.entrySet()) {
+                Set<GroupLevel> allowed = new HashSet<GroupLevel>();
+                for (String ln : levelEntry.getValue()) {
+                    GroupLevel level = levelMap.get(ln.toLowerCase());
+                    allowed.add(level);
+                }
+                levelEntry.getKey().setAllowedChildren(allowed);
+            }
+        }
 
-		return new UniverseRules(name, description, levelMap);
-	}
+        return new UniverseRules(name, description, levelMap);
+    }
 }

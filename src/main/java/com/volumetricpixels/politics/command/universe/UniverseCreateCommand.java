@@ -39,80 +39,80 @@ import java.util.List;
  * Used to create universes.
  */
 public class UniverseCreateCommand extends UniverseCommand {
-	/**
-	 * C'tor
-	 */
-	public UniverseCreateCommand() {
-		super("create");
-	}
+    /**
+     * C'tor
+     */
+    public UniverseCreateCommand() {
+        super("create");
+    }
 
-	@Override
-	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-		String name = args.getString(0).toLowerCase();
+    @Override
+    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
+        String name = args.getString(0).toLowerCase();
 
-		if (name.contains(" ")) {
-			source.sendMessage(MsgStyle.ERROR, "Spaces are not allowed in universe names.");
-			return;
-		}
+        if (name.contains(" ")) {
+            source.sendMessage(MsgStyle.ERROR, "Spaces are not allowed in universe names.");
+            return;
+        }
 
-		if (name.contains("/") || name.contains("\\")) {
-			source.sendMessage(MsgStyle.ERROR, "Slashes are not allowed in universe names.");
-			return;
-		}
+        if (name.contains("/") || name.contains("\\")) {
+            source.sendMessage(MsgStyle.ERROR, "Slashes are not allowed in universe names.");
+            return;
+        }
 
-		boolean force = args.hasFlag('f');
-		Universe existing = Politics.getUniverse(name);
-		if (existing != null) {
-			source.sendMessage(MsgStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `", MsgStyle.ERROR_HIGHLIGHT, "universe destroy", MsgStyle.ERROR, "' command if you wish to overwrite that universe.");
-			return;
-		}
+        boolean force = args.hasFlag('f');
+        Universe existing = Politics.getUniverse(name);
+        if (existing != null) {
+            source.sendMessage(MsgStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `", MsgStyle.ERROR_HIGHLIGHT, "universe destroy", MsgStyle.ERROR, "' command if you wish to overwrite that universe.");
+            return;
+        }
 
-		String rules = args.getString(1).toLowerCase();
-		UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
-		if (theRules == null) {
-			source.sendMessage(MsgStyle.ERROR, "There is no set of rules named ", MsgStyle.ERROR_HIGHLIGHT, rules, MsgStyle.ERROR, ". To see the available rules, use ", MsgStyle.ERROR_HIGHLIGHT, "universe rules", MsgStyle.ERROR, ".");
-			return;
-		}
+        String rules = args.getString(1).toLowerCase();
+        UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
+        if (theRules == null) {
+            source.sendMessage(MsgStyle.ERROR, "There is no set of rules named ", MsgStyle.ERROR_HIGHLIGHT, rules, MsgStyle.ERROR, ". To see the available rules, use ", MsgStyle.ERROR_HIGHLIGHT, "universe rules", MsgStyle.ERROR, ".");
+            return;
+        }
 
-		String worldsStr = args.getString(2);
-		List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
-		if (worldsStr == null) {
-			for (World world : Spout.getEngine().getWorlds()) {
-				worlds.add(Politics.getWorld(world));
-			}
-		} else {
-			String[] worldNames = worldsStr.split(",");
-			for (String worldName : worldNames) {
-				String trimmed = worldName.trim();
-				World world = Spout.getEngine().getWorld(trimmed);
-				if (world == null) {
-					continue;
-				}
-				PoliticsWorld pw = Politics.getWorld(world);
-				worlds.add(pw);
-			}
-		}
+        String worldsStr = args.getString(2);
+        List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
+        if (worldsStr == null) {
+            for (World world : Spout.getEngine().getWorlds()) {
+                worlds.add(Politics.getWorld(world));
+            }
+        } else {
+            String[] worldNames = worldsStr.split(",");
+            for (String worldName : worldNames) {
+                String trimmed = worldName.trim();
+                World world = Spout.getEngine().getWorld(trimmed);
+                if (world == null) {
+                    continue;
+                }
+                PoliticsWorld pw = Politics.getWorld(world);
+                worlds.add(pw);
+            }
+        }
 
-		if (worlds.size() <= 0) {
-			source.sendMessage(MsgStyle.ERROR, "There were no valid worlds specified.");
-			return;
-		}
+        if (worlds.size() <= 0) {
+            source.sendMessage(MsgStyle.ERROR, "There were no valid worlds specified.");
+            return;
+        }
 
-		Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
-		PoliticsEventFactory.callUniverseCreateEvent(universe);
-		source.sendMessage(MsgStyle.SUCCESS, "You have created the universe '" + name + "' with the rules '" + rules + "'.");
-	}
+        Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
+        PoliticsEventFactory.callUniverseCreateEvent(universe);
+        source.sendMessage(MsgStyle.SUCCESS, "You have created the universe '" + name + "' with the rules '" + rules + "'.");
+    }
 
-	@Override
-	protected String[] getAliases() {
-		return new String[]{"new", "c", "n"};
-	}
+    @Override
+    protected String[] getAliases() {
+        return new String[]{"new", "c", "n"};
+    }
 
-	@Override
-	public void setupCommand(Command cmd) {
-		cmd.setArgBounds(2, -1);
-		cmd.setHelp("Creates a new Universe with the given rules.");
-		cmd.setUsage("<name> <rules> [worlds...]");
-		cmd.setPermissions(true, "politics.admin.universe.create");
-	}
+    @Override
+    public void setupCommand(Command cmd) {
+        cmd.setArgBounds(2, -1);
+        cmd.setHelp("Creates a new Universe with the given rules.");
+        cmd.setUsage("<name> <rules> [worlds...]");
+        cmd.setPermissions(true, "politics.admin.universe.create");
+    }
 }

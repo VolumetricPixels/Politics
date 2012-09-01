@@ -32,31 +32,31 @@ import org.spout.api.exception.CommandException;
  * Lists available rules.
  */
 public class UniverseRulesCommand extends UniverseCommand {
-	/**
-	 * C'tor
-	 */
-	public UniverseRulesCommand() {
-		super("rules");
-	}
+    /**
+     * C'tor
+     */
+    public UniverseRulesCommand() {
+        super("rules");
+    }
 
-	@Override
-	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-		List<UniverseRules> ruleList = Politics.getUniverseManager().listRules();
-		for (UniverseRules rules : ruleList) {
-			source.sendMessage(MsgStyle.INFO, rules.getName() + " - " + rules.getDescription());
-		}
-	}
+    @Override
+    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
+        List<UniverseRules> ruleList = Politics.getUniverseManager().listRules();
+        for (UniverseRules rules : ruleList) {
+            source.sendMessage(MsgStyle.INFO, rules.getName() + " - " + rules.getDescription());
+        }
+    }
 
-	@Override
-	protected String[] getAliases() {
-		return new String[]{"r"};
-	}
+    @Override
+    protected String[] getAliases() {
+        return new String[]{"r"};
+    }
 
-	@Override
-	public void setupCommand(Command cmd) {
-		cmd.setArgBounds(1, -1);
-		cmd.setHelp("Lists all possible rules to use.");
-		cmd.setUsage("");
-		cmd.setPermissions(true, "politics.admin.universe.rules");
-	}
+    @Override
+    public void setupCommand(Command cmd) {
+        cmd.setArgBounds(1, -1);
+        cmd.setHelp("Lists all possible rules to use.");
+        cmd.setUsage("");
+        cmd.setPermissions(true, "politics.admin.universe.rules");
+    }
 }
