@@ -45,16 +45,16 @@ public class GroupDestroyCommand extends GroupCommand {
             Set<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getCitizen(source.getName()).getGroups();
             if (source.hasPermission("politics.admin.delgroup")) {
                 for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
-                    if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+                    if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
                         g.getUniverse().destroyGroup(g);
-                        source.sendMessage("Deleted! " + context.getString(0));
+                        source.sendMessage("Deleted: " + context.getString(0) + "!");
                         return;
                     }
                 }
-                source.sendMessage(ChatStyle.RED, "No such group!");
+                source.sendMessage(ChatStyle.RED, "No such " + level.getName() + "!");
             } else {
                 for (Group g : groups) {
-                    if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
+                    if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
                         g.getUniverse().destroyGroup(g);
                         source.sendMessage("Deleted! " + context.getString(0));
                         return;
