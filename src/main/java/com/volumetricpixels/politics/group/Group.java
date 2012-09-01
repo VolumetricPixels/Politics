@@ -186,11 +186,22 @@ public final class Group implements Comparable<Group>, Storable {
      * @return
      */
     public String getStringProperty(int property) {
+        return getStringProperty(property, null);
+    }
+
+    /**
+     * Gets a property as a String.
+     *
+     * @param property
+     * @param def Default value
+     * @return
+     */
+    public String getStringProperty(int property, String def) {
         Object p = getProperty(property);
         if (p != null) {
             return p.toString();
         }
-        return null;
+        return def;
     }
 
     /**
