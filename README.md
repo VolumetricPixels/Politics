@@ -16,18 +16,25 @@ Spout uses Maven to handle its dependencies.
 * Install [Maven 2 or 3](http://maven.apache.org/download.html)
 * Checkout this repo and run: `mvn`
 
-Coding and Pull Request Formatting
+Coding Standards
 ----------------------------------
-* Generally follow the Oracle coding standards.
-* Use tabs, no spaces.
-* No trailing whitespaces.
-* 200 column limit for readability.
-* Pull requests must compile, work, and be formatted properly.
-* Sign-off on ALL your commits - this indicates you agree to the terms of our license.
-* Pull requests must include license headers. (These are generated when running `mvn`)
+* If / for / while / switch statement: if (conditions && stuff) {
+* Method: public void method(Object paramObject) {
+* No Tabs, Spaces only!
+* No trailing whitespace
+* Mid-statement newlines at a 200 column limit
+* camelCase, no under_scores except constants
+* Constants in full caps with underscores
+* Keep the same formatting style everywhere
+
+Pull Request Standards
+----------------------------------
+* Sign-off on all commits!
+* Finished product must compile and run!
 * No merges should be included in pull requests unless the pull request's purpose is a merge.
-* Number of commits in a pull request should be kept to *one commit* and all additional commits must be *squashed*.
-* You may have more than one commit in a pull request if the commits are separate changes, otherwise squash them.
+* Number of commits in a pull request should be kept to *one commit* and all additional commits must be *squashed*. Pull requests that make multiple changes should have one commit per change.
+* Pull requests must include any applicable license headers. (These are generated when running `mvn`)
+
 
 **Please follow the above conventions if you want your pull request(s) accepted.**
 
