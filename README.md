@@ -11,7 +11,7 @@ Politics is licensed under the [Affero General Public License Version 3][License
 
 Compiling
 ---------
-Spout uses Maven to handle its dependencies.
+Politics uses Maven to handle its dependencies.
 
 * Install [Maven 2 or 3](http://maven.apache.org/download.html)
 * Checkout this repo and run: `mvn`
