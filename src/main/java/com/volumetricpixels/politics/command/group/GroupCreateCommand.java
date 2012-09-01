@@ -19,6 +19,9 @@
  */
 package com.volumetricpixels.politics.command.group;
 
+import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.group.Group;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -26,31 +29,58 @@ import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
 import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.universe.Universe;
 
 public class GroupCreateCommand extends GroupCommand {
-
 	private GroupCreateCommand(GroupLevel level) {
 		super(level, "create");
 	}
 
 	@Override
 	public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-		if (!(source instanceof Player)) {
-			source.sendMessage("Consoles can't own " + cmd.getOwnerName() + "s");
+		// Get le founder
+		String founderName = null;
+		if (source instanceof Player) {
+			founderName = source.getName();
+		}
+		if (source.hasPermission("politics.admin.group." + level.getId() + ".create")) {
+			founderName = context.getFlagString('f', founderName);
+		}
+		// Check for a founder, this would only happen if he is not a player
+		if (founderName == null) {
+			source.sendMessage(MsgStyle.ERROR, "The founder for the to-be-created " + level.getName() + " is unknown. A founder can be specified with the `-f' option.");
+			return;
 		}
 
-		// TODO: Rest of command
+		// Get le universe
+		String universeName = context.getFlagString('u');
+		Universe universe = null;
+		if (universeName == null) {
+			if (source instanceof Player) {
+				universe = getUniverse((Player) source);
+			} else {
+				source.sendMessage(MsgStyle.ERROR, "Please specify the universe you wish to use with the `-u' option.");
+				return;
+			}
+		} else {
+			universe = Politics.getUniverse(universeName);
+			if (universe == null) {
+				source.sendMessage(MsgStyle.ERROR, "The universe you specified does not exist.");
+				return;
+			}
+		}
+
+		// Create le group
+		Group group = universe.createGroup(level);
+		group.setRole(founderName, level.getFounder());
+		source.sendMessage(MsgStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.volumetricpixels.politics.command.group.GroupCommand#setupCommand
-	 * (org.spout.api.command.Command)
-	 */
 	@Override
 	public void setupCommand(Command cmd) {
 		cmd.setArgBounds(1, -1);
+		cmd.setHelp("Creates a new " + level.getName() + ".");
+		cmd.setUsage("<name> [-f founder] [-u universe]");
+		cmd.setPermissions(true, "politics.group." + level.getId() + ".create");
 	}
 }

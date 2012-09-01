@@ -271,6 +271,25 @@ public final class Group implements Comparable<Group>, Storable {
 		return false;
 	}
 
+	/**
+	 * Sets the role of the given player to the given role.
+	 *
+	 * @param player
+	 * @param role
+	 */
+	public void setRole(String player, Role role) {
+		players.put(player, role);
+	}
+
+	/**
+	 * Removes the role of the given player from this group.
+	 *
+	 * @param player
+	 */
+	public void removeRole(String player) {
+		players.remove(player);
+	}
+
 	@Override
 	public int compareTo(Group o) {
 		return getProperty(GroupProperty.TAG).toString().compareTo(o.getProperty(GroupProperty.TAG).toString());
