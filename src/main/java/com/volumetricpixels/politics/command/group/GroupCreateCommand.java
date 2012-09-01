@@ -90,6 +90,7 @@ public class GroupCreateCommand extends GroupCommand {
 
         if (PoliticsEventFactory.callGroupCreateEvent(group, source).isCancelled()) {
             universe.destroyGroup(group);
+            source.sendMessage(MsgStyle.ERROR, level.getName() + " creation denied.");
             return;
         }
 
