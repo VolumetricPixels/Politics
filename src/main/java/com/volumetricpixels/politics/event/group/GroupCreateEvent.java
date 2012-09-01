@@ -25,8 +25,7 @@ import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 
 /**
- *
- * @author simplyianm
+ * Called when a group is created.
  */
 public final class GroupCreateEvent extends GroupEvent implements Cancellable {
 	private static final HandlerList handlers = new HandlerList();
