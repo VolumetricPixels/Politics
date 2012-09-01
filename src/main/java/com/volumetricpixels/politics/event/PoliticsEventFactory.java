@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.event;
 
+import com.volumetricpixels.politics.event.group.GroupCreateEvent;
 import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
@@ -26,10 +27,26 @@ import org.spout.api.event.Event;
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.event.universe.UniverseCreateEvent;
 import com.volumetricpixels.politics.event.universe.UniverseDestroyEvent;
+import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.plot.Plot;
 import com.volumetricpixels.politics.universe.Universe;
+import org.spout.api.command.CommandSource;
 
+/**
+ * Factory for creating events.
+ */
 public class PoliticsEventFactory {
+	/**
+	 * Calls a new group create event.
+	 * 
+	 * @param group
+	 * @param creator
+	 * @return 
+	 */
+	public static GroupCreateEvent callGroupCreateEvent(Group group, CommandSource creator) {
+		return callEvent(new GroupCreateEvent(group, creator));
+	}
+	
 	/**
 	 * Calls a new plot change event.
 	 *

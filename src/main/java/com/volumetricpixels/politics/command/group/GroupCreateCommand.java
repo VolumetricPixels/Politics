@@ -21,6 +21,7 @@ package com.volumetricpixels.politics.command.group;
 
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import org.spout.api.command.Command;
@@ -86,6 +87,11 @@ public class GroupCreateCommand extends GroupCommand {
 		group.setRole(founderName, level.getFounder());
 		group.setProperty(GroupProperty.NAME, name);
 		group.setProperty(GroupProperty.TAG, tag);
+
+		if (PoliticsEventFactory.callGroupCreateEvent(group, source).isCancelled()) {
+			universe.destroyGroup(group);
+			return;
+		}
 
 		source.sendMessage(MsgStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
 	}
