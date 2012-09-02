@@ -69,12 +69,10 @@ public class GroupClaimCommand extends GroupCommand {
             }
         }
 
-        if (PoliticsEventFactory.callPlotOwnerChangeEvent(plot, group, true).isCancelled()) {
-            source.sendMessage(MsgStyle.ERROR, "The land could not be claimed.");
+        if (!plot.addOwner(group)) {
+            source.sendMessage(MsgStyle.ERROR, "The plot could not be claimed.");
             return;
         }
-
-        plot.addOwner(group);
         source.sendMessage(MsgStyle.SUCCESS, "The plot was claimed successfully.");
     }
 

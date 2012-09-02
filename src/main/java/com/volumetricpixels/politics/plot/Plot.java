@@ -19,6 +19,8 @@
  */
 package com.volumetricpixels.politics.plot;
 
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
+import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import gnu.trove.list.TIntList;
 
 import java.util.List;
@@ -114,44 +116,56 @@ public class Plot {
      * Adds an owner to the plot.
      *
      * @param id
+     * @return True if successful
      */
-    public void addOwner(int id) {
+    public boolean addOwner(int id) {
         TIntList list = world.getInternalOwnerList(x, y, z);
         if (list.contains(id)) {
-            return; // Already added
+            return false; // Already added
         }
-        list.add(id);
+        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
+        if (event.isCancelled()) {
+            return false;
+        }
+        return list.add(id);
     }
 
     /**
      * Adds an owner to the plot.
      *
      * @param group
+     * @return True if successful
      */
-    public void addOwner(Group group) {
-        addOwner(group.getUid());
+    public boolean addOwner(Group group) {
+        return addOwner(group.getUid());
     }
 
     /**
      * Removes an owner from the plot.
      *
      * @param id
+     * @return True if successful
      */
-    public void removeOwner(int id) {
+    public boolean removeOwner(int id) {
         TIntList list = world.getInternalOwnerList(x, y, z);
         if (!list.contains(id)) {
-            return; // Not in there
+            return false; // Not in there
         }
-        list.remove(id);
+        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
+        if (event.isCancelled()) {
+            return false;
+        }
+        return list.remove(id);
     }
 
     /**
      * Removes the given owner from this plot's owners.
      *
      * @param group
+     * @return True if successful
      */
-    public void removeOwner(Group group) {
-        removeOwner(group.getUid());
+    public boolean removeOwner(Group group) {
+        return removeOwner(group.getUid());
     }
 
     /**

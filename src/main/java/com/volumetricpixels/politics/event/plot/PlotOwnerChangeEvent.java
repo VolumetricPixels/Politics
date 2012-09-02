@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.event.plot;
 
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.event.Cancellable;
@@ -33,7 +34,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     /**
      * The creator of the group.
      */
-    private final Group group;
+    private final int group;
 
     /**
      * True if this adds a group.
@@ -43,23 +44,32 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     /**
      * C'tor
      *
+     * @param plot
      * @param group
-     * @param creator
      * @param add
      */
-    public PlotOwnerChangeEvent(Plot plot, Group group, boolean add) {
+    public PlotOwnerChangeEvent(Plot plot, int group, boolean add) {
         super(plot);
         this.group = group;
         this.add = add;
     }
 
     /**
-     * Gets the group that will be the next owner of the plot.
+     * Gets the id of the group that will change ownership.
+     *
+     * @return
+     */
+    public int getGroupId() {
+        return group;
+    }
+
+    /**
+     * Gets the group that will change ownership.
      *
      * @return
      */
     public Group getGroup() {
-        return group;
+        return Politics.getUniverseManager().getGroupById(group);
     }
 
     /**

@@ -68,7 +68,7 @@ public class PoliticsEventFactory {
      * @param add
      * @return
      */
-    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(Plot plot, Group group, boolean add) {
+    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(Plot plot, int group, boolean add) {
         return callEvent(new PlotOwnerChangeEvent(plot, group, add));
     }
 
