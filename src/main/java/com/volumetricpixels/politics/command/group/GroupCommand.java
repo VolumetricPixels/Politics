@@ -19,18 +19,18 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.MsgStyle;
 import java.util.List;
 
-import org.spout.api.entity.Player;
-
 import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
+
+import org.spout.api.entity.Player;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -78,6 +78,15 @@ public abstract class GroupCommand extends PCommand {
     @Override
     protected String[] getAliases() {
         return aliases.toArray(new String[0]);
+    }
+    
+    /**
+     * Gets the GroupLevel
+     *
+     * @return
+     */ 
+    public GroupLevel getLevel() {
+        return level;
     }
 
     /**
