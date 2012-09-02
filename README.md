@@ -30,7 +30,7 @@ Coding Standards
 Pull Request Standards
 ----------------------------------
 * Sign-off on all commits!
-* Finished product must compile and run!
+* Finished product must compile successfully with `mvn`!
 * No merges should be included in pull requests unless the pull request's purpose is a merge.
 * Number of commits in a pull request should be kept to *one commit* and all additional commits must be *squashed*. Pull requests that make multiple changes should have one commit per change.
 * Pull requests must include any applicable license headers. (These are generated when running `mvn`)
