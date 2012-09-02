@@ -223,11 +223,15 @@ public final class Group implements Comparable<Group>, Storable {
      * @return
      */
     public int getIntProperty(int property, int def) {
-        try {
-            return Integer.parseInt(getStringProperty(property));
-        } catch (NumberFormatException e) {
-            return def;
+        Object p = getProperty(property);
+        if (p != null) {
+            if (p instanceof Integer) {
+                return ((Integer) p).intValue();
+            } else {
+                return def;
+            }
         }
+        return def;
     }
 
     /**
