@@ -19,5 +19,31 @@
  */
 package com.volumetricpixels.politics.event.plot;
 
-public abstract class PlotEvent {
+import com.volumetricpixels.politics.plot.Plot;
+import org.spout.api.event.Event;
+
+/**
+ * Called with plot-related actions.
+ */
+public abstract class PlotEvent extends Event {
+    /**
+     * The plot involved in this event.
+     */
+    protected final Plot plot;
+
+    /**
+     * C'tor
+     */
+    protected PlotEvent(Plot plot) {
+        this.plot = plot;
+    }
+
+    /**
+     * Gets the plot involved in this event.
+     *
+     * @return
+     */
+    public Plot getPlot() {
+        return plot;
+    }
 }

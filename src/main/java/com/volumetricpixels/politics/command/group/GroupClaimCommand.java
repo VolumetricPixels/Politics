@@ -20,12 +20,18 @@
 package com.volumetricpixels.politics.command.group;
 
 import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
+import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
+import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
 /**
@@ -52,6 +58,24 @@ public class GroupClaimCommand extends GroupCommand {
             source.sendMessage(MsgStyle.ERROR, "You don't have permissions to claim land in this " + level.getName() + ".");
             return;
         }
+
+        // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
+        Plot plot = Politics.getPlotAt(((Player) source).getPosition());
+        for (Group g : plot.getOwners()) {
+            if (g.getLevel().equals(level)) {
+                source.sendMessage(MsgStyle.ERROR, "Sorry, this plot is already owned by " + g.getStringProperty(GroupProperty.NAME) + ".");
+                return;
+            }
+        }
+
+        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(plot, group);
+        if (event.isCancelled()) {
+            source.sendMessage(MsgStyle.ERROR, "The land could not be claimed.");
+            return;
+        }
+
+        plot.addOwner(group);
+        source.sendMessage(MsgStyle.SUCCESS, "The plot was claimed successfully.");
     }
 
     @Override

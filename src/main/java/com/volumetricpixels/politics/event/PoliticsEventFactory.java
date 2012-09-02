@@ -25,6 +25,7 @@ import org.spout.api.entity.Player;
 import org.spout.api.event.Event;
 
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
+import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.event.universe.UniverseCreateEvent;
 import com.volumetricpixels.politics.event.universe.UniverseDestroyEvent;
 import com.volumetricpixels.politics.group.Group;
@@ -57,6 +58,17 @@ public class PoliticsEventFactory {
      */
     public static PlayerChangePlotEvent callPlayerChangePlotEvent(Player player, Plot from, Plot to) {
         return callEvent(new PlayerChangePlotEvent(player, from, to));
+    }
+
+    /**
+     * Calls a new PlotOwnerChangeEvent.
+     *
+     * @param plot
+     * @param group
+     * @return
+     */
+    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(Plot plot, Group group) {
+        return callEvent(new PlotOwnerChangeEvent(plot, group));
     }
 
     /**
