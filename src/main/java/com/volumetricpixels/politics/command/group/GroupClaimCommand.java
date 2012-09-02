@@ -83,6 +83,12 @@ public class GroupClaimCommand extends GroupCommand {
         if (!plot.addOwner(group)) {
             return;
         }
+
+        // Check if we can claim a plot
+        if (PoliticsEventFactory.callGroupClaimPlotEvent(group, plot, source).isCancelled()) {
+            return;
+        }
+
         source.sendMessage(MsgStyle.SUCCESS, "The plot was claimed successfully.");
     }
 

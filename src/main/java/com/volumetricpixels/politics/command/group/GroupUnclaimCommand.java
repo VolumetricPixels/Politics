@@ -21,6 +21,7 @@ package com.volumetricpixels.politics.command.group;
 
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
@@ -71,6 +72,12 @@ public class GroupUnclaimCommand extends GroupCommand {
             source.sendMessage(MsgStyle.ERROR, "The plot could not be unclaimed.");
             return;
         }
+
+        // Check if we can unclaim the plot
+        if (PoliticsEventFactory.callGroupUnclaimPlotEvent(group, plot, source).isCancelled()) {
+            return;
+        }
+
         source.sendMessage(MsgStyle.SUCCESS, "The plot was unclaimed successfully.");
     }
 

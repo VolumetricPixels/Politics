@@ -28,32 +28,32 @@ import org.spout.api.event.HandlerList;
 /**
  * Called when a group tries to claim a plot.
  */
-public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
+public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 
     /**
-     * The claimer of the plot.
+     * The unclaimer of the plot.
      */
-    private final CommandSource claimer;
+    private final CommandSource unclaimer;
 
     /**
      * C'tor
      *
      * @param group
-     * @param claimer
+     * @param unclaimer
      */
-    public GroupClaimPlotEvent(Group group, Plot plot, CommandSource claimer) {
+    public GroupUnclaimPlotEvent(Group group, Plot plot, CommandSource unclaimer) {
         super(group, plot);
-        this.claimer = claimer;
+        this.unclaimer = unclaimer;
     }
 
     /**
-     * Gets the claimer of the plot.
+     * Gets the unclaimer of the plot.
      *
      * @return
      */
-    public CommandSource getClaimer() {
-        return claimer;
+    public CommandSource getUnclaimer() {
+        return unclaimer;
     }
 
     /**
