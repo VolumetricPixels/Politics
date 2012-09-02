@@ -63,8 +63,17 @@ public class GroupClaimCommand extends GroupCommand {
 
         // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
         Point position = ((Player) source).getPosition();
+        if (!group.getUniverse().getWorlds().contains(Politics.getWorld(position.getWorld()))) {
+            source.sendMessage(MsgStyle.ERROR, "You can't create a plot for that group in this world.");
+            return;
+        }
 
         Plot plot = Politics.getPlotAt(position);
+        if (plot.isOwner(group)) {
+            source.sendMessage(MsgStyle.ERROR, group.getStringProperty(GroupProperty.NAME) + " already owns this plot.");
+            return;
+        }
+
         Group owner = plot.getOwner(level);
         if (owner != null) {
             source.sendMessage(MsgStyle.ERROR, "Sorry, this plot is already owned by " + owner.getStringProperty(GroupProperty.NAME) + ".");
@@ -72,7 +81,6 @@ public class GroupClaimCommand extends GroupCommand {
         }
 
         if (!plot.addOwner(group)) {
-            source.sendMessage(MsgStyle.ERROR, "The plot could not be claimed.");
             return;
         }
         source.sendMessage(MsgStyle.SUCCESS, "The plot was claimed successfully.");

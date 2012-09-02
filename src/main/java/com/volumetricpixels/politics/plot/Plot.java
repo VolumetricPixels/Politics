@@ -137,7 +137,7 @@ public class Plot {
     public boolean addOwner(int id) {
         TIntList list = world.getInternalOwnerList(x, y, z);
         if (list.contains(id)) {
-            return false; // Already added
+            return true; // Already added
         }
         PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
         if (event.isCancelled()) {
@@ -166,7 +166,7 @@ public class Plot {
     public boolean removeOwner(int id) {
         TIntList list = world.getInternalOwnerList(x, y, z);
         if (!list.contains(id)) {
-            return false; // Not in there
+            return true; // Not in there
         }
         PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
         if (event.isCancelled()) {
