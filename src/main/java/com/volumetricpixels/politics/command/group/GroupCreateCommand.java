@@ -34,7 +34,12 @@ import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
 public class GroupCreateCommand extends GroupCommand {
-    private GroupCreateCommand(GroupLevel level) {
+    /**
+     * C'tor
+     * 
+     * @param level 
+     */
+    public GroupCreateCommand(GroupLevel level) {
         super(level, "create");
     }
 

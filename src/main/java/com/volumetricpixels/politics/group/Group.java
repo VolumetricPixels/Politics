@@ -312,6 +312,16 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
+     * Gets the role of the given player.
+     *
+     * @param player
+     * @return
+     */
+    public Role getRole(String player) {
+        return players.get(player);
+    }
+
+    /**
      * Sets the role of the given player to the given role.
      *
      * @param player

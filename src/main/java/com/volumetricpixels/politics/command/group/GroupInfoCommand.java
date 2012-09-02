@@ -53,13 +53,14 @@ public class GroupInfoCommand extends GroupCommand {
             return;
         }
 
-        Set<Group> groups = citizen.getGroups(level);
-        if (groups.size() <= 0) {
+        Group group = citizen.getGroup(level);
+        if (group == null) {
             source.sendMessage(MsgStyle.ERROR, "You aren't in a " + level.getName() + ".");
+            return;
         }
 
         p.sendMessage(ChatStyle.BLUE, "============= INFO =============");
-        p.sendMessage(ChatStyle.DARK_GREEN, "Current Group: " + groups.iterator().next().getStringProperty(GroupProperty.NAME));
+        p.sendMessage(ChatStyle.DARK_GREEN, "Current Group: " + group.getStringProperty(GroupProperty.NAME));
         p.sendMessage(ChatStyle.BLUE, "================================");
     }
 

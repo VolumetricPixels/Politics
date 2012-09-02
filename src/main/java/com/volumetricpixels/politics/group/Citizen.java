@@ -76,14 +76,14 @@ public class Citizen {
      * @param level
      * @return
      */
-    public Set<Group> getGroups(GroupLevel level) {
+    public Group getGroup(GroupLevel level) {
         Set<Group> groups = new HashSet<Group>();
         for (Group group : getGroups()) {
             if (group.getLevel().equals(level)) {
-                groups.add(group);
+                return group;
             }
         }
-        return groups;
+        return null;
     }
 
     /**

@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.command.group;
 
+import com.volumetricpixels.politics.MsgStyle;
 import java.util.List;
 
 import org.spout.api.entity.Player;
@@ -26,8 +27,13 @@ import org.spout.api.entity.Player;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.Citizen;
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
+import org.spout.api.command.Command;
+import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandSource;
 
 /**
  * A group-related command.
@@ -96,5 +102,51 @@ public abstract class GroupCommand extends PCommand {
      */
     public Universe getUniverse(Player player) {
         return Politics.getUniverse(player.getWorld(), level);
+    }
+
+    /**
+     * Finds the group that is wanted from the arguments.
+     *
+     * @param source
+     * @param cmd
+     * @param context
+     * @return The group
+     */
+    public Group findGroup(CommandSource source, Command cmd, CommandContext context) {
+        Universe universe = null;
+        String universeName = context.getFlagString('u');
+
+        if (universeName != null) {
+            universe = Politics.getUniverse(universeName);
+            if (universe == null) {
+                source.sendMessage(MsgStyle.ERROR, "There isn't a universe with the name of '" + universeName + "'.");
+                return null;
+            }
+        } else {
+            if (source instanceof Player) {
+                universe = getUniverse((Player) source);
+                if (universe == null) {
+                    source.sendMessage(MsgStyle.ERROR, "You aren't currently in a world containing " + level.getPlural() + ".");
+                    return null;
+                }
+            } else {
+                source.sendMessage(MsgStyle.ERROR, "There was no universe specified.");
+                return null;
+            }
+        }
+
+        Group group = null;
+        String groupName = context.getFlagString('g');
+        if (groupName != null) {
+            group = universe.getFirstGroupByProperty(level, GroupProperty.TAG, groupName.toLowerCase());
+        } else {
+            if (source instanceof Player) {
+                group = getCitizen((Player) source).getGroup(level);
+            } else {
+                source.sendMessage(MsgStyle.ERROR, "No " + level.getName() + " was specified.");
+                return null;
+            }
+        }
+        return group;
     }
 }

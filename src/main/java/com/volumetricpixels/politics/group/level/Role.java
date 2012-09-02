@@ -85,6 +85,16 @@ public class Role implements Comparable<Role> {
     }
 
     /**
+     * Checks if the role has the given privilege.
+     *
+     * @param privilege
+     * @return
+     */
+    public boolean hasPrivilege(Privilege privilege) {
+        return privilege.hasPrivilege(bitset);
+    }
+
+    /**
      * Gets the set of privileges of this Role.
      *
      * @return

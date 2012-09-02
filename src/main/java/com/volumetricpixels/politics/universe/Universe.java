@@ -172,6 +172,74 @@ public class Universe implements Storable {
     }
 
     /**
+     * Gets all groups with the given property.
+     *
+     * @param property
+     * @param value
+     * @return
+     */
+    public List<Group> getGroupsByProperty(int property, Object value) {
+        List<Group> groups = new ArrayList<Group>();
+        for (Group group : getGroups()) {
+            if (group.getProperty(property).equals(value)) {
+                groups.add(group);
+            }
+        }
+        return groups;
+    }
+
+    /**
+     * Gets all groups of a certain level with the given property.
+     *
+     * @param level
+     * @param property
+     * @param value
+     * @return
+     */
+    public List<Group> getGroupsByProperty(GroupLevel level, int property, Object value) {
+        List<Group> groups = new ArrayList<Group>();
+        for (Group group : getGroups(level)) {
+            if (group.getProperty(property).equals(value)) {
+                groups.add(group);
+            }
+        }
+        return groups;
+    }
+
+    /**
+     * Gets the first group found with the given property.
+     *
+     * @param property
+     * @param value
+     * @return
+     */
+    public Group getFirstGroupByProperty(int property, Object value) {
+        for (Group group : getGroups()) {
+            if (group.getProperty(property).equals(value)) {
+                return group;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the first group found of a certain level with the given property.
+     *
+     * @param level
+     * @param property
+     * @param value
+     * @return
+     */
+    public Group getFirstGroupByProperty(GroupLevel level, int property, Object value) {
+        for (Group group : getGroups(level)) {
+            if (group.getProperty(property).equals(value)) {
+                return group;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds the given PoliticsWorld to this Universe.
      *
      * @param world
