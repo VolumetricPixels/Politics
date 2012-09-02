@@ -23,8 +23,6 @@ import org.spout.api.chat.style.ChatStyle;
 
 /**
  * The ChatStyles to be used for specific things.
- *
- * TODO: Make these configurable? Might be hard if we want to keep these static...
  */
 public class MsgStyle {
     /**
