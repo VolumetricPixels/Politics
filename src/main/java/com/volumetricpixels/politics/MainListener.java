@@ -36,7 +36,7 @@ import com.volumetricpixels.politics.plot.Plot;
 public class MainListener implements Listener {
     @EventHandler(order = Order.EARLIEST)
     public void onEntityMove(EntityMoveEvent event) {
-        if (!(event.getEntity() instanceof Player)) {
+        if (!(event.getEntity() instanceof Player) || event.isCancelled()) {
             return;
         }
         Point from = event.getFrom();
@@ -58,9 +58,6 @@ public class MainListener implements Listener {
 
         // Call event
         PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
-        if (pcpe.isCancelled()) {
-            event.setCancelled(true);
-        }
-
+        event.setCancelled(pcpe.isCancelled());
     }
 }
