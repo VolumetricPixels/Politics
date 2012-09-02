@@ -22,29 +22,28 @@ package com.volumetricpixels.politics;
 import org.spout.api.chat.style.ChatStyle;
 
 /**
- * Holds styles of messages.
+ * The ChatStyles to be used for specific things.
  *
- * TODO make these configurable
+ * TODO: Make these configurable? Might be hard if we want to keep these static...
  */
 public class MsgStyle {
     /**
-     * Error color
+     * Error ChatStyle
      */
     public static final ChatStyle ERROR = ChatStyle.RED;
 
     /**
-     * Error highlight color
+     * Error highlight ChatStyle
      */
     public static final ChatStyle ERROR_HIGHLIGHT = ChatStyle.YELLOW;
 
     /**
-     * Info color
+     * Info ChatStyle
      */
     public static final ChatStyle INFO = ChatStyle.GOLD;
 
     /**
-     * Success color
+     * Success ChatStyle
      */
     public static final ChatStyle SUCCESS = ChatStyle.BRIGHT_GREEN;
-
 }
