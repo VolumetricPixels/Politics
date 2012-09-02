@@ -95,6 +95,7 @@ public class PoliticsEventFactory {
      * Calls the given event.
      *
      * @param event
+     * @return
      */
     private static <T extends Event> T callEvent(T event) {
         return Spout.getEngine().getEventManager().callEvent(event);
