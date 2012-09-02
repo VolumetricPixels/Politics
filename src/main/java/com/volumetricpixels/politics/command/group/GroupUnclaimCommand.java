@@ -31,14 +31,14 @@ import org.spout.api.exception.CommandException;
 /**
  * Claims the plot you are in.
  */
-public class GroupClaimCommand extends GroupCommand {
+public class GroupUnclaimCommand extends GroupCommand {
     /**
      * C'tor
      *
      * @param level
      */
-    public GroupClaimCommand(GroupLevel level) {
-        super(level, "claim");
+    public GroupUnclaimCommand(GroupLevel level) {
+        super(level, "unclaim");
     }
 
     @Override
@@ -48,8 +48,8 @@ public class GroupClaimCommand extends GroupCommand {
             return;
         }
 
-        if (!group.getRole(source.getName()).hasPrivilege(Privilege.CLAIM) && !source.hasPermission("politics.admin.group." + level.getId() + ".claim")) {
-            source.sendMessage(MsgStyle.ERROR, "You don't have permissions to claim land in this " + level.getName() + ".");
+        if (!group.getRole(source.getName()).hasPrivilege(Privilege.UNCLAIM) && !source.hasPermission("politics.admin.group." + level.getId() + ".unclaim")) {
+            source.sendMessage(MsgStyle.ERROR, "You don't have permissions to unclaim land in this " + level.getName() + ".");
             return;
         }
     }
@@ -57,8 +57,8 @@ public class GroupClaimCommand extends GroupCommand {
     @Override
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(1, -1);
-        cmd.setHelp("Claims land for your " + level.getName() + ".");
+        cmd.setHelp("Unclaims land from your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");
-        cmd.setPermissions(true, "politics.group." + level.getId() + ".claim");
+        cmd.setPermissions(true, "politics.group." + level.getId() + ".unclaim");
     }
 }
