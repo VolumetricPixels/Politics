@@ -106,7 +106,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param universe
      */
     public void initialize(Universe universe) {
-        if (universe == null) {
+        if (universe == null || this.universe != null) {
             throw new IllegalStateException("Someone is trying to screw with the plugin!");
         }
         this.universe = universe;
