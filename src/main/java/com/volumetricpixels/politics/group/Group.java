@@ -19,29 +19,30 @@
  */
 package com.volumetricpixels.politics.group;
 
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Role;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Set;
 
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
+
+import org.spout.api.Server;
 import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 
 import com.volumetricpixels.politics.data.Storable;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
-import java.util.HashMap;
-import java.util.Map;
-import org.spout.api.Server;
 
 /**
  * Represents a group of players.
@@ -105,7 +106,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param universe
      */
     public void initialize(Universe universe) {
-        if (universe != null) {
+        if (universe == null) {
             throw new IllegalStateException("Someone is trying to screw with the plugin!");
         }
         this.universe = universe;
