@@ -26,7 +26,7 @@ import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 
 /**
- * Called when a group tries to claim a plot.
+ * Called when a group tries to unclaim a plot.
  */
 public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
