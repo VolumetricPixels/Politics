@@ -28,6 +28,7 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.plot.Plot;
+
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -68,8 +69,7 @@ public class GroupClaimCommand extends GroupCommand {
             }
         }
 
-        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(plot, group);
-        if (event.isCancelled()) {
+        if (PoliticsEventFactory.callPlotOwnerChangeEvent(plot, group).isCancelled()) {
             source.sendMessage(MsgStyle.ERROR, "The land could not be claimed.");
             return;
         }
