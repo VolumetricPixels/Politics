@@ -58,6 +58,8 @@ public class MainListener implements Listener {
 
         // Call event
         PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
-        event.setCancelled(pcpe.isCancelled());
+        if (pcpe.isCancelled()) {
+            event.setCancelled(true);
+        }
     }
 }

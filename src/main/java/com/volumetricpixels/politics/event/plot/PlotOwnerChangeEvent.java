@@ -36,14 +36,21 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     private final Group group;
 
     /**
+     * True if this adds a group.
+     */
+    private final boolean add;
+
+    /**
      * C'tor
      *
      * @param group
      * @param creator
+     * @param add
      */
-    public PlotOwnerChangeEvent(Plot plot, Group group) {
+    public PlotOwnerChangeEvent(Plot plot, Group group, boolean add) {
         super(plot);
         this.group = group;
+        this.add = add;
     }
 
     /**
@@ -53,6 +60,24 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
      */
     public Group getGroup() {
         return group;
+    }
+
+    /**
+     * Returns true if this adds the group.
+     *
+     * @return
+     */
+    public boolean isAdd() {
+        return add;
+    }
+
+    /**
+     * Returns true if this removes the group.
+     *
+     * @return
+     */
+    public boolean isRemove() {
+        return !add;
     }
 
     /**

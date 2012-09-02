@@ -65,10 +65,11 @@ public class PoliticsEventFactory {
      *
      * @param plot
      * @param group
+     * @param add
      * @return
      */
-    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(Plot plot, Group group) {
-        return callEvent(new PlotOwnerChangeEvent(plot, group));
+    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(Plot plot, Group group, boolean add) {
+        return callEvent(new PlotOwnerChangeEvent(plot, group, add));
     }
 
     /**
