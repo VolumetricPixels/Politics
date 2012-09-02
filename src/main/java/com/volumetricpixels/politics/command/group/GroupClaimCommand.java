@@ -34,6 +34,7 @@ import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
+import org.spout.api.geo.discrete.Point;
 
 /**
  * Claims the plot you are in.
@@ -61,12 +62,13 @@ public class GroupClaimCommand extends GroupCommand {
         }
 
         // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
-        Plot plot = Politics.getPlotAt(((Player) source).getPosition());
-        for (Group g : plot.getOwners()) {
-            if (g.getLevel().equals(level)) {
-                source.sendMessage(MsgStyle.ERROR, "Sorry, this plot is already owned by " + g.getStringProperty(GroupProperty.NAME) + ".");
-                return;
-            }
+        Point position = ((Player) source).getPosition();
+
+        Plot plot = Politics.getPlotAt(position);
+        Group owner = plot.getOwner(level);
+        if (owner != null) {
+            source.sendMessage(MsgStyle.ERROR, "Sorry, this plot is already owned by " + owner.getStringProperty(GroupProperty.NAME) + ".");
+            return;
         }
 
         if (!plot.addOwner(group)) {

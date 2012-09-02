@@ -26,6 +26,7 @@ import gnu.trove.list.TIntList;
 import java.util.List;
 
 import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 
 /**
  * GroupsWorld wrapper.
@@ -113,6 +114,21 @@ public class Plot {
     }
 
     /**
+     * Gets the group owning this plot at the given level.
+     *
+     * @param level
+     * @return
+     */
+    public Group getOwner(GroupLevel level) {
+        for (Group owner : getOwners()) {
+            if (owner.getLevel().equals(level)) {
+                return owner;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds an owner to the plot.
      *
      * @param id
@@ -127,7 +143,8 @@ public class Plot {
         if (event.isCancelled()) {
             return false;
         }
-        return list.add(id);
+        list.add(id);
+        return true;
     }
 
     /**
@@ -155,7 +172,8 @@ public class Plot {
         if (event.isCancelled()) {
             return false;
         }
-        return list.remove(id);
+        list.remove(id);
+        return true;
     }
 
     /**

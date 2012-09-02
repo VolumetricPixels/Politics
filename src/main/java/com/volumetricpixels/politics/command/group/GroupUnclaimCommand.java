@@ -20,13 +20,18 @@
 package com.volumetricpixels.politics.command.group;
 
 import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
+import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
+import org.spout.api.geo.discrete.Point;
 
 /**
  * Claims the plot you are in.
@@ -52,6 +57,21 @@ public class GroupUnclaimCommand extends GroupCommand {
             source.sendMessage(MsgStyle.ERROR, "You don't have permissions to unclaim land in this " + level.getName() + ".");
             return;
         }
+
+        // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
+        Point position = ((Player) source).getPosition();
+
+        Plot plot = Politics.getPlotAt(position);
+        if (!plot.isOwner(group)) {
+            source.sendMessage(MsgStyle.ERROR, "Sorry, this plot is not owned by " + group.getStringProperty(GroupProperty.NAME) + ".");
+            return;
+        }
+
+        if (!plot.removeOwner(group)) {
+            source.sendMessage(MsgStyle.ERROR, "The plot could not be unclaimed.");
+            return;
+        }
+        source.sendMessage(MsgStyle.SUCCESS, "The plot was unclaimed successfully.");
     }
 
     @Override
