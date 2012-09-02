@@ -205,6 +205,35 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
+     * Gets a property as an integer.
+     *
+     * @param property
+     * @return
+     */
+    public int getIntProperty(int property) {
+        return getIntProperty(property, -1);
+    }
+
+    /**
+     * Gets a property as an integer.
+     *
+     * @param property
+     * @param def
+     * @return
+     */
+    public int getIntProperty(int property, int def) {
+        Object p = getProperty(property);
+        if (p != null) {
+            if (p instanceof Integer) {
+                return ((Integer) p).intValue();
+            } else {
+                return def;
+            }
+        }
+        return def;
+    }
+
+    /**
      * Sets the value of a property.
      *
      * @param property
