@@ -7,6 +7,7 @@
 	<inceptionYear>2012</inceptionYear>
 
 	<!-- Description -->
+	<name>Politics</name>
 	<url>http://volumetricpixels.com</url>
 	<description>${project.name} is a full-featured replacement for Towny, Factions, and other similar plugins built on the Spout platform.</description>
 
