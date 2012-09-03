@@ -22,7 +22,6 @@ package com.volumetricpixels.politics.command.group;
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
-import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;

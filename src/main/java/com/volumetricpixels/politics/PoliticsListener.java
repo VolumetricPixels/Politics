@@ -33,7 +33,7 @@ import com.volumetricpixels.politics.plot.Plot;
 /**
  * The main listener of the plugin.
  */
-public class MainListener implements Listener {
+public class PoliticsListener implements Listener {
     @EventHandler(order = Order.EARLIEST)
     public void onEntityMove(EntityMoveEvent event) {
         if (!(event.getEntity() instanceof Player) || event.isCancelled()) {

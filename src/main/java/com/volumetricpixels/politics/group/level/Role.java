@@ -111,6 +111,15 @@ public class Role implements Comparable<Role> {
     public int getRank() {
         return rank;
     }
+    
+    /**
+     * Gets the name of the role.
+     * 
+     * @return
+     */
+    public String getName() {
+    	return name;
+    }
 
     /**
      * Loads a role from a string id and node.

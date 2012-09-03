@@ -19,10 +19,9 @@
  */
 package com.volumetricpixels.politics.group;
 
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import java.util.HashSet;
 import java.util.Set;
 
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
@@ -77,7 +76,6 @@ public class Citizen {
      * @return
      */
     public Group getGroup(GroupLevel level) {
-        Set<Group> groups = new HashSet<Group>();
         for (Group group : getGroups()) {
             if (group.getLevel().equals(level)) {
                 return group;

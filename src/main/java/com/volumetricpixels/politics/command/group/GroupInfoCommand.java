@@ -19,8 +19,6 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import java.util.Set;
-
 import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
@@ -34,6 +32,9 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.GroupProperty;
 
+/**
+ * Used to get info about a group
+ */
 public class GroupInfoCommand extends GroupCommand {
     public GroupInfoCommand(GroupLevel level) {
         super(level, "info");
@@ -42,7 +43,7 @@ public class GroupInfoCommand extends GroupCommand {
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         if (!(source instanceof Player)) {
-            source.sendMessage("Consoles are part of a group");
+            source.sendMessage("Consoles aren't part of a group");
             return;
         }
 

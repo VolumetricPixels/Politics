@@ -33,15 +33,15 @@
 
 	<!-- Source code -->
     <scm>
-        <developerConnection>scm:git:git@github.com:simplyianm/${project.name}.git</developerConnection>
-        <connection>scm:git:git://github.com/simplyianm/${project.name}.git</connection>
-        <url>https://github.com/simplyianm/${project.name}</url>
+        <developerConnection>scm:git:git@github.com:VolumetricPixels/${project.name}.git</developerConnection>
+        <connection>scm:git:git://github.com/VolumetricPixels/${project.name}.git</connection>
+        <url>https://github.com/VolumetricPixels/${project.name}</url>
     </scm>
 
 	<!-- Issue Management -->
     <issueManagement>
         <system>github</system>
-        <url>http://github.com/simplyianm/${project.name}/issues</url>
+        <url>http://github.com/VolumetricPixels/${project.name}/issues</url>
     </issueManagement>
 
 	<!-- Continuous integration -->

@@ -71,7 +71,7 @@ public class PoliticsPlugin extends CommonPlugin {
         Commands.registerAll();
 
         // Listeners
-        getEngine().getEventManager().registerEvents(new MainListener(), this);
+        getEngine().getEventManager().registerEvents(new PoliticsListener(), this);
 
         // Save task
         getEngine().getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);

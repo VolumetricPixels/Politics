@@ -21,6 +21,7 @@ package com.volumetricpixels.politics.universe;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -28,9 +29,9 @@ import java.security.CodeSource;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -98,7 +99,6 @@ public final class RuleTemplates {
         } catch (IOException ex) {
             PoliticsPlugin.logger().log(Level.SEVERE, "Could not list template names!", ex);
         }
-
         return set;
     }
 }

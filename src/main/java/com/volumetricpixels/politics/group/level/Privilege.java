@@ -73,6 +73,7 @@ public enum Privilege {
      * Allows the player to unclaim land.
      */
     UNCLAIM(0x400),;
+    
     /**
      * The bit that represents the privilege.
      */

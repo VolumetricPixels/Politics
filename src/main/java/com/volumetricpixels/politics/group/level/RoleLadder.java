@@ -26,10 +26,9 @@ import java.util.Map;
 import org.spout.api.util.config.ConfigurationNode;
 
 /**
- *
- * @author simplyianm
+ * Represents a ladder of roles
  */
-public class Track implements Iterable<Role> {
+public class RoleLadder implements Iterable<Role> {
     /**
      * The id of the track.
      */
@@ -46,7 +45,7 @@ public class Track implements Iterable<Role> {
      * @param id
      * @param roles
      */
-    Track(String id, List<Role> roles) {
+    RoleLadder(String id, List<Role> roles) {
         this.id = id;
         this.roles = roles;
     }
@@ -110,7 +109,7 @@ public class Track implements Iterable<Role> {
      * @param roles
      * @return
      */
-    public static Track load(String id, ConfigurationNode node, Map<String, Role> roles) {
+    public static RoleLadder load(String id, ConfigurationNode node, Map<String, Role> roles) {
         List<String> rolesNames = node.getStringList(new LinkedList<String>());
         List<Role> rolesList = new LinkedList<Role>();
         for (String roleName : rolesNames) {
@@ -120,6 +119,6 @@ public class Track implements Iterable<Role> {
             }
             rolesList.add(role);
         }
-        return new Track(id, rolesList);
+        return new RoleLadder(id, rolesList);
     }
 }

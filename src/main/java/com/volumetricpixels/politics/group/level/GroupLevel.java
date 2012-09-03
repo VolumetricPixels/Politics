@@ -76,7 +76,7 @@ public final class GroupLevel {
     /**
      * The tracks of the group level.
      */
-    private final Map<String, Track> tracks;
+    private final Map<String, RoleLadder> tracks;
 
     /**
      * The initial role of the group level.
@@ -104,7 +104,7 @@ public final class GroupLevel {
      * @param initial
      * @param founder
      */
-    public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands, Map<String, Track> tracks, Role initial, Role founder) {
+    public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands, Map<String, RoleLadder> tracks, Role initial, Role founder) {
         this.id = id;
         this.name = name;
         this.rank = rank;
@@ -216,7 +216,7 @@ public final class GroupLevel {
      * @param id
      * @return
      */
-    public Track getTrack(String id) {
+    public RoleLadder getTrack(String id) {
         return tracks.get(id.toLowerCase());
     }
 
@@ -225,7 +225,7 @@ public final class GroupLevel {
      *
      * @return
      */
-    public Track getDefaultTrack() {
+    public RoleLadder getDefaultTrack() {
         return getTrack("default");
     }
 
@@ -370,7 +370,7 @@ public final class GroupLevel {
         }
 
         // Our variables
-        Map<String, Track> tracks = new HashMap<String, Track>();
+        Map<String, RoleLadder> tracks = new HashMap<String, RoleLadder>();
         Role initial;
         Role founder;
 
@@ -380,15 +380,15 @@ public final class GroupLevel {
         } else {
             ConfigurationNode tracksNode = node.getChild("tracks");
             for (Entry<String, ConfigurationNode> trackEntry : tracksNode.getChildren().entrySet()) {
-                Track track = Track.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
+                RoleLadder track = RoleLadder.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
                 tracks.put(track.getId(), track);
             }
             if (!tracks.containsKey("default")) {
-                Track def;
+                RoleLadder def;
                 if (tracks.isEmpty()) {
                     List<Role> rolesSorted = new LinkedList<Role>(rolesMap.values());
                     Collections.sort(rolesSorted);
-                    def = new Track("default", rolesSorted);
+                    def = new RoleLadder("default", rolesSorted);
                 } else {
                     def = tracks.entrySet().iterator().next().getValue();
                 }

@@ -28,7 +28,7 @@ import com.volumetricpixels.politics.command.universe.UniverseCommands;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 
 /**
- * Registration for all commands.
+ * Registration for all command groups.
  */
 public abstract class Commands {
     /**
