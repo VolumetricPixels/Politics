@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 import org.bson.types.BasicBSONList;
+
 import org.spout.api.util.map.TInt21TripleObjectHashMap;
 
 import com.volumetricpixels.politics.Politics;
@@ -72,6 +73,8 @@ public class PoliticsWorld implements Storable {
     /**
      * C'tor
      *
+     * @param name
+     * @param config
      * @param owners
      */
     private PoliticsWorld(String name, WorldConfig config, TInt21TripleObjectHashMap<TIntList> owners) {
@@ -96,7 +99,7 @@ public class PoliticsWorld implements Storable {
      * @param x
      * @param y
      * @param z
-     * @return
+     * @return the internal list of owners for given location
      */
     TIntList getInternalOwnerList(int x, int y, int z) {
         TIntList list = owners.get(x, y, z);
@@ -236,7 +239,7 @@ public class PoliticsWorld implements Storable {
             BasicBSONList list = (BasicBSONList) listVal;
             for (Object obj : list) {
                 if (!(obj instanceof Integer)) {
-                    throw new IllegalArgumentException("obj is not a Long!");
+                    throw new IllegalArgumentException("obj is not an Integer!");
                 }
                 int val = ((Integer) obj).intValue();
                 longs.add(val);

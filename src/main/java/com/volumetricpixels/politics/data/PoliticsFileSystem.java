@@ -23,7 +23,7 @@ import com.volumetricpixels.politics.Politics;
 import java.io.File;
 
 /**
- * Manages all Files in Politics
+ * Manages all Files used in Politics
  */
 public class PoliticsFileSystem {
     /**
@@ -54,15 +54,19 @@ public class PoliticsFileSystem {
 
         rulesDir = new File(base, "rules/");
         worldConfigDir = new File(base, "worlds/");
-
         worldsDir = new File(base, "data/worlds/");
         universesDir = new File(base, "data/universes/");
+
+        if (!rulesDir.exists()) rulesDir.mkdirs();
+        if (!worldConfigDir.exists()) worldConfigDir.mkdirs();
+        if (!worldsDir.exists()) worldsDir.mkdirs();
+        if (!universesDir.exists()) universesDir.mkdirs();
     }
 
     /**
      * Gets the rules directory.
      *
-     * @return
+     * @return the rules directory
      */
     public File getRulesDir() {
         return rulesDir;
@@ -71,7 +75,7 @@ public class PoliticsFileSystem {
     /**
      * Gets the world config directory.
      *
-     * @return
+     * @return the world config directory
      */
     public File getWorldConfigDir() {
         return worldConfigDir;
@@ -80,7 +84,7 @@ public class PoliticsFileSystem {
     /**
      * Gets the universes directory.
      *
-     * @return
+     * @return the universes directory
      */
     public File getUniversesDir() {
         return universesDir;
@@ -89,7 +93,7 @@ public class PoliticsFileSystem {
     /**
      * Gets the worlds directory.
      *
-     * @return
+     * @return the worlds directory
      */
     public File getWorldsDir() {
         return worldsDir;

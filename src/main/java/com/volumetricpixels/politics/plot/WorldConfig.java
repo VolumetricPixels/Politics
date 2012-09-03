@@ -26,7 +26,7 @@ import org.spout.api.util.config.Configuration;
  */
 public class WorldConfig {
     /**
-     * The name of the worldconfig.
+     * The name of the WorldConfig.
      */
     private final String name;
 
@@ -119,15 +119,13 @@ public class WorldConfig {
      *
      * @param name
      * @param config
-     * @return
+     * @return the new WorldConfig
      */
     public static WorldConfig load(String name, Configuration config) {
         WorldConfig wc = new WorldConfig(name);
-        {
-            wc.plotSizeX = config.getNode("plotsize.x").getInt(1);
-            wc.plotSizeY = config.getNode("plotsize.y").getInt(8);
-            wc.plotSizeZ = config.getNode("plotsize.z").getInt(1);
-        }
+        wc.plotSizeX = config.getNode("plotsize.x").getInt(1);
+        wc.plotSizeY = config.getNode("plotsize.y").getInt(8);
+        wc.plotSizeZ = config.getNode("plotsize.z").getInt(1);
         return wc;
     }
 }
