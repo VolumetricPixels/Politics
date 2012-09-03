@@ -22,7 +22,7 @@ package com.volumetricpixels.politics.command;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandExecutor;
 
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.api.Politics;
 
 /**
  * Represents a command that can be run in Politics. Helps out with command

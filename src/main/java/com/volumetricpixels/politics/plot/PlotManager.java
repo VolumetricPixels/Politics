@@ -38,8 +38,8 @@ import org.spout.api.geo.discrete.Point;
 import org.spout.api.util.config.Configuration;
 import org.spout.api.util.config.yaml.YamlConfiguration;
 
-import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
+import com.volumetricpixels.politics.api.Politics;
 
 /**
  * Manages plots.

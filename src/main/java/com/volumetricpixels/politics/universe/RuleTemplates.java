@@ -19,8 +19,8 @@
  */
 package com.volumetricpixels.politics.universe;
 
-import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
+import com.volumetricpixels.politics.api.Politics;
 
 import java.io.*;
 import java.net.URL;

@@ -19,7 +19,7 @@
  */
 package com.volumetricpixels.politics.event.plot;
 
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.api.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.event.Cancellable;

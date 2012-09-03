@@ -29,7 +29,7 @@ import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
 import com.volumetricpixels.politics.MsgStyle;
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.api.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.GroupProperty;

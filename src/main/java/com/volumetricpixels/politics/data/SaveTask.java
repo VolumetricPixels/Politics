@@ -19,7 +19,7 @@
  */
 package com.volumetricpixels.politics.data;
 
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.api.Politics;
 
 /**
  * Saves everything in the plugin worth saving.

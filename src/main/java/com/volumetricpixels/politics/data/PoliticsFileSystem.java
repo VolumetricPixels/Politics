@@ -19,7 +19,8 @@
  */
 package com.volumetricpixels.politics.data;
 
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.api.Politics;
+
 import java.io.File;
 
 /**

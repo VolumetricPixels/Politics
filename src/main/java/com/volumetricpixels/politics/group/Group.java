@@ -38,7 +38,7 @@ import org.spout.api.Server;
 import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 
-import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.api.Politics;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
