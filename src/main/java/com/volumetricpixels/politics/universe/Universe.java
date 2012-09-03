@@ -36,6 +36,7 @@ import java.util.logging.Level;
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 import org.bson.types.BasicBSONList;
+
 import org.spout.api.Server;
 import org.spout.api.Spout;
 
@@ -91,6 +92,9 @@ public class Universe implements Storable {
 
     /**
      * C'tor
+     *
+     * @param name
+     * @param properties
      */
     public Universe(String name, UniverseRules properties) {
         this(name, properties, new ArrayList<PoliticsWorld>(), new ArrayList<Group>(), new HashMap<Group, Set<Group>>());
