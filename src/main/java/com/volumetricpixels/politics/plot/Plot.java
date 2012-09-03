@@ -19,14 +19,15 @@
  */
 package com.volumetricpixels.politics.plot;
 
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
+
 import gnu.trove.list.TIntList;
 
 import java.util.List;
 
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.level.GroupLevel;
 import org.spout.api.geo.discrete.Point;
 
 /**
