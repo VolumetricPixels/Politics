@@ -26,7 +26,6 @@ import org.spout.api.event.Order;
 import org.spout.api.event.entity.EntityMoveEvent;
 import org.spout.api.geo.discrete.Point;
 
-import com.volumetricpixels.politics.api.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.plot.Plot;

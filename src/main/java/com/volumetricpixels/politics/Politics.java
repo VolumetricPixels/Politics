@@ -17,9 +17,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.api;
+package com.volumetricpixels.politics;
 
-import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.Plot;

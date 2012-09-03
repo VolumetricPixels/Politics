@@ -21,8 +21,8 @@ package com.volumetricpixels.politics.command.group;
 
 import java.util.List;
 
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.MsgStyle;
-import com.volumetricpixels.politics.api.Politics;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
