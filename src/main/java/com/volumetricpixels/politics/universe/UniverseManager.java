@@ -43,6 +43,7 @@ import org.spout.api.util.config.yaml.YamlConfiguration;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 
@@ -251,6 +252,15 @@ public class UniverseManager {
      */
     public Group getGroupById(int id) {
         return groups.get(id);
+    }
+    
+    public Group getGroupByName(String name) {
+    	for (Group g : groups.valueCollection()) {
+    		if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(name)) {
+    			return g;
+    		}
+    	}
+    	return null;
     }
 
     /**

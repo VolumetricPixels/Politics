@@ -26,7 +26,6 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
-import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
@@ -43,21 +42,18 @@ public class GroupInfoCommand extends GroupCommand {
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         if (!(source instanceof Player)) {
-            source.sendMessage("Consoles aren't part of a group");
-            return;
+            throw new CommandException("Consoles aren't part of a group");
         }
 
         Player p = (Player) source;
         Citizen citizen = getCitizen(p);
         if (citizen == null) {
-            source.sendMessage(MsgStyle.ERROR, "You can't use this command in this world.");
-            return;
+            throw new CommandException("You can't use this command in this world.");
         }
 
         Group group = citizen.getGroup(level);
         if (group == null) {
-            source.sendMessage(MsgStyle.ERROR, "You aren't in a " + level.getName() + ".");
-            return;
+            throw new CommandException("You aren't in a " + level.getName() + ".");
         }
 
         p.sendMessage(ChatStyle.BLUE, "============= INFO =============");

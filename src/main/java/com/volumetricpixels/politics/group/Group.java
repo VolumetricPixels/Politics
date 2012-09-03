@@ -38,6 +38,7 @@ import org.spout.api.Server;
 import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
@@ -417,7 +418,11 @@ public final class Group implements Comparable<Group>, Storable {
             Role role = level.getRole(roleId);
             players.put(entry.getKey(), role);
         }
-
+        
         return new Group(uid, level, properties, players);
     }
+
+	public static Group fromName(String paramString) {
+		return Politics.getUniverseManager().getGroupByName(paramString);
+	}
 }

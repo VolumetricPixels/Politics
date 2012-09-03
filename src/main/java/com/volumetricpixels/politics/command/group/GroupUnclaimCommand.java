@@ -51,12 +51,11 @@ public class GroupUnclaimCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
         if (group == null) {
-            return;
+        	throw new CommandException("Could not find " + level.getName() + "!");
         }
 
         if (!group.getRole(source.getName()).hasPrivilege(Privilege.UNCLAIM) && !source.hasPermission("politics.admin.group." + level.getId() + ".unclaim")) {
-            source.sendMessage(MsgStyle.ERROR, "You don't have permissions to unclaim land in this " + level.getName() + ".");
-            return;
+            throw new CommandException("You don't have permissions to unclaim land in this " + level.getName() + ".");
         }
 
         // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
@@ -64,18 +63,11 @@ public class GroupUnclaimCommand extends GroupCommand {
 
         Plot plot = Politics.getPlotAt(position);
         if (!plot.isOwner(group)) {
-            source.sendMessage(MsgStyle.ERROR, "Sorry, this plot is not owned by " + group.getStringProperty(GroupProperty.NAME) + ".");
-            return;
+            throw new CommandException("Sorry, this plot is not owned by " + group.getStringProperty(GroupProperty.NAME) + ".");
         }
 
         if (!plot.removeOwner(group)) {
-            source.sendMessage(MsgStyle.ERROR, "The plot could not be unclaimed.");
-            return;
-        }
-
-        // Check if we can unclaim the plot
-        if (PoliticsEventFactory.callGroupUnclaimPlotEvent(group, plot, source).isCancelled()) {
-            return;
+            throw new CommandException("The plot could not be unclaimed.");
         }
 
         source.sendMessage(MsgStyle.SUCCESS, "The plot was unclaimed successfully.");

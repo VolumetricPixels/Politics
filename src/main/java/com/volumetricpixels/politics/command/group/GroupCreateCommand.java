@@ -55,8 +55,7 @@ public class GroupCreateCommand extends GroupCommand {
         }
         // Check for a founder, this would only happen if he is not a player
         if (founderName == null) {
-            source.sendMessage(MsgStyle.ERROR, "The founder for the to-be-created " + level.getName() + " is unknown. A founder can be specified with the `-f' option.");
-            return;
+            throw new CommandException("The founder for the to-be-created " + level.getName() + " is unknown. A founder can be specified with the `-f' option.");
         }
 
         // Get le universe
@@ -66,14 +65,12 @@ public class GroupCreateCommand extends GroupCommand {
             if (source instanceof Player) {
                 universe = getUniverse((Player) source);
             } else {
-                source.sendMessage(MsgStyle.ERROR, "Please specify the universe you wish to use with the `-u' option.");
-                return;
+                throw new CommandException("Please specify the universe you wish to use with the `-u' option.");
             }
         } else {
             universe = Politics.getUniverse(universeName);
             if (universe == null) {
-                source.sendMessage(MsgStyle.ERROR, "The universe you specified does not exist.");
-                return;
+                throw new CommandException("The universe you specified does not exist.");
             }
         }
 
@@ -95,8 +92,7 @@ public class GroupCreateCommand extends GroupCommand {
 
         if (PoliticsEventFactory.callGroupCreateEvent(group, source).isCancelled()) {
             universe.destroyGroup(group);
-            source.sendMessage(MsgStyle.ERROR, level.getName() + " creation denied.");
-            return;
+            throw new CommandException(level.getName() + " creation denied.");
         }
 
         source.sendMessage(MsgStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");

@@ -22,18 +22,21 @@ package com.volumetricpixels.politics.command.group;
 import java.util.List;
 import java.util.Set;
 
-import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
+import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.GroupProperty;
 
+/**
+ * Used to destroy (delete) a group
+ */
 public class GroupDestroyCommand extends GroupCommand {
     public GroupDestroyCommand(GroupLevel level) {
         super(level, "destroy");
@@ -41,33 +44,34 @@ public class GroupDestroyCommand extends GroupCommand {
 
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+    	if (!(source instanceof Player) || !Politics.getUniverse(((Player) source).getWorld(), level).getCitizenGroups(source.getName()).contains(Group.fromName(context.getFlagString('g')))) {
+    		if (source.hasPermission("politics.admin.delgroup")) {
+        		for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
+            		if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
+                    	g.getUniverse().destroyGroup(g);
+                    	source.sendMessage(MsgStyle.SUCCESS, "Deleted: " + context.getString(0) + "!");
+                    	return;
+                	}
+            	}
+            	throw new CommandException("No such " + level.getName() + "!");
+        	}
+    	}
         if (source instanceof Player) {
             Set<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getCitizen(source.getName()).getGroups();
-            if (source.hasPermission("politics.admin.delgroup")) {
-                for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
-                    if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
-                        g.getUniverse().destroyGroup(g);
-                        source.sendMessage("Deleted: " + context.getString(0) + "!");
-                        return;
-                    }
+            for (Group g : groups) {
+                if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
+                    g.getUniverse().destroyGroup(g);
+                    source.sendMessage("Deleted: " + context.getString(0) + "!");
+                    return;
                 }
-                source.sendMessage(ChatStyle.RED, "No such " + level.getName() + "!");
-            } else {
-                for (Group g : groups) {
-                    if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
-                        g.getUniverse().destroyGroup(g);
-                        source.sendMessage("Deleted! " + context.getString(0));
-                        return;
-                    }
-                }
-                source.sendMessage(ChatStyle.RED, "You can't do that!");
+                throw new CommandException("You can't do that!");
             }
         } else {
             List<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getGroups();
             for (Group g : groups) {
                 if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
                     g.getUniverse().destroyGroup(g);
-                    source.sendMessage("Deleted! " + context.getString(0));
+                    source.sendMessage(MsgStyle.SUCCESS, "Deleted! " + context.getString(0));
                     return;
                 }
             }

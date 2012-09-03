@@ -56,20 +56,17 @@ public class GroupListCommand extends GroupCommand {
         // Get le universe
         if (!(source instanceof Player)) {
             if (!args.hasFlag('u')) {
-                source.sendMessage(MsgStyle.ERROR, "You need to specify a universe. Add `-u universename' to your command to make it so.");
-                return;
+                throw new CommandException("You need to specify a universe. Add `-u universename' to your command to make it so.");
             }
             String universeName = args.getFlagString('u');
             universe = Politics.getUniverse(universeName);
             if (universe == null) {
-                source.sendMessage(MsgStyle.ERROR, "A universe with the name `" + universeName + "' does not exist.");
-                return;
+                throw new CommandException("A universe with the name `" + universeName + "' does not exist.");
             }
         } else {
             universe = Politics.getUniverse(((Player) source).getWorld(), level);
             if (universe == null) {
-                source.sendMessage(MsgStyle.ERROR, "You can't use this command right now.");
-                return;
+                throw new CommandException("You can't use this command right now.");
             }
         }
 
@@ -77,8 +74,7 @@ public class GroupListCommand extends GroupCommand {
 
         List<Group> groups = universe.getGroups(level);
         if (groups == null) {
-            source.sendMessage(MsgStyle.ERROR, "There are no " + level.getPlural() + ".");
-            return;
+            throw new CommandException("There are no " + level.getPlural() + ".");
         }
 
         int page = 1;
@@ -89,8 +85,7 @@ public class GroupListCommand extends GroupCommand {
         int min = ((page - 1) * PAGE_HEIGHT) - 1; // Screen height
         int max = Math.min(groups.size(), page * PAGE_HEIGHT) - 2;
         if (max <= min) {
-            source.sendMessage(MsgStyle.ERROR, "There are no " + level.getPlural() + " on this page.");
-            return;
+            throw new CommandException("There are no " + level.getPlural() + " on this page.");
         }
 
         List<Group> pageGroups = groups.subList(min, max);

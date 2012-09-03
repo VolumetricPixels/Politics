@@ -21,7 +21,6 @@ package com.volumetricpixels.politics.command.group;
 
 import com.volumetricpixels.politics.MsgStyle;
 import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
@@ -52,40 +51,31 @@ public class GroupClaimCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
         if (group == null) {
-            return;
+        	throw new CommandException("Could not find " + level.getName() + ".");
         }
 
         if (!group.getRole(source.getName()).hasPrivilege(Privilege.CLAIM) && !source.hasPermission("politics.admin.group." + level.getId() + ".claim")) {
-            source.sendMessage(MsgStyle.ERROR, "You don't have permissions to claim land in this " + level.getName() + ".");
-            return;
+            throw new CommandException("You don't have permissions to claim land in this " + level.getName() + ".");
         }
 
         // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
         Point position = ((Player) source).getPosition();
         if (!group.getUniverse().getWorlds().contains(Politics.getWorld(position.getWorld()))) {
-            source.sendMessage(MsgStyle.ERROR, "You can't create a plot for that group in this world.");
-            return;
+            throw new CommandException("You can't create a plot for that group in this world.");
         }
 
         Plot plot = Politics.getPlotAt(position);
         if (plot.isOwner(group)) {
-            source.sendMessage(MsgStyle.ERROR, group.getStringProperty(GroupProperty.NAME) + " already owns this plot.");
-            return;
+            throw new CommandException(group.getStringProperty(GroupProperty.NAME) + " already owns this plot.");
         }
 
         Group owner = plot.getOwner(level);
         if (owner != null) {
-            source.sendMessage(MsgStyle.ERROR, "Sorry, this plot is already owned by " + owner.getStringProperty(GroupProperty.NAME) + ".");
-            return;
+            throw new CommandException("Sorry, this plot is already owned by " + owner.getStringProperty(GroupProperty.NAME) + ".");
         }
 
         if (!plot.addOwner(group)) {
-            return;
-        }
-
-        // Check if we can claim a plot
-        if (PoliticsEventFactory.callGroupClaimPlotEvent(group, plot, source).isCancelled()) {
-            return;
+        	throw new CommandException("You cannot claim this plot!");
         }
 
         source.sendMessage(MsgStyle.SUCCESS, "The plot was claimed successfully.");
