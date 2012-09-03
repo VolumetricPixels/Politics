@@ -34,6 +34,8 @@ import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 import org.bson.types.BasicBSONList;
 
+import org.spout.api.Spout;
+import org.spout.api.geo.World;
 import org.spout.api.util.map.TInt21TripleObjectHashMap;
 
 import com.volumetricpixels.politics.api.Politics;
@@ -41,8 +43,6 @@ import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
-import org.spout.api.Spout;
-import org.spout.api.geo.World;
 
 /**
  * Represents a world containing plots.
