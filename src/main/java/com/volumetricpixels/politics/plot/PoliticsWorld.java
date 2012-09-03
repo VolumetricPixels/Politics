@@ -41,6 +41,8 @@ import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
+import org.spout.api.Spout;
+import org.spout.api.geo.World;
 
 /**
  * Represents a world containing plots.
@@ -90,6 +92,24 @@ public class PoliticsWorld implements Storable {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Gets the configuration of this world.
+     *
+     * @return
+     */
+    public WorldConfig getConfig() {
+        return config;
+    }
+
+    /**
+     * Gets the World of this PoliticsWorld.
+     *
+     * @return
+     */
+    public World getWorld() {
+        return Spout.getEngine().getWorld(name);
     }
 
     /**

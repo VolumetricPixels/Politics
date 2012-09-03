@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.plot;
 
+import org.spout.api.math.Vector3;
 import org.spout.api.util.config.Configuration;
 
 /**
@@ -101,6 +102,15 @@ public class WorldConfig {
      */
     public void setPlotSizeZ(int plotSizeZ) {
         this.plotSizeZ = plotSizeZ;
+    }
+
+    /**
+     * Gets the plot size as a vector.
+     *
+     * @return
+     */
+    public Vector3 getPlotSizeVector() {
+        return new Vector3(plotSizeX, plotSizeY, plotSizeZ);
     }
 
     /**

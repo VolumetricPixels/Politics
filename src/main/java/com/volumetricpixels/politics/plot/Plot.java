@@ -27,6 +27,7 @@ import java.util.List;
 
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
+import org.spout.api.geo.discrete.Point;
 
 /**
  * GroupsWorld wrapper.
@@ -93,6 +94,15 @@ public class Plot {
      */
     public int getZ() {
         return z;
+    }
+
+    /**
+     * Gets the point at the base of the plot.
+     *
+     * @return
+     */
+    public Point getBase() {
+        return new Point(world.getConfig().getPlotSizeVector().multiply(16.0), world.getWorld());
     }
 
     /**
