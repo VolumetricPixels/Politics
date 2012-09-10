@@ -19,7 +19,7 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;

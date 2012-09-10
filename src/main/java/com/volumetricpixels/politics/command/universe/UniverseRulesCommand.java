@@ -19,7 +19,7 @@
  */
 package com.volumetricpixels.politics.command.universe;
 
-import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.universe.UniverseRules;
 import java.util.List;

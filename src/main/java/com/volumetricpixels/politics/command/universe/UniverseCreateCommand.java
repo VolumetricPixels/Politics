@@ -26,7 +26,7 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 import org.spout.api.geo.World;
 
-import com.volumetricpixels.politics.MsgStyle;
+import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
