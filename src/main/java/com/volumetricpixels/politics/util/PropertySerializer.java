@@ -86,4 +86,63 @@ public class PropertySerializer {
         }
         return new Point(w, x, y, z);
     }
+
+    /**
+     * Serializes a block's point to a string.
+     *
+     * @param point The point of the block to serialize.
+     * @return The string representing the serialization.
+     */
+    public static String serializeBlock(Point point) {
+        return new StringBuilder("b/").append(point.getWorld().getName()).append(",").append(Integer.toHexString(point.getBlockX())).append(",").append(Integer.toHexString(point.getBlockY())).append(",").append(Integer.toHexString(point.getBlockZ())).toString();
+    }
+
+    /**
+     * Deserializes a block's point from a string.
+     *
+     * @param string
+     * @return
+     * @throws PropertyDeserializationException
+     */
+    public static Point deserializeBlock(String string) throws PropertyDeserializationException {
+        String[] parts1 = string.split("/");
+        if (parts1.length != 2) {
+            throw new PropertyDeserializationException("Not a serialized property!");
+        }
+        if (!parts1[0].equalsIgnoreCase("b")) {
+            throw new PropertyDeserializationException("Not a block!");
+        }
+        String[] whatMatters = parts1[1].split(",");
+        if (whatMatters.length <= 4) {
+            throw new PropertyDeserializationException("Not enough block data!");
+        }
+
+        String world = whatMatters[0];
+        World w = Spout.getEngine().getWorld(world);
+        if (w == null) {
+            throw new PropertyDeserializationException("The world '" + world + "' no longer exists!");
+        }
+
+        int x;
+        try {
+            x = Integer.parseInt(whatMatters[1], 16);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The x is not an int!", ex);
+        }
+
+        int y;
+        try {
+            y = Integer.parseInt(whatMatters[2], 16);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The y is not an int!", ex);
+        }
+
+        int z;
+        try {
+            z = Integer.parseInt(whatMatters[3], 16);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The z is not an int!", ex);
+        }
+        return new Point(w, x, y, z);
+    }
 }
