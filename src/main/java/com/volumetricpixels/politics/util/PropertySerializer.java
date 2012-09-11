@@ -156,7 +156,7 @@ public class PropertySerializer {
      * @return The string representing the serialization.
      */
     public static String serializeTransform(Transform transform) {
-        return new StringBuilder("b/").append(transform.getPosition().getWorld().getName()).append(",").append(transform.getPosition().getX()).append(",").append(transform.getPosition().getY()).append(",").append(transform.getPosition().getZ()).append(",").append(transform.getRotation().getPitch()).append(",").append(transform.getRotation().getYaw()).toString();
+        return new StringBuilder("t/").append(transform.getPosition().getWorld().getName()).append(",").append(transform.getPosition().getX()).append(",").append(transform.getPosition().getY()).append(",").append(transform.getPosition().getZ()).append(",").append(transform.getRotation().getW()).append(",").append(transform.getRotation().getX()).append(",").append(transform.getRotation().getY()).append(",").append(transform.getRotation().getZ()).toString();
     }
 
     /**
@@ -171,7 +171,7 @@ public class PropertySerializer {
         if (parts1.length != 2) {
             throw new PropertyDeserializationException("Not a serialized property!");
         }
-        if (!parts1[0].equalsIgnoreCase("b")) {
+        if (!parts1[0].equalsIgnoreCase("t")) {
             throw new PropertyDeserializationException("Not a transform!");
         }
         String[] whatMatters = parts1[1].split(",");
