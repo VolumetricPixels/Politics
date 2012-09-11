@@ -22,6 +22,9 @@ package com.volumetricpixels.politics.util;
 import org.spout.api.Spout;
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;
+import org.spout.api.geo.discrete.Transform;
+import org.spout.api.math.Quaternion;
+import org.spout.api.math.Vector3;
 
 /**
  * Contains various methods for serializing and deserializing certain properties
@@ -54,7 +57,7 @@ public class PropertySerializer {
             throw new PropertyDeserializationException("Not a point!");
         }
         String[] whatMatters = parts1[1].split(",");
-        if (whatMatters.length <= 4) {
+        if (whatMatters.length < 4) {
             throw new PropertyDeserializationException("Not enough point data!");
         }
 
@@ -113,7 +116,7 @@ public class PropertySerializer {
             throw new PropertyDeserializationException("Not a block!");
         }
         String[] whatMatters = parts1[1].split(",");
-        if (whatMatters.length <= 4) {
+        if (whatMatters.length < 4) {
             throw new PropertyDeserializationException("Not enough block data!");
         }
 
@@ -144,5 +147,95 @@ public class PropertySerializer {
             throw new PropertyDeserializationException("The z is not an int!", ex);
         }
         return new Point(w, x, y, z);
+    }
+
+    /**
+     * Serializes a transform to a string.
+     *
+     * @param transform The transform to serialize.
+     * @return The string representing the serialization.
+     */
+    public static String serializeTransform(Transform transform) {
+        return new StringBuilder("b/").append(transform.getPosition().getWorld().getName()).append(",").append(transform.getPosition().getX()).append(",").append(transform.getPosition().getY()).append(",").append(transform.getPosition().getZ()).append(",").append(transform.getRotation().getPitch()).append(",").append(transform.getRotation().getYaw()).toString();
+    }
+
+    /**
+     * Deserializes a transform from a string.
+     *
+     * @param string
+     * @return
+     * @throws PropertyDeserializationException
+     */
+    public static Transform deserializeTransform(String string) throws PropertyDeserializationException {
+        String[] parts1 = string.split("/");
+        if (parts1.length != 2) {
+            throw new PropertyDeserializationException("Not a serialized property!");
+        }
+        if (!parts1[0].equalsIgnoreCase("b")) {
+            throw new PropertyDeserializationException("Not a transform!");
+        }
+        String[] whatMatters = parts1[1].split(",");
+        if (whatMatters.length < 8) {
+            throw new PropertyDeserializationException("Not enough transform data!");
+        }
+
+        String world = whatMatters[0];
+        World w = Spout.getEngine().getWorld(world);
+        if (w == null) {
+            throw new PropertyDeserializationException("The world '" + world + "' no longer exists!");
+        }
+
+        float x;
+        try {
+            x = Float.parseFloat(whatMatters[1]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The x is not a float!", ex);
+        }
+
+        float y;
+        try {
+            y = Float.parseFloat(whatMatters[2]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The y is not a float!", ex);
+        }
+
+        float z;
+        try {
+            z = Float.parseFloat(whatMatters[3]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The z is not a float!", ex);
+        }
+
+        float angle;
+        try {
+            angle = Float.parseFloat(whatMatters[4]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The angle is not a float!", ex);
+        }
+
+        float qx;
+        try {
+            qx = Float.parseFloat(whatMatters[5]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The qx is not a float!", ex);
+        }
+
+        float qy;
+        try {
+            qy = Float.parseFloat(whatMatters[6]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The qy is not a float!", ex);
+        }
+
+        float qz;
+        try {
+            qz = Float.parseFloat(whatMatters[7]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The qw is not a float!", ex);
+        }
+
+        Point p = new Point(w, x, y, z);
+        Quaternion q = new Quaternion(angle, qx, qy, qz);
+        return new Transform(p, q, Vector3.ONE);
     }
 }
