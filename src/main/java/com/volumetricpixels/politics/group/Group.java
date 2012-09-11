@@ -23,7 +23,6 @@ import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,11 +38,17 @@ import org.spout.api.Spout;
 import org.spout.api.entity.Player;
 
 import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
+import com.volumetricpixels.politics.util.PropertyDeserializationException;
+import com.volumetricpixels.politics.util.PropertySerializer;
+import java.util.logging.Level;
+import org.spout.api.geo.discrete.Point;
+import org.spout.api.geo.discrete.Transform;
 
 /**
  * Represents a group of players.
@@ -236,12 +241,139 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
+     * Gets a property as a transform.
+     *
+     * @param property
+     * @return
+     */
+    public Transform getTransformProperty(int property) {
+        return getTransformProperty(property, null);
+    }
+
+    /**
+     * Gets a property as a transform.
+     *
+     * @param property
+     * @param def
+     * @return
+     */
+    public Transform getTransformProperty(int property, Transform def) {
+        String s = getStringProperty(property);
+        if (s == null) {
+            return def;
+        }
+        Transform t;
+        try {
+            t = PropertySerializer.deserializeTransform(s);
+        } catch (PropertyDeserializationException ex) {
+            PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a transform!", ex);
+            return def;
+        }
+        return t;
+    }
+
+    /**
+     * Gets a property as a point.
+     *
+     * @param property
+     * @return
+     */
+    public Point getPointProperty(int property) {
+        return getPointProperty(property, null);
+    }
+
+    /**
+     * Gets a property as a point.
+     *
+     * @param property
+     * @param def
+     * @return
+     */
+    public Point getPointProperty(int property, Point def) {
+        String s = getStringProperty(property);
+        if (s == null) {
+            return def;
+        }
+        Point p;
+        try {
+            p = PropertySerializer.deserializePoint(s);
+        } catch (PropertyDeserializationException ex) {
+            PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a point!", ex);
+            return def;
+        }
+        return p;
+    }
+
+    /**
+     * Gets a property as a block.
+     *
+     * @param property
+     * @return
+     */
+    public Point getBlockProperty(int property) {
+        return getBlockProperty(property, null);
+    }
+
+    /**
+     * Gets a property as a block.
+     *
+     * @param property
+     * @param def
+     * @return
+     */
+    public Point getBlockProperty(int property, Point def) {
+        String s = getStringProperty(property);
+        if (s == null) {
+            return def;
+        }
+        Point p;
+        try {
+            p = PropertySerializer.deserializeBlock(s);
+        } catch (PropertyDeserializationException ex) {
+            PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a block!", ex);
+            return def;
+        }
+        return p;
+    }
+
+    /**
+     * Sets the value of a transform property.
+     *
+     * @param property
+     * @param value
+     */
+    public void setProperty(int property, Transform value) {
+        setProperty(property, PropertySerializer.serializeTransform(value));
+    }
+
+    /**
+     * Sets the value of a point property.
+     *
+     * @param property
+     * @param value
+     */
+    public void setProperty(int property, Point value) {
+        setProperty(property, value, false);
+    }
+
+    /**
+     * Sets the value of a point or block property.
+     *
+     * @param property
+     * @param value
+     * @param block True if you wish to only store integer coordinates
+     */
+    public void setProperty(int property, Point value, boolean block) {
+        setProperty(property, (block ? PropertySerializer.serializeBlock(value) : PropertySerializer.serializePoint(value)));
+    }
+
+    /**
      * Sets the value of a property.
      *
      * @param property
      * @param value
      */
-    public void setProperty(int property, Serializable value) {
+    public void setProperty(int property, Object value) {
         properties.put(property, value);
     }
 
@@ -418,11 +550,11 @@ public final class Group implements Comparable<Group>, Storable {
             Role role = level.getRole(roleId);
             players.put(entry.getKey(), role);
         }
-        
+
         return new Group(uid, level, properties, players);
     }
 
-	public static Group fromName(String paramString) {
-		return Politics.getUniverseManager().getGroupByName(paramString);
-	}
+    public static Group fromName(String paramString) {
+        return Politics.getUniverseManager().getGroupByName(paramString);
+    }
 }

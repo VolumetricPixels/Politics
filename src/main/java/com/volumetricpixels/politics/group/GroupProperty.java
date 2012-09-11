@@ -38,4 +38,9 @@ public final class GroupProperty {
      */
     public static final int NAME = 0x1;
 
+    /**
+     * The spawn of the group.
+     */
+    public static final int SPAWN = 0x2;
+
 }
