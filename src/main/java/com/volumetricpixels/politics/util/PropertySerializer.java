@@ -156,7 +156,7 @@ public class PropertySerializer {
      * @return The string representing the serialization.
      */
     public static String serializeTransform(Transform transform) {
-        return new StringBuilder("t/").append(transform.getPosition().getWorld().getName()).append(",").append(transform.getPosition().getX()).append(",").append(transform.getPosition().getY()).append(",").append(transform.getPosition().getZ()).append(",").append(transform.getRotation().getW()).append(",").append(transform.getRotation().getX()).append(",").append(transform.getRotation().getY()).append(",").append(transform.getRotation().getZ()).toString();
+        return new StringBuilder("t/").append(transform.getPosition().getWorld().getName()).append(",").append(transform.getPosition().getX()).append(",").append(transform.getPosition().getY()).append(",").append(transform.getPosition().getZ()).append(",").append(transform.getRotation().getX()).append(",").append(transform.getRotation().getY()).append(",").append(transform.getRotation().getZ()).append(",").append(transform.getRotation().getW()).toString();
     }
 
     /**
@@ -206,36 +206,36 @@ public class PropertySerializer {
             throw new PropertyDeserializationException("The z is not a float!", ex);
         }
 
-        float angle;
-        try {
-            angle = Float.parseFloat(whatMatters[4]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The angle is not a float!", ex);
-        }
-
         float qx;
         try {
-            qx = Float.parseFloat(whatMatters[5]);
+            qx = Float.parseFloat(whatMatters[4]);
         } catch (NumberFormatException ex) {
             throw new PropertyDeserializationException("The qx is not a float!", ex);
         }
 
         float qy;
         try {
-            qy = Float.parseFloat(whatMatters[6]);
+            qy = Float.parseFloat(whatMatters[5]);
         } catch (NumberFormatException ex) {
             throw new PropertyDeserializationException("The qy is not a float!", ex);
         }
 
         float qz;
         try {
-            qz = Float.parseFloat(whatMatters[7]);
+            qz = Float.parseFloat(whatMatters[6]);
+        } catch (NumberFormatException ex) {
+            throw new PropertyDeserializationException("The qz is not a float!", ex);
+        }
+
+        float qw;
+        try {
+            qw = Float.parseFloat(whatMatters[7]);
         } catch (NumberFormatException ex) {
             throw new PropertyDeserializationException("The qw is not a float!", ex);
         }
 
         Point p = new Point(w, x, y, z);
-        Quaternion q = new Quaternion(angle, qx, qy, qz);
+        Quaternion q = new Quaternion(qx, qy, qz, qw, false);
         return new Transform(p, q, Vector3.ONE);
     }
 }
