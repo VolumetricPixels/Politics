@@ -44,7 +44,7 @@ public class GroupDestroyCommand extends GroupCommand {
 
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-    	if (!(source instanceof Player) || !Politics.getUniverse(((Player) source).getWorld(), level).getCitizenGroups(source.getName()).contains(Group.fromName(context.getFlagString('g')))) {
+    	if (!(source instanceof Player) || !Politics.getUniverse(((Player) source).getWorld(), level).getCitizenGroups(source.getName()).contains(Politics.getUniverseManager().getGroupByTag(context.getFlagString('g')))) {
     		if (source.hasPermission("politics.admin.delgroup")) {
         		for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
             		if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {

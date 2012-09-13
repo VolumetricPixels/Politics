@@ -253,14 +253,20 @@ public class UniverseManager {
     public Group getGroupById(int id) {
         return groups.get(id);
     }
-    
-    public Group getGroupByName(String name) {
-    	for (Group g : groups.valueCollection()) {
-    		if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(name)) {
-    			return g;
-    		}
-    	}
-    	return null;
+
+    /**
+     * Gets a group by their tag.
+     *
+     * @param tag
+     * @return
+     */
+    public Group getGroupByTag(String tag) {
+        for (Group g : groups.valueCollection()) {
+            if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(tag)) {
+                return g;
+            }
+        }
+        return null;
     }
 
     /**
