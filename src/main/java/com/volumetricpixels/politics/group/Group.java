@@ -40,6 +40,7 @@ import org.spout.api.entity.Player;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.data.Storable;
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
@@ -374,6 +375,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param value
      */
     public void setProperty(int property, Object value) {
+        PoliticsEventFactory.callGroupPropertySetEvent(this, property, value);
         properties.put(property, value);
     }
 

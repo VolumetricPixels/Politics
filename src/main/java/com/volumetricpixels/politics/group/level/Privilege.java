@@ -72,8 +72,16 @@ public enum Privilege {
     /**
      * Allows the player to unclaim land.
      */
-    UNCLAIM(0x400),;
-    
+    UNCLAIM(0x400),
+    /**
+     * Allows the player to set the spawn of the group.
+     */
+    SET_SPAWN(0x800),
+    /**
+     * Allows the player to spawn others to the group's spawn.
+     */
+    SPAWN_OTHER(0x1000);
+
     /**
      * The bit that represents the privilege.
      */

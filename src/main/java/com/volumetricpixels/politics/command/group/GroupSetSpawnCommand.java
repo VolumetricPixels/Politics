@@ -26,66 +26,53 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.plot.Plot;
-
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
-import org.spout.api.geo.discrete.Point;
+import org.spout.api.geo.discrete.Transform;
 
 /**
  * Claims the plot you are in.
  */
-public class GroupClaimCommand extends GroupCommand {
+public class GroupSetSpawnCommand extends GroupCommand {
     /**
      * C'tor
      *
      * @param level
      */
-    public GroupClaimCommand(GroupLevel level) {
-        super(level, "claim");
+    public GroupSetSpawnCommand(GroupLevel level) {
+        super(level, "setspawn");
     }
 
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
         if (group == null) {
-        	throw new CommandException("Could not find " + level.getName() + ".");
+            throw new CommandException("Could not find " + level.getName() + "!");
         }
 
-        if (!group.getRole(source.getName()).hasPrivilege(Privilege.CLAIM) && !source.hasPermission("politics.admin.group." + level.getId() + ".claim")) {
-            throw new CommandException("You don't have permissions to claim land in this " + level.getName() + ".");
+        if (!group.getRole(source.getName()).hasPrivilege(Privilege.SET_SPAWN) && !source.hasPermission("politics.admin.group." + level.getId() + ".setspawn")) {
+            throw new CommandException("You don't have permissions to set the spawn of your " + level.getName() + ".");
         }
 
-        // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
-        Point position = ((Player) source).getTransform().getPosition();
-        if (!group.getUniverse().getWorlds().contains(Politics.getWorld(position.getWorld()))) {
-            throw new CommandException("You can't create a plot for that group in this world.");
+        Transform transform = ((Player) source).getTransform().getTransform();
+
+        Plot plot = Politics.getPlotAt(transform.getPosition());
+        if (!plot.isOwner(group)) {
+            throw new CommandException("Sorry, the plot you are in must be owned by " + group.getStringProperty(GroupProperty.NAME) + " to set your spawn in it.");
         }
 
-        Plot plot = Politics.getPlotAt(position);
-        if (plot.isOwner(group)) {
-            throw new CommandException(group.getStringProperty(GroupProperty.NAME) + " already owns this plot.");
-        }
-
-        Group owner = plot.getOwner(level);
-        if (owner != null) {
-            throw new CommandException("Sorry, this plot is already owned by " + owner.getStringProperty(GroupProperty.NAME) + ".");
-        }
-
-        if (!plot.addOwner(group)) {
-        	throw new CommandException("You cannot claim this plot!");
-        }
-
-        source.sendMessage(MsgStyle.SUCCESS, "The plot was claimed successfully.");
+        group.setProperty(GroupProperty.SPAWN, transform);
+        source.sendMessage(MsgStyle.SUCCESS, "The spawn of your " + level.getName() + " was set successfully.");
     }
 
     @Override
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(1, -1);
-        cmd.setHelp("Claims land for your " + level.getName() + ".");
-        cmd.setUsage("[-g " + level.getName() + "] [-u universe]");
-        cmd.setPermissions(true, "politics.group." + level.getId() + ".claim");
+        cmd.setHelp("Sets the spawn of your " + level.getName() + ".");
+        cmd.setUsage("[-p player] [-g " + level.getName() + "] [-u universe]");
+        cmd.setPermissions(true, "politics.group." + level.getId() + ".setspawn");
     }
 }

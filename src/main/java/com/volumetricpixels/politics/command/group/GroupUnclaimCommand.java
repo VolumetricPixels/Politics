@@ -51,7 +51,7 @@ public class GroupUnclaimCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
         if (group == null) {
-        	throw new CommandException("Could not find " + level.getName() + "!");
+            throw new CommandException("Could not find " + level.getName() + "!");
         }
 
         if (!group.getRole(source.getName()).hasPrivilege(Privilege.UNCLAIM) && !source.hasPermission("politics.admin.group." + level.getId() + ".unclaim")) {
@@ -59,7 +59,7 @@ public class GroupUnclaimCommand extends GroupCommand {
         }
 
         // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
-        Point position = ((Player) source).getPosition();
+        Point position = ((Player) source).getTransform().getPosition();
 
         Plot plot = Politics.getPlotAt(position);
         if (!plot.isOwner(group)) {

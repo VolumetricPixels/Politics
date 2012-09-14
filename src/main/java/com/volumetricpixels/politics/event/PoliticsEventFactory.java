@@ -21,6 +21,7 @@ package com.volumetricpixels.politics.event;
 
 import com.volumetricpixels.politics.event.group.GroupClaimPlotEvent;
 import com.volumetricpixels.politics.event.group.GroupCreateEvent;
+import com.volumetricpixels.politics.event.group.GroupPropertySetEvent;
 import com.volumetricpixels.politics.event.group.GroupUnclaimPlotEvent;
 import org.spout.api.Spout;
 import org.spout.api.entity.Player;
@@ -49,6 +50,18 @@ public class PoliticsEventFactory {
      */
     public static GroupClaimPlotEvent callGroupClaimPlotEvent(Group group, Plot plot, CommandSource claimer) {
         return callEvent(new GroupClaimPlotEvent(group, plot, claimer));
+    }
+
+    /**
+     * Calls a new group property set event.
+     *
+     * @param group
+     * @param plot
+     * @param claimer
+     * @return
+     */
+    public static GroupPropertySetEvent callGroupPropertySetEvent(Group group, int property, Object value) {
+        return callEvent(new GroupPropertySetEvent(group, property, value));
     }
 
     /**
