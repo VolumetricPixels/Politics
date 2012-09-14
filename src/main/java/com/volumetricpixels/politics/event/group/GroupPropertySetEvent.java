@@ -25,8 +25,8 @@ import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 
 /**
- * Called when a property is set. Note that transforms, points, and blocks will all be
- * strings.
+ * Called when a property is set. Note that transforms, points, and blocks will
+ * all be strings.
  */
 public class GroupPropertySetEvent extends GroupEvent {
     private static final HandlerList handlers = new HandlerList();
