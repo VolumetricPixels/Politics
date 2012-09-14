@@ -86,6 +86,5 @@ public class GroupClaimCommand extends GroupCommand {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Claims land for your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");
-        cmd.setPermissions(true, "politics.group." + level.getId() + ".claim");
     }
 }

@@ -62,7 +62,6 @@ public class UniverseDestroyCommand extends UniverseCommand {
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Destroys the given universe.");
-        cmd.setUsage("destroy <name>");
-        cmd.setPermissions(true, "politics.admin.universe.destroy");
+        cmd.setUsage("<name>");
     }
 }

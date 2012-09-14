@@ -57,6 +57,7 @@ public abstract class PCommand implements CommandExecutor {
         Command cmd = parent.addSubCommand(Politics.getPlugin(), primary);
         cmd.setExecutor(this);
         cmd.addAlias(getAliases());
+        cmd.setPermissions(true, getPermissions());
         setupCommand(cmd);
         cmd.closeSubCommand();
         return cmd;
@@ -68,6 +69,15 @@ public abstract class PCommand implements CommandExecutor {
      * @return
      */
     protected String[] getAliases() {
+        return new String[0];
+    }
+
+    /**
+     * Gets the permissions required to execute this command.
+     *
+     * @return
+     */
+    protected String[] getPermissions() {
         return new String[0];
     }
 

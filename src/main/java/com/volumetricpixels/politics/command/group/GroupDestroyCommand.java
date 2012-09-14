@@ -83,6 +83,5 @@ public class GroupDestroyCommand extends GroupCommand {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Destroys your " + level.getName() + ".");
         cmd.setUsage("<template> [-f] [-n name]");
-        cmd.setPermissions(true, "politics.group." + level.getId() + ".destroy");
     }
 }

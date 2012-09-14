@@ -57,6 +57,5 @@ public class UniverseRulesCommand extends UniverseCommand {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Lists all possible rules to use.");
         cmd.setUsage("");
-        cmd.setPermissions(true, "politics.admin.universe.rules");
     }
 }

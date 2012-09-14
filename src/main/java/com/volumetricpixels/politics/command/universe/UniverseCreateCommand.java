@@ -113,6 +113,5 @@ public class UniverseCreateCommand extends UniverseCommand {
         cmd.setArgBounds(2, -1);
         cmd.setHelp("Creates a new Universe with the given rules.");
         cmd.setUsage("<name> <rules> [worlds...]");
-        cmd.setPermissions(true, "politics.admin.universe.create");
     }
 }

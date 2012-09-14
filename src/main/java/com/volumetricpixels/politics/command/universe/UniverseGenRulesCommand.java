@@ -72,6 +72,5 @@ public class UniverseGenRulesCommand extends UniverseCommand {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Generates a set of rules.");
         cmd.setUsage("<template> [-f] [-n name]");
-        cmd.setPermissions(true, "politics.admin.universe.genrules");
     }
 }

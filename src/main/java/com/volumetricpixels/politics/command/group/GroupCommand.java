@@ -45,6 +45,11 @@ public abstract class GroupCommand extends PCommand {
     protected final GroupLevel level;
 
     /**
+     * The original primary name of the command.
+     */
+    private String truePrimary;
+
+    /**
      * Aliases of this GroupCommand.
      */
     private List<String> aliases;
@@ -58,6 +63,7 @@ public abstract class GroupCommand extends PCommand {
     public GroupCommand(GroupLevel level, String primary) {
         super(primary.toLowerCase());
         this.level = level;
+        this.truePrimary = this.primary;
 
         // Load the primary and aliases
         aliases = level.getAliases(this.primary);
@@ -79,12 +85,17 @@ public abstract class GroupCommand extends PCommand {
     protected String[] getAliases() {
         return aliases.toArray(new String[0]);
     }
-    
+
+    @Override
+    protected String[] getPermissions() {
+        return new String[]{"politics.group." + level.getId() + "." + truePrimary};
+    }
+
     /**
      * Gets the GroupLevel
      *
      * @return
-     */ 
+     */
     public GroupLevel getLevel() {
         return level;
     }

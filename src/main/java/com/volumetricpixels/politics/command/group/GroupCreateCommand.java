@@ -103,6 +103,5 @@ public class GroupCreateCommand extends GroupCommand {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Creates a new " + level.getName() + ".");
         cmd.setUsage("<name> [-f founder] [-u universe] [-t tag]");
-        cmd.setPermissions(true, "politics.group." + level.getId() + ".create");
     }
 }

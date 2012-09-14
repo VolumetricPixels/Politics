@@ -73,6 +73,5 @@ public class GroupSetSpawnCommand extends GroupCommand {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Sets the spawn of your " + level.getName() + ".");
         cmd.setUsage("[-p player] [-g " + level.getName() + "] [-u universe]");
-        cmd.setPermissions(true, "politics.group." + level.getId() + ".setspawn");
     }
 }

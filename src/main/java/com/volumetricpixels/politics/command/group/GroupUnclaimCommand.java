@@ -78,6 +78,5 @@ public class GroupUnclaimCommand extends GroupCommand {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Unclaims land from your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");
-        cmd.setPermissions(true, "politics.group." + level.getId() + ".unclaim");
     }
 }
