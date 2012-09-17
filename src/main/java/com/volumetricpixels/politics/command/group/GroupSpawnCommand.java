@@ -19,13 +19,14 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.util.MsgStyle;
+
 import org.spout.api.Spout;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
