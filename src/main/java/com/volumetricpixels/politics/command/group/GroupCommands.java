@@ -45,8 +45,13 @@ public class GroupCommands extends Commands {
 
     @Override
     public void setup(Command cmd) {
+        (new GroupClaimCommand(level)).register(cmd);
         (new GroupCreateCommand(level)).register(cmd);
+        (new GroupDestroyCommand(level)).register(cmd);
         (new GroupInfoCommand(level)).register(cmd);
         (new GroupListCommand(level)).register(cmd);
+        (new GroupSetSpawnCommand(level)).register(cmd);
+        (new GroupSpawnCommand(level)).register(cmd);
+        (new GroupUnclaimCommand(level)).register(cmd);
     }
 }
