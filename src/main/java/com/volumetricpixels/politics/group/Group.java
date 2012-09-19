@@ -45,7 +45,7 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
-import com.volumetricpixels.politics.util.PropertyDeserializationException;
+import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import com.volumetricpixels.politics.util.PropertySerializer;
 import java.util.logging.Level;
 import org.spout.api.geo.discrete.Point;

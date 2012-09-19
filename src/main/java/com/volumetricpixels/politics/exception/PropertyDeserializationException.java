@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.util;
+package com.volumetricpixels.politics.exception;
 
 /**
  * Thrown when a property is not deserialized successfully.

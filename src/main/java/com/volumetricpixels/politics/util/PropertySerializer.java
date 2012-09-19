@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.util;
 
+import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import org.spout.api.Spout;
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;
