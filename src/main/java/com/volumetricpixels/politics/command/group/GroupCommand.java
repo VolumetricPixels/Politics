@@ -179,4 +179,14 @@ public abstract class GroupCommand extends PCommand {
         }
         return group;
     }
+
+    /**
+     * Returns true if the given source has admin privileges for this command.
+     *
+     * @param source
+     * @return True if the given source has admin privileges for this command.
+     */
+    public boolean hasAdmin(CommandSource source) {
+        return source.hasPermission("politics.admin.group." + level.getId() + "." + primary);
+    }
 }

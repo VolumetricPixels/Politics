@@ -41,6 +41,13 @@ public class GroupSetRoleCommand extends GroupCommand {
         if (role == null) {
             throw new CommandException("There isn't a role named `" + rn + "'.");
         }
+        
+        if (!hasAdmin(source)) {
+            Role myRole = group.getRole(source.getName());
+            if (myRole.getRank() - role.getRank() <= 1) {
+                throw new CommandException("You can't set someone to a role equal to or higher than your own.");
+            }
+        }
 
         group.setRole(player.getName(), role);
         source.sendMessage(MsgStyle.SUCCESS, player.getName() + " is now part of the " + level.getName() + ".");
