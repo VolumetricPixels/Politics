@@ -90,8 +90,17 @@ public class PoliticsPlugin extends CommonPlugin {
     }
 
     /**
-     * Gets the file system of the plugin.
+     * Gets the version of Politics this is.
      * 
+     * @return The version of Politics.
+     */
+    public String getVersion() {
+        return PoliticsPlugin.class.getPackage().getImplementationVersion();
+    }
+
+    /**
+     * Gets the file system of the plugin.
+     *
      * @return The PoliticsFileSystem Politics uses for File interaction
      */
     public PoliticsFileSystem getFileSystem() {
@@ -100,7 +109,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the PlotManager of the plugin.
-     * 
+     *
      * @return Politics' PlotManager
      */
     public PlotManager getPlotManager() {
@@ -109,7 +118,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the UniverseManager of the plugin.
-     * 
+     *
      * @return Politics' PlotManager
      */
     public UniverseManager getUniverseManager() {
@@ -118,7 +127,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the instance of PoliticsPlugin.
-     * 
+     *
      * @return The running PoliticsPlugin instance
      */
     public static PoliticsPlugin getInstance() {
@@ -127,7 +136,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the logger of the plugin.
-     * 
+     *
      * @return Politics' Logger
      */
     public static Logger logger() {
