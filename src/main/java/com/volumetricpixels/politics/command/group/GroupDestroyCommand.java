@@ -46,7 +46,7 @@ public class GroupDestroyCommand extends GroupCommand {
 
         Group group = findGroup(source, cmd, context);
 
-        if (!group.can(source, Privilege.DISBAND) && !source.hasPermission("politics.admin.group." + level.getId() + ".destroy")) {
+        if (!group.can(source, Privilege.DISBAND) && !hasAdmin(source)) {
             throw new CommandException("You aren't allowed to disband this group.");
         }
 

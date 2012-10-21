@@ -41,7 +41,7 @@ public class GroupSetRoleCommand extends GroupCommand {
         if (role == null) {
             throw new CommandException("There isn't a role named `" + rn + "'.");
         }
-        
+
         if (!hasAdmin(source)) {
             Role myRole = group.getRole(source.getName());
             if (myRole.getRank() - role.getRank() <= 1) {

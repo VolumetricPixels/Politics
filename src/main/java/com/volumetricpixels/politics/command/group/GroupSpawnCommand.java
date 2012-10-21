@@ -39,7 +39,7 @@ import org.spout.api.geo.discrete.Transform;
 public class GroupSpawnCommand extends GroupCommand {
     /**
      * C'tor
-     * 
+     *
      * @param level
      */
     public GroupSpawnCommand(GroupLevel level) {
@@ -50,7 +50,7 @@ public class GroupSpawnCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
 
-        if (!group.getRole(source.getName()).hasPrivilege(Privilege.SPAWN) && !source.hasPermission("politics.group." + level.getId() + ".spawnto")) {
+        if (!group.can(source, Privilege.SPAWN) && !hasAdmin(source)) {
             throw new CommandException("You don't have permissions to spawn to that " + level.getName() + ".");
         }
 

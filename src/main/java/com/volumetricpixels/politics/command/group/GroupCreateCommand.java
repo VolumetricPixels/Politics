@@ -49,7 +49,7 @@ public class GroupCreateCommand extends GroupCommand {
         if (source instanceof Player) {
             founderName = source.getName();
         }
-        if (source.hasPermission("politics.admin.group." + level.getId() + ".create")) {
+        if (hasAdmin(source)) {
             founderName = context.getFlagString('f', founderName);
         }
         // Check for a founder, this would only happen if he is not a player
