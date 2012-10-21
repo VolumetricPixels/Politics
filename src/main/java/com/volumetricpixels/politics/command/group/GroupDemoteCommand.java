@@ -15,14 +15,14 @@ import org.spout.api.exception.CommandException;
 /**
  * Group promote command.
  */
-public class GroupPromoteCommand extends GroupCommand {
+public class GroupDemoteCommand extends GroupCommand {
     /**
      * C'tor
      *
      * @param level
      */
-    public GroupPromoteCommand(GroupLevel level) {
-        super(level, "promote");
+    public GroupDemoteCommand(GroupLevel level) {
+        super(level, "demote");
     }
 
     @Override
@@ -48,21 +48,20 @@ public class GroupPromoteCommand extends GroupCommand {
             throw new CommandException("There isn't a track named '" + trackName + "'.");
         }
         Role role = group.getRole(player.getName());
-        Role next = track.getNextRole(role);
+        Role next = track.getPreviousRole(role);
         if (next == null) {
-            throw new CommandException("There is no role to promote to.");
+            throw new CommandException("There is no role to demote to.");
         }
 
         if (!hasAdmin(source)) {
             Role myRole = group.getRole(source.getName());
-            if (myRole.getRank() - next.getRank() <= 1) {
-                throw new CommandException("You can't promote someone to a role equal to or higher than your own.");
+            if (myRole.getRank() - role.getRank() <= 0) {
+                throw new CommandException("You can't demote someone with a rank higher than yours.");
             }
         }
 
         group.setRole(player.getName(), next);
-        source.sendMessage(MsgStyle.SUCCESS, player.getName() + " was promoted to " + next.getName() + " in the group.");
-
+        source.sendMessage(MsgStyle.SUCCESS, player.getName() + " was demoted to " + next.getName() + " in the group.");
     }
 
     @Override
