@@ -24,6 +24,7 @@ import org.spout.api.command.Command;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.group.GroupCommands;
+import com.volumetricpixels.politics.command.politics.PoliticsCommands;
 import com.volumetricpixels.politics.command.universe.UniverseCommands;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 
@@ -38,7 +39,7 @@ public abstract class Commands {
 
     /**
      * C'tor
-     * 
+     *
      * @param name
      */
     public Commands(String name) {
@@ -47,7 +48,7 @@ public abstract class Commands {
 
     /**
      * Registers this command with Spout.
-     * 
+     *
      * @return The registered command.
      */
     public final Command register() {
@@ -59,9 +60,8 @@ public abstract class Commands {
 
     /**
      * Sets up the command by adding subcommands etc
-     * 
-     * @param cmd
-     *            The Command to add this command to as a subcommand
+     *
+     * @param cmd The Command to add this command to as a subcommand
      */
     public abstract void setup(Command cmd);
 
@@ -69,7 +69,7 @@ public abstract class Commands {
      * Registers all of the commands in Politics
      */
     public static void registerAll() {
-        // First register all Universe commands
+        (new PoliticsCommands()).register();
         (new UniverseCommands()).register();
 
         // Now register all Group commands

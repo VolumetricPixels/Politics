@@ -36,6 +36,6 @@ public abstract class UniverseCommand extends PCommand {
 
     @Override
     protected String[] getPermissions() {
-        return new String[]{"politics.admin.universe." + primary};
+        return new String[]{"politics.universe." + primary};
     }
 }
