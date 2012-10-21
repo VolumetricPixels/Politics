@@ -49,9 +49,6 @@ public class GroupSetSpawnCommand extends GroupCommand {
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
-        if (group == null) {
-            throw new CommandException("Could not find " + level.getName() + "!");
-        }
 
         if (!group.getRole(source.getName()).hasPrivilege(Privilege.SET_SPAWN) && !source.hasPermission("politics.admin.group." + level.getId() + ".setspawn")) {
             throw new CommandException("You don't have permissions to set the spawn of your " + level.getName() + ".");

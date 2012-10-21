@@ -34,6 +34,7 @@ import org.spout.api.entity.Player;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
+import org.spout.api.exception.CommandException;
 
 /**
  * A group-related command.
@@ -132,26 +133,23 @@ public abstract class GroupCommand extends PCommand {
      * @param context
      * @return The group
      */
-    public Group findGroup(CommandSource source, Command cmd, CommandContext context) {
+    public Group findGroup(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Universe universe = null;
         String universeName = context.getFlagString('u');
 
         if (universeName != null) {
             universe = Politics.getUniverse(universeName);
             if (universe == null) {
-                source.sendMessage(MsgStyle.ERROR, "There isn't a universe with the name of '" + universeName + "'.");
-                return null;
+                throw new CommandException("There isn't a universe with the name of '" + universeName + "'.");
             }
         } else {
             if (source instanceof Player) {
                 universe = getUniverse((Player) source);
                 if (universe == null) {
-                    source.sendMessage(MsgStyle.ERROR, "You aren't currently in a world containing " + level.getPlural() + ".");
-                    return null;
+                    throw new CommandException("You aren't currently in a world containing " + level.getPlural() + ".");
                 }
             } else {
-                source.sendMessage(MsgStyle.ERROR, "There was no universe specified.");
-                return null;
+                throw new CommandException("There was no universe specified.");
             }
         }
 
@@ -163,8 +161,7 @@ public abstract class GroupCommand extends PCommand {
             if (source instanceof Player) {
                 group = getCitizen((Player) source).getGroup(level);
             } else {
-                source.sendMessage(MsgStyle.ERROR, "No " + level.getName() + " was specified.");
-                return null;
+                throw new CommandException("No " + level.getName() + " was specified.");
             }
         }
         return group;

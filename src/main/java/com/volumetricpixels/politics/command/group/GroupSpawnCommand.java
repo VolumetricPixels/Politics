@@ -49,9 +49,6 @@ public class GroupSpawnCommand extends GroupCommand {
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
-        if (group == null) {
-            throw new CommandException("Could not find " + level.getName() + "!");
-        }
 
         if (!group.getRole(source.getName()).hasPrivilege(Privilege.SPAWN) && !source.hasPermission("politics.group." + level.getId() + ".spawnto")) {
             throw new CommandException("You don't have permissions to spawn to that " + level.getName() + ".");

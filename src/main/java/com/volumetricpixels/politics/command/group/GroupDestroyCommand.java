@@ -42,20 +42,11 @@ public class GroupDestroyCommand extends GroupCommand {
 
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        Universe universe = Politics.getUniverse(context.getFlagString('u'));
-        if (universe == null) {
-            source.sendMessage(MsgStyle.ERROR, "A universe with the name '" + context.getFlagString('u') + "' doesn't exist.");
-            return;
-        }
-
-        Group group = universe.getFirstGroupByProperty(GroupProperty.NAME, context.getFlagString('g'));
-        if (group == null) {
-            source.sendMessage(MsgStyle.ERROR, "A " + level.getName() + " with the name '" + context.getFlagString('g') + " doesn't exist!");
-        }
+        Group group = findGroup(source, cmd, context);
 
         if ((group.isMember(source.getName()) && group.getRole(source.getName()).hasPrivilege(Privilege.DISBAND))
                 || source.hasPermission("politics.group.destroy")) {
-            universe.destroyGroup(group);
+            group.getUniverse().destroyGroup(group);
         } else {
             source.sendMessage("You can't destroy the " + level.getName() + " '" + group.getProperty(GroupProperty.NAME) + "'!");
         }

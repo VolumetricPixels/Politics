@@ -50,9 +50,6 @@ public class GroupUnclaimCommand extends GroupCommand {
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
-        if (group == null) {
-            throw new CommandException("Could not find " + level.getName() + "!");
-        }
 
         if (!group.getRole(source.getName()).hasPrivilege(Privilege.UNCLAIM)
                 && !source.hasPermission("politics.admin.group." + level.getId() + ".unclaim")) {
