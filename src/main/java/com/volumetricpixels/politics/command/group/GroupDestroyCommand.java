@@ -42,14 +42,18 @@ public class GroupDestroyCommand extends GroupCommand {
 
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+        if (!source.hasPermission("politics.group." + level.getId() + ".destroy")) {
+            throw new CommandException("You aren't allowed to perform this command.");
+        }
+
         Group group = findGroup(source, cmd, context);
 
-        if ((group.isMember(source.getName()) && group.getRole(source.getName()).hasPrivilege(Privilege.DISBAND))
-                || source.hasPermission("politics.group." + level.getId() + ".destroy")) {
-            group.getUniverse().destroyGroup(group);
-        } else {
-            throw new CommandException("You can't destroy the " + level.getName() + " '" + group.getProperty(GroupProperty.NAME) + "'!");
+        if (!group.can(source, Privilege.DISBAND) && !source.hasPermission("politics.admin.group." + level.getId() + ".destroy")) {
+            throw new CommandException("You aren't allowed to disband this group.");
         }
+
+        group.getUniverse().destroyGroup(group);
+        source.sendMessage(MsgStyle.SUCCESS, "The group " + group.getStringProperty(GroupProperty.NAME) + " has been disbanded.");
     }
 
     @Override

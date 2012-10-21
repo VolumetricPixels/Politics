@@ -46,7 +46,9 @@ import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
 import com.volumetricpixels.politics.exception.PropertyDeserializationException;
+import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.util.PropertySerializer;
+import org.spout.api.command.CommandSource;
 
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
@@ -84,7 +86,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * C'tor
-     * 
+     *
      * @param universe
      * @param level
      */
@@ -94,7 +96,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * C'tor
-     * 
+     *
      * @param universe
      * @param level
      * @param properties
@@ -109,7 +111,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Initializes the universe.
-     * 
+     *
      * @param universe
      */
     public void initialize(Universe universe) {
@@ -121,7 +123,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the universe of this Group.
-     * 
+     *
      * @return
      */
     public Universe getUniverse() {
@@ -130,7 +132,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the UID of this Group.
-     * 
+     *
      * @return
      */
     public int getUid() {
@@ -139,7 +141,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the groups composing this group.
-     * 
+     *
      * @return
      */
     public Set<Group> getGroups() {
@@ -148,7 +150,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Adds the given group as a child of this group.
-     * 
+     *
      * @param group
      * @return True if the given group was able to be a child of the group.
      */
@@ -158,10 +160,10 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Removes the given group from this group's children.
-     * 
+     *
      * @param group
      * @return
-     * 
+     *
      * @see Universe#removeChildGroup(Group, Group)
      */
     public boolean removeChildGroup(Group group) {
@@ -170,7 +172,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the GroupLevel of this Group.
-     * 
+     *
      * @return
      */
     public GroupLevel getLevel() {
@@ -179,7 +181,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the value of a property.
-     * 
+     *
      * @param property
      * @return
      */
@@ -189,7 +191,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a String.
-     * 
+     *
      * @param property
      * @return
      */
@@ -199,13 +201,11 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a String.
-     * 
-     * @param property
-     *            The property to get
-     * @param def
-     *            Default value
-     * @return The value of the given property, or <code>def</code> if not
-     *         exists
+     *
+     * @param property The property to get
+     * @param def Default value
+     * @return The value of the given property, or
+     * <code>def</code> if not exists
      */
     public String getStringProperty(int property, String def) {
         Object p = getProperty(property);
@@ -217,9 +217,8 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as an integer.
-     * 
-     * @param property
-     *            The property to get
+     *
+     * @param property The property to get
      * @return The int value of the given property
      */
     public int getIntProperty(int property) {
@@ -228,12 +227,11 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as an integer.
-     * 
-     * @param property
-     *            The property to get
-     * @param def
-     *            The default value
-     * @return The value of the property, or <code>def</code> if not exists
+     *
+     * @param property The property to get
+     * @param def The default value
+     * @return The value of the property, or
+     * <code>def</code> if not exists
      */
     public int getIntProperty(int property, int def) {
         Object p = getProperty(property);
@@ -249,7 +247,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a transform.
-     * 
+     *
      * @param property
      * @return
      */
@@ -259,7 +257,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a transform.
-     * 
+     *
      * @param property
      * @param def
      * @return
@@ -281,7 +279,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a point.
-     * 
+     *
      * @param property
      * @return
      */
@@ -291,7 +289,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a point.
-     * 
+     *
      * @param property
      * @param def
      * @return
@@ -313,7 +311,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a block.
-     * 
+     *
      * @param property
      * @return
      */
@@ -323,7 +321,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets a property as a block.
-     * 
+     *
      * @param property
      * @param def
      * @return
@@ -345,7 +343,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Sets the value of a transform property.
-     * 
+     *
      * @param property
      * @param value
      */
@@ -355,7 +353,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Sets the value of a point property.
-     * 
+     *
      * @param property
      * @param value
      */
@@ -365,11 +363,10 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Sets the value of a point or block property.
-     * 
+     *
      * @param property
      * @param value
-     * @param block
-     *            True if you wish to only store integer coordinates
+     * @param block True if you wish to only store integer coordinates
      */
     public void setProperty(int property, Point value, boolean block) {
         setProperty(property, (block ? PropertySerializer.serializeBlock(value) : PropertySerializer.serializePoint(value)));
@@ -377,7 +374,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Sets the value of a property.
-     * 
+     *
      * @param property
      * @param value
      */
@@ -388,7 +385,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the immediate players part of this group.
-     * 
+     *
      * @return
      */
     public List<String> getImmediatePlayers() {
@@ -397,7 +394,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the immediate online players part of this group.
-     * 
+     *
      * @return
      */
     public List<Player> getImmediateOnlinePlayers() {
@@ -413,7 +410,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets all players part of this group.
-     * 
+     *
      * @return
      */
     public List<String> getPlayers() {
@@ -427,7 +424,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Returns true if the given player is an immediate member of this group.
-     * 
+     *
      * @param player
      * @return
      */
@@ -437,7 +434,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Checks if the given player is a member of this group or child groups.
-     * 
+     *
      * @param player
      * @return
      */
@@ -456,7 +453,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the role of the given player.
-     * 
+     *
      * @param player
      * @return
      */
@@ -466,7 +463,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Sets the role of the given player to the given role.
-     * 
+     *
      * @param player
      * @param role
      */
@@ -476,11 +473,26 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Removes the role of the given player from this group.
-     * 
+     *
      * @param player
      */
     public void removeRole(String player) {
         players.remove(player);
+    }
+
+    /**
+     * Checks if the given CommandSource has a certain privilege.
+     *
+     * @param source
+     * @param privilege
+     * @return True if the source has the privilege
+     */
+    public boolean can(CommandSource source, Privilege privilege) {
+        if (source instanceof Player) {
+            Role role = getRole(source.getName());
+            return (role == null) ? false : role.hasPrivilege(privilege);
+        }
+        return true;
     }
 
     @Override
@@ -514,7 +526,7 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Gets the Group from the given BSONObject.
-     * 
+     *
      * @param rules
      * @param object
      * @return
