@@ -28,6 +28,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.util.MsgStyle;
 
 /**
  * Used to destroy (delete) a group
