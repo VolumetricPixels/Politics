@@ -67,7 +67,7 @@ public class GroupDemoteCommand extends GroupCommand {
     @Override
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(1, -1);
-        cmd.setHelp("Promotes a player in this " + level.getName() + ".");
+        cmd.setHelp("Demotes a player in this " + level.getName() + ".");
         cmd.setUsage("<player> [-t track] [-g group] [-u universe]");
     }
 }
