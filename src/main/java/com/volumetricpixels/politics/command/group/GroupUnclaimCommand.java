@@ -21,12 +21,12 @@ package com.volumetricpixels.politics.command.group;
 
 import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.plot.Plot;
+
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -40,7 +40,7 @@ import org.spout.api.geo.discrete.Point;
 public class GroupUnclaimCommand extends GroupCommand {
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupUnclaimCommand(GroupLevel level) {
@@ -54,11 +54,13 @@ public class GroupUnclaimCommand extends GroupCommand {
             throw new CommandException("Could not find " + level.getName() + "!");
         }
 
-        if (!group.getRole(source.getName()).hasPrivilege(Privilege.UNCLAIM) && !source.hasPermission("politics.admin.group." + level.getId() + ".unclaim")) {
+        if (!group.getRole(source.getName()).hasPrivilege(Privilege.UNCLAIM)
+                && !source.hasPermission("politics.admin.group." + level.getId() + ".unclaim")) {
             throw new CommandException("You don't have permissions to unclaim land in this " + level.getName() + ".");
         }
 
-        // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
+        // TODO add a way to get the world,x,y,z from the command line (should
+        // be in GroupCommand)
         Point position = ((Player) source).getTransform().getPosition();
 
         Plot plot = Politics.getPlotAt(position);

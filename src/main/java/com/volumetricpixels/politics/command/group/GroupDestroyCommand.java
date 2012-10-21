@@ -19,20 +19,18 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import java.util.List;
-import java.util.Set;
-
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
-import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
+import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.GroupProperty;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Privilege;
 
 /**
  * Used to destroy (delete) a group
@@ -44,38 +42,33 @@ public class GroupDestroyCommand extends GroupCommand {
 
     @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-    	if (!(source instanceof Player) || !Politics.getUniverse(((Player) source).getWorld(), level).getCitizenGroups(source.getName()).contains(Politics.getUniverseManager().getGroupByTag(context.getFlagString('g')))) {
-    		if (source.hasPermission("politics.admin.delgroup")) {
-        		for (Group g : Politics.getUniverse(((Player) source).getWorld(), level).getGroups()) {
-            		if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
-                    	g.getUniverse().destroyGroup(g);
-                    	source.sendMessage(MsgStyle.SUCCESS, "Deleted: " + context.getString(0) + "!");
-                    	return;
-                	}
-            	}
-            	throw new CommandException("No such " + level.getName() + "!");
-        	}
-    	}
-        if (source instanceof Player) {
-            Set<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getCitizen(source.getName()).getGroups();
-            for (Group g : groups) {
-                if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(context.getString(0))) {
-                    g.getUniverse().destroyGroup(g);
-                    source.sendMessage("Deleted: " + context.getString(0) + "!");
-                    return;
-                }
-                throw new CommandException("You can't do that!");
-            }
-        } else {
-            List<Group> groups = Politics.getUniverse(((Player) source).getWorld(), level).getGroups();
-            for (Group g : groups) {
-                if (((String) g.getProperty(GroupProperty.TAG)).equalsIgnoreCase(context.getString(0))) {
-                    g.getUniverse().destroyGroup(g);
-                    source.sendMessage(MsgStyle.SUCCESS, "Deleted! " + context.getString(0));
-                    return;
-                }
-            }
+        Universe universe = Politics.getUniverse(context.getFlagString('u'));
+        if (universe == null) {
+            source.sendMessage(MsgStyle.ERROR, "A universe with the name '" + context.getFlagString('u') + "' doesn't exist.");
+            return;
         }
+
+        Group group = universe.getFirstGroupByProperty(GroupProperty.NAME, context.getFlagString('g'));
+        if (group == null) {
+            source.sendMessage(MsgStyle.ERROR, "A " + level.getName() + " with the name '" + context.getFlagString('g') + " doesn't exist!");
+        }
+
+        if ((group.isMember(source.getName()) && group.getRole(source.getName()).hasPrivilege(Privilege.DISBAND))
+                || source.hasPermission("politics.group.destroy")) {
+            universe.destroyGroup(group);
+        } else {
+            source.sendMessage("You can't destroy the " + level.getName() + " '" + group.getProperty(GroupProperty.NAME) + "'!");
+        }
+    }
+
+    @Override
+    public String[] getPermissions() {
+        /*
+         * Permissions for this command must be handled manually as the command
+         * will work even without the admin permission if the user is a high
+         * enough rank within the group
+         */
+        return new String[0];
     }
 
     @Override

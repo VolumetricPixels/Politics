@@ -31,7 +31,9 @@ import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.plot.Plot;
 
 /**
- * The main listener of the plugin.
+ * Politics' Listener
+ * 
+ * Used for calling custom events and tracking and/or cancelling other events
  */
 public class PoliticsListener implements Listener {
     @EventHandler(order = Order.EARLIEST)
@@ -39,6 +41,7 @@ public class PoliticsListener implements Listener {
         if (!(event.getEntity() instanceof Player) || event.isCancelled()) {
             return;
         }
+
         Point from = event.getFrom();
         Point to = event.getTo();
 

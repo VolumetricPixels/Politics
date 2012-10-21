@@ -32,26 +32,26 @@ import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.universe.UniverseManager;
 
 /**
- * Groups plugin main class.
+ * The main class of the Politics Spout plugin
  */
 public class PoliticsPlugin extends CommonPlugin {
     /**
-     * Singleton.
+     * Singleton instance of the plugin
      */
     private static PoliticsPlugin instance;
 
     /**
-     * The file system.
+     * The file system for Politics
      */
     private PoliticsFileSystem fileSystem;
 
     /**
-     * The plot manager.
+     * Politics' Plot Manager
      */
     private PlotManager plotManager;
 
     /**
-     * The universe manager.
+     * Politics' Universe Manager
      */
     private UniverseManager universeManager;
 
@@ -90,9 +90,9 @@ public class PoliticsPlugin extends CommonPlugin {
     }
 
     /**
-     * Gets the PoliticsFileSystem of the plugin.
-     *
-     * @return
+     * Gets the file system of the plugin.
+     * 
+     * @return The PoliticsFileSystem Politics uses for File interaction
      */
     public PoliticsFileSystem getFileSystem() {
         return fileSystem;
@@ -100,8 +100,8 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the PlotManager of the plugin.
-     *
-     * @return
+     * 
+     * @return Politics' PlotManager
      */
     public PlotManager getPlotManager() {
         return plotManager;
@@ -109,17 +109,17 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the UniverseManager of the plugin.
-     *
-     * @return
+     * 
+     * @return Politics' PlotManager
      */
     public UniverseManager getUniverseManager() {
         return universeManager;
     }
 
     /**
-     * Gets the instance of GroupsPlugin.
-     *
-     * @return
+     * Gets the instance of PoliticsPlugin.
+     * 
+     * @return The running PoliticsPlugin instance
      */
     public static PoliticsPlugin getInstance() {
         return instance;
@@ -127,8 +127,8 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the logger of the plugin.
-     *
-     * @return
+     * 
+     * @return Politics' Logger
      */
     public static Logger logger() {
         return instance.getLogger();
