@@ -36,8 +36,8 @@ import org.spout.api.exception.CommandException;
 public class GroupCreateCommand extends GroupCommand {
     /**
      * C'tor
-     * 
-     * @param level 
+     *
+     * @param level
      */
     public GroupCreateCommand(GroupLevel level) {
         super(level, "create");
@@ -59,20 +59,7 @@ public class GroupCreateCommand extends GroupCommand {
         }
 
         // Get le universe
-        String universeName = context.getFlagString('u');
-        Universe universe = null;
-        if (universeName == null) {
-            if (source instanceof Player) {
-                universe = getUniverse((Player) source);
-            } else {
-                throw new CommandException("Please specify the universe you wish to use with the `-u' option.");
-            }
-        } else {
-            universe = Politics.getUniverse(universeName);
-            if (universe == null) {
-                throw new CommandException("The universe you specified does not exist.");
-            }
-        }
+        Universe universe = findUniverse(source, cmd, context);
 
         // Name
         StringBuilder nameBuilder = new StringBuilder();

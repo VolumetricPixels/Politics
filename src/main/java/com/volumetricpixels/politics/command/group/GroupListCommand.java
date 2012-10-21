@@ -50,25 +50,8 @@ public class GroupListCommand extends GroupCommand {
     }
 
     @Override
-    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-        Universe universe = null;
-
-        // Get le universe
-        if (!(source instanceof Player)) {
-            if (!args.hasFlag('u')) {
-                throw new CommandException("You need to specify a universe. Add `-u universename' to your command to make it so.");
-            }
-            String universeName = args.getFlagString('u');
-            universe = Politics.getUniverse(universeName);
-            if (universe == null) {
-                throw new CommandException("A universe with the name `" + universeName + "' does not exist.");
-            }
-        } else {
-            universe = Politics.getUniverse(((Player) source).getWorld(), level);
-            if (universe == null) {
-                throw new CommandException("You can't use this command right now.");
-            }
-        }
+    public void processCommand(CommandSource source, Command cmd, CommandContext args) throws CommandException {
+        Universe universe = findUniverse(source, cmd, args);
 
         source.sendMessage(MsgStyle.INFO, "========= " + level.getPlural().toUpperCase() + " =========");
 

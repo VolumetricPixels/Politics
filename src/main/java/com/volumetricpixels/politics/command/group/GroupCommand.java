@@ -126,14 +126,14 @@ public abstract class GroupCommand extends PCommand {
     }
 
     /**
-     * Finds the group that is wanted from the arguments.
+     * Finds the universe that is wanted from the arguments. Uses the `u' flag.
      *
      * @param source
      * @param cmd
      * @param context
-     * @return The group
+     * @return The universe
      */
-    public Group findGroup(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+    public Universe findUniverse(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Universe universe = null;
         String universeName = context.getFlagString('u');
 
@@ -152,6 +152,20 @@ public abstract class GroupCommand extends PCommand {
                 throw new CommandException("There was no universe specified.");
             }
         }
+        return universe;
+    }
+
+    /**
+     * Finds the group that is wanted from the arguments. Uses the `g' and `u'
+     * flags.
+     *
+     * @param source
+     * @param cmd
+     * @param context
+     * @return The group
+     */
+    public Group findGroup(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+        Universe universe = findUniverse(source, cmd, context);
 
         Group group = null;
         String groupName = context.getFlagString('g');
