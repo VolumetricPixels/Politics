@@ -45,10 +45,10 @@ public class GroupDestroyCommand extends GroupCommand {
         Group group = findGroup(source, cmd, context);
 
         if ((group.isMember(source.getName()) && group.getRole(source.getName()).hasPrivilege(Privilege.DISBAND))
-                || source.hasPermission("politics.group.destroy")) {
+                || source.hasPermission("politics.group." + level.getId() + ".destroy")) {
             group.getUniverse().destroyGroup(group);
         } else {
-            source.sendMessage("You can't destroy the " + level.getName() + " '" + group.getProperty(GroupProperty.NAME) + "'!");
+            throw new CommandException("You can't destroy the " + level.getName() + " '" + group.getProperty(GroupProperty.NAME) + "'!");
         }
     }
 

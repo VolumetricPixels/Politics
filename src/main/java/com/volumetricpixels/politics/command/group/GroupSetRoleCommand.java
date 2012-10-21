@@ -2,9 +2,13 @@ package com.volumetricpixels.politics.command.group;
 
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Role;
+import com.volumetricpixels.politics.util.MsgStyle;
+import org.spout.api.Spout;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
+import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
 /**
@@ -24,7 +28,22 @@ public class GroupSetRoleCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext args) throws CommandException {
         Group group = findGroup(source, cmd, args);
 
-        // TODO implement me
+        Player player = Spout.getEngine().getPlayer(args.getString(0), false);
+        if (player == null) {
+            throw new CommandException("That player is not online.");
+        }
+        if (!group.isImmediateMember(player.getName())) {
+            throw new CommandException("That player is not a member of the group.");
+        }
+
+        String rn = args.getString(1);
+        Role role = group.getLevel().getRole(rn);
+        if (role == null) {
+            throw new CommandException("There isn't a role named `" + rn + "'.");
+        }
+
+        group.setRole(player.getName(), role);
+        source.sendMessage(MsgStyle.SUCCESS, player.getName() + " is now part of the " + level.getName() + ".");
     }
 
     @Override
