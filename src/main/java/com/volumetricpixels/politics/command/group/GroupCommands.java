@@ -47,9 +47,11 @@ public class GroupCommands extends Commands {
     public void setup(Command cmd) {
         (new GroupClaimCommand(level)).register(cmd);
         (new GroupCreateCommand(level)).register(cmd);
+        (new GroupDemoteCommand(level)).register(cmd);
         (new GroupDestroyCommand(level)).register(cmd);
         (new GroupInfoCommand(level)).register(cmd);
         (new GroupListCommand(level)).register(cmd);
+        (new GroupPromoteCommand(level)).register(cmd);
         (new GroupSetRoleCommand(level)).register(cmd);
         (new GroupSetSpawnCommand(level)).register(cmd);
         (new GroupSpawnCommand(level)).register(cmd);
