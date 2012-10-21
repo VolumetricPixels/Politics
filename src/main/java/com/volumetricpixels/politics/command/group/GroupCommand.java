@@ -22,7 +22,6 @@ package com.volumetricpixels.politics.command.group;
 import java.util.List;
 
 import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
@@ -126,7 +125,7 @@ public abstract class GroupCommand extends PCommand {
     }
 
     /**
-     * Finds the universe that is wanted from the arguments. Uses the `u' flag.
+     * Finds the universe that is wanted from the arguments. Uses the 'u' flag.
      *
      * @param source
      * @param cmd
