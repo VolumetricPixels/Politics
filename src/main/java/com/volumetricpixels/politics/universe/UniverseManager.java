@@ -30,22 +30,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.apache.commons.io.FileUtils;
-import org.bson.BSONDecoder;
-import org.bson.BSONEncoder;
-import org.bson.BSONObject;
-import org.bson.BasicBSONDecoder;
-import org.bson.BasicBSONEncoder;
 import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
 import org.spout.api.util.config.yaml.YamlConfiguration;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
+import com.volumetricpixels.politics.exception.InvalidConfigurationException;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
+
+import org.apache.commons.io.FileUtils;
+
+import org.bson.BSONDecoder;
+import org.bson.BSONEncoder;
+import org.bson.BSONObject;
+import org.bson.BasicBSONDecoder;
+import org.bson.BasicBSONEncoder;
 
 /**
  * Contains all universes.
@@ -78,7 +81,7 @@ public class UniverseManager {
 
     /**
      * C'tor
-     *
+     * 
      * @param plugin
      */
     public UniverseManager() {
@@ -101,7 +104,8 @@ public class UniverseManager {
             try {
                 configFile.load();
             } catch (ConfigurationException ex) {
-                PoliticsPlugin.logger().log(Level.SEVERE, "Invalid universe YAML file `" + fileName + "'!", ex);
+                new InvalidConfigurationException("Invalid universe YAML file `" + fileName + "'!", ex).printStackTrace();
+                continue;
             }
 
             UniverseRules thisRules = UniverseRules.load(name, configFile);
@@ -128,7 +132,7 @@ public class UniverseManager {
             try {
                 data = FileUtils.readFileToByteArray(file);
             } catch (IOException ex) {
-                PoliticsPlugin.logger().log(Level.SEVERE, "Could not read universe file `" + fileName + "'!", ex);
+                new InvalidConfigurationException("Could not read universe file `" + fileName + "'!", ex).printStackTrace();
                 continue;
             }
 
@@ -159,7 +163,8 @@ public class UniverseManager {
                     }
                     Universe prev = levelMap.put(level, universe);
                     if (prev != null) {
-                        PoliticsPlugin.logger().log(Level.WARNING, "Multiple universes are conflicting on the same world! Universe name: " + universe.getName() + "; Rules name: " + universe.getRules().getName());
+                        new InvalidConfigurationException("Multiple universes are conflicting on the same world! Universe name: "
+                                + universe.getName() + "; Rules name: " + universe.getRules().getName()).printStackTrace();
                     }
                 }
             }
@@ -189,7 +194,7 @@ public class UniverseManager {
 
     /**
      * Gets a universe by its name.
-     *
+     * 
      * @param name
      * @return
      */
@@ -199,7 +204,7 @@ public class UniverseManager {
 
     /**
      * Gets the rules with the corresponding name.
-     *
+     * 
      * @param rulesName
      * @return
      */
@@ -209,7 +214,7 @@ public class UniverseManager {
 
     /**
      * Returns a list of all UniverseRules.
-     *
+     * 
      * @return
      */
     public List<UniverseRules> listRules() {
@@ -218,7 +223,7 @@ public class UniverseManager {
 
     /**
      * Gets a universe from its world and group level.
-     *
+     * 
      * @param world
      * @param level
      * @return
@@ -233,7 +238,7 @@ public class UniverseManager {
 
     /**
      * Gets a list of all GroupLevels.
-     *
+     * 
      * @return
      */
     public List<GroupLevel> getGroupLevels() {
@@ -246,7 +251,7 @@ public class UniverseManager {
 
     /**
      * Gets a group by its id.
-     *
+     * 
      * @param id
      * @return
      */
@@ -256,7 +261,7 @@ public class UniverseManager {
 
     /**
      * Gets a group by their tag.
-     *
+     * 
      * @param tag
      * @return
      */
@@ -271,7 +276,7 @@ public class UniverseManager {
 
     /**
      * Gets the universe of the given CommandSource.
-     *
+     * 
      * @param world
      * @param level
      * @return
@@ -286,7 +291,7 @@ public class UniverseManager {
 
     /**
      * Gets the group levels in the given world.
-     *
+     * 
      * @param world
      * @return
      */
@@ -300,7 +305,7 @@ public class UniverseManager {
 
     /**
      * Creates a new universe with the given name.
-     *
+     * 
      * @param name
      * @param theRules
      * @return the created universe
@@ -313,7 +318,7 @@ public class UniverseManager {
 
     /**
      * Destroys the given universe.
-     *
+     * 
      * @param universe
      */
     public void destroyUniverse(Universe universe) {
@@ -325,7 +330,7 @@ public class UniverseManager {
 
     /**
      * Gets the next ID to use for a group.
-     *
+     * 
      * @return
      */
     public int nextId() {

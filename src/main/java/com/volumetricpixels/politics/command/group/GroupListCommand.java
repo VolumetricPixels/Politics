@@ -26,11 +26,11 @@ import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
-import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.GroupProperty;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
+import com.volumetricpixels.politics.util.MsgStyle;
 
 /**
  * Group list command
@@ -40,7 +40,7 @@ public class GroupListCommand extends GroupCommand {
 
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupListCommand(GroupLevel level) {

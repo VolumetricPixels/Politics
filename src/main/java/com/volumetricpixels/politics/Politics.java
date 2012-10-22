@@ -19,6 +19,9 @@
  */
 package com.volumetricpixels.politics;
 
+import org.spout.api.geo.World;
+import org.spout.api.geo.discrete.Point;
+
 import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.Plot;
@@ -27,11 +30,9 @@ import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseManager;
 
-import org.spout.api.geo.World;
-import org.spout.api.geo.discrete.Point;
-
 /**
- * Static class for accessing the whole of Politics
+ * Static class for accessing the managers of Politics, along with some utility
+ * methods
  */
 public final class Politics {
     /**

@@ -28,6 +28,7 @@ public final class GroupProperty {
      */
     private GroupProperty() {
     }
+
     /**
      * Group tag.
      */

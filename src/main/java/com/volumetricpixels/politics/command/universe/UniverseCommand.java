@@ -27,7 +27,7 @@ import com.volumetricpixels.politics.command.PCommand;
 public abstract class UniverseCommand extends PCommand {
     /**
      * C'tor
-     *
+     * 
      * @param primary
      */
     public UniverseCommand(String primary) {
@@ -36,6 +36,6 @@ public abstract class UniverseCommand extends PCommand {
 
     @Override
     protected String[] getPermissions() {
-        return new String[]{"politics.universe." + primary};
+        return new String[] { "politics.universe." + primary };
     }
 }

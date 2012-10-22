@@ -19,14 +19,16 @@
  */
 package com.volumetricpixels.politics.command.universe;
 
-import com.volumetricpixels.politics.util.MsgStyle;
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.universe.UniverseRules;
 import java.util.List;
+
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
+
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.universe.UniverseRules;
+import com.volumetricpixels.politics.util.MsgStyle;
 
 /**
  * Lists available rules.
@@ -49,7 +51,7 @@ public class UniverseRulesCommand extends UniverseCommand {
 
     @Override
     protected String[] getAliases() {
-        return new String[]{"r"};
+        return new String[] { "r" };
     }
 
     @Override

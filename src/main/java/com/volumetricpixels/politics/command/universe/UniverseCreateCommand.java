@@ -19,6 +19,9 @@
  */
 package com.volumetricpixels.politics.command.universe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.spout.api.Spout;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
@@ -26,14 +29,12 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 import org.spout.api.geo.World;
 
-import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
-import java.util.ArrayList;
-import java.util.List;
+import com.volumetricpixels.politics.util.MsgStyle;
 
 /**
  * Used to create universes.
@@ -60,17 +61,19 @@ public class UniverseCreateCommand extends UniverseCommand {
             return;
         }
 
-        //boolean force = args.hasFlag('f');
+        // boolean force = args.hasFlag('f');
         Universe existing = Politics.getUniverse(name);
         if (existing != null) {
-            source.sendMessage(MsgStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `", MsgStyle.ERROR_HIGHLIGHT, "universe destroy", MsgStyle.ERROR, "' command if you wish to overwrite that universe.");
+            source.sendMessage(MsgStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `",
+                    MsgStyle.ERROR_HIGHLIGHT, "universe destroy", MsgStyle.ERROR, "' command if you wish to overwrite that universe.");
             return;
         }
 
         String rules = args.getString(1).toLowerCase();
         UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
         if (theRules == null) {
-            source.sendMessage(MsgStyle.ERROR, "There is no set of rules named ", MsgStyle.ERROR_HIGHLIGHT, rules, MsgStyle.ERROR, ". To see the available rules, use ", MsgStyle.ERROR_HIGHLIGHT, "universe rules", MsgStyle.ERROR, ".");
+            source.sendMessage(MsgStyle.ERROR, "There is no set of rules named ", MsgStyle.ERROR_HIGHLIGHT, rules, MsgStyle.ERROR,
+                    ". To see the available rules, use ", MsgStyle.ERROR_HIGHLIGHT, "universe rules", MsgStyle.ERROR, ".");
             return;
         }
 
@@ -105,7 +108,7 @@ public class UniverseCreateCommand extends UniverseCommand {
 
     @Override
     protected String[] getAliases() {
-        return new String[]{"new", "c", "n"};
+        return new String[] { "new", "c", "n" };
     }
 
     @Override

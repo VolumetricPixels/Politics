@@ -96,7 +96,7 @@ public enum Privilege {
 
     /**
      * Gets the ID of the privilege.
-     *
+     * 
      * @return
      */
     public int getMask() {
@@ -105,13 +105,14 @@ public enum Privilege {
 
     /**
      * Returns true if the given bitset has this privilege.
-     *
+     * 
      * @param bitset
      * @return
      */
     public boolean hasPrivilege(int bitset) {
         return (mask & bitset) == mask;
     }
+
     /**
      * Map of all privileges.
      */
@@ -119,7 +120,7 @@ public enum Privilege {
 
     /**
      * Gets a privilege by its id.
-     *
+     * 
      * @param id
      * @return
      */
@@ -129,7 +130,7 @@ public enum Privilege {
 
     /**
      * Gets a set of all privileges the bitset contains.
-     *
+     * 
      * @param bitset
      * @return
      */

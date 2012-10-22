@@ -19,8 +19,9 @@
  */
 package com.volumetricpixels.politics.event.group;
 
-import com.volumetricpixels.politics.group.Group;
 import org.spout.api.event.Event;
+
+import com.volumetricpixels.politics.group.Group;
 
 /**
  * An event related to a group.
@@ -33,7 +34,7 @@ public abstract class GroupEvent extends Event {
 
     /**
      * C'tor
-     *
+     * 
      * @param group
      */
     protected GroupEvent(Group group) {
@@ -42,7 +43,7 @@ public abstract class GroupEvent extends Event {
 
     /**
      * Gets the group in this event.
-     *
+     * 
      * @return
      */
     public Group getGroup() {

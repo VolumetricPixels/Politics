@@ -19,10 +19,6 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Role;
-import com.volumetricpixels.politics.util.MsgStyle;
 import org.spout.api.Spout;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
@@ -30,13 +26,18 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Role;
+import com.volumetricpixels.politics.util.MsgStyle;
+
 /**
  * Group set role command
  */
 public class GroupSetRoleCommand extends GroupCommand {
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupSetRoleCommand(GroupLevel level) {

@@ -19,11 +19,6 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Role;
-import com.volumetricpixels.politics.group.level.RoleTrack;
-import com.volumetricpixels.politics.util.MsgStyle;
 import org.spout.api.Spout;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
@@ -31,13 +26,19 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Role;
+import com.volumetricpixels.politics.group.level.RoleTrack;
+import com.volumetricpixels.politics.util.MsgStyle;
+
 /**
  * Group promote command.
  */
 public class GroupPromoteCommand extends GroupCommand {
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupPromoteCommand(GroupLevel level) {

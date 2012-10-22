@@ -19,8 +19,9 @@
  */
 package com.volumetricpixels.politics.data;
 
-import com.volumetricpixels.politics.Politics;
 import java.io.File;
+
+import com.volumetricpixels.politics.Politics;
 
 /**
  * Manages all Files used in Politics
@@ -57,15 +58,19 @@ public class PoliticsFileSystem {
         worldsDir = new File(base, "data/worlds/");
         universesDir = new File(base, "data/universes/");
 
-        if (!rulesDir.exists()) rulesDir.mkdirs();
-        if (!worldConfigDir.exists()) worldConfigDir.mkdirs();
-        if (!worldsDir.exists()) worldsDir.mkdirs();
-        if (!universesDir.exists()) universesDir.mkdirs();
+        if (!rulesDir.exists())
+            rulesDir.mkdirs();
+        if (!worldConfigDir.exists())
+            worldConfigDir.mkdirs();
+        if (!worldsDir.exists())
+            worldsDir.mkdirs();
+        if (!universesDir.exists())
+            universesDir.mkdirs();
     }
 
     /**
      * Gets the rules directory.
-     *
+     * 
      * @return the rules directory
      */
     public File getRulesDir() {
@@ -74,7 +79,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the world config directory.
-     *
+     * 
      * @return the world config directory
      */
     public File getWorldConfigDir() {
@@ -83,7 +88,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the universes directory.
-     *
+     * 
      * @return the universes directory
      */
     public File getUniversesDir() {
@@ -92,7 +97,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the worlds directory.
-     *
+     * 
      * @return the worlds directory
      */
     public File getWorldsDir() {

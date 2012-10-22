@@ -35,10 +35,12 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 /**
  * Represents the sum of the rules of a given universe. In essence, it is a
  * configuration object.
- *
- * <p> "...the conclusion is not so much that the Universe is fine-tuned for fun
+ * 
+ * <p>
+ * "...the conclusion is not so much that the Universe is fine-tuned for fun
  * gameplay; rather it is fine-tuned for the building blocks and environments
- * that fun gameplay requires". - adapted from Paul Davies </p>
+ * that fun gameplay requires". - adapted from Paul Davies
+ * </p>
  */
 public class UniverseRules {
     /**
@@ -67,7 +69,7 @@ public class UniverseRules {
 
     /**
      * Gets the name of these UniverseRules.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -76,7 +78,7 @@ public class UniverseRules {
 
     /**
      * Gets the description of these UniverseRules.
-     *
+     * 
      * @return
      */
     public String getDescription() {
@@ -85,7 +87,7 @@ public class UniverseRules {
 
     /**
      * Gets the group levels of these UniverseRules.
-     *
+     * 
      * @return
      */
     public List<GroupLevel> getGroupLevels() {
@@ -94,7 +96,7 @@ public class UniverseRules {
 
     /**
      * Gets the GroupLevel with the given name.
-     *
+     * 
      * @param name
      * @return
      */
@@ -104,7 +106,7 @@ public class UniverseRules {
 
     /**
      * Saves the UniverseRules to the given config.
-     *
+     * 
      * @param config
      */
     public void save(Configuration config) {
@@ -116,7 +118,7 @@ public class UniverseRules {
 
     /**
      * Loads a UniverseRules from the given config.
-     *
+     * 
      * @param config
      * @return
      */

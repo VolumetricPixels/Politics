@@ -19,8 +19,9 @@
  */
 package com.volumetricpixels.politics.command.politics;
 
-import com.volumetricpixels.politics.command.Commands;
 import org.spout.api.command.Command;
+
+import com.volumetricpixels.politics.command.Commands;
 
 /**
  * Contains all Politics commands.

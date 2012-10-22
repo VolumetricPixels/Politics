@@ -30,10 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.bson.BSONObject;
-import org.bson.BasicBSONObject;
-import org.bson.types.BasicBSONList;
-
 import org.spout.api.Spout;
 import org.spout.api.geo.World;
 import org.spout.api.util.map.TInt21TripleObjectHashMap;
@@ -43,6 +39,10 @@ import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
+
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+import org.bson.types.BasicBSONList;
 
 /**
  * Represents a world containing plots.
@@ -65,7 +65,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Creates a new GroupsWorld.
-     *
+     * 
      * @param name
      */
     PoliticsWorld(String name, WorldConfig config) {
@@ -74,7 +74,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * C'tor
-     *
+     * 
      * @param name
      * @param config
      * @param owners
@@ -87,7 +87,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the name of the GroupsWorld.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -96,7 +96,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the configuration of this world.
-     *
+     * 
      * @return
      */
     public WorldConfig getConfig() {
@@ -105,7 +105,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the World of this PoliticsWorld.
-     *
+     * 
      * @return
      */
     public World getWorld() {
@@ -115,7 +115,7 @@ public class PoliticsWorld implements Storable {
     /**
      * Gets the internal list of owners of a given location. Creates this list
      * if it doesn't exist.
-     *
+     * 
      * @param x
      * @param y
      * @param z
@@ -132,7 +132,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the list of owners at the given location.
-     *
+     * 
      * @param x
      * @param y
      * @param z
@@ -144,7 +144,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the owners of a given plot location within this world.
-     *
+     * 
      * @param x
      * @param y
      * @param z
@@ -168,7 +168,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets a universe from its GroupLevel.
-     *
+     * 
      * @param level
      * @return
      */
@@ -178,7 +178,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the plot at the given location.
-     *
+     * 
      * @param x
      * @param y
      * @param z
@@ -190,7 +190,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the plot at the given chunk position.
-     *
+     * 
      * @param x
      * @param y
      * @param z
@@ -202,7 +202,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the GroupLevels within this world.
-     *
+     * 
      * @return
      */
     public List<GroupLevel> getLevels() {
@@ -235,7 +235,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets a GroupsWorld from a BSON object.
-     *
+     * 
      * @param name
      * @param config
      * @param object

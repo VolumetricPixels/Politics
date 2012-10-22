@@ -44,7 +44,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
 
     /**
      * C'tor
-     *
+     * 
      * @param p
      * @param from
      * @param to
@@ -57,7 +57,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
 
     /**
      * Gets the plot the player left.
-     *
+     * 
      * @return
      */
     public Plot getFrom() {
@@ -66,7 +66,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
 
     /**
      * Gets the plot the player entered.
-     *
+     * 
      * @return
      */
     public Plot getTo() {
@@ -87,14 +87,16 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
         super.setCancelled(cancelled);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public HandlerList getHandlers() {
         return handlers;
     }
 
     /**
      * Gets the HandlerList of the event.
-     *
+     * 
      * @return
      */
     public static HandlerList getHandlerList() {

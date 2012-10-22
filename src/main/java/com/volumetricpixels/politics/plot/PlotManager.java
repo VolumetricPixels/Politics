@@ -25,12 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.apache.commons.io.FileUtils;
-import org.bson.BSONDecoder;
-import org.bson.BSONEncoder;
-import org.bson.BSONObject;
-import org.bson.BasicBSONDecoder;
-import org.bson.BasicBSONEncoder;
 import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
 import org.spout.api.geo.cuboid.Chunk;
@@ -40,6 +34,14 @@ import org.spout.api.util.config.yaml.YamlConfiguration;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
+
+import org.apache.commons.io.FileUtils;
+
+import org.bson.BSONDecoder;
+import org.bson.BSONEncoder;
+import org.bson.BSONObject;
+import org.bson.BasicBSONDecoder;
+import org.bson.BasicBSONEncoder;
 
 /**
  * Manages plots.
@@ -133,7 +135,7 @@ public class PlotManager {
 
     /**
      * Gets the WorldConfig of the given world name.
-     *
+     * 
      * @param name
      * @return
      */
@@ -157,7 +159,7 @@ public class PlotManager {
 
     /**
      * Gets a GroupWorld from its name.
-     *
+     * 
      * @param name
      * @return
      */
@@ -171,7 +173,7 @@ public class PlotManager {
 
     /**
      * Gets a GroupWorld from its World.
-     *
+     * 
      * @param world
      * @return
      */
@@ -181,7 +183,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given chunk position.
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -194,7 +196,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given chunk position.
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -207,7 +209,7 @@ public class PlotManager {
 
     /**
      * Gets the plot corresponding with the given Chunk.
-     *
+     * 
      * @param chunk
      * @return
      */
@@ -217,7 +219,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given position.
-     *
+     * 
      * @param position
      * @return
      */
@@ -227,7 +229,7 @@ public class PlotManager {
 
     /**
      * Creates a new GroupsWorld.
-     *
+     * 
      * @param name
      * @return
      */

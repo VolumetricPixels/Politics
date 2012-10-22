@@ -33,10 +33,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import org.bson.BSONObject;
-import org.bson.BasicBSONObject;
-import org.bson.types.BasicBSONList;
-
 import org.spout.api.Server;
 import org.spout.api.Spout;
 
@@ -50,6 +46,10 @@ import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
+
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+import org.bson.types.BasicBSONList;
 
 /**
  * Represents a headless group of all groups within its scope.
@@ -92,7 +92,7 @@ public class Universe implements Storable {
 
     /**
      * C'tor
-     *
+     * 
      * @param name
      * @param properties
      */
@@ -102,7 +102,7 @@ public class Universe implements Storable {
 
     /**
      * C'tor
-     *
+     * 
      * @param name
      * @param properties
      * @param worlds
@@ -150,7 +150,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the name of this Universe.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -159,7 +159,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the rules of this universe.
-     *
+     * 
      * @return
      */
     public UniverseRules getRules() {
@@ -168,7 +168,7 @@ public class Universe implements Storable {
 
     /**
      * Gets a list of all groups in the universe.
-     *
+     * 
      * @return
      */
     public List<Group> getGroups() {
@@ -177,7 +177,7 @@ public class Universe implements Storable {
 
     /**
      * Gets all groups with the given property.
-     *
+     * 
      * @param property
      * @param value
      * @return
@@ -194,7 +194,7 @@ public class Universe implements Storable {
 
     /**
      * Gets all groups of a certain level with the given property.
-     *
+     * 
      * @param level
      * @param property
      * @param value
@@ -212,7 +212,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the first group found with the given property.
-     *
+     * 
      * @param property
      * @param value
      * @return
@@ -228,7 +228,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the first group found of a certain level with the given property.
-     *
+     * 
      * @param level
      * @param property
      * @param value
@@ -245,7 +245,7 @@ public class Universe implements Storable {
 
     /**
      * Adds the given PoliticsWorld to this Universe.
-     *
+     * 
      * @param world
      * @return True if the add was successful
      */
@@ -262,7 +262,7 @@ public class Universe implements Storable {
 
     /**
      * Gets a list of all worlds this universe is part of.
-     *
+     * 
      * @return
      */
     public List<PoliticsWorld> getWorlds() {
@@ -271,7 +271,7 @@ public class Universe implements Storable {
 
     /**
      * Gets a list of all groups with the given level in this universe.
-     *
+     * 
      * @param level
      * @return
      */
@@ -281,7 +281,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the internal groups corresponding with the given level.
-     *
+     * 
      * @param level
      * @return
      */
@@ -296,7 +296,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the child groups of the given group.
-     *
+     * 
      * @param group
      * @return
      */
@@ -306,7 +306,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the internal child groups of the given group.
-     *
+     * 
      * @param group
      * @return
      */
@@ -323,7 +323,7 @@ public class Universe implements Storable {
 
     /**
      * Adds the given child as a child for the given group.
-     *
+     * 
      * @param group
      * @param child
      * @return True if the group could be made a child
@@ -343,11 +343,11 @@ public class Universe implements Storable {
 
     /**
      * Removes the given child group from the children of the given group.
-     *
+     * 
      * @param group
      * @param child
      * @return True if the child was removed, false if the child was not a child
-     * in the first place
+     *         in the first place
      */
     public boolean removeChildGroup(Group group, Group child) {
         Set<Group> childs = children.get(group);
@@ -359,7 +359,7 @@ public class Universe implements Storable {
 
     /**
      * Creates a new group with the given level.
-     *
+     * 
      * @param level
      * @return
      */
@@ -374,7 +374,7 @@ public class Universe implements Storable {
 
     /**
      * Destroys the given group and removes it from memory.
-     *
+     * 
      * @param group
      */
     public void destroyGroup(Group group) {
@@ -383,9 +383,11 @@ public class Universe implements Storable {
 
     /**
      * Destroys the given group and removes it from memory.
-     *
-     * @param group The group to destroy
-     * @param deep True if child groups should be deleted
+     * 
+     * @param group
+     *            The group to destroy
+     * @param deep
+     *            True if child groups should be deleted
      */
     public void destroyGroup(Group group, boolean deep) {
         groups.remove(group);
@@ -410,8 +412,9 @@ public class Universe implements Storable {
 
     /**
      * Gets the citizen corresponding with the given player name.
-     *
-     * @param player The player name, case-sensitive.
+     * 
+     * @param player
+     *            The player name, case-sensitive.
      * @return
      */
     public Citizen getCitizen(String player) {
@@ -420,7 +423,7 @@ public class Universe implements Storable {
 
     /**
      * Gets the groups of the given citizen.
-     *
+     * 
      * @param player
      * @return
      */
@@ -435,7 +438,7 @@ public class Universe implements Storable {
 
     /**
      * Invalidates the given Set of groups for the given citizen.
-     *
+     * 
      * @param citizen
      */
     public void invalidateCitizenGroups(String citizen) {
@@ -471,7 +474,7 @@ public class Universe implements Storable {
 
     /**
      * Converts the given bson object into a new Universe.
-     *
+     * 
      * @param object
      * @return
      */

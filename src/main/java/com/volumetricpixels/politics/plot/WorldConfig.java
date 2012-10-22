@@ -55,7 +55,7 @@ public class WorldConfig {
 
     /**
      * Gets the name of the WorldConfig.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -70,7 +70,8 @@ public class WorldConfig {
     }
 
     /**
-     * @param plotSizeX the plotSizeX to set
+     * @param plotSizeX
+     *            the plotSizeX to set
      */
     public void setPlotSizeX(int plotSizeX) {
         this.plotSizeX = plotSizeX;
@@ -84,7 +85,8 @@ public class WorldConfig {
     }
 
     /**
-     * @param plotSizeY the plotSizeY to set
+     * @param plotSizeY
+     *            the plotSizeY to set
      */
     public void setPlotSizeY(int plotSizeY) {
         this.plotSizeY = plotSizeY;
@@ -98,7 +100,8 @@ public class WorldConfig {
     }
 
     /**
-     * @param plotSizeZ the plotSizeZ to set
+     * @param plotSizeZ
+     *            the plotSizeZ to set
      */
     public void setPlotSizeZ(int plotSizeZ) {
         this.plotSizeZ = plotSizeZ;
@@ -106,7 +109,7 @@ public class WorldConfig {
 
     /**
      * Gets the plot size as a vector.
-     *
+     * 
      * @return
      */
     public Vector3 getPlotSizeVector() {
@@ -115,7 +118,7 @@ public class WorldConfig {
 
     /**
      * Saves a WorldConfig.
-     *
+     * 
      * @param config
      */
     public void save(Configuration config) {
@@ -126,7 +129,7 @@ public class WorldConfig {
 
     /**
      * Loads a WorldConfig.
-     *
+     * 
      * @param name
      * @param config
      * @return the new WorldConfig

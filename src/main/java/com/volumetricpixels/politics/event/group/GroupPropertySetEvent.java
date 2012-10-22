@@ -19,8 +19,9 @@
  */
 package com.volumetricpixels.politics.event.group;
 
-import com.volumetricpixels.politics.group.Group;
 import org.spout.api.event.HandlerList;
+
+import com.volumetricpixels.politics.group.Group;
 
 /**
  * Called when a property is set. Note that transforms, points, and blocks will
@@ -41,9 +42,10 @@ public class GroupPropertySetEvent extends GroupEvent {
 
     /**
      * C'tor
-     *
+     * 
      * @param group
-     * @param value The value
+     * @param value
+     *            The value
      */
     public GroupPropertySetEvent(Group group, int property, Object value) {
         super(group);
@@ -53,7 +55,7 @@ public class GroupPropertySetEvent extends GroupEvent {
 
     /**
      * Gets the property that will be set.
-     *
+     * 
      * @return
      */
     public int getProperty() {
@@ -62,21 +64,23 @@ public class GroupPropertySetEvent extends GroupEvent {
 
     /**
      * Gets the value that the property will be set to.
-     *
+     * 
      * @return
      */
     public Object getValue() {
         return value;
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public HandlerList getHandlers() {
         return handlers;
     }
 
     /**
      * Gets the HandlerList of the event.
-     *
+     * 
      * @return
      */
     public static HandlerList getHandlerList() {

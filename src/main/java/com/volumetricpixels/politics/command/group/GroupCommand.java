@@ -21,6 +21,12 @@ package com.volumetricpixels.politics.command.group;
 
 import java.util.List;
 
+import org.spout.api.command.Command;
+import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandSource;
+import org.spout.api.entity.Player;
+import org.spout.api.exception.CommandException;
+
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.command.PCommand;
 import com.volumetricpixels.politics.group.Citizen;
@@ -28,12 +34,6 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
-
-import org.spout.api.entity.Player;
-import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
-import org.spout.api.command.CommandSource;
-import org.spout.api.exception.CommandException;
 
 /**
  * A group-related command.
@@ -56,7 +56,7 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * C'tor
-     *
+     * 
      * @param level
      * @param primary
      */
@@ -88,12 +88,12 @@ public abstract class GroupCommand extends PCommand {
 
     @Override
     protected String[] getPermissions() {
-        return new String[]{"politics.group." + level.getId() + "." + truePrimary};
+        return new String[] { "politics.group." + level.getId() + "." + truePrimary };
     }
 
     /**
      * Gets the GroupLevel
-     *
+     * 
      * @return
      */
     public GroupLevel getLevel() {
@@ -102,7 +102,7 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Gets the citizen corresponding with the given player.
-     *
+     * 
      * @param player
      * @return
      */
@@ -116,7 +116,7 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Gets the universe of the given player in relation to this command.
-     *
+     * 
      * @param player
      * @return
      */
@@ -126,7 +126,7 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Finds the universe that is wanted from the arguments. Uses the 'u' flag.
-     *
+     * 
      * @param source
      * @param cmd
      * @param context
@@ -157,7 +157,7 @@ public abstract class GroupCommand extends PCommand {
     /**
      * Finds the group that is wanted from the arguments. Uses the `g' and `u'
      * flags.
-     *
+     * 
      * @param source
      * @param cmd
      * @param context
@@ -182,7 +182,7 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Returns true if the given source has admin privileges for this command.
-     *
+     * 
      * @param source
      * @return True if the given source has admin privileges for this command.
      */

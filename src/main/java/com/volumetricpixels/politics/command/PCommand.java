@@ -36,7 +36,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * C'tor
-     *
+     * 
      * @param primary
      */
     protected PCommand(String primary) {
@@ -45,7 +45,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Registers this command with the given parent.
-     *
+     * 
      * @param parent
      * @return
      */
@@ -65,7 +65,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Gets the aliases for this command.
-     *
+     * 
      * @return
      */
     protected String[] getAliases() {
@@ -74,7 +74,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Gets the permissions required to execute this command.
-     *
+     * 
      * @return
      */
     protected String[] getPermissions() {
@@ -83,7 +83,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Sets up the command created.
-     *
+     * 
      * @param cmd
      */
     public void setupCommand(Command cmd) {

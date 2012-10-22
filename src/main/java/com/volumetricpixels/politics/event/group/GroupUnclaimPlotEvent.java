@@ -19,11 +19,12 @@
  */
 package com.volumetricpixels.politics.event.group;
 
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.command.CommandSource;
 import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
+
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.plot.Plot;
 
 /**
  * Called when a group tries to unclaim a plot.
@@ -38,7 +39,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
 
     /**
      * C'tor
-     *
+     * 
      * @param group
      * @param unclaimer
      */
@@ -49,7 +50,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
 
     /**
      * Gets the unclaimer of the plot.
-     *
+     * 
      * @return
      */
     public CommandSource getUnclaimer() {
@@ -70,14 +71,16 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
         super.setCancelled(cancelled);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public HandlerList getHandlers() {
         return handlers;
     }
 
     /**
      * Gets the HandlerList of the event.
-     *
+     * 
      * @return
      */
     public static HandlerList getHandlerList() {

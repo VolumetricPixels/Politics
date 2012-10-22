@@ -19,10 +19,10 @@
  */
 package com.volumetricpixels.politics.universe;
 
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.PoliticsPlugin;
-
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.CodeSource;
@@ -31,6 +31,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.PoliticsPlugin;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -48,9 +51,11 @@ public final class RuleTemplates {
     /**
      * Copies a template with the given name to a new ruleset with the given
      * name.
-     *
-     * @param name The name of the template.
-     * @param as The new name of the copied template.
+     * 
+     * @param name
+     *            The name of the template.
+     * @param as
+     *            The new name of the copied template.
      */
     public static void copyTemplate(String name, String as) {
         InputStream templateStream = RuleTemplates.class.getResourceAsStream("templates/" + name.toLowerCase() + ".yml");
@@ -74,7 +79,7 @@ public final class RuleTemplates {
 
     /**
      * Lists all available template names.
-     *
+     * 
      * @return
      */
     public static Set<String> listTemplateNames() {

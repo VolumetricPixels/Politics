@@ -17,25 +17,43 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.command.politics;
-
-import com.volumetricpixels.politics.command.PCommand;
+package com.volumetricpixels.politics.exception;
 
 /**
- * Politics administration command.
+ * Thrown when any configuration in Politics is invalid
  */
-public abstract class PoliticsCommand extends PCommand {
+public class InvalidConfigurationException extends Exception {
+    private static final long serialVersionUID = 4786584962519951847L;
+
     /**
      * C'tor
      * 
-     * @param primary
+     * @param reason
+     *            The reason for the exception
      */
-    public PoliticsCommand(String primary) {
-        super(primary.toLowerCase());
+    public InvalidConfigurationException(String reason) {
+        super(reason);
     }
 
-    @Override
-    protected String[] getPermissions() {
-        return new String[] { "politics.politics." + primary };
+    /**
+     * C'tor
+     * 
+     * @param cause
+     *            The cause of the exception
+     */
+    public InvalidConfigurationException(Throwable cause) {
+        super(cause);
+    }
+
+    /**
+     * C'tor
+     * 
+     * @param reason
+     *            The reason for the exception
+     * @param cause
+     *            The cause of the exception
+     */
+    public InvalidConfigurationException(String reason, Throwable cause) {
+        super(reason, cause);
     }
 }

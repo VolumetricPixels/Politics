@@ -19,14 +19,6 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.util.MsgStyle;
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.GroupProperty;
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Privilege;
-import com.volumetricpixels.politics.plot.Plot;
-
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -34,13 +26,21 @@ import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 import org.spout.api.geo.discrete.Point;
 
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.util.MsgStyle;
+
 /**
  * Claims the plot you are in.
  */
 public class GroupClaimCommand extends GroupCommand {
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupClaimCommand(GroupLevel level) {
@@ -55,7 +55,8 @@ public class GroupClaimCommand extends GroupCommand {
             throw new CommandException("You don't have permissions to claim land in this " + level.getName() + ".");
         }
 
-        // TODO add a way to get the world,x,y,z from the command line (should be in GroupCommand)
+        // TODO add a way to get the world,x,y,z from the command line (should
+        // be in GroupCommand)
         Point position = ((Player) source).getTransform().getPosition();
         if (!group.getUniverse().getWorlds().contains(Politics.getWorld(position.getWorld()))) {
             throw new CommandException("You can't create a plot for that group in this world.");

@@ -19,23 +19,23 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.util.MsgStyle;
-import com.volumetricpixels.politics.event.PoliticsEventFactory;
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.GroupProperty;
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.universe.Universe;
-
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.universe.Universe;
+import com.volumetricpixels.politics.util.MsgStyle;
+
 public class GroupCreateCommand extends GroupCommand {
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupCreateCommand(GroupLevel level) {
@@ -54,7 +54,8 @@ public class GroupCreateCommand extends GroupCommand {
         }
         // Check for a founder, this would only happen if he is not a player
         if (founderName == null) {
-            throw new CommandException("The founder for the to-be-created " + level.getName() + " is unknown. A founder can be specified with the `-f' option.");
+            throw new CommandException("The founder for the to-be-created " + level.getName()
+                    + " is unknown. A founder can be specified with the `-f' option.");
         }
 
         // Get le universe

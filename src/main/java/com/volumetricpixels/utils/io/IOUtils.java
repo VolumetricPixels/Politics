@@ -117,7 +117,7 @@ public class IOUtils {
      * @param o
      *            The Serializable Object to stringify
      * @return The Serialized String
-     *
+     * 
      * @throws IOException
      *             When there is a write error
      */

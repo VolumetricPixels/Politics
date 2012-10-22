@@ -24,10 +24,10 @@ import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
-import com.volumetricpixels.politics.util.MsgStyle;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.universe.Universe;
+import com.volumetricpixels.politics.util.MsgStyle;
 
 /**
  * Destroys a universe and all of its groups.
@@ -55,7 +55,7 @@ public class UniverseDestroyCommand extends UniverseCommand {
 
     @Override
     protected String[] getAliases() {
-        return new String[]{"delete", "d"};
+        return new String[] { "delete", "d" };
     }
 
     @Override

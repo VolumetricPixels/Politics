@@ -19,28 +19,33 @@
  */
 package com.volumetricpixels.politics.event.group;
 
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.command.CommandSource;
 import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.plot.Plot;
+
 /**
- * Called when a group tries to claim a plot.
+ * Called when a {@link Group} tries to claim a {@link Plot}.
  */
 public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 
     /**
-     * The claimer of the plot.
+     * The person claiming the {@link Plot} for the {@link Group}
      */
     private final CommandSource claimer;
 
     /**
      * C'tor
-     *
+     * 
      * @param group
+     *            The {@link Group} claiming the {@link Plot}
+     * @param plot
+     *            The {@link Plot} being claimed
      * @param claimer
+     *            The person claiming the {@link Plot} for the {@link Group}
      */
     public GroupClaimPlotEvent(Group group, Plot plot, CommandSource claimer) {
         super(group, plot);
@@ -49,8 +54,9 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
 
     /**
      * Gets the claimer of the plot.
-     *
-     * @return
+     * 
+     * @return The {@link CommandSender} claiming the {@link Plot} for the
+     *         {@link Group}
      */
     public CommandSource getClaimer() {
         return claimer;
@@ -70,15 +76,17 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
         super.setCancelled(cancelled);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public HandlerList getHandlers() {
         return handlers;
     }
 
     /**
-     * Gets the HandlerList of the event.
-     *
-     * @return
+     * Gets the event's handlers
+     * 
+     * @return The {@link HandlerList} for the event
      */
     public static HandlerList getHandlerList() {
         return handlers;

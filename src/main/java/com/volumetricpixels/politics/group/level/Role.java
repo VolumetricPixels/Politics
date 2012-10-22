@@ -19,13 +19,16 @@
  */
 package com.volumetricpixels.politics.group.level;
 
-import com.volumetricpixels.politics.PoliticsPlugin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
-import org.apache.commons.lang3.StringUtils;
+
 import org.spout.api.util.config.ConfigurationNode;
+
+import com.volumetricpixels.politics.PoliticsPlugin;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A role.
@@ -53,7 +56,7 @@ public class Role implements Comparable<Role> {
 
     /**
      * C'tor
-     *
+     * 
      * @param id
      * @param name
      * @param bitset
@@ -68,7 +71,7 @@ public class Role implements Comparable<Role> {
 
     /**
      * Gets the ID of this Role.
-     *
+     * 
      * @return
      */
     public String getId() {
@@ -77,7 +80,7 @@ public class Role implements Comparable<Role> {
 
     /**
      * Gets the Bitset of this Role.
-     *
+     * 
      * @return
      */
     public int getBitset() {
@@ -86,7 +89,7 @@ public class Role implements Comparable<Role> {
 
     /**
      * Checks if the role has the given privilege.
-     *
+     * 
      * @param privilege
      * @return
      */
@@ -96,7 +99,7 @@ public class Role implements Comparable<Role> {
 
     /**
      * Gets the set of privileges of this Role.
-     *
+     * 
      * @return
      */
     public Set<Privilege> getPrivileges() {
@@ -105,25 +108,25 @@ public class Role implements Comparable<Role> {
 
     /**
      * Gets the rank of the role.
-     *
+     * 
      * @return
      */
     public int getRank() {
         return rank;
     }
-    
+
     /**
      * Gets the name of the role.
      * 
      * @return
      */
     public String getName() {
-    	return name;
+        return name;
     }
 
     /**
      * Loads a role from a string id and node.
-     *
+     * 
      * @param id
      * @param node
      * @return

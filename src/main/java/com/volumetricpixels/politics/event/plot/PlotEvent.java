@@ -19,8 +19,9 @@
  */
 package com.volumetricpixels.politics.event.plot;
 
-import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.event.Event;
+
+import com.volumetricpixels.politics.plot.Plot;
 
 /**
  * Called with plot-related actions.
@@ -40,7 +41,7 @@ public abstract class PlotEvent extends Event {
 
     /**
      * Gets the plot involved in this event.
-     *
+     * 
      * @return
      */
     public Plot getPlot() {

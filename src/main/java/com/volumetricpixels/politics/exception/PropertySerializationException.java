@@ -27,7 +27,7 @@ public class PropertySerializationException extends Exception {
 
     /**
      * C'tor
-     *
+     * 
      * @param string
      */
     public PropertySerializationException(String string) {
@@ -36,7 +36,7 @@ public class PropertySerializationException extends Exception {
 
     /**
      * C'tor
-     *
+     * 
      * @param string
      * @param thrwbl
      */

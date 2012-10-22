@@ -31,22 +31,24 @@ public class UniverseDestroyEvent extends UniverseEvent {
 
     /**
      * C'tor
-     *
+     * 
      * @param universe
      */
     public UniverseDestroyEvent(Universe universe) {
         super(universe);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public HandlerList getHandlers() {
         return handlers;
     }
 
     /**
      * Gets the handler list of this event.
-     *
-     * @return
+     * 
+     * @return The event's {@link HandlerList}
      */
     public static HandlerList getHandlerList() {
         return handlers;

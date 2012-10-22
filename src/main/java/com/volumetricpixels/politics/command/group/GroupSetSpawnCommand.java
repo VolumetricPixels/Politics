@@ -19,13 +19,6 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.util.MsgStyle;
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.GroupProperty;
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Privilege;
-import com.volumetricpixels.politics.plot.Plot;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -33,13 +26,21 @@ import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 import org.spout.api.geo.discrete.Transform;
 
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.util.MsgStyle;
+
 /**
  * Claims the plot you are in.
  */
 public class GroupSetSpawnCommand extends GroupCommand {
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupSetSpawnCommand(GroupLevel level) {
@@ -58,7 +59,8 @@ public class GroupSetSpawnCommand extends GroupCommand {
 
         Plot plot = Politics.getPlotAt(transform.getPosition());
         if (!plot.isOwner(group)) {
-            throw new CommandException("Sorry, the plot you are in must be owned by " + group.getStringProperty(GroupProperty.NAME) + " to set your spawn in it.");
+            throw new CommandException("Sorry, the plot you are in must be owned by " + group.getStringProperty(GroupProperty.NAME)
+                    + " to set your spawn in it.");
         }
 
         group.setProperty(GroupProperty.SPAWN, transform);

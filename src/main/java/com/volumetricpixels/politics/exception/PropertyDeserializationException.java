@@ -27,7 +27,7 @@ public class PropertyDeserializationException extends Exception {
 
     /**
      * C'tor
-     *
+     * 
      * @param string
      */
     public PropertyDeserializationException(String string) {
@@ -36,7 +36,7 @@ public class PropertyDeserializationException extends Exception {
 
     /**
      * C'tor
-     *
+     * 
      * @param string
      * @param thrwbl
      */

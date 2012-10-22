@@ -19,10 +19,11 @@
  */
 package com.volumetricpixels.politics.event.group;
 
-import com.volumetricpixels.politics.group.Group;
 import org.spout.api.command.CommandSource;
 import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
+
+import com.volumetricpixels.politics.group.Group;
 
 /**
  * Called when a group is created.
@@ -37,7 +38,7 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
 
     /**
      * C'tor
-     *
+     * 
      * @param group
      * @param creator
      */
@@ -48,7 +49,7 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
 
     /**
      * Gets the creator of the group.
-     *
+     * 
      * @return
      */
     public CommandSource getCreator() {
@@ -69,14 +70,16 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
         super.setCancelled(cancelled);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public HandlerList getHandlers() {
         return handlers;
     }
 
     /**
      * Gets the HandlerList of the event.
-     *
+     * 
      * @return
      */
     public static HandlerList getHandlerList() {

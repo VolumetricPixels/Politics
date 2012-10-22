@@ -20,8 +20,10 @@
 package com.volumetricpixels.politics.group.level;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,7 +33,6 @@ import java.util.logging.Level;
 import org.spout.api.util.config.ConfigurationNode;
 
 import com.volumetricpixels.politics.PoliticsPlugin;
-import java.util.*;
 
 /**
  * Represents a level of organization of a group.
@@ -90,10 +91,10 @@ public final class GroupLevel {
 
     /**
      * C'tor
-     *
+     * 
      * There must be a better way... if final doesn't really matter then I will
      * switch from it.
-     *
+     * 
      * @param id
      * @param name
      * @param rank
@@ -104,7 +105,8 @@ public final class GroupLevel {
      * @param initial
      * @param founder
      */
-    public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands, Map<String, RoleTrack> tracks, Role initial, Role founder) {
+    public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands,
+            Map<String, RoleTrack> tracks, Role initial, Role founder) {
         this.id = id;
         this.name = name;
         this.rank = rank;
@@ -118,8 +120,9 @@ public final class GroupLevel {
 
     /**
      * Sets the allowed children to the given set.
-     *
-     * @param set The set to use. This should be the only reference.
+     * 
+     * @param set
+     *            The set to use. This should be the only reference.
      */
     public void setAllowedChildren(Set<GroupLevel> set) {
         this.allowedChildren = set;
@@ -127,7 +130,7 @@ public final class GroupLevel {
 
     /**
      * Gets the ID of this GroupLevel.
-     *
+     * 
      * @return
      */
     public String getId() {
@@ -136,7 +139,7 @@ public final class GroupLevel {
 
     /**
      * Gets the name of this GroupLevel.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -145,7 +148,7 @@ public final class GroupLevel {
 
     /**
      * Gets the rank of this GroupLevel.
-     *
+     * 
      * @return
      */
     public int getRank() {
@@ -154,7 +157,7 @@ public final class GroupLevel {
 
     /**
      * Gets the plural form of this GroupLevel.
-     *
+     * 
      * @return
      */
     public String getPlural() {
@@ -163,7 +166,7 @@ public final class GroupLevel {
 
     /**
      * Gets the set of allowed children of this GroupLevel.
-     *
+     * 
      * @return
      */
     public Set<GroupLevel> getAllowedChildren() {
@@ -172,7 +175,7 @@ public final class GroupLevel {
 
     /**
      * Returns true if this level can have children of the given level.
-     *
+     * 
      * @param level
      * @return
      */
@@ -182,7 +185,7 @@ public final class GroupLevel {
 
     /**
      * Gets the roles of the GroupLevel, named.
-     *
+     * 
      * @return
      */
     public Map<String, Role> getRoles() {
@@ -191,10 +194,10 @@ public final class GroupLevel {
 
     /**
      * Gets the aliases of the given command.
-     *
+     * 
      * @param command
      * @return the ArrayList of aliases; an empty ArrayList if there are no
-     * aliases thus the command should not exist
+     *         aliases thus the command should not exist
      */
     public List<String> getAliases(String command) {
         return new ArrayList<String>(commands.get(command.toLowerCase()));
@@ -202,7 +205,7 @@ public final class GroupLevel {
 
     /**
      * Gets a Role from its id.
-     *
+     * 
      * @param roleId
      * @return
      */
@@ -212,7 +215,7 @@ public final class GroupLevel {
 
     /**
      * Gets the track with the given id.
-     *
+     * 
      * @param id
      * @return
      */
@@ -222,7 +225,7 @@ public final class GroupLevel {
 
     /**
      * Gets the default track of the GroupLevel.
-     *
+     * 
      * @return
      */
     public RoleTrack getDefaultTrack() {
@@ -231,7 +234,7 @@ public final class GroupLevel {
 
     /**
      * Gets the initial role of a member of the group.
-     *
+     * 
      * @return
      */
     public Role getInitial() {
@@ -240,7 +243,7 @@ public final class GroupLevel {
 
     /**
      * Gets the role of a founder of the group.
-     *
+     * 
      * @return
      */
     public Role getFounder() {
@@ -249,7 +252,7 @@ public final class GroupLevel {
 
     /**
      * Checks if this GroupLevel can be founded.
-     *
+     * 
      * @return
      */
     public boolean canFound() {
@@ -258,7 +261,7 @@ public final class GroupLevel {
 
     /**
      * Saves this GroupLevel to the provided node.
-     *
+     * 
      * @param node
      */
     public void save(ConfigurationNode node) {
@@ -293,10 +296,11 @@ public final class GroupLevel {
 
     /**
      * Loads a GroupLevel.
-     *
+     * 
      * @param id
      * @param node
-     * @param levels The map that the level names are stored in.
+     * @param levels
+     *            The map that the level names are stored in.
      * @return
      */
     public static GroupLevel load(String id, ConfigurationNode node, Map<GroupLevel, List<String>> levels) {
@@ -351,7 +355,8 @@ public final class GroupLevel {
                 for (String alias : aliases) {
                     alias = alias.toLowerCase();
                     if (alreadyLoadedCommands.contains(alias)) {
-                        PoliticsPlugin.logger().log(Level.WARNING, "Duplicate entry for command `" + alias + "'; not adding it to aliases for " + commandName + ".");
+                        PoliticsPlugin.logger().log(Level.WARNING,
+                                "Duplicate entry for command `" + alias + "'; not adding it to aliases for " + commandName + ".");
                         continue;
                     }
                     theAliases.add(alias);
@@ -400,7 +405,8 @@ public final class GroupLevel {
                 int lowest = Integer.MAX_VALUE;
                 Role lowestRole = null;
                 for (Role role : rolesMap.values()) {
-                    if (role.getRank() <= lowest) { // Incase of max value for rank
+                    if (role.getRank() <= lowest) { // Incase of max value for
+                                                    // rank
                         lowest = role.getRank();
                         lowestRole = role;
                     }

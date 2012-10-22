@@ -19,14 +19,15 @@
  */
 package com.volumetricpixels.politics.event;
 
+import org.spout.api.Spout;
+import org.spout.api.command.CommandSource;
+import org.spout.api.entity.Player;
+import org.spout.api.event.Event;
+
 import com.volumetricpixels.politics.event.group.GroupClaimPlotEvent;
 import com.volumetricpixels.politics.event.group.GroupCreateEvent;
 import com.volumetricpixels.politics.event.group.GroupPropertySetEvent;
 import com.volumetricpixels.politics.event.group.GroupUnclaimPlotEvent;
-import org.spout.api.Spout;
-import org.spout.api.entity.Player;
-import org.spout.api.event.Event;
-
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.event.universe.UniverseCreateEvent;
@@ -34,7 +35,6 @@ import com.volumetricpixels.politics.event.universe.UniverseDestroyEvent;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.plot.Plot;
 import com.volumetricpixels.politics.universe.Universe;
-import org.spout.api.command.CommandSource;
 
 /**
  * Factory for creating events.
@@ -42,11 +42,14 @@ import org.spout.api.command.CommandSource;
 public class PoliticsEventFactory {
     /**
      * Calls a new group claim plot event.
-     *
+     * 
      * @param group
+     *            The Group claiming the Plot
      * @param plot
+     *            The Plot being claimed
      * @param claimer
-     * @return
+     *            The person claiming the Plot for the Group
+     * @return The called GroupClaimPlotEvent
      */
     public static GroupClaimPlotEvent callGroupClaimPlotEvent(Group group, Plot plot, CommandSource claimer) {
         return callEvent(new GroupClaimPlotEvent(group, plot, claimer));
@@ -54,11 +57,14 @@ public class PoliticsEventFactory {
 
     /**
      * Calls a new group property set event.
-     *
+     * 
      * @param group
-     * @param plot
-     * @param claimer
-     * @return
+     *            The Group of which the property is being set
+     * @param property
+     *            The type of GroupProperty being set
+     * @param value
+     *            The value the property is being set to
+     * @return The called GroupPropertySetEvent
      */
     public static GroupPropertySetEvent callGroupPropertySetEvent(Group group, int property, Object value) {
         return callEvent(new GroupPropertySetEvent(group, property, value));
@@ -66,11 +72,14 @@ public class PoliticsEventFactory {
 
     /**
      * Calls a new group unclaim plot event.
-     *
+     * 
      * @param group
+     *            The Group which is unclaiming the Plot
      * @param plot
+     *            The Plot which is being unclaimed
      * @param unclaimer
-     * @return
+     *            The person who is unclaiming the Plot for the Group
+     * @return The called GroupUnclaimPlotEvent
      */
     public static GroupUnclaimPlotEvent callGroupUnclaimPlotEvent(Group group, Plot plot, CommandSource unclaimer) {
         return callEvent(new GroupUnclaimPlotEvent(group, plot, unclaimer));
@@ -78,10 +87,12 @@ public class PoliticsEventFactory {
 
     /**
      * Calls a new group create event.
-     *
+     * 
      * @param group
+     *            The Group that has been created
      * @param creator
-     * @return
+     *            The creator of the Group
+     * @return The called GroupCreateEvent
      */
     public static GroupCreateEvent callGroupCreateEvent(Group group, CommandSource creator) {
         return callEvent(new GroupCreateEvent(group, creator));
@@ -89,11 +100,14 @@ public class PoliticsEventFactory {
 
     /**
      * Calls a new plot change event.
-     *
+     * 
      * @param player
+     *            The Player changing Plot
      * @param from
+     *            The Plot from which the Player moved
      * @param to
-     * @return
+     *            The Plot to which the Player is moving
+     * @return The called PlayerChangePlotEvent
      */
     public static PlayerChangePlotEvent callPlayerChangePlotEvent(Player player, Plot from, Plot to) {
         return callEvent(new PlayerChangePlotEvent(player, from, to));
@@ -101,11 +115,14 @@ public class PoliticsEventFactory {
 
     /**
      * Calls a new PlotOwnerChangeEvent.
-     *
+     * 
      * @param plot
+     *            The Plot of which the owner is changing
      * @param group
+     *            The ID of the group the plot belongs to
      * @param add
-     * @return
+     *            Whether the owner is being added
+     * @return The called PlotOwnerChangeEvent
      */
     public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(Plot plot, int group, boolean add) {
         return callEvent(new PlotOwnerChangeEvent(plot, group, add));
@@ -113,9 +130,10 @@ public class PoliticsEventFactory {
 
     /**
      * Calls a new universe create event.
-     *
+     * 
      * @param universe
-     * @return
+     *            The universe being created
+     * @return The called UniverseCreateEvent
      */
     public static UniverseCreateEvent callUniverseCreateEvent(Universe universe) {
         return callEvent(new UniverseCreateEvent(universe));
@@ -123,9 +141,10 @@ public class PoliticsEventFactory {
 
     /**
      * Calls a new universe destroy event.
-     *
+     * 
      * @param universe
-     * @return
+     *            The universe being destroyed
+     * @return The called UniverseDestroyEvent
      */
     public static UniverseDestroyEvent callUniverseDestroyEvent(Universe universe) {
         return callEvent(new UniverseDestroyEvent(universe));
@@ -133,9 +152,10 @@ public class PoliticsEventFactory {
 
     /**
      * Calls the given event.
-     *
+     * 
      * @param event
-     * @return
+     *            The event to call
+     * @return The called Event
      */
     private static <T extends Event> T callEvent(T event) {
         return Spout.getEngine().getEventManager().callEvent(event);

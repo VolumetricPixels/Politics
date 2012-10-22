@@ -19,14 +19,6 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import com.volumetricpixels.politics.util.MsgStyle;
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.GroupProperty;
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Privilege;
-import com.volumetricpixels.politics.plot.Plot;
-
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -34,13 +26,21 @@ import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 import org.spout.api.geo.discrete.Point;
 
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.GroupProperty;
+import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.util.MsgStyle;
+
 /**
  * Claims the plot you are in.
  */
 public class GroupUnclaimCommand extends GroupCommand {
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupUnclaimCommand(GroupLevel level) {

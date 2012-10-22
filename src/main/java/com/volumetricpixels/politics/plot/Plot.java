@@ -19,16 +19,16 @@
  */
 package com.volumetricpixels.politics.plot;
 
-import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.event.PoliticsEventFactory;
-import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
-
 import gnu.trove.list.TIntList;
 
 import java.util.List;
 
 import org.spout.api.geo.discrete.Point;
+
+import com.volumetricpixels.politics.event.PoliticsEventFactory;
+import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
+import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.level.GroupLevel;
 
 /**
  * GroupsWorld wrapper.
@@ -56,7 +56,7 @@ public class Plot {
 
     /**
      * C'tor
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -99,7 +99,7 @@ public class Plot {
 
     /**
      * Gets the point at the base of the plot.
-     *
+     * 
      * @return
      */
     public Point getBase() {
@@ -108,7 +108,7 @@ public class Plot {
 
     /**
      * Gets the IDs of the owners of the plot.
-     *
+     * 
      * @return
      */
     public TIntList getOwnerIds() {
@@ -117,7 +117,7 @@ public class Plot {
 
     /**
      * Gets the list of the owners of the plot.
-     *
+     * 
      * @return
      */
     public List<Group> getOwners() {
@@ -126,7 +126,7 @@ public class Plot {
 
     /**
      * Gets the group owning this plot at the given level.
-     *
+     * 
      * @param level
      * @return
      */
@@ -141,7 +141,7 @@ public class Plot {
 
     /**
      * Adds an owner to the plot.
-     *
+     * 
      * @param id
      * @return True if successful
      */
@@ -160,7 +160,7 @@ public class Plot {
 
     /**
      * Adds an owner to the plot.
-     *
+     * 
      * @param group
      * @return True if successful
      */
@@ -170,7 +170,7 @@ public class Plot {
 
     /**
      * Removes an owner from the plot.
-     *
+     * 
      * @param id
      * @return True if successful
      */
@@ -189,7 +189,7 @@ public class Plot {
 
     /**
      * Removes the given owner from this plot's owners.
-     *
+     * 
      * @param group
      * @return True if successful
      */
@@ -199,7 +199,7 @@ public class Plot {
 
     /**
      * Returns true if the given owner id is an owner of this plot.
-     *
+     * 
      * @param id
      * @return
      */
@@ -209,7 +209,7 @@ public class Plot {
 
     /**
      * Returns true if the given owner is an owner of this plot.
-     *
+     * 
      * @param group
      * @return
      */

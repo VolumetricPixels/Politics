@@ -35,7 +35,7 @@ public class GroupCommands extends Commands {
 
     /**
      * C'tor
-     *
+     * 
      * @param level
      */
     public GroupCommands(GroupLevel level) {

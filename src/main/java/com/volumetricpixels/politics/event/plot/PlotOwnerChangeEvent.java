@@ -19,11 +19,12 @@
  */
 package com.volumetricpixels.politics.event.plot;
 
+import org.spout.api.event.Cancellable;
+import org.spout.api.event.HandlerList;
+
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.plot.Plot;
-import org.spout.api.event.Cancellable;
-import org.spout.api.event.HandlerList;
 
 /**
  * Called when a plot's owners changes.
@@ -43,7 +44,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * C'tor
-     *
+     * 
      * @param plot
      * @param group
      * @param add
@@ -56,7 +57,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Gets the id of the group that will change ownership.
-     *
+     * 
      * @return
      */
     public int getGroupId() {
@@ -65,7 +66,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Gets the group that will change ownership.
-     *
+     * 
      * @return
      */
     public Group getGroup() {
@@ -74,7 +75,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Returns true if this adds the group.
-     *
+     * 
      * @return
      */
     public boolean isAdd() {
@@ -83,7 +84,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Returns true if this removes the group.
-     *
+     * 
      * @return
      */
     public boolean isRemove() {
@@ -104,14 +105,16 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
         super.setCancelled(cancelled);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public HandlerList getHandlers() {
         return handlers;
     }
 
     /**
      * Gets the HandlerList of the event.
-     *
+     * 
      * @return
      */
     public static HandlerList getHandlerList() {

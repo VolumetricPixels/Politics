@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import org.spout.api.util.config.ConfigurationNode;
 
 /**
@@ -41,7 +42,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * C'tor
-     *
+     * 
      * @param id
      * @param roles
      */
@@ -52,7 +53,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the id of the track.
-     *
+     * 
      * @return
      */
     public String getId() {
@@ -61,7 +62,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the roles of the track.
-     *
+     * 
      * @return
      */
     public List<Role> getRoles() {
@@ -70,7 +71,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the role before the given role.
-     *
+     * 
      * @param role
      * @return
      */
@@ -84,7 +85,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the role after the given role.
-     *
+     * 
      * @param role
      * @return
      */
@@ -103,7 +104,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Loads a Track.
-     *
+     * 
      * @param id
      * @param node
      * @param roles

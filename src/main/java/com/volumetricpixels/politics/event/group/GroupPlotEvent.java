@@ -33,7 +33,7 @@ public abstract class GroupPlotEvent extends GroupEvent {
 
     /**
      * C'tor
-     *
+     * 
      * @param group
      * @param plot
      */
@@ -44,7 +44,7 @@ public abstract class GroupPlotEvent extends GroupEvent {
 
     /**
      * Gets the plot involved in this event.
-     *
+     * 
      * @return
      */
     public final Plot getPlot() {

@@ -162,7 +162,7 @@ public class Base64Coder {
             int o1 = ((b1 & 0xf) << 4) | (b2 >>> 2);
             int o2 = ((b2 & 3) << 6) | b3;
             out[op++] = (byte) o0;
- 
+
             if (op < oLen) {
                 out[op++] = (byte) o1;
             }

@@ -34,7 +34,7 @@ public abstract class UniverseEvent extends Event {
 
     /**
      * C'tor
-     *
+     * 
      * @param universe
      */
     public UniverseEvent(Universe universe) {
@@ -43,7 +43,7 @@ public abstract class UniverseEvent extends Event {
 
     /**
      * Gets the universe involved in this event.
-     *
+     * 
      * @return
      */
     public Universe getUniverse() {
