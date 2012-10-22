@@ -33,8 +33,8 @@ import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.event.universe.UniverseCreateEvent;
 import com.volumetricpixels.politics.event.universe.UniverseDestroyEvent;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.plot.Plot;
 import com.volumetricpixels.politics.universe.Universe;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Factory for creating events.

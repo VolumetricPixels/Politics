@@ -24,7 +24,7 @@ import org.spout.api.event.HandlerList;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Called when a plot's owners changes.

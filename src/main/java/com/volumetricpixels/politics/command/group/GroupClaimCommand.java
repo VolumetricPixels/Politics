@@ -31,8 +31,8 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
-import com.volumetricpixels.politics.plot.Plot;
 import com.volumetricpixels.politics.util.MessageStyle;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Claims the plot you are in.

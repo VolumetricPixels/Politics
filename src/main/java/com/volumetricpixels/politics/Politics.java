@@ -24,11 +24,11 @@ import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.plot.Plot;
-import com.volumetricpixels.politics.plot.PlotManager;
-import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseManager;
+import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.PlotManager;
+import com.volumetricpixels.politics.world.PoliticsWorld;
 
 /**
  * Static class for accessing the managers of Politics, along with some utility

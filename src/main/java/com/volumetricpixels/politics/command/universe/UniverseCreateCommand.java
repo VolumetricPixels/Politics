@@ -31,10 +31,10 @@ import org.spout.api.geo.World;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
-import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
 import com.volumetricpixels.politics.util.MessageStyle;
+import com.volumetricpixels.politics.world.PoliticsWorld;
 
 /**
  * Used to create universes.

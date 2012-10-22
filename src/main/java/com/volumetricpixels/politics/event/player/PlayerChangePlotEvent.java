@@ -24,7 +24,7 @@ import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 import org.spout.api.event.player.PlayerEvent;
 
-import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Called when a player changes the plot they are in.

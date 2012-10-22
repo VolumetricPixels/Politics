@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.event.group;
 
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Called whenever a group does something with a plot.

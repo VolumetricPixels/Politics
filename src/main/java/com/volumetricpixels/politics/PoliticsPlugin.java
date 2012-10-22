@@ -28,8 +28,8 @@ import org.spout.api.scheduler.TaskPriority;
 import com.volumetricpixels.politics.command.Commands;
 import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.data.SaveTask;
-import com.volumetricpixels.politics.plot.PlotManager;
 import com.volumetricpixels.politics.universe.UniverseManager;
+import com.volumetricpixels.politics.world.PlotManager;
 
 /**
  * The main class of the Politics Spout plugin

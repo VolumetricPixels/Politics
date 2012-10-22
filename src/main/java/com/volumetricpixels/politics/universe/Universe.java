@@ -50,7 +50,7 @@ import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.plot.PoliticsWorld;
+import com.volumetricpixels.politics.world.PoliticsWorld;
 
 /**
  * Represents a headless group of all groups within its scope.

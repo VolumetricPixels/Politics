@@ -17,12 +17,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.plot;
+package com.volumetricpixels.politics.world;
 
 import gnu.trove.list.TIntList;
 
 import java.util.List;
 
+import org.spout.api.geo.Protection;
 import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
 
@@ -30,11 +31,12 @@ import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.protection.PoliticsProtectionService;
 
 /**
- * GroupsWorld wrapper.
+ * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
  */
-public class Plot {
+public class Plot extends Protection {
     /**
      * World of the plot.
      */
@@ -54,14 +56,19 @@ public class Plot {
      * @param z
      */
     Plot(PoliticsWorld world, int x, int y, int z) {
+        super("Plot(" + world.getName() + "," + x + "," + y + "," + z + ")", world.getWorld());
         this.world = world;
         this.chunk = world.getWorld().getChunk(x, y, z);
+
+        PoliticsProtectionService.getInstance();
     }
 
     /**
-     * @return the world
+     * Gets the PoliticsWorld this Plot is located in
+     * 
+     * @return This Plot's PoliticsWorld
      */
-    public PoliticsWorld getWorld() {
+    public PoliticsWorld getPoliticsWorld() {
         return world;
     }
 
@@ -217,5 +224,10 @@ public class Plot {
      */
     public boolean isOwner(Group group) {
         return isOwner(group.getUid());
+    }
+
+    @Override
+    public boolean contains(Point point) {
+        return chunk.contains(point);
     }
 }

@@ -28,7 +28,7 @@ import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
-import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Politics' Listener

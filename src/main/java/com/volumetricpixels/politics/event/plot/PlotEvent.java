@@ -21,7 +21,7 @@ package com.volumetricpixels.politics.event.plot;
 
 import org.spout.api.event.Event;
 
-import com.volumetricpixels.politics.plot.Plot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Called with plot-related actions.

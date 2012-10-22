@@ -48,7 +48,7 @@ import com.volumetricpixels.politics.exception.InvalidConfigurationException;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.plot.PoliticsWorld;
+import com.volumetricpixels.politics.world.PoliticsWorld;
 
 /**
  * Contains all universes.
