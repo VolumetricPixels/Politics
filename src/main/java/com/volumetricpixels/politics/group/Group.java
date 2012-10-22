@@ -46,6 +46,7 @@ import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
 import com.volumetricpixels.politics.exception.PropertyDeserializationException;
+import com.volumetricpixels.politics.exception.PropertySerializationException;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.util.PropertySerializer;
 import org.spout.api.command.CommandSource;
@@ -310,55 +311,17 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a block.
-     *
-     * @param property
-     * @return
-     */
-    public Point getBlockProperty(int property) {
-        return getBlockProperty(property, null);
-    }
-
-    /**
-     * Gets a property as a block.
-     *
-     * @param property
-     * @param def
-     * @return
-     */
-    public Point getBlockProperty(int property, Point def) {
-        String s = getStringProperty(property);
-        if (s == null) {
-            return def;
-        }
-        Point p;
-        try {
-            p = PropertySerializer.deserializeBlock(s);
-        } catch (PropertyDeserializationException ex) {
-            PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a block!", ex);
-            return def;
-        }
-        return p;
-    }
-
-    /**
      * Sets the value of a transform property.
      *
      * @param property
      * @param value
      */
     public void setProperty(int property, Transform value) {
-        setProperty(property, PropertySerializer.serializeTransform(value));
-    }
-
-    /**
-     * Sets the value of a point property.
-     *
-     * @param property
-     * @param value
-     */
-    public void setProperty(int property, Point value) {
-        setProperty(property, value, false);
+        try {
+            setProperty(property, PropertySerializer.serializeTransform(value));
+        } catch (PropertySerializationException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -368,8 +331,12 @@ public final class Group implements Comparable<Group>, Storable {
      * @param value
      * @param block True if you wish to only store integer coordinates
      */
-    public void setProperty(int property, Point value, boolean block) {
-        setProperty(property, (block ? PropertySerializer.serializeBlock(value) : PropertySerializer.serializePoint(value)));
+    public void setProperty(int property, Point value) {
+        try {
+            setProperty(property, (PropertySerializer.serializePoint(value)));
+        } catch (PropertySerializationException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -19,14 +19,15 @@
  */
 package com.volumetricpixels.politics.util;
 
-import org.spout.api.Spout;
-import org.spout.api.geo.World;
+import java.io.IOException;
+import java.io.Serializable;
+
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
-import org.spout.api.math.Quaternion;
-import org.spout.api.math.Vector3;
 
 import com.volumetricpixels.politics.exception.PropertyDeserializationException;
+import com.volumetricpixels.politics.exception.PropertySerializationException;
+import com.volumetricpixels.utils.io.IOUtils;
 
 /**
  * Contains various methods for serializing and deserializing certain properties
@@ -34,210 +35,78 @@ import com.volumetricpixels.politics.exception.PropertyDeserializationException;
  */
 public class PropertySerializer {
     /**
+     * Serializes any serializable object to a Base64 encoded String
+     * 
+     * @param obj
+     *            The Serializable object to serialize
+     * @return The serialized string
+     */
+    public static String serialize(Serializable obj) throws PropertySerializationException {
+        try {
+            return IOUtils.toString(obj);
+        } catch (IOException e) {
+            throw new PropertySerializationException("IOException occurred while serializing an object of type " + obj.getClass().getName() + "!", e);
+        }
+    }
+
+    /**
+     * Deserializes any Base64 encoded string into an object from whence it came
+     * 
+     * @param string
+     *            The serialized String
+     * @return The deserialized Object from the given string
+     */
+    public static Object deserialize(String string) throws PropertyDeserializationException {
+        try {
+            return IOUtils.fromString(string);
+        } catch (ClassNotFoundException e) {
+            throw new PropertyDeserializationException("Could not find the object class for the given string while deserializing!");
+        } catch (IOException e) {
+            throw new PropertyDeserializationException("IOException occurred while deserializing a string!", e);
+        }
+    }
+
+    /**
      * Serializes a point to a string.
-     *
-     * @param point The point to serialize.
+     * 
+     * @param point
+     *            The point to serialize.
      * @return The string representing the serialization.
      */
-    public static String serializePoint(Point point) {
-        return new StringBuilder("p/").append(point.getWorld().getName()).append(",").append(point.getX()).append(",").append(point.getY()).append(",").append(point.getZ()).toString();
+    public static String serializePoint(Point point) throws PropertySerializationException {
+        return serialize(point);
     }
 
     /**
      * Deserializes a point from a string.
-     *
+     * 
      * @param string
      * @return
      * @throws PropertyDeserializationException
      */
     public static Point deserializePoint(String string) throws PropertyDeserializationException {
-        String[] parts1 = string.split("/");
-        if (parts1.length != 2) {
-            throw new PropertyDeserializationException("Not a serialized property!");
-        }
-        if (!parts1[0].equalsIgnoreCase("p")) {
-            throw new PropertyDeserializationException("Not a point!");
-        }
-        String[] whatMatters = parts1[1].split(",");
-        if (whatMatters.length < 4) {
-            throw new PropertyDeserializationException("Not enough point data!");
-        }
-
-        String world = whatMatters[0];
-        World w = Spout.getEngine().getWorld(world);
-        if (w == null) {
-            throw new PropertyDeserializationException("The world '" + world + "' no longer exists!");
-        }
-
-        float x;
-        try {
-            x = Float.parseFloat(whatMatters[1]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The x is not a float!", ex);
-        }
-
-        float y;
-        try {
-            y = Float.parseFloat(whatMatters[2]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The y is not a float!", ex);
-        }
-
-        float z;
-        try {
-            z = Float.parseFloat(whatMatters[3]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The z is not a float!", ex);
-        }
-        return new Point(w, x, y, z);
-    }
-
-    /**
-     * Serializes a block's point to a string.
-     *
-     * @param point The point of the block to serialize.
-     * @return The string representing the serialization.
-     */
-    public static String serializeBlock(Point point) {
-        return new StringBuilder("b/").append(point.getWorld().getName()).append(",").append(Integer.toHexString(point.getBlockX())).append(",").append(Integer.toHexString(point.getBlockY())).append(",").append(Integer.toHexString(point.getBlockZ())).toString();
-    }
-
-    /**
-     * Deserializes a block's point from a string.
-     *
-     * @param string
-     * @return
-     * @throws PropertyDeserializationException
-     */
-    public static Point deserializeBlock(String string) throws PropertyDeserializationException {
-        String[] parts1 = string.split("/");
-        if (parts1.length != 2) {
-            throw new PropertyDeserializationException("Not a serialized property!");
-        }
-        if (!parts1[0].equalsIgnoreCase("b")) {
-            throw new PropertyDeserializationException("Not a block!");
-        }
-        String[] whatMatters = parts1[1].split(",");
-        if (whatMatters.length < 4) {
-            throw new PropertyDeserializationException("Not enough block data!");
-        }
-
-        String world = whatMatters[0];
-        World w = Spout.getEngine().getWorld(world);
-        if (w == null) {
-            throw new PropertyDeserializationException("The world '" + world + "' no longer exists!");
-        }
-
-        int x;
-        try {
-            x = Integer.parseInt(whatMatters[1], 16);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The x is not an int!", ex);
-        }
-
-        int y;
-        try {
-            y = Integer.parseInt(whatMatters[2], 16);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The y is not an int!", ex);
-        }
-
-        int z;
-        try {
-            z = Integer.parseInt(whatMatters[3], 16);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The z is not an int!", ex);
-        }
-        return new Point(w, x, y, z);
+        return (Point) deserialize(string);
     }
 
     /**
      * Serializes a transform to a string.
-     *
-     * @param transform The transform to serialize.
+     * 
+     * @param transform
+     *            The transform to serialize.
      * @return The string representing the serialization.
      */
-    public static String serializeTransform(Transform transform) {
-        return new StringBuilder("t/").append(transform.getPosition().getWorld().getName()).append(",").append(transform.getPosition().getX()).append(",").append(transform.getPosition().getY()).append(",").append(transform.getPosition().getZ()).append(",").append(transform.getRotation().getX()).append(",").append(transform.getRotation().getY()).append(",").append(transform.getRotation().getZ()).append(",").append(transform.getRotation().getW()).toString();
+    public static String serializeTransform(Transform transform) throws PropertySerializationException {
+        return serialize(transform);
     }
 
     /**
      * Deserializes a transform from a string.
-     *
+     * 
      * @param string
      * @return
      * @throws PropertyDeserializationException
      */
     public static Transform deserializeTransform(String string) throws PropertyDeserializationException {
-        String[] parts1 = string.split("/");
-        if (parts1.length != 2) {
-            throw new PropertyDeserializationException("Not a serialized property!");
-        }
-        if (!parts1[0].equalsIgnoreCase("t")) {
-            throw new PropertyDeserializationException("Not a transform!");
-        }
-        String[] whatMatters = parts1[1].split(",");
-        if (whatMatters.length < 8) {
-            throw new PropertyDeserializationException("Not enough transform data!");
-        }
-
-        String world = whatMatters[0];
-        World w = Spout.getEngine().getWorld(world);
-        if (w == null) {
-            throw new PropertyDeserializationException("The world '" + world + "' no longer exists!");
-        }
-
-        float x;
-        try {
-            x = Float.parseFloat(whatMatters[1]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The x is not a float!", ex);
-        }
-
-        float y;
-        try {
-            y = Float.parseFloat(whatMatters[2]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The y is not a float!", ex);
-        }
-
-        float z;
-        try {
-            z = Float.parseFloat(whatMatters[3]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The z is not a float!", ex);
-        }
-
-        float qx;
-        try {
-            qx = Float.parseFloat(whatMatters[4]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The qx is not a float!", ex);
-        }
-
-        float qy;
-        try {
-            qy = Float.parseFloat(whatMatters[5]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The qy is not a float!", ex);
-        }
-
-        float qz;
-        try {
-            qz = Float.parseFloat(whatMatters[6]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The qz is not a float!", ex);
-        }
-
-        float qw;
-        try {
-            qw = Float.parseFloat(whatMatters[7]);
-        } catch (NumberFormatException ex) {
-            throw new PropertyDeserializationException("The qw is not a float!", ex);
-        }
-
-        Point p = new Point(w, x, y, z);
-        Quaternion q = new Quaternion(qx, qy, qz, qw, false);
-        return new Transform(p, q, Vector3.ONE);
+        return (Transform) deserialize(string);
     }
 }

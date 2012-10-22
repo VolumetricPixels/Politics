@@ -23,7 +23,7 @@ import org.spout.api.math.Vector3;
 import org.spout.api.util.config.Configuration;
 
 /**
- * Configuration of the world.
+ * Configuration of a world.
  */
 public class WorldConfig {
     /**

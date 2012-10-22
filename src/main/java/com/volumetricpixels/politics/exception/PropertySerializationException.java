@@ -17,30 +17,30 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.volumetricpixels.politics.command.politics;
-
-import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
-import org.spout.api.command.CommandSource;
-import org.spout.api.exception.CommandException;
-
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.util.MsgStyle;
+package com.volumetricpixels.politics.exception;
 
 /**
- * Politics About Command.
+ * Thrown when a property is not serialized successfully.
  */
-public class PoliticsAboutCommand extends PoliticsCommand {
+public class PropertySerializationException extends Exception {
+    private static final long serialVersionUID = -3792841042998190396L;
+
     /**
      * C'tor
+     *
+     * @param string
      */
-    public PoliticsAboutCommand() {
-        super("about");
+    public PropertySerializationException(String string) {
+        super(string);
     }
 
-    @Override
-    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-        source.sendMessage(MsgStyle.INFO, "Politics ", Politics.getPlugin().getVersion());
-        source.sendMessage(MsgStyle.INFO, "(c) 2012 Volumetric Pixels."); // Todo make this cool
+    /**
+     * C'tor
+     *
+     * @param string
+     * @param thrwbl
+     */
+    public PropertySerializationException(String string, Throwable thrwbl) {
+        super(string, thrwbl);
     }
 }
