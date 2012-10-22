@@ -19,13 +19,14 @@
  */
 package com.volumetricpixels.politics.util;
 
-import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import org.spout.api.Spout;
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
 import org.spout.api.math.Quaternion;
 import org.spout.api.math.Vector3;
+
+import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 
 /**
  * Contains various methods for serializing and deserializing certain properties
