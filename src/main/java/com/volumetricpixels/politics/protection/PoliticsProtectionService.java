@@ -1,6 +1,8 @@
 package com.volumetricpixels.politics.protection;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.spout.api.Spout;
 import org.spout.api.geo.Protection;
@@ -13,6 +15,8 @@ import com.volumetricpixels.politics.Politics;
 public class PoliticsProtectionService extends ProtectionService {
     private static PoliticsProtectionService instance;
 
+    private final List<Protection> protections = new ArrayList<Protection>();
+
     public PoliticsProtectionService() {
         instance = this;
 
@@ -21,17 +25,29 @@ public class PoliticsProtectionService extends ProtectionService {
 
     @Override
     public Collection<Protection> getAllProtections() {
-        return null;
+        return protections;
     }
 
     @Override
     public Collection<Protection> getAllProtections(World world) {
-        return null;
+        Collection<Protection> result = new ArrayList<Protection>();
+        for (Protection p : protections) {
+            if (p.getWorld().equals(world)) {
+                result.add(p);
+            }
+        }
+        return result;
     }
 
     @Override
     public Collection<Protection> getAllProtections(Point location) {
-        return null;
+        Collection<Protection> result = new ArrayList<Protection>();
+        for (Protection p : protections) {
+            if (p.contains(location)) {
+                result.add(p);
+            }
+        }
+        return result;
     }
 
     @Override
