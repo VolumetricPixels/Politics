@@ -19,6 +19,8 @@
  */
 package com.volumetricpixels.politics;
 
+import java.util.logging.Logger;
+
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;
 
@@ -121,5 +123,14 @@ public final class Politics {
      */
     public static Universe getUniverse(World world, GroupLevel level) {
         return getUniverseManager().getUniverse(world, level);
+    }
+
+    /**
+     * Gets the Logger Politics uses to print messages to the console
+     * 
+     * @return Politics' unique Logger
+     */
+    public static Logger getLogger() {
+        return PoliticsPlugin.logger();
     }
 }

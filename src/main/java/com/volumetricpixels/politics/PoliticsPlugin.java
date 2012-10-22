@@ -63,15 +63,19 @@ public class PoliticsPlugin extends CommonPlugin {
     public void onEnable() {
         instance = this;
 
+        // Initialise PoliticsFileSystem
         fileSystem = new PoliticsFileSystem();
 
+        // Load plots and worlds
         plotManager = new PlotManager();
         plotManager.loadWorlds();
 
+        // Load universes and their rules
         universeManager = new UniverseManager();
         universeManager.loadRules();
         universeManager.loadUniverses();
 
+        // Register all commands
         Commands.registerAll();
 
         // Register and schedule things with Spout
@@ -99,7 +103,7 @@ public class PoliticsPlugin extends CommonPlugin {
      * @return The version of Politics.
      */
     public String getVersion() {
-        return PoliticsPlugin.class.getPackage().getImplementationVersion();
+        return getDescription().getVersion();
     }
 
     /**
