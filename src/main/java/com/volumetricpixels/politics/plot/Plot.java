@@ -23,6 +23,7 @@ import gnu.trove.list.TIntList;
 
 import java.util.List;
 
+import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
@@ -40,19 +41,9 @@ public class Plot {
     private final PoliticsWorld world;
 
     /**
-     * X of the plot.
+     * The Chunk the Plot is in
      */
-    private final int x;
-
-    /**
-     * Y of the plot.
-     */
-    private final int y;
-
-    /**
-     * Z of the plot.
-     */
-    private final int z;
+    private final Chunk chunk;
 
     /**
      * C'tor
@@ -64,9 +55,7 @@ public class Plot {
      */
     Plot(PoliticsWorld world, int x, int y, int z) {
         this.world = world;
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.chunk = world.getWorld().getChunk(x, y, z);
     }
 
     /**
@@ -77,24 +66,39 @@ public class Plot {
     }
 
     /**
-     * @return the x
+     * Gets the Chunk of the Plot
+     * 
+     * @return The Chunk the Plot is inside
+     */
+    public Chunk getChunk() {
+        return chunk;
+    }
+
+    /**
+     * Gets the x chunk coordinate of the Plot
+     * 
+     * @return The Plot's Chunk's x coordinate
      */
     public int getX() {
-        return x;
+        return chunk.getX();
     }
 
     /**
-     * @return the y
+     * Gets the y chunk coordinate of the Plot
+     * 
+     * @return The Plot's Chunk's y coordinate
      */
     public int getY() {
-        return y;
+        return chunk.getY();
     }
 
     /**
-     * @return the z
+     * Gets the z chunk coordinate of the Plot
+     * 
+     * @return The Plot's Chunk's z coordinate
      */
     public int getZ() {
-        return z;
+        return chunk.getZ();
     }
 
     /**
@@ -103,7 +107,7 @@ public class Plot {
      * @return
      */
     public Point getBase() {
-        return new Point(world.getConfig().getPlotSizeVector().multiply(16.0), world.getWorld());
+        return chunk.getBase();
     }
 
     /**
@@ -112,7 +116,7 @@ public class Plot {
      * @return
      */
     public TIntList getOwnerIds() {
-        return world.getOwnerIds(x, y, z);
+        return world.getOwnerIds(getX(), getY(), getZ());
     }
 
     /**
@@ -121,7 +125,7 @@ public class Plot {
      * @return
      */
     public List<Group> getOwners() {
-        return world.getOwners(x, y, z);
+        return world.getOwners(getX(), getY(), getZ());
     }
 
     /**
@@ -146,7 +150,7 @@ public class Plot {
      * @return True if successful
      */
     public boolean addOwner(int id) {
-        TIntList list = world.getInternalOwnerList(x, y, z);
+        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
         if (list.contains(id)) {
             return true; // Already added
         }
@@ -154,8 +158,7 @@ public class Plot {
         if (event.isCancelled()) {
             return false;
         }
-        list.add(id);
-        return true;
+        return list.add(id);
     }
 
     /**
@@ -175,7 +178,7 @@ public class Plot {
      * @return True if successful
      */
     public boolean removeOwner(int id) {
-        TIntList list = world.getInternalOwnerList(x, y, z);
+        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
         if (!list.contains(id)) {
             return true; // Not in there
         }
@@ -183,8 +186,7 @@ public class Plot {
         if (event.isCancelled()) {
             return false;
         }
-        list.remove(id);
-        return true;
+        return list.remove(id);
     }
 
     /**
@@ -204,7 +206,7 @@ public class Plot {
      * @return
      */
     public boolean isOwner(int id) {
-        return world.getInternalOwnerList(x, y, z).contains(id);
+        return world.getInternalOwnerList(getX(), getY(), getZ()).contains(id);
     }
 
     /**
