@@ -23,6 +23,24 @@ public class PoliticsProtectionService extends ProtectionService {
         Spout.getEventManager().registerEvents(new PoliticsProtectionServiceListener(), Politics.getPlugin());
     }
 
+    public boolean addProtection(Protection prot) {
+        if (protections.contains(prot) == false) {
+            if (prot != null) {
+                return protections.add(prot);
+            }
+        }
+        return false;
+    }
+
+    public boolean removeProtection(Protection prot) {
+        if (prot != null) {
+            if (protections.contains(prot)) {
+                return protections.add(prot);
+            }
+        }
+        return false;
+    }
+
     @Override
     public Collection<Protection> getAllProtections() {
         return protections;

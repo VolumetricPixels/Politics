@@ -27,7 +27,9 @@ import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.spout.api.Spout;
@@ -48,6 +50,12 @@ import com.volumetricpixels.politics.universe.Universe;
  * Represents a world containing plots.
  */
 public class PoliticsWorld implements Storable {
+    /**
+     * A store of already-created Plots. This is necessary for handling
+     * protections
+     */
+    private Map<String, Plot> plots = new HashMap<String, Plot>();
+
     /**
      * The name of the GroupsWorld.
      */
@@ -185,7 +193,11 @@ public class PoliticsWorld implements Storable {
      * @return
      */
     public Plot getPlotAt(int x, int y, int z) {
-        return new Plot(this, x, y, z);
+        String str = x + "," + y + "," + z;
+        if (plots.containsKey(str) == false) {
+            plots.put(str, new Plot(this, x, y, z));
+        }
+        return plots.get(str);
     }
 
     /**
@@ -243,7 +255,7 @@ public class PoliticsWorld implements Storable {
      */
     public static PoliticsWorld fromBSONObject(String name, WorldConfig config, BSONObject object) {
         if (!(object instanceof BasicBSONObject)) {
-            throw new IllegalArgumentException("object is not a BasicBSONObject!");
+            throw new IllegalArgumentException("Supplied BSONObject is not a BasicBSONObject!");
         }
         TLongObjectMap<TIntList> ownersIds = new TLongObjectHashMap<TIntList>();
         BasicBSONObject bobject = (BasicBSONObject) object;

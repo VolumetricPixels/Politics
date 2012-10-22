@@ -46,6 +46,7 @@ public class Citizen {
      * @param groups
      *            The groups of this citizen. This should be the only reference.
      * @param universe
+     *            The Universe this citizen is part of
      */
     public Citizen(String name, Universe universe) {
         this.name = name;

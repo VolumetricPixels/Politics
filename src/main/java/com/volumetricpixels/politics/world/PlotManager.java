@@ -158,7 +158,7 @@ public class PlotManager {
     }
 
     /**
-     * Gets a GroupWorld from its name.
+     * Gets a PoliticsWorld from its name.
      * 
      * @param name
      * @return
@@ -172,7 +172,7 @@ public class PlotManager {
     }
 
     /**
-     * Gets a GroupWorld from its World.
+     * Gets a PoliticsWorld from its World.
      * 
      * @param world
      * @return

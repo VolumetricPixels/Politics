@@ -60,7 +60,7 @@ public class Plot extends Protection {
         this.world = world;
         this.chunk = world.getWorld().getChunk(x, y, z);
 
-        PoliticsProtectionService.getInstance();
+        PoliticsProtectionService.getInstance().addProtection(this);
     }
 
     /**
