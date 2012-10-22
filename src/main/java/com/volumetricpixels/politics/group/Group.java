@@ -38,6 +38,9 @@ import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
 
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+
 import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
@@ -49,9 +52,6 @@ import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
 import com.volumetricpixels.politics.util.PropertySerializer;
-
-import org.bson.BSONObject;
-import org.bson.BasicBSONObject;
 
 /**
  * Represents a group of players.

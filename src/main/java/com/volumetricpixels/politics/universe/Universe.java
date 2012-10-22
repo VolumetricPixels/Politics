@@ -39,6 +39,11 @@ import org.spout.api.Spout;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+import org.bson.types.BasicBSONList;
+
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.data.Storable;
@@ -46,10 +51,6 @@ import com.volumetricpixels.politics.group.Citizen;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
-
-import org.bson.BSONObject;
-import org.bson.BasicBSONObject;
-import org.bson.types.BasicBSONList;
 
 /**
  * Represents a headless group of all groups within its scope.

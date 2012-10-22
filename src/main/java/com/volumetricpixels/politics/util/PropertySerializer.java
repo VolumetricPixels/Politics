@@ -25,9 +25,10 @@ import java.io.Serializable;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
 
+import com.volumetricpixels.utils.io.IOUtils;
+
 import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import com.volumetricpixels.politics.exception.PropertySerializationException;
-import com.volumetricpixels.utils.io.IOUtils;
 
 /**
  * Contains various methods for serializing and deserializing certain properties

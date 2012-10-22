@@ -32,9 +32,6 @@ import org.spout.api.geo.discrete.Point;
 import org.spout.api.util.config.Configuration;
 import org.spout.api.util.config.yaml.YamlConfiguration;
 
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.PoliticsPlugin;
-
 import org.apache.commons.io.FileUtils;
 
 import org.bson.BSONDecoder;
@@ -42,6 +39,9 @@ import org.bson.BSONEncoder;
 import org.bson.BSONObject;
 import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
+
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.PoliticsPlugin;
 
 /**
  * Manages plots.

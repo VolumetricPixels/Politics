@@ -32,11 +32,11 @@ import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.PoliticsPlugin;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+
+import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.PoliticsPlugin;
 
 /**
  * Rule template helper class.

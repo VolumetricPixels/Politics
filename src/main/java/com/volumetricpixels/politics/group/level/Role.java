@@ -26,9 +26,9 @@ import java.util.logging.Level;
 
 import org.spout.api.util.config.ConfigurationNode;
 
-import com.volumetricpixels.politics.PoliticsPlugin;
-
 import org.apache.commons.lang3.StringUtils;
+
+import com.volumetricpixels.politics.PoliticsPlugin;
 
 /**
  * A role.
