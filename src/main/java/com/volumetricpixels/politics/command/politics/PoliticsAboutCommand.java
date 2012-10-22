@@ -19,6 +19,8 @@
  */
 package com.volumetricpixels.politics.command.politics;
 
+import java.util.Calendar;
+
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
@@ -41,6 +43,7 @@ public class PoliticsAboutCommand extends PoliticsCommand {
     @Override
     public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
         source.sendMessage(MsgStyle.INFO, "Politics ", Politics.getPlugin().getVersion());
-        source.sendMessage(MsgStyle.INFO, "(c) 2012 Volumetric Pixels."); // Todo make this cool
+        source.sendMessage(MsgStyle.INFO, "Copyright (c) 2012-" + Calendar.getInstance().get(Calendar.YEAR) + " Volumetric Pixels");
+        source.sendMessage(MsgStyle.INFO, "Politics is a self-serve community management system, designed as the final replacement for Towny, Factions and other similar plugins.");
     }
 }
