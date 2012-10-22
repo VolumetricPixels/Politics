@@ -30,7 +30,7 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
- * Politics About Command.
+ * Gives information about Politics to the executor of the command
  */
 public class PoliticsAboutCommand extends PoliticsCommand {
     /**

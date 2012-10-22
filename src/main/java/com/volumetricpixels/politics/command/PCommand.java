@@ -38,6 +38,7 @@ public abstract class PCommand implements CommandExecutor {
      * C'tor
      * 
      * @param primary
+     *            The primary name of the command
      */
     protected PCommand(String primary) {
         this.primary = primary;
@@ -47,7 +48,8 @@ public abstract class PCommand implements CommandExecutor {
      * Registers this command with the given parent.
      * 
      * @param parent
-     * @return
+     *            The command to set this command as a subcommand of
+     * @return A Command object representing this command
      */
     public final Command register(Command parent) {
         if (primary == null) {
@@ -66,7 +68,7 @@ public abstract class PCommand implements CommandExecutor {
     /**
      * Gets the aliases for this command.
      * 
-     * @return
+     * @return A String[] of aliases for this command
      */
     protected String[] getAliases() {
         return new String[0];
@@ -75,7 +77,7 @@ public abstract class PCommand implements CommandExecutor {
     /**
      * Gets the permissions required to execute this command.
      * 
-     * @return
+     * @return A String[] of permissions for this command
      */
     protected String[] getPermissions() {
         return new String[0];
@@ -85,6 +87,7 @@ public abstract class PCommand implements CommandExecutor {
      * Sets up the command created.
      * 
      * @param cmd
+     *            The command to set up
      */
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(0, -1);

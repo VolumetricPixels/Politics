@@ -58,7 +58,9 @@ public abstract class GroupCommand extends PCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      * @param primary
+     *            The primary name of this command
      */
     public GroupCommand(GroupLevel level, String primary) {
         super(primary.toLowerCase());
@@ -92,9 +94,9 @@ public abstract class GroupCommand extends PCommand {
     }
 
     /**
-     * Gets the GroupLevel
+     * Gets this command's GroupLevel
      * 
-     * @return
+     * @return The GroupLevel of this command
      */
     public GroupLevel getLevel() {
         return level;
@@ -104,7 +106,8 @@ public abstract class GroupCommand extends PCommand {
      * Gets the citizen corresponding with the given player.
      * 
      * @param player
-     * @return
+     *            The Player to get the Citizen for
+     * @return The Citizen corresponding with the given Player
      */
     public Citizen getCitizen(Player player) {
         Universe universe = getUniverse(player);
@@ -118,7 +121,8 @@ public abstract class GroupCommand extends PCommand {
      * Gets the universe of the given player in relation to this command.
      * 
      * @param player
-     * @return
+     *            The Player to get the Universe of
+     * @return The Universe the given Player is in
      */
     public Universe getUniverse(Player player) {
         return Politics.getUniverse(player.getWorld(), level);
@@ -128,8 +132,11 @@ public abstract class GroupCommand extends PCommand {
      * Finds the universe that is wanted from the arguments. Uses the 'u' flag.
      * 
      * @param source
+     *            The source of the command
      * @param cmd
+     *            The Command executed
      * @param context
+     *            The arguments of the command
      * @return The universe
      */
     public Universe findUniverse(CommandSource source, Command cmd, CommandContext context) throws CommandException {
@@ -159,8 +166,11 @@ public abstract class GroupCommand extends PCommand {
      * flags.
      * 
      * @param source
+     *            The source of the command
      * @param cmd
+     *            The command executed
      * @param context
+     *            The arguments of the command
      * @return The group
      */
     public Group findGroup(CommandSource source, Command cmd, CommandContext context) throws CommandException {
@@ -184,6 +194,7 @@ public abstract class GroupCommand extends PCommand {
      * Returns true if the given source has admin privileges for this command.
      * 
      * @param source
+     *            The source of the command
      * @return True if the given source has admin privileges for this command.
      */
     public boolean hasAdmin(CommandSource source) {

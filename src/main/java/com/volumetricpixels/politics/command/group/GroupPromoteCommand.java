@@ -40,6 +40,7 @@ public class GroupPromoteCommand extends GroupCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupPromoteCommand(GroupLevel level) {
         super(level, "promote");

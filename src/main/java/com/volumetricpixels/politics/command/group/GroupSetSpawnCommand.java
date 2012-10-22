@@ -42,6 +42,7 @@ public class GroupSetSpawnCommand extends GroupCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupSetSpawnCommand(GroupLevel level) {
         super(level, "setspawn");

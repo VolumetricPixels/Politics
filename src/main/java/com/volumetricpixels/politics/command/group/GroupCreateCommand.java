@@ -37,6 +37,7 @@ public class GroupCreateCommand extends GroupCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupCreateCommand(GroupLevel level) {
         super(level, "create");

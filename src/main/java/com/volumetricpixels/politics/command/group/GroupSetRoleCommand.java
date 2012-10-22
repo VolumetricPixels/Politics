@@ -39,6 +39,7 @@ public class GroupSetRoleCommand extends GroupCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupSetRoleCommand(GroupLevel level) {
         super(level, "setrole");

@@ -40,6 +40,7 @@ public class GroupDemoteCommand extends GroupCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupDemoteCommand(GroupLevel level) {
         super(level, "demote");

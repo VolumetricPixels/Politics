@@ -41,6 +41,7 @@ public abstract class Commands {
      * C'tor
      * 
      * @param name
+     *            The name of the base command
      */
     public Commands(String name) {
         this.name = name.toLowerCase();

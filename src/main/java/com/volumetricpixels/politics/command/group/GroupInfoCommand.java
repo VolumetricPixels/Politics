@@ -35,6 +35,12 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * Used to get info about a group
  */
 public class GroupInfoCommand extends GroupCommand {
+    /**
+     * C'tor
+     * 
+     * @param level
+     *            The GroupLevel of this command
+     */
     public GroupInfoCommand(GroupLevel level) {
         super(level, "info");
     }

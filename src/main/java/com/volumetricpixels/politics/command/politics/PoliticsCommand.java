@@ -29,6 +29,7 @@ public abstract class PoliticsCommand extends PCommand {
      * C'tor
      * 
      * @param primary
+     *            The primary command label
      */
     public PoliticsCommand(String primary) {
         super(primary.toLowerCase());

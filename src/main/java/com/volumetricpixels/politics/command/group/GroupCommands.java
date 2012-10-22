@@ -37,6 +37,7 @@ public class GroupCommands extends Commands {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupCommands(GroupLevel level) {
         super(level.getName().toLowerCase());

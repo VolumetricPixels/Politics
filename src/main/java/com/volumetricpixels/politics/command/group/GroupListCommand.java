@@ -42,6 +42,7 @@ public class GroupListCommand extends GroupCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupListCommand(GroupLevel level) {
         super(level, "list");

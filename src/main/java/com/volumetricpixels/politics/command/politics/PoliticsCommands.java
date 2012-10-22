@@ -24,7 +24,7 @@ import org.spout.api.command.Command;
 import com.volumetricpixels.politics.command.Commands;
 
 /**
- * Contains all Politics commands.
+ * Deals with subcommands of /politics
  */
 public class PoliticsCommands extends Commands {
     /**

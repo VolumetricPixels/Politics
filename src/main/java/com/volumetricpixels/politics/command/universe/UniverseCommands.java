@@ -24,7 +24,7 @@ import org.spout.api.command.Command;
 import com.volumetricpixels.politics.command.Commands;
 
 /**
- * Contains commands related to Universes.
+ * Deals with commands related to Universes.
  */
 public class UniverseCommands extends Commands {
     /**

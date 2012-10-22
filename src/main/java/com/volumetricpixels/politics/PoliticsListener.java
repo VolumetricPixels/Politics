@@ -37,7 +37,7 @@ import com.volumetricpixels.politics.plot.Plot;
  */
 public class PoliticsListener implements Listener {
     @EventHandler(order = Order.EARLIEST)
-    public void onEntityMove(EntityMoveEvent event) {
+    public void checkPlotChange(EntityMoveEvent event) {
         if (!(event.getEntity() instanceof Player) || event.isCancelled()) {
             return;
         }

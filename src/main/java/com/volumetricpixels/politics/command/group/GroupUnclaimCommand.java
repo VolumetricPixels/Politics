@@ -42,6 +42,7 @@ public class GroupUnclaimCommand extends GroupCommand {
      * C'tor
      * 
      * @param level
+     *            The GroupLevel of this command
      */
     public GroupUnclaimCommand(GroupLevel level) {
         super(level, "unclaim");
