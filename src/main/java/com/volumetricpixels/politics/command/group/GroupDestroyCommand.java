@@ -28,7 +28,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Used to destroy (delete) a group
@@ -51,7 +51,7 @@ public class GroupDestroyCommand extends GroupCommand {
         }
 
         group.getUniverse().destroyGroup(group);
-        source.sendMessage(MsgStyle.SUCCESS, "The group " + group.getStringProperty(GroupProperty.NAME) + " has been disbanded.");
+        source.sendMessage(MessageStyle.SUCCESS, "The group " + group.getStringProperty(GroupProperty.NAME) + " has been disbanded.");
     }
 
     @Override

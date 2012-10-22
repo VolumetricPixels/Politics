@@ -29,7 +29,7 @@ import org.spout.api.exception.CommandException;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.universe.RuleTemplates;
 import com.volumetricpixels.politics.universe.UniverseRules;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Creates Universe rules.
@@ -47,7 +47,7 @@ public class UniverseGenRulesCommand extends UniverseCommand {
         String templateName = args.getString(0).toLowerCase();
         Set<String> templateNames = RuleTemplates.listTemplateNames();
         if (!templateNames.contains(templateName)) {
-            source.sendMessage(MsgStyle.ERROR, "A template with the name of '" + templateName + "' does not exist.");
+            source.sendMessage(MessageStyle.ERROR, "A template with the name of '" + templateName + "' does not exist.");
             return;
         }
 
@@ -56,13 +56,13 @@ public class UniverseGenRulesCommand extends UniverseCommand {
 
         boolean force = args.hasFlag('f');
         if (existing != null && !force) {
-            source.sendMessage(MsgStyle.ERROR, "A set of rules with the name of '" + name
+            source.sendMessage(MessageStyle.ERROR, "A set of rules with the name of '" + name
                     + "' already exists. Use the '-f' option to overwrite an existing rule set.");
             return;
         }
 
         RuleTemplates.copyTemplate(templateName, name);
-        source.sendMessage(MsgStyle.SUCCESS, "A new set of rules named '" + name + "' based on the template '" + templateName
+        source.sendMessage(MessageStyle.SUCCESS, "A new set of rules named '" + name + "' based on the template '" + templateName
                 + "' has been generated. Please restart the server to see your changes.");
     }
 

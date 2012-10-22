@@ -30,7 +30,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.group.level.RoleTrack;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Group promote command.
@@ -81,7 +81,7 @@ public class GroupDemoteCommand extends GroupCommand {
         }
 
         group.setRole(player.getName(), next);
-        source.sendMessage(MsgStyle.SUCCESS, player.getName() + " was demoted to " + next.getName() + " in the group.");
+        source.sendMessage(MessageStyle.SUCCESS, player.getName() + " was demoted to " + next.getName() + " in the group.");
     }
 
     @Override

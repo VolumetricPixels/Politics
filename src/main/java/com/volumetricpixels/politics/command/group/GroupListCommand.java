@@ -30,7 +30,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Group list command
@@ -51,7 +51,7 @@ public class GroupListCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext args) throws CommandException {
         Universe universe = findUniverse(source, cmd, args);
 
-        source.sendMessage(MsgStyle.INFO, "========= " + level.getPlural().toUpperCase() + " =========");
+        source.sendMessage(MessageStyle.INFO, "========= " + level.getPlural().toUpperCase() + " =========");
 
         List<Group> groups = universe.getGroups(level);
         if (groups == null) {

@@ -34,7 +34,7 @@ import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.plot.PoliticsWorld;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Used to create universes.
@@ -52,28 +52,28 @@ public class UniverseCreateCommand extends UniverseCommand {
         String name = args.getString(0).toLowerCase();
 
         if (name.contains(" ")) {
-            source.sendMessage(MsgStyle.ERROR, "Spaces are not allowed in universe names.");
+            source.sendMessage(MessageStyle.ERROR, "Spaces are not allowed in universe names.");
             return;
         }
 
         if (name.contains("/") || name.contains("\\")) {
-            source.sendMessage(MsgStyle.ERROR, "Slashes are not allowed in universe names.");
+            source.sendMessage(MessageStyle.ERROR, "Slashes are not allowed in universe names.");
             return;
         }
 
         // boolean force = args.hasFlag('f');
         Universe existing = Politics.getUniverse(name);
         if (existing != null) {
-            source.sendMessage(MsgStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `",
-                    MsgStyle.ERROR_HIGHLIGHT, "universe destroy", MsgStyle.ERROR, "' command if you wish to overwrite that universe.");
+            source.sendMessage(MessageStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `",
+                    MessageStyle.ERROR_HIGHLIGHT, "universe destroy", MessageStyle.ERROR, "' command if you wish to overwrite that universe.");
             return;
         }
 
         String rules = args.getString(1).toLowerCase();
         UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
         if (theRules == null) {
-            source.sendMessage(MsgStyle.ERROR, "There is no set of rules named ", MsgStyle.ERROR_HIGHLIGHT, rules, MsgStyle.ERROR,
-                    ". To see the available rules, use ", MsgStyle.ERROR_HIGHLIGHT, "universe rules", MsgStyle.ERROR, ".");
+            source.sendMessage(MessageStyle.ERROR, "There is no set of rules named ", MessageStyle.ERROR_HIGHLIGHT, rules, MessageStyle.ERROR,
+                    ". To see the available rules, use ", MessageStyle.ERROR_HIGHLIGHT, "universe rules", MessageStyle.ERROR, ".");
             return;
         }
 
@@ -97,13 +97,13 @@ public class UniverseCreateCommand extends UniverseCommand {
         }
 
         if (worlds.size() <= 0) {
-            source.sendMessage(MsgStyle.ERROR, "There were no valid worlds specified.");
+            source.sendMessage(MessageStyle.ERROR, "There were no valid worlds specified.");
             return;
         }
 
         Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
         PoliticsEventFactory.callUniverseCreateEvent(universe);
-        source.sendMessage(MsgStyle.SUCCESS, "You have created the universe '" + name + "' with the rules '" + rules + "'.");
+        source.sendMessage(MessageStyle.SUCCESS, "You have created the universe '" + name + "' with the rules '" + rules + "'.");
     }
 
     @Override

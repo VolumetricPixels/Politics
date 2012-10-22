@@ -29,7 +29,7 @@ import org.spout.api.exception.CommandException;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Group set role command
@@ -70,7 +70,7 @@ public class GroupSetRoleCommand extends GroupCommand {
         }
 
         group.setRole(player.getName(), role);
-        source.sendMessage(MsgStyle.SUCCESS, player.getName() + " is now part of the " + level.getName() + ".");
+        source.sendMessage(MessageStyle.SUCCESS, player.getName() + " is now part of the " + level.getName() + ".");
     }
 
     @Override

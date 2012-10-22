@@ -27,7 +27,7 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
 import com.volumetricpixels.politics.Politics;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Politics About Command.
@@ -42,9 +42,9 @@ public class PoliticsAboutCommand extends PoliticsCommand {
 
     @Override
     public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-        source.sendMessage(MsgStyle.INFO, "Politics ", Politics.getPlugin().getVersion());
-        source.sendMessage(MsgStyle.INFO, "Copyright (c) 2012-" + Calendar.getInstance().get(Calendar.YEAR) + " Volumetric Pixels");
-        source.sendMessage(MsgStyle.INFO,
+        source.sendMessage(MessageStyle.INFO, "Politics ", Politics.getPlugin().getVersion());
+        source.sendMessage(MessageStyle.INFO, "Copyright (c) 2012-" + Calendar.getInstance().get(Calendar.YEAR) + " Volumetric Pixels");
+        source.sendMessage(MessageStyle.INFO,
                 "Politics is a self-serve community management system, designed as the final replacement for Towny, Factions and other similar plugins.");
     }
 }

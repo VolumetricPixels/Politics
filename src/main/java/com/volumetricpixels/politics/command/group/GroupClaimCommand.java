@@ -32,7 +32,7 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.plot.Plot;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Claims the plot you are in.
@@ -76,7 +76,7 @@ public class GroupClaimCommand extends GroupCommand {
             throw new CommandException("You cannot claim this plot!");
         }
 
-        source.sendMessage(MsgStyle.SUCCESS, "The plot was claimed successfully.");
+        source.sendMessage(MessageStyle.SUCCESS, "The plot was claimed successfully.");
     }
 
     @Override

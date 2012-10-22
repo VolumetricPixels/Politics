@@ -30,7 +30,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 public class GroupCreateCommand extends GroupCommand {
     /**
@@ -82,7 +82,7 @@ public class GroupCreateCommand extends GroupCommand {
             throw new CommandException(level.getName() + " creation denied.");
         }
 
-        source.sendMessage(MsgStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
+        source.sendMessage(MessageStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
     }
 
     @Override

@@ -22,9 +22,9 @@ package com.volumetricpixels.politics.util;
 import org.spout.api.chat.style.ChatStyle;
 
 /**
- * The ChatStyles to be used for specific things.
+ * The constant ChatStyles used in Politics for specific message types
  */
-public class MsgStyle {
+public class MessageStyle {
     /**
      * Error ChatStyle
      */

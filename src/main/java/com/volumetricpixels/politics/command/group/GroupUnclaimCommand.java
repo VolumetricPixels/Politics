@@ -32,7 +32,7 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.plot.Plot;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Claims the plot you are in.
@@ -68,7 +68,7 @@ public class GroupUnclaimCommand extends GroupCommand {
             throw new CommandException("The plot could not be unclaimed.");
         }
 
-        source.sendMessage(MsgStyle.SUCCESS, "The plot was unclaimed successfully.");
+        source.sendMessage(MessageStyle.SUCCESS, "The plot was unclaimed successfully.");
     }
 
     @Override

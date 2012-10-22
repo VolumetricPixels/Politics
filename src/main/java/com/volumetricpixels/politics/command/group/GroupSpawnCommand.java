@@ -31,7 +31,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Teleports you to your group's spawn.
@@ -79,9 +79,9 @@ public class GroupSpawnCommand extends GroupCommand {
         player.getTransform().setTransform(spawn);
 
         if (playerName != null) {
-            source.sendMessage(MsgStyle.SUCCESS, playerName + " was teleported to the " + level.getName() + " spawn.");
+            source.sendMessage(MessageStyle.SUCCESS, playerName + " was teleported to the " + level.getName() + " spawn.");
         }
-        source.sendMessage(MsgStyle.INFO, "You have been teleported to the spawn of " + group.getStringProperty(GroupProperty.NAME) + ".");
+        source.sendMessage(MessageStyle.INFO, "You have been teleported to the spawn of " + group.getStringProperty(GroupProperty.NAME) + ".");
 
     }
 

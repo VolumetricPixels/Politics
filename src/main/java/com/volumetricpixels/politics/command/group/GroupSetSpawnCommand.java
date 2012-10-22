@@ -32,7 +32,7 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Privilege;
 import com.volumetricpixels.politics.plot.Plot;
-import com.volumetricpixels.politics.util.MsgStyle;
+import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Claims the plot you are in.
@@ -64,7 +64,7 @@ public class GroupSetSpawnCommand extends GroupCommand {
         }
 
         group.setProperty(GroupProperty.SPAWN, transform);
-        source.sendMessage(MsgStyle.SUCCESS, "The spawn of your " + level.getName() + " was set successfully.");
+        source.sendMessage(MessageStyle.SUCCESS, "The spawn of your " + level.getName() + " was set successfully.");
     }
 
     @Override
