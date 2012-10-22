@@ -70,7 +70,7 @@ public class UniverseRules {
     /**
      * Gets the name of these UniverseRules.
      * 
-     * @return
+     * @return The name of these rules
      */
     public String getName() {
         return name;
@@ -79,7 +79,7 @@ public class UniverseRules {
     /**
      * Gets the description of these UniverseRules.
      * 
-     * @return
+     * @return The description of these rules
      */
     public String getDescription() {
         return description;
@@ -88,7 +88,7 @@ public class UniverseRules {
     /**
      * Gets the group levels of these UniverseRules.
      * 
-     * @return
+     * @return The GroupLevels of these rules
      */
     public List<GroupLevel> getGroupLevels() {
         return new ArrayList<GroupLevel>(groupLevels.values());
@@ -98,7 +98,8 @@ public class UniverseRules {
      * Gets the GroupLevel with the given name.
      * 
      * @param name
-     * @return
+     *            The name of the GroupLevel
+     * @return The GroupLevel with the given name
      */
     public GroupLevel getGroupLevel(String name) {
         return groupLevels.get(name.toLowerCase());
@@ -108,6 +109,7 @@ public class UniverseRules {
      * Saves the UniverseRules to the given config.
      * 
      * @param config
+     *            The Configuration to save the rules to
      */
     public void save(Configuration config) {
         for (GroupLevel level : groupLevels.values()) {
@@ -120,7 +122,8 @@ public class UniverseRules {
      * Loads a UniverseRules from the given config.
      * 
      * @param config
-     * @return
+     *            The Configuration to load the rules to
+     * @return The loaded UniverseRules
      */
     public static UniverseRules load(String name, Configuration config) {
         String description = config.getChild("description").getString("No description given.");
