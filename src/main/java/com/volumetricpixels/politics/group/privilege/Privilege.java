@@ -93,7 +93,7 @@ public class Privilege {
     }
 
     /**
-     * Gets the privileges found in all sets.
+     * Gets the privileges found in all given sets.
      *
      * @param sets
      * @return
@@ -104,6 +104,7 @@ public class Privilege {
         for (Set<Privilege> set : sets) {
             if (first) {
                 result.addAll(set);
+                first = false;
                 continue;
             }
 
@@ -112,6 +113,24 @@ public class Privilege {
                 if (!set.contains(privilege)) {
                     result.remove(privilege);
                 }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Filters the given set by the given privilege types.
+     *
+     * @param set
+     * @param types
+     * @return
+     */
+    public static Set<Privilege> filter(Set<Privilege> set, PrivilegeType... types) {
+        Set<Privilege> result = new HashSet<Privilege>();
+        Set<PrivilegeType> typesSet = EnumSet.of(types[0], types);
+        for (Privilege priv : set) {
+            if (priv.getTypes().containsAll(typesSet)) {
+                result.add(priv);
             }
         }
         return result;
