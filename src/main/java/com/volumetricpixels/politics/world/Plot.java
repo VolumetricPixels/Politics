@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.world;
 
+import com.volumetricpixels.politics.Politics;
 import gnu.trove.list.TIntList;
 
 import java.util.List;
@@ -148,6 +149,16 @@ public class Plot extends Protection {
             }
         }
         return null;
+    }
+
+    /**
+     * Adds an owner to the plot.
+     *
+     * @param id The id of the owner.
+     * @return True if successful.s
+     */
+    public boolean addOwner(int id) {
+        return addOwner(Politics.getUniverseManager().getGroupById(id));
     }
 
     /**
