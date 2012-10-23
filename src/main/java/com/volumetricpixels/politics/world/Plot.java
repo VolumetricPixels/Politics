@@ -31,8 +31,9 @@ import org.spout.api.geo.discrete.Point;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.protection.PoliticsProtectionService;
+import com.volumetricpixels.politics.universe.Universe;
+import java.util.ArrayList;
 
 /**
  * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
@@ -137,18 +138,34 @@ public class Plot extends Protection {
     }
 
     /**
-     * Gets the group owning this plot at the given level.
+     * Gets the group owning this plot in the given universe.
      *
-     * @param level
+     * @param universe
      * @return
      */
-    public Group getOwner(GroupLevel level) {
+    public Group getOwner(Universe universe) {
         for (Group owner : getOwners()) {
-            if (owner.getLevel().equals(level)) {
+            if (owner.getUniverse().equals(universe)) {
                 return owner;
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the owners of this plot in the universe. It's a chain.
+     *
+     * @param universe
+     * @return
+     */
+    public List<Group> getOwners(Universe universe) {
+        List<Group> owners = new ArrayList<Group>();
+        Group group = getOwner(universe);
+        while (group != null) {
+            owners.add(group);
+            group = group.getParent();
+        }
+        return owners;
     }
 
     /**
@@ -168,20 +185,24 @@ public class Plot extends Protection {
      * @return True if successful
      */
     public boolean addOwner(Group group) {
-        for (Group g : getOwners()) {
-            if (g.equals(group)) {
-                return false;
-            }
-
-            if (g.getLevel().equals(group.getLevel())) {
-                return false;
-            }
-        }
-        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
         PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, group.getUid(), true);
         if (event.isCancelled()) {
             return false;
         }
+
+        for (Group g : getOwners()) {
+            if (g.equals(group)) {
+                return false; // Already owns the plot
+            }
+
+            if (g.getUniverse().equals(group.getUniverse()) && group.getParent().equals(g)) {
+                removeOwner(g);
+                break; // We are a sub-plot
+            }
+            return false;
+        }
+
+        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
         return list.add(group.getUid());
     }
 

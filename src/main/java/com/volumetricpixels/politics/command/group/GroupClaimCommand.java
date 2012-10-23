@@ -40,9 +40,8 @@ import com.volumetricpixels.politics.world.Plot;
 public class GroupClaimCommand extends GroupCommand {
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupClaimCommand(GroupLevel level) {
         super(level, "claim");
@@ -68,7 +67,7 @@ public class GroupClaimCommand extends GroupCommand {
             throw new CommandException(group.getStringProperty(GroupProperty.NAME) + " already owns this plot.");
         }
 
-        Group owner = plot.getOwner(level);
+        Group owner = plot.getOwner(group.getUniverse());
         if (owner != null) {
             throw new CommandException("Sorry, this plot is already owned by " + owner.getStringProperty(GroupProperty.NAME) + ".");
         }
