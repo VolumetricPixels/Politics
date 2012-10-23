@@ -49,7 +49,7 @@ public class Plot extends Protection {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -65,7 +65,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the PoliticsWorld this Plot is located in
-     * 
+     *
      * @return This Plot's PoliticsWorld
      */
     public PoliticsWorld getPoliticsWorld() {
@@ -74,7 +74,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the Chunk of the Plot
-     * 
+     *
      * @return The Chunk the Plot is inside
      */
     public Chunk getChunk() {
@@ -83,7 +83,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the x chunk coordinate of the Plot
-     * 
+     *
      * @return The Plot's Chunk's x coordinate
      */
     public int getX() {
@@ -92,7 +92,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the y chunk coordinate of the Plot
-     * 
+     *
      * @return The Plot's Chunk's y coordinate
      */
     public int getY() {
@@ -101,7 +101,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the z chunk coordinate of the Plot
-     * 
+     *
      * @return The Plot's Chunk's z coordinate
      */
     public int getZ() {
@@ -110,7 +110,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the point at the base of the plot.
-     * 
+     *
      * @return
      */
     public Point getBase() {
@@ -119,7 +119,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the IDs of the owners of the plot.
-     * 
+     *
      * @return
      */
     public TIntList getOwnerIds() {
@@ -128,7 +128,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the list of the owners of the plot.
-     * 
+     *
      * @return
      */
     public List<Group> getOwners() {
@@ -137,7 +137,7 @@ public class Plot extends Protection {
 
     /**
      * Gets the group owning this plot at the given level.
-     * 
+     *
      * @param level
      * @return
      */
@@ -152,35 +152,31 @@ public class Plot extends Protection {
 
     /**
      * Adds an owner to the plot.
-     * 
-     * @param id
-     * @return True if successful
-     */
-    public boolean addOwner(int id) {
-        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
-        if (list.contains(id)) {
-            return true; // Already added
-        }
-        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
-        if (event.isCancelled()) {
-            return false;
-        }
-        return list.add(id);
-    }
-
-    /**
-     * Adds an owner to the plot.
-     * 
+     *
      * @param group
      * @return True if successful
      */
     public boolean addOwner(Group group) {
-        return addOwner(group.getUid());
+        for (Group g : getOwners()) {
+            if (g.equals(group)) {
+                return false;
+            }
+
+            if (g.getLevel().equals(group.getLevel())) {
+                return false;
+            }
+        }
+        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
+        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, group.getUid(), true);
+        if (event.isCancelled()) {
+            return false;
+        }
+        return list.add(group.getUid());
     }
 
     /**
      * Removes an owner from the plot.
-     * 
+     *
      * @param id
      * @return True if successful
      */
@@ -198,7 +194,7 @@ public class Plot extends Protection {
 
     /**
      * Removes the given owner from this plot's owners.
-     * 
+     *
      * @param group
      * @return True if successful
      */
@@ -208,7 +204,7 @@ public class Plot extends Protection {
 
     /**
      * Returns true if the given owner id is an owner of this plot.
-     * 
+     *
      * @param id
      * @return
      */
@@ -218,7 +214,7 @@ public class Plot extends Protection {
 
     /**
      * Returns true if the given owner is an owner of this plot.
-     * 
+     *
      * @param group
      * @return
      */

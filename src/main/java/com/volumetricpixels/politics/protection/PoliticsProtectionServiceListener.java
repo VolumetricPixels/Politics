@@ -13,7 +13,7 @@ import com.volumetricpixels.politics.world.Plot;
 
 public class PoliticsProtectionServiceListener implements Listener {
     @EventHandler(order = Order.LATEST)
-    public void onCanBreak(EntityCanBreakEvent event) {
+    public void onEntityCanBreak(EntityCanBreakEvent event) {
         Plot plot = Politics.getPlotAt(event.getBlock().getPosition());
         List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getX(), plot.getY(), plot.getZ());
 
