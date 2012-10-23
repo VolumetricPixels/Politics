@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.group;
 
+import com.volumetricpixels.politics.Politics;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -467,6 +468,11 @@ public final class Group implements Comparable<Group>, Storable {
      * @return
      */
     public Group getParent() {
+        for (Group group : universe.getGroups()) {
+            if (group.getGroups().contains(group)) {
+                return group;
+            }
+        }
         return null;
     }
 
