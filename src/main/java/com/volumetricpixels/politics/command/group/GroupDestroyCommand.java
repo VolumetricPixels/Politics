@@ -27,7 +27,7 @@ import org.spout.api.exception.CommandException;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
@@ -52,7 +52,7 @@ public class GroupDestroyCommand extends GroupCommand {
 
         Group group = findGroup(source, cmd, context);
 
-        if (!group.can(source, Privilege.DISBAND) && !hasAdmin(source)) {
+        if (!group.can(source, GroupPrivileges.DISBAND) && !hasAdmin(source)) {
             throw new CommandException("You aren't allowed to disband this group.");
         }
 

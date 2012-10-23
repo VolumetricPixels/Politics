@@ -30,7 +30,7 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.util.MessageStyle;
 import com.volumetricpixels.politics.world.Plot;
 
@@ -51,7 +51,7 @@ public class GroupClaimCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
 
-        if (!group.can(source, Privilege.CLAIM) && !hasAdmin(source)) {
+        if (!group.can(source, GroupPrivileges.CLAIM) && !hasAdmin(source)) {
             throw new CommandException("You don't have permissions to claim land in this " + level.getName() + ".");
         }
 

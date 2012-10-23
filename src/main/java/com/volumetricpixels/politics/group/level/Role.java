@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.group.level;
 
+import com.volumetricpixels.politics.group.privilege.Privilege;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +30,7 @@ import org.spout.api.util.config.ConfigurationNode;
 import org.apache.commons.lang3.StringUtils;
 
 import com.volumetricpixels.politics.PoliticsPlugin;
+import java.util.HashSet;
 
 /**
  * A role.
@@ -47,7 +49,7 @@ public class Role implements Comparable<Role> {
     /**
      * The bitset of the role.
      */
-    private final int bitset;
+    private final Set<Privilege> privileges;
 
     /**
      * The rank of the role.
@@ -56,22 +58,22 @@ public class Role implements Comparable<Role> {
 
     /**
      * C'tor
-     * 
+     *
      * @param id
      * @param name
-     * @param bitset
+     * @param privileges
      * @param rank
      */
-    private Role(String id, String name, int bitset, int rank) {
+    private Role(String id, String name, Set<Privilege> privileges, int rank) {
         this.id = id;
         this.name = name;
-        this.bitset = bitset;
+        this.privileges = privileges;
         this.rank = rank;
     }
 
     /**
      * Gets the ID of this Role.
-     * 
+     *
      * @return
      */
     public String getId() {
@@ -79,36 +81,27 @@ public class Role implements Comparable<Role> {
     }
 
     /**
-     * Gets the Bitset of this Role.
-     * 
-     * @return
-     */
-    public int getBitset() {
-        return bitset;
-    }
-
-    /**
      * Checks if the role has the given privilege.
-     * 
+     *
      * @param privilege
      * @return
      */
     public boolean hasPrivilege(Privilege privilege) {
-        return privilege.hasPrivilege(bitset);
+        return privileges.contains(privilege);
     }
 
     /**
      * Gets the set of privileges of this Role.
-     * 
+     *
      * @return
      */
     public Set<Privilege> getPrivileges() {
-        return Privilege.getPrivileges(bitset);
+        return new HashSet<Privilege>(privileges);
     }
 
     /**
      * Gets the rank of the role.
-     * 
+     *
      * @return
      */
     public int getRank() {
@@ -117,7 +110,7 @@ public class Role implements Comparable<Role> {
 
     /**
      * Gets the name of the role.
-     * 
+     *
      * @return
      */
     public String getName() {
@@ -126,7 +119,7 @@ public class Role implements Comparable<Role> {
 
     /**
      * Loads a role from a string id and node.
-     * 
+     *
      * @param id
      * @param node
      * @return
@@ -134,17 +127,16 @@ public class Role implements Comparable<Role> {
     public static Role load(String id, ConfigurationNode node) {
         String name = node.getNode("name").getString(StringUtils.capitalize(id));
         List<String> privs = node.getNode("privileges").getStringList(new ArrayList<String>());
-        int mask = 0x0;
+        Set<Privilege> privileges = new HashSet<Privilege>();
         for (String priv : privs) {
             try {
-                Privilege p = Privilege.valueOf(priv);
-                mask &= p.getMask();
+                Privilege p = null; // TODO
             } catch (IllegalArgumentException ex) {
                 PoliticsPlugin.logger().log(Level.WARNING, "Unknown privilege '" + priv + "'. Not adding.");
             }
         }
         int rank = node.getNode("rank").getInt(1);
-        return new Role(id, name, mask, rank);
+        return new Role(id, name, privileges, rank);
     }
 
     @Override

@@ -31,9 +31,13 @@ import org.spout.api.geo.discrete.Point;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.group.Group;
+import com.volumetricpixels.politics.group.privilege.Privilege;
 import com.volumetricpixels.politics.protection.PoliticsProtectionService;
 import com.volumetricpixels.politics.universe.Universe;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import org.spout.api.entity.Player;
 
 /**
  * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
@@ -252,6 +256,17 @@ public class Plot extends Protection {
      */
     public boolean isOwner(Group group) {
         return isOwner(group.getUid());
+    }
+    
+    /**
+     * Gets the privileges of the player.
+     * 
+     * @param player
+     * @return 
+     */
+    public Set<Privilege> getPrivileges(Player player) {
+        Set<Privilege> privileges = new HashSet<Privilege>();
+        return privileges;
     }
 
     @Override

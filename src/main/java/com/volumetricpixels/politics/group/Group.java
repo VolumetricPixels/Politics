@@ -19,7 +19,6 @@
  */
 package com.volumetricpixels.politics.group;
 
-import com.volumetricpixels.politics.Politics;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -48,7 +47,7 @@ import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import com.volumetricpixels.politics.exception.PropertySerializationException;
 import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.group.privilege.Privilege;
 import com.volumetricpixels.politics.group.level.Role;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseRules;

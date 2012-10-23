@@ -30,7 +30,7 @@ import org.spout.api.geo.discrete.Transform;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
-import com.volumetricpixels.politics.group.level.Privilege;
+import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
@@ -51,7 +51,7 @@ public class GroupSpawnCommand extends GroupCommand {
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         Group group = findGroup(source, cmd, context);
 
-        if (!group.can(source, Privilege.SPAWN) && !hasAdmin(source)) {
+        if (!group.can(source, GroupPrivileges.SPAWN) && !hasAdmin(source)) {
             throw new CommandException("You don't have permissions to spawn to that " + level.getName() + ".");
         }
 
