@@ -65,6 +65,61 @@ public class PoliticsPlugin extends CommonPlugin {
      */
     private UniverseManager universeManager;
 
+    /**
+     * Gets the file system of the plugin.
+     * 
+     * @return The PoliticsFileSystem Politics uses for File interaction
+     */
+    public PoliticsFileSystem getFileSystem() {
+        return fileSystem;
+    }
+
+    /**
+     * Gets the PlotManager of the plugin.
+     * 
+     * @return Politics' PlotManager
+     */
+    public PlotManager getPlotManager() {
+        return plotManager;
+    }
+
+    /**
+     * Gets the PrivilegeManager of the plugin.
+     * 
+     * @return
+     */
+    public PrivilegeManager getPrivilegeManager() {
+        return privilegeManager;
+    }
+
+    /**
+     * Gets the UniverseManager of the plugin.
+     * 
+     * @return Politics' PlotManager
+     */
+    public UniverseManager getUniverseManager() {
+        return universeManager;
+    }
+
+    /**
+     * Gets the version of Politics this is.
+     * 
+     * @return The version of Politics.
+     */
+    public String getVersion() {
+        return getDescription().getVersion();
+    }
+
+    @Override
+    public void onDisable() {
+        instance = null;
+
+        plotManager.saveWorlds();
+        universeManager.saveUniverses();
+
+        getLogger().log(Level.INFO, "Politics disabled!");
+    }
+
     @Override
     public void onEnable() {
         instance = this;
@@ -96,64 +151,9 @@ public class PoliticsPlugin extends CommonPlugin {
         getLogger().log(Level.INFO, "Politics enabled!");
     }
 
-    @Override
-    public void onDisable() {
-        instance = null;
-
-        plotManager.saveWorlds();
-        universeManager.saveUniverses();
-
-        getLogger().log(Level.INFO, "Politics disabled!");
-    }
-
-    /**
-     * Gets the version of Politics this is.
-     *
-     * @return The version of Politics.
-     */
-    public String getVersion() {
-        return getDescription().getVersion();
-    }
-
-    /**
-     * Gets the file system of the plugin.
-     *
-     * @return The PoliticsFileSystem Politics uses for File interaction
-     */
-    public PoliticsFileSystem getFileSystem() {
-        return fileSystem;
-    }
-
-    /**
-     * Gets the PlotManager of the plugin.
-     *
-     * @return Politics' PlotManager
-     */
-    public PlotManager getPlotManager() {
-        return plotManager;
-    }
-
-    /**
-     * Gets the PrivilegeManager of the plugin.
-     *
-     * @return
-     */
-    public PrivilegeManager getPrivilegeManager() {
-        return privilegeManager;
-    }
-
-    /**
-     * Gets the UniverseManager of the plugin.
-     *
-     * @return Politics' PlotManager
-     */
-    public UniverseManager getUniverseManager() {
-        return universeManager;
-    }
-
     /**
      * Gets the instance of PoliticsPlugin.
-     *
+     * 
      * @return The running PoliticsPlugin instance
      */
     public static PoliticsPlugin getInstance() {
@@ -162,7 +162,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the logger of the plugin.
-     *
+     * 
      * @return Politics' Logger
      */
     public static Logger logger() {

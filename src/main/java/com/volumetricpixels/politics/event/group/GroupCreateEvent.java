@@ -59,6 +59,13 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
     /**
      * {@inheritDoc}
      */
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean isCancelled() {
         return super.isCancelled();
     }
@@ -68,13 +75,6 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
      */
     public void setCancelled(boolean cancelled) {
         super.setCancelled(cancelled);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public HandlerList getHandlers() {
-        return handlers;
     }
 
     /**

@@ -54,24 +54,6 @@ public class Citizen {
     }
 
     /**
-     * Gets the name of this citizen.
-     * 
-     * @return
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the groups this citizen is part of.
-     * 
-     * @return
-     */
-    public Set<Group> getGroups() {
-        return universe.getCitizenGroups(name);
-    }
-
-    /**
      * Gets the groups of the given level this citizen is part of.
      * 
      * @param level
@@ -84,6 +66,24 @@ public class Citizen {
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the groups this citizen is part of.
+     * 
+     * @return
+     */
+    public Set<Group> getGroups() {
+        return universe.getCitizenGroups(name);
+    }
+
+    /**
+     * Gets the name of this citizen.
+     * 
+     * @return
+     */
+    public String getName() {
+        return name;
     }
 
     /**

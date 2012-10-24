@@ -68,21 +68,23 @@ public class UniverseRules {
     }
 
     /**
-     * Gets the name of these UniverseRules.
-     * 
-     * @return The name of these rules
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Gets the description of these UniverseRules.
      * 
      * @return The description of these rules
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Gets the GroupLevel with the given name.
+     * 
+     * @param name
+     *            The name of the GroupLevel
+     * @return The GroupLevel with the given name
+     */
+    public GroupLevel getGroupLevel(String name) {
+        return groupLevels.get(name.toLowerCase());
     }
 
     /**
@@ -95,14 +97,12 @@ public class UniverseRules {
     }
 
     /**
-     * Gets the GroupLevel with the given name.
+     * Gets the name of these UniverseRules.
      * 
-     * @param name
-     *            The name of the GroupLevel
-     * @return The GroupLevel with the given name
+     * @return The name of these rules
      */
-    public GroupLevel getGroupLevel(String name) {
-        return groupLevels.get(name.toLowerCase());
+    public String getName() {
+        return name;
     }
 
     /**

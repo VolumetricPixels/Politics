@@ -68,33 +68,6 @@ public class IOUtils {
         }
     }
 
-    public static OutputStream writeObjectToOS(OutputStream os, Object obj) {
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(os);
-            out.writeObject(obj);
-            out.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
-
-        return os;
-    }
-
-    public static Object readObjectFromIS(InputStream is) {
-        try {
-            ObjectInputStream in = new ObjectInputStream(is);
-            Object result = in.readObject();
-            in.close();
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     /**
      * Uses Base64 along with Java's Serialization API to get an Object from a
      * Serialized String.
@@ -124,6 +97,21 @@ public class IOUtils {
         return o;
     }
 
+    public static Object readObjectFromIS(InputStream is) {
+        try {
+            ObjectInputStream in = new ObjectInputStream(is);
+            Object result = in.readObject();
+            in.close();
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     /**
      * Converts a Serializable Object into a Serialized String that is encoded
      * in Base64.
@@ -146,5 +134,17 @@ public class IOUtils {
         oos.writeObject(o);
         oos.close();
         return new String(Base64Coder.encode(baos.toByteArray()));
+    }
+
+    public static OutputStream writeObjectToOS(OutputStream os, Object obj) {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(os);
+            out.writeObject(obj);
+            out.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+        return os;
     }
 }

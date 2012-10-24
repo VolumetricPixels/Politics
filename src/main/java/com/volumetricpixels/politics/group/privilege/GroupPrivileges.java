@@ -19,8 +19,6 @@
  */
 package com.volumetricpixels.politics.group.privilege;
 
-import com.volumetricpixels.politics.Politics;
-
 /**
  * Contains privileges pertaining to groups.
  */
@@ -88,7 +86,7 @@ public final class GroupPrivileges {
     /**
      * All group privileges.
      */
-    public static final Privilege[] ALL = {CLAIM, DISBAND, INFO, INVITE, KICK, LEAVE, ONLINE, SET_ROLE, SET_SPAWN, SPAWN, SPAWN_OTHER, UNCLAIM};
+    public static final Privilege[] ALL = { CLAIM, DISBAND, INFO, INVITE, KICK, LEAVE, ONLINE, SET_ROLE, SET_SPAWN, SPAWN, SPAWN_OTHER, UNCLAIM };
 
     /**
      * Private C'tor

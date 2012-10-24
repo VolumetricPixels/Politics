@@ -39,16 +39,18 @@ public class PrivilegeManager {
     }
 
     /**
-     * Loads all default privileges.
+     * Gets a privilege by its name.
+     * 
+     * @param name
+     * @return
      */
-    private void loadDefaultPrivileges() {
-        registerPrivileges(GroupPrivileges.ALL);
-        registerPrivileges(GroupPlotPrivileges.ALL);
+    public Privilege getPrivilege(String name) {
+        return privileges.get(name.toUpperCase().replaceAll(" ", "_"));
     }
 
     /**
      * Registers a privilege with this PrivilegeManager.
-     *
+     * 
      * @param privilege
      * @return True if a privilege was not displaced.
      */
@@ -58,7 +60,7 @@ public class PrivilegeManager {
 
     /**
      * Registers multiple privileges.
-     *
+     * 
      * @param privileges
      * @return
      */
@@ -72,12 +74,10 @@ public class PrivilegeManager {
     }
 
     /**
-     * Gets a privilege by its name.
-     *
-     * @param name
-     * @return
+     * Loads all default privileges.
      */
-    public Privilege getPrivilege(String name) {
-        return privileges.get(name.toUpperCase().replaceAll(" ", "_"));
+    private void loadDefaultPrivileges() {
+        registerPrivileges(GroupPrivileges.ALL);
+        registerPrivileges(GroupPlotPrivileges.ALL);
     }
 }

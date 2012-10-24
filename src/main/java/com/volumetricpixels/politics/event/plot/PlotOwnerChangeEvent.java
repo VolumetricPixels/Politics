@@ -56,15 +56,6 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     }
 
     /**
-     * Gets the id of the group that will change ownership.
-     * 
-     * @return
-     */
-    public int getGroupId() {
-        return group;
-    }
-
-    /**
      * Gets the group that will change ownership.
      * 
      * @return
@@ -74,12 +65,35 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     }
 
     /**
+     * Gets the id of the group that will change ownership.
+     * 
+     * @return
+     */
+    public int getGroupId() {
+        return group;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    /**
      * Returns true if this adds the group.
      * 
      * @return
      */
     public boolean isAdd() {
         return add;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isCancelled() {
+        return super.isCancelled();
     }
 
     /**
@@ -94,22 +108,8 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     /**
      * {@inheritDoc}
      */
-    public boolean isCancelled() {
-        return super.isCancelled();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public void setCancelled(boolean cancelled) {
         super.setCancelled(cancelled);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public HandlerList getHandlers() {
-        return handlers;
     }
 
     /**

@@ -19,7 +19,6 @@
  */
 package com.volumetricpixels.politics.group.level;
 
-import com.volumetricpixels.politics.group.privilege.Privilege;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,6 +33,7 @@ import java.util.logging.Level;
 import org.spout.api.util.config.ConfigurationNode;
 
 import com.volumetricpixels.politics.PoliticsPlugin;
+import com.volumetricpixels.politics.group.privilege.Privilege;
 
 /**
  * Represents a level of organization of a group.
@@ -92,10 +92,10 @@ public final class GroupLevel {
 
     /**
      * C'tor
-     *
+     * 
      * There must be a better way... if final doesn't really matter then I will
      * switch from it.
-     *
+     * 
      * @param id
      * @param name
      * @param rank
@@ -120,62 +120,8 @@ public final class GroupLevel {
     }
 
     /**
-     * Sets the allowed children to the given set.
-     *
-     * @param set The set to use. This should be the only reference.
-     */
-    public void setAllowedChildren(Set<GroupLevel> set) {
-        this.allowedChildren = set;
-    }
-
-    /**
-     * Gets the ID of this GroupLevel.
-     *
-     * @return
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Gets the name of this GroupLevel.
-     *
-     * @return
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the rank of this GroupLevel.
-     *
-     * @return
-     */
-    public int getRank() {
-        return rank;
-    }
-
-    /**
-     * Gets the plural form of this GroupLevel.
-     *
-     * @return
-     */
-    public String getPlural() {
-        return plural;
-    }
-
-    /**
-     * Gets the set of allowed children of this GroupLevel.
-     *
-     * @return
-     */
-    public Set<GroupLevel> getAllowedChildren() {
-        return new HashSet<GroupLevel>(allowedChildren);
-    }
-
-    /**
      * Returns true if this level can have children of the given level.
-     *
+     * 
      * @param level
      * @return
      */
@@ -184,28 +130,100 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the roles of the GroupLevel, named.
-     *
+     * Checks if this GroupLevel can be founded.
+     * 
      * @return
      */
-    public Map<String, Role> getRoles() {
-        return new HashMap<String, Role>(roles);
+    public boolean canFound() {
+        return founder != null;
     }
 
     /**
      * Gets the aliases of the given command.
-     *
+     * 
      * @param command
      * @return the ArrayList of aliases; an empty ArrayList if there are no
-     * aliases thus the command should not exist
+     *         aliases thus the command should not exist
      */
     public List<String> getAliases(String command) {
         return new ArrayList<String>(commands.get(command.toLowerCase()));
     }
 
     /**
+     * Gets the set of allowed children of this GroupLevel.
+     * 
+     * @return
+     */
+    public Set<GroupLevel> getAllowedChildren() {
+        return new HashSet<GroupLevel>(allowedChildren);
+    }
+
+    /**
+     * Gets the default track of the GroupLevel.
+     * 
+     * @return
+     */
+    public RoleTrack getDefaultTrack() {
+        return getTrack("default");
+    }
+
+    /**
+     * Gets the role of a founder of the group.
+     * 
+     * @return
+     */
+    public Role getFounder() {
+        return founder;
+    }
+
+    /**
+     * Gets the ID of this GroupLevel.
+     * 
+     * @return
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Gets the initial role of a member of the group.
+     * 
+     * @return
+     */
+    public Role getInitial() {
+        return initial;
+    }
+
+    /**
+     * Gets the name of this GroupLevel.
+     * 
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the plural form of this GroupLevel.
+     * 
+     * @return
+     */
+    public String getPlural() {
+        return plural;
+    }
+
+    /**
+     * Gets the rank of this GroupLevel.
+     * 
+     * @return
+     */
+    public int getRank() {
+        return rank;
+    }
+
+    /**
      * Gets a Role from its id.
-     *
+     * 
      * @param roleId
      * @return
      */
@@ -214,8 +232,17 @@ public final class GroupLevel {
     }
 
     /**
+     * Gets the roles of the GroupLevel, named.
+     * 
+     * @return
+     */
+    public Map<String, Role> getRoles() {
+        return new HashMap<String, Role>(roles);
+    }
+
+    /**
      * Gets the track with the given id.
-     *
+     * 
      * @param id
      * @return
      */
@@ -224,44 +251,8 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the default track of the GroupLevel.
-     *
-     * @return
-     */
-    public RoleTrack getDefaultTrack() {
-        return getTrack("default");
-    }
-
-    /**
-     * Gets the initial role of a member of the group.
-     *
-     * @return
-     */
-    public Role getInitial() {
-        return initial;
-    }
-
-    /**
-     * Gets the role of a founder of the group.
-     *
-     * @return
-     */
-    public Role getFounder() {
-        return founder;
-    }
-
-    /**
-     * Checks if this GroupLevel can be founded.
-     *
-     * @return
-     */
-    public boolean canFound() {
-        return founder != null;
-    }
-
-    /**
      * Saves this GroupLevel to the provided node.
-     *
+     * 
      * @param node
      */
     public void save(ConfigurationNode node) {
@@ -293,11 +284,22 @@ public final class GroupLevel {
     }
 
     /**
+     * Sets the allowed children to the given set.
+     * 
+     * @param set
+     *            The set to use. This should be the only reference.
+     */
+    public void setAllowedChildren(Set<GroupLevel> set) {
+        this.allowedChildren = set;
+    }
+
+    /**
      * Loads a GroupLevel.
-     *
+     * 
      * @param id
      * @param node
-     * @param levels The map that the level names are stored in.
+     * @param levels
+     *            The map that the level names are stored in.
      * @return
      */
     public static GroupLevel load(String id, ConfigurationNode node, Map<GroupLevel, List<String>> levels) {

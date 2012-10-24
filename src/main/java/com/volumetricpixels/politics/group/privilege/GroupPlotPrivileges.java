@@ -36,6 +36,6 @@ public class GroupPlotPrivileges {
     /**
      * All group-plot privileges.
      */
-    public static final Privilege[] ALL = {BUILD, INTERACT};
+    public static final Privilege[] ALL = { BUILD, INTERACT };
 
 }

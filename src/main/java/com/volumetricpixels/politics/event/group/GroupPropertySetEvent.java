@@ -54,6 +54,13 @@ public class GroupPropertySetEvent extends GroupEvent {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    /**
      * Gets the property that will be set.
      * 
      * @return
@@ -69,13 +76,6 @@ public class GroupPropertySetEvent extends GroupEvent {
      */
     public Object getValue() {
         return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public HandlerList getHandlers() {
-        return handlers;
     }
 
     /**

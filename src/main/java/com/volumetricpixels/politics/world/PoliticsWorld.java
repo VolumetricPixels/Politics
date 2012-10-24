@@ -94,15 +94,6 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the name of the GroupsWorld.
-     * 
-     * @return
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
      * Gets the configuration of this world.
      * 
      * @return
@@ -112,30 +103,21 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the World of this PoliticsWorld.
+     * Gets the GroupLevels within this world.
      * 
      * @return
      */
-    public World getWorld() {
-        return Spout.getEngine().getWorld(name);
+    public List<GroupLevel> getLevels() {
+        return Politics.getUniverseManager().getLevelsOfWorld(this);
     }
 
     /**
-     * Gets the internal list of owners of a given location. Creates this list
-     * if it doesn't exist.
+     * Gets the name of the GroupsWorld.
      * 
-     * @param x
-     * @param y
-     * @param z
-     * @return the internal list of owners for given location
+     * @return
      */
-    TIntList getInternalOwnerList(int x, int y, int z) {
-        TIntList list = owners.get(x, y, z);
-        if (list == null) {
-            list = new TIntArrayList();
-            owners.put(x, y, z, list);
-        }
-        return list;
+    public String getName() {
+        return this.name;
     }
 
     /**
@@ -175,16 +157,6 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets a universe from its GroupLevel.
-     * 
-     * @param level
-     * @return
-     */
-    public Universe getUniverse(GroupLevel level) {
-        return Politics.getUniverseManager().getUniverse(this, level);
-    }
-
-    /**
      * Gets the plot at the given location.
      * 
      * @param x
@@ -213,12 +185,22 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the GroupLevels within this world.
+     * Gets a universe from its GroupLevel.
+     * 
+     * @param level
+     * @return
+     */
+    public Universe getUniverse(GroupLevel level) {
+        return Politics.getUniverseManager().getUniverse(this, level);
+    }
+
+    /**
+     * Gets the World of this PoliticsWorld.
      * 
      * @return
      */
-    public List<GroupLevel> getLevels() {
-        return Politics.getUniverseManager().getLevelsOfWorld(this);
+    public World getWorld() {
+        return Spout.getEngine().getWorld(name);
     }
 
     @Override
@@ -243,6 +225,24 @@ public class PoliticsWorld implements Storable {
             bson.put(key, theOwnersBson);
         }
         return bson;
+    }
+
+    /**
+     * Gets the internal list of owners of a given location. Creates this list
+     * if it doesn't exist.
+     * 
+     * @param x
+     * @param y
+     * @param z
+     * @return the internal list of owners for given location
+     */
+    TIntList getInternalOwnerList(int x, int y, int z) {
+        TIntList list = owners.get(x, y, z);
+        if (list == null) {
+            list = new TIntArrayList();
+            owners.put(x, y, z, list);
+        }
+        return list;
     }
 
     /**

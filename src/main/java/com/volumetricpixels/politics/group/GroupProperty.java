@@ -24,12 +24,6 @@ package com.volumetricpixels.politics.group;
  */
 public final class GroupProperty {
     /**
-     * C'tor
-     */
-    private GroupProperty() {
-    }
-
-    /**
      * Group tag.
      */
     public static final int TAG = 0x0;
@@ -43,5 +37,11 @@ public final class GroupProperty {
      * The spawn of the group.
      */
     public static final int SPAWN = 0x2;
+
+    /**
+     * C'tor
+     */
+    private GroupProperty() {
+    }
 
 }

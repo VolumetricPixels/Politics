@@ -19,7 +19,6 @@
  */
 package com.volumetricpixels.politics.group.privilege;
 
-import com.google.common.base.Joiner;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
@@ -53,7 +52,7 @@ public class Privilege {
 
     /**
      * Gets the name of this privilege. This must be unique.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -62,7 +61,7 @@ public class Privilege {
 
     /**
      * Gets the types of this privilege.
-     *
+     * 
      * @return
      */
     public Set<PrivilegeType> getTypes() {
@@ -71,7 +70,7 @@ public class Privilege {
 
     /**
      * Merges two sets of privileges together.
-     *
+     * 
      * @param sets
      * @return
      */
@@ -85,7 +84,7 @@ public class Privilege {
 
     /**
      * Gets the privileges found in all given sets.
-     *
+     * 
      * @param sets
      * @return
      */
@@ -111,7 +110,7 @@ public class Privilege {
 
     /**
      * Filters the given set by the given privilege types.
-     *
+     * 
      * @param set
      * @param types
      * @return

@@ -63,18 +63,19 @@ public class WorldConfig {
     }
 
     /**
+     * Gets the plot size as a vector.
+     * 
+     * @return
+     */
+    public Vector3 getPlotSizeVector() {
+        return new Vector3(plotSizeX, plotSizeY, plotSizeZ);
+    }
+
+    /**
      * @return the plotSizeX
      */
     public int getPlotSizeX() {
         return plotSizeX;
-    }
-
-    /**
-     * @param plotSizeX
-     *            the plotSizeX to set
-     */
-    public void setPlotSizeX(int plotSizeX) {
-        this.plotSizeX = plotSizeX;
     }
 
     /**
@@ -85,35 +86,10 @@ public class WorldConfig {
     }
 
     /**
-     * @param plotSizeY
-     *            the plotSizeY to set
-     */
-    public void setPlotSizeY(int plotSizeY) {
-        this.plotSizeY = plotSizeY;
-    }
-
-    /**
      * @return the plotSizeZ
      */
     public int getPlotSizeZ() {
         return plotSizeZ;
-    }
-
-    /**
-     * @param plotSizeZ
-     *            the plotSizeZ to set
-     */
-    public void setPlotSizeZ(int plotSizeZ) {
-        this.plotSizeZ = plotSizeZ;
-    }
-
-    /**
-     * Gets the plot size as a vector.
-     * 
-     * @return
-     */
-    public Vector3 getPlotSizeVector() {
-        return new Vector3(plotSizeX, plotSizeY, plotSizeZ);
     }
 
     /**
@@ -125,6 +101,30 @@ public class WorldConfig {
         config.getNode("plotsize.x").setValue(plotSizeX);
         config.getNode("plotsize.y").setValue(plotSizeY);
         config.getNode("plotsize.z").setValue(plotSizeZ);
+    }
+
+    /**
+     * @param plotSizeX
+     *            the plotSizeX to set
+     */
+    public void setPlotSizeX(int plotSizeX) {
+        this.plotSizeX = plotSizeX;
+    }
+
+    /**
+     * @param plotSizeY
+     *            the plotSizeY to set
+     */
+    public void setPlotSizeY(int plotSizeY) {
+        this.plotSizeY = plotSizeY;
+    }
+
+    /**
+     * @param plotSizeZ
+     *            the plotSizeZ to set
+     */
+    public void setPlotSizeZ(int plotSizeZ) {
+        this.plotSizeZ = plotSizeZ;
     }
 
     /**

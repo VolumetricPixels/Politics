@@ -64,6 +64,100 @@ public class PlotManager {
     }
 
     /**
+     * Gets the plot at the given position.
+     * 
+     * @param position
+     * @return
+     */
+    public Plot getPlotAt(Point position) {
+        return getPlotAtPosition(position.getWorld(), position.getChunkX(), position.getChunkY(), position.getChunkZ());
+    }
+
+    /**
+     * Gets the plot corresponding with the given Chunk.
+     * 
+     * @param chunk
+     * @return
+     */
+    public Plot getPlotAtChunk(Chunk chunk) {
+        return getWorld(chunk.getWorld()).getPlotAtChunkPosition(chunk.getX(), chunk.getY(), chunk.getZ());
+    }
+
+    /**
+     * Gets the plot at the given chunk position.
+     * 
+     * @param world
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public Plot getPlotAtPosition(String world, int x, int y, int z) {
+        return getWorld(world).getPlotAtChunkPosition(x, y, z);
+    }
+
+    /**
+     * Gets the plot at the given chunk position.
+     * 
+     * @param world
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    public Plot getPlotAtPosition(World world, int x, int y, int z) {
+        return getWorld(world).getPlotAtChunkPosition(x, y, z);
+    }
+
+    /**
+     * Gets a PoliticsWorld from its name.
+     * 
+     * @param name
+     * @return
+     */
+    public PoliticsWorld getWorld(String name) {
+        PoliticsWorld world = worlds.get(name);
+        if (world == null) {
+            world = createWorld(name);
+        }
+        return world;
+    }
+
+    /**
+     * Gets a PoliticsWorld from its World.
+     * 
+     * @param world
+     * @return
+     */
+    public PoliticsWorld getWorld(World world) {
+        return getWorld(world.getName());
+    }
+
+    /**
+     * Gets the WorldConfig of the given world name.
+     * 
+     * @param name
+     * @return
+     */
+    public WorldConfig getWorldConfig(String name) {
+        WorldConfig conf = configs.get(name);
+        if (conf == null) {
+            conf = new WorldConfig(name);
+            Politics.getFileSystem().getWorldConfigDir().mkdirs();
+            File toSave = new File(Politics.getFileSystem().getWorldConfigDir(), name + ".yml");
+            Configuration tc = new YamlConfiguration(toSave);
+            conf.save(tc);
+            try {
+                tc.save();
+            } catch (ConfigurationException e) {
+                PoliticsPlugin.logger().log(Level.SEVERE, "Could not write a world config file!", e);
+            }
+            configs.put(name, conf);
+        }
+        return conf;
+    }
+
+    /**
      * Loads all World configurations.
      */
     public void loadWorldConfigs() {
@@ -131,100 +225,6 @@ public class PlotManager {
                 continue;
             }
         }
-    }
-
-    /**
-     * Gets the WorldConfig of the given world name.
-     * 
-     * @param name
-     * @return
-     */
-    public WorldConfig getWorldConfig(String name) {
-        WorldConfig conf = configs.get(name);
-        if (conf == null) {
-            conf = new WorldConfig(name);
-            Politics.getFileSystem().getWorldConfigDir().mkdirs();
-            File toSave = new File(Politics.getFileSystem().getWorldConfigDir(), name + ".yml");
-            Configuration tc = new YamlConfiguration(toSave);
-            conf.save(tc);
-            try {
-                tc.save();
-            } catch (ConfigurationException e) {
-                PoliticsPlugin.logger().log(Level.SEVERE, "Could not write a world config file!", e);
-            }
-            configs.put(name, conf);
-        }
-        return conf;
-    }
-
-    /**
-     * Gets a PoliticsWorld from its name.
-     * 
-     * @param name
-     * @return
-     */
-    public PoliticsWorld getWorld(String name) {
-        PoliticsWorld world = worlds.get(name);
-        if (world == null) {
-            world = createWorld(name);
-        }
-        return world;
-    }
-
-    /**
-     * Gets a PoliticsWorld from its World.
-     * 
-     * @param world
-     * @return
-     */
-    public PoliticsWorld getWorld(World world) {
-        return getWorld(world.getName());
-    }
-
-    /**
-     * Gets the plot at the given chunk position.
-     * 
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
-    public Plot getPlotAtPosition(String world, int x, int y, int z) {
-        return getWorld(world).getPlotAtChunkPosition(x, y, z);
-    }
-
-    /**
-     * Gets the plot at the given chunk position.
-     * 
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
-    public Plot getPlotAtPosition(World world, int x, int y, int z) {
-        return getWorld(world).getPlotAtChunkPosition(x, y, z);
-    }
-
-    /**
-     * Gets the plot corresponding with the given Chunk.
-     * 
-     * @param chunk
-     * @return
-     */
-    public Plot getPlotAtChunk(Chunk chunk) {
-        return getWorld(chunk.getWorld()).getPlotAtChunkPosition(chunk.getX(), chunk.getY(), chunk.getZ());
-    }
-
-    /**
-     * Gets the plot at the given position.
-     * 
-     * @param position
-     * @return
-     */
-    public Plot getPlotAt(Point position) {
-        return getPlotAtPosition(position.getWorld(), position.getChunkX(), position.getChunkY(), position.getChunkZ());
     }
 
     /**

@@ -51,29 +51,9 @@ public class PoliticsProtectionService extends ProtectionService {
         return false;
     }
 
-    public boolean removeProtection(Protection prot) {
-        if (prot != null) {
-            if (protections.contains(prot)) {
-                return protections.add(prot);
-            }
-        }
-        return false;
-    }
-
     @Override
     public Collection<Protection> getAllProtections() {
         return protections;
-    }
-
-    @Override
-    public Collection<Protection> getAllProtections(World world) {
-        Collection<Protection> result = new ArrayList<Protection>();
-        for (Protection p : protections) {
-            if (p.getWorld().equals(world)) {
-                result.add(p);
-            }
-        }
-        return result;
     }
 
     @Override
@@ -88,8 +68,28 @@ public class PoliticsProtectionService extends ProtectionService {
     }
 
     @Override
+    public Collection<Protection> getAllProtections(World world) {
+        Collection<Protection> result = new ArrayList<Protection>();
+        for (Protection p : protections) {
+            if (p.getWorld().equals(world)) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public Protection getProtection(String name) {
         return null;
+    }
+
+    public boolean removeProtection(Protection prot) {
+        if (prot != null) {
+            if (protections.contains(prot)) {
+                return protections.add(prot);
+            }
+        }
+        return false;
     }
 
     public static PoliticsProtectionService getInstance() {

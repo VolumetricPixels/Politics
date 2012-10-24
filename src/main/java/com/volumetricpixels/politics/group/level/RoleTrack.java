@@ -61,12 +61,17 @@ public class RoleTrack implements Iterable<Role> {
     }
 
     /**
-     * Gets the roles of the track.
+     * Gets the role after the given role.
      * 
+     * @param role
      * @return
      */
-    public List<Role> getRoles() {
-        return new LinkedList<Role>(roles);
+    public Role getNextRole(Role role) {
+        int index = roles.indexOf(role);
+        if (index < 0 || index + 2 > roles.size()) {
+            return null;
+        }
+        return roles.get(index + 1);
     }
 
     /**
@@ -84,17 +89,12 @@ public class RoleTrack implements Iterable<Role> {
     }
 
     /**
-     * Gets the role after the given role.
+     * Gets the roles of the track.
      * 
-     * @param role
      * @return
      */
-    public Role getNextRole(Role role) {
-        int index = roles.indexOf(role);
-        if (index < 0 || index + 2 > roles.size()) {
-            return null;
-        }
-        return roles.get(index + 1);
+    public List<Role> getRoles() {
+        return new LinkedList<Role>(roles);
     }
 
     @Override

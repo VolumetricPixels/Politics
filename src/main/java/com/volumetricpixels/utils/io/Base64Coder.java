@@ -26,6 +26,9 @@ public class Base64Coder {
     // Mapping table from 6-bit nibbles to Base64 characters.
     private static final char[] map1 = new char[64];
 
+    private Base64Coder() {
+    }
+
     static {
         int i = 0;
         for (char c = 'A'; c <= 'Z'; c++) {
@@ -51,92 +54,6 @@ public class Base64Coder {
         for (int i = 0; i < 64; i++) {
             map2[map1[i]] = (byte) i;
         }
-    }
-
-    public static String encodeString(String s) {
-        return new String(encode(s.getBytes()));
-    }
-
-    public static String encodeLines(byte[] in) {
-        return encodeLines(in, 0, in.length, 76, systemLineSeparator);
-    }
-
-    public static String encodeLines(byte[] in, int iOff, int iLen, int lineLen, String lineSeparator) {
-        int blockLen = (lineLen * 3) / 4;
-
-        if (blockLen <= 0) {
-            throw new IllegalArgumentException();
-        }
-
-        int lines = (iLen + blockLen - 1) / blockLen;
-        int bufLen = ((iLen + 2) / 3) * 4 + lines * lineSeparator.length();
-
-        StringBuilder buf = new StringBuilder(bufLen);
-        int ip = 0;
-        while (ip < iLen) {
-            int l = Math.min(iLen - ip, blockLen);
-            buf.append(encode(in, iOff + ip, l));
-            buf.append(lineSeparator);
-            ip += l;
-        }
-
-        return buf.toString();
-    }
-
-    public static char[] encode(byte[] in) {
-        return encode(in, 0, in.length);
-    }
-
-    public static char[] encode(byte[] in, int iLen) {
-        return encode(in, 0, iLen);
-    }
-
-    public static char[] encode(byte[] in, int iOff, int iLen) {
-        int oDataLen = (iLen * 4 + 2) / 3; // output length without padding
-        int oLen = ((iLen + 2) / 3) * 4; // output length including padding
-        char[] out = new char[oLen];
-        int ip = iOff;
-        int iEnd = iOff + iLen;
-        int op = 0;
-
-        while (ip < iEnd) {
-            int i0 = in[ip++] & 0xff;
-            int i1 = ip < iEnd ? in[ip++] & 0xff : 0;
-            int i2 = ip < iEnd ? in[ip++] & 0xff : 0;
-            int o0 = i0 >>> 2;
-            int o1 = ((i0 & 3) << 4) | (i1 >>> 4);
-            int o2 = ((i1 & 0xf) << 2) | (i2 >>> 6);
-            int o3 = i2 & 0x3F;
-            out[op++] = map1[o0];
-            out[op++] = map1[o1];
-            out[op] = op < oDataLen ? map1[o2] : '=';
-            op++;
-            out[op] = op < oDataLen ? map1[o3] : '=';
-            op++;
-        }
-
-        return out;
-    }
-
-    public static String decodeString(String s) {
-        return new String(decode(s));
-    }
-
-    public static byte[] decodeLines(String s) {
-        char[] buf = new char[s.length()];
-        int p = 0;
-        for (int ip = 0; ip < s.length(); ip++) {
-            char c = s.charAt(ip);
-            if (c != ' ' && c != '\r' && c != '\n' && c != '\t') {
-                buf[p++] = c;
-            }
-        }
-
-        return decode(buf, 0, p);
-    }
-
-    public static byte[] decode(String s) {
-        return decode(s.toCharArray());
     }
 
     public static byte[] decode(char[] in) {
@@ -194,6 +111,89 @@ public class Base64Coder {
         return out;
     }
 
-    private Base64Coder() {
+    public static byte[] decode(String s) {
+        return decode(s.toCharArray());
+    }
+
+    public static byte[] decodeLines(String s) {
+        char[] buf = new char[s.length()];
+        int p = 0;
+        for (int ip = 0; ip < s.length(); ip++) {
+            char c = s.charAt(ip);
+            if (c != ' ' && c != '\r' && c != '\n' && c != '\t') {
+                buf[p++] = c;
+            }
+        }
+
+        return decode(buf, 0, p);
+    }
+
+    public static String decodeString(String s) {
+        return new String(decode(s));
+    }
+
+    public static char[] encode(byte[] in) {
+        return encode(in, 0, in.length);
+    }
+
+    public static char[] encode(byte[] in, int iLen) {
+        return encode(in, 0, iLen);
+    }
+
+    public static char[] encode(byte[] in, int iOff, int iLen) {
+        int oDataLen = (iLen * 4 + 2) / 3; // output length without padding
+        int oLen = ((iLen + 2) / 3) * 4; // output length including padding
+        char[] out = new char[oLen];
+        int ip = iOff;
+        int iEnd = iOff + iLen;
+        int op = 0;
+
+        while (ip < iEnd) {
+            int i0 = in[ip++] & 0xff;
+            int i1 = ip < iEnd ? in[ip++] & 0xff : 0;
+            int i2 = ip < iEnd ? in[ip++] & 0xff : 0;
+            int o0 = i0 >>> 2;
+            int o1 = ((i0 & 3) << 4) | (i1 >>> 4);
+            int o2 = ((i1 & 0xf) << 2) | (i2 >>> 6);
+            int o3 = i2 & 0x3F;
+            out[op++] = map1[o0];
+            out[op++] = map1[o1];
+            out[op] = op < oDataLen ? map1[o2] : '=';
+            op++;
+            out[op] = op < oDataLen ? map1[o3] : '=';
+            op++;
+        }
+
+        return out;
+    }
+
+    public static String encodeLines(byte[] in) {
+        return encodeLines(in, 0, in.length, 76, systemLineSeparator);
+    }
+
+    public static String encodeLines(byte[] in, int iOff, int iLen, int lineLen, String lineSeparator) {
+        int blockLen = (lineLen * 3) / 4;
+
+        if (blockLen <= 0) {
+            throw new IllegalArgumentException();
+        }
+
+        int lines = (iLen + blockLen - 1) / blockLen;
+        int bufLen = ((iLen + 2) / 3) * 4 + lines * lineSeparator.length();
+
+        StringBuilder buf = new StringBuilder(bufLen);
+        int ip = 0;
+        while (ip < iLen) {
+            int l = Math.min(iLen - ip, blockLen);
+            buf.append(encode(in, iOff + ip, l));
+            buf.append(lineSeparator);
+            ip += l;
+        }
+
+        return buf.toString();
+    }
+
+    public static String encodeString(String s) {
+        return new String(encode(s.getBytes()));
     }
 }

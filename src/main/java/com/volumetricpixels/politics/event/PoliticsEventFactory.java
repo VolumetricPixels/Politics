@@ -56,6 +56,19 @@ public class PoliticsEventFactory {
     }
 
     /**
+     * Calls a new group create event.
+     * 
+     * @param group
+     *            The Group that has been created
+     * @param creator
+     *            The creator of the Group
+     * @return The called GroupCreateEvent
+     */
+    public static GroupCreateEvent callGroupCreateEvent(Group group, CommandSource creator) {
+        return callEvent(new GroupCreateEvent(group, creator));
+    }
+
+    /**
      * Calls a new group property set event.
      * 
      * @param group
@@ -83,19 +96,6 @@ public class PoliticsEventFactory {
      */
     public static GroupUnclaimPlotEvent callGroupUnclaimPlotEvent(Group group, Plot plot, CommandSource unclaimer) {
         return callEvent(new GroupUnclaimPlotEvent(group, plot, unclaimer));
-    }
-
-    /**
-     * Calls a new group create event.
-     * 
-     * @param group
-     *            The Group that has been created
-     * @param creator
-     *            The creator of the Group
-     * @return The called GroupCreateEvent
-     */
-    public static GroupCreateEvent callGroupCreateEvent(Group group, CommandSource creator) {
-        return callEvent(new GroupCreateEvent(group, creator));
     }
 
     /**

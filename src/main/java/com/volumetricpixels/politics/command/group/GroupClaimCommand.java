@@ -40,8 +40,9 @@ import com.volumetricpixels.politics.world.Plot;
 public class GroupClaimCommand extends GroupCommand {
     /**
      * C'tor
-     *
-     * @param level The GroupLevel of this command
+     * 
+     * @param level
+     *            The GroupLevel of this command
      */
     public GroupClaimCommand(GroupLevel level) {
         super(level, "claim");
