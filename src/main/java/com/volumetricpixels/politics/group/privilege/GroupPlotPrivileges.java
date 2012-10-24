@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.group.privilege;
 
 /**
- * Contains privileges pertaining to groups and plots.
+ * Contains privileges pertaining to groups and plots
  */
 public class GroupPlotPrivileges {
     /**

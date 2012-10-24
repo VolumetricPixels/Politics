@@ -24,7 +24,7 @@ import org.spout.api.event.Event;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
- * An event regarding a Universe.
+ * An event regarding a Universe
  */
 public abstract class UniverseEvent extends Event {
     /**
@@ -37,7 +37,7 @@ public abstract class UniverseEvent extends Event {
      * 
      * @param universe
      */
-    public UniverseEvent(Universe universe) {
+    public UniverseEvent(final Universe universe) {
         this.universe = universe;
     }
 

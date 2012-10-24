@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.group;
 
 /**
- * Group property ids. Ids 0x0-0xfff are reserved.
+ * Group property ids. Ids 0x0-0xfff are reserved
  */
 public final class GroupProperty {
     /**
@@ -43,5 +43,4 @@ public final class GroupProperty {
      * The spawn of the group.
      */
     public static final int SPAWN = 0x2;
-
 }

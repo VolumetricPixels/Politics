@@ -24,7 +24,7 @@ import org.spout.api.event.HandlerList;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
- * Called when a universe is created using the universe creation command.
+ * Called when a universe is created using the universe creation command
  */
 public class UniverseCreateEvent extends UniverseEvent {
     private static HandlerList handlers = new HandlerList();
@@ -34,13 +34,14 @@ public class UniverseCreateEvent extends UniverseEvent {
      * 
      * @param universe
      */
-    public UniverseCreateEvent(Universe universe) {
+    public UniverseCreateEvent(final Universe universe) {
         super(universe);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }

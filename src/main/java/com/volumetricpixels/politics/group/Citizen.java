@@ -25,7 +25,7 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
- * Represents a player.
+ * Represents a player with for extra information for Politics
  */
 public class Citizen {
     /**
@@ -48,7 +48,7 @@ public class Citizen {
      * @param universe
      *            The Universe this citizen is part of
      */
-    public Citizen(String name, Universe universe) {
+    public Citizen(final String name, final Universe universe) {
         this.name = name;
         this.universe = universe;
     }
@@ -77,8 +77,8 @@ public class Citizen {
      * @param level
      * @return
      */
-    public Group getGroup(GroupLevel level) {
-        for (Group group : getGroups()) {
+    public Group getGroup(final GroupLevel level) {
+        for (final Group group : getGroups()) {
             if (group.getLevel().equals(level)) {
                 return group;
             }

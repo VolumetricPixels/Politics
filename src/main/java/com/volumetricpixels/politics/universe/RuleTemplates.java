@@ -39,7 +39,7 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
 
 /**
- * Rule template helper class.
+ * Rule template helper class
  */
 public final class RuleTemplates {
     /**
@@ -57,22 +57,22 @@ public final class RuleTemplates {
      * @param as
      *            The new name of the copied template.
      */
-    public static void copyTemplate(String name, String as) {
-        InputStream templateStream = RuleTemplates.class.getResourceAsStream("templates/" + name.toLowerCase() + ".yml");
+    public static void copyTemplate(final String name, final String as) {
+        final InputStream templateStream = RuleTemplates.class.getResourceAsStream("templates/" + name.toLowerCase() + ".yml");
         if (templateStream == null) {
             throw new IllegalArgumentException("Template does not exist!");
         }
-        StringWriter writer = new StringWriter();
+        final StringWriter writer = new StringWriter();
         try {
             IOUtils.copy(templateStream, writer, Charset.defaultCharset());
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             PoliticsPlugin.logger().log(Level.SEVERE, "Could not read template " + name + "!", ex);
         }
 
-        File dest = new File(Politics.getFileSystem().getRulesDir(), as.toLowerCase() + ".yml");
+        final File dest = new File(Politics.getFileSystem().getRulesDir(), as.toLowerCase() + ".yml");
         try {
             FileUtils.writeStringToFile(dest, writer.toString());
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             PoliticsPlugin.logger().log(Level.SEVERE, "Could not write template as " + dest.getPath() + "!", ex);
         }
     }
@@ -83,25 +83,25 @@ public final class RuleTemplates {
      * @return
      */
     public static Set<String> listTemplateNames() {
-        CodeSource src = RuleTemplates.class.getProtectionDomain().getCodeSource();
-        Set<String> set = new HashSet<String>();
+        final CodeSource src = RuleTemplates.class.getProtectionDomain().getCodeSource();
+        final Set<String> set = new HashSet<String>();
 
         try {
             if (src != null) {
-                URL jar = src.getLocation();
+                final URL jar = src.getLocation();
                 ZipInputStream zip;
                 zip = new ZipInputStream(jar.openStream());
                 ZipEntry ze = null;
 
                 while ((ze = zip.getNextEntry()) != null) {
-                    String entryName = ze.getName();
+                    final String entryName = ze.getName();
                     if (entryName.startsWith("templates") && entryName.endsWith(".yml")) {
                         set.add(entryName.substring("templates".length(), entryName.length() - 4));
                     }
                 }
 
             }
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             PoliticsPlugin.logger().log(Level.SEVERE, "Could not list template names!", ex);
         }
         return set;

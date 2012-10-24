@@ -41,8 +41,8 @@ public class UniverseDestroyCommand extends UniverseCommand {
     }
 
     @Override
-    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-        Universe universe = Politics.getUniverse(args.getString(0));
+    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+        final Universe universe = Politics.getUniverse(args.getString(0));
         if (universe == null) {
             source.sendMessage(MessageStyle.ERROR, "A universe with the name '" + args.getString(0) + "' doesn't exist.");
             return;
@@ -59,7 +59,7 @@ public class UniverseDestroyCommand extends UniverseCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Destroys the given universe.");
         cmd.setUsage("<name>");

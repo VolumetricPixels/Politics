@@ -27,7 +27,7 @@ import java.util.Map;
 import org.spout.api.util.config.ConfigurationNode;
 
 /**
- * Represents a promotion track of roles.
+ * Represents a promotion track of roles
  */
 public class RoleTrack implements Iterable<Role> {
     /**
@@ -46,7 +46,7 @@ public class RoleTrack implements Iterable<Role> {
      * @param id
      * @param roles
      */
-    RoleTrack(String id, List<Role> roles) {
+    RoleTrack(final String id, final List<Role> roles) {
         this.id = id;
         this.roles = roles;
     }
@@ -75,8 +75,8 @@ public class RoleTrack implements Iterable<Role> {
      * @param role
      * @return
      */
-    public Role getPreviousRole(Role role) {
-        int index = roles.indexOf(role);
+    public Role getPreviousRole(final Role role) {
+        final int index = roles.indexOf(role);
         if (index < 0 || index <= 0) {
             return null;
         }
@@ -89,8 +89,8 @@ public class RoleTrack implements Iterable<Role> {
      * @param role
      * @return
      */
-    public Role getNextRole(Role role) {
-        int index = roles.indexOf(role);
+    public Role getNextRole(final Role role) {
+        final int index = roles.indexOf(role);
         if (index < 0 || index + 2 > roles.size()) {
             return null;
         }
@@ -110,11 +110,11 @@ public class RoleTrack implements Iterable<Role> {
      * @param roles
      * @return
      */
-    public static RoleTrack load(String id, ConfigurationNode node, Map<String, Role> roles) {
-        List<String> rolesNames = node.getStringList(new LinkedList<String>());
-        List<Role> rolesList = new LinkedList<Role>();
-        for (String roleName : rolesNames) {
-            Role role = roles.get(roleName.toLowerCase());
+    public static RoleTrack load(final String id, final ConfigurationNode node, final Map<String, Role> roles) {
+        final List<String> rolesNames = node.getStringList(new LinkedList<String>());
+        final List<Role> rolesList = new LinkedList<Role>();
+        for (final String roleName : rolesNames) {
+            final Role role = roles.get(roleName.toLowerCase());
             if (role == null) {
                 throw new IllegalStateException("The role '" + roleName + "' does not exist.");
             }

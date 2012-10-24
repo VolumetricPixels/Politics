@@ -32,7 +32,7 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.privilege.Privilege;
 
 /**
- * A role.
+ * A role
  */
 public class Role implements Comparable<Role> {
     /**
@@ -63,7 +63,7 @@ public class Role implements Comparable<Role> {
      * @param privileges
      * @param rank
      */
-    private Role(String id, String name, Set<Privilege> privileges, int rank) {
+    private Role(final String id, final String name, final Set<Privilege> privileges, final int rank) {
         this.id = id;
         this.name = name;
         this.privileges = privileges;
@@ -85,7 +85,7 @@ public class Role implements Comparable<Role> {
      * @param privilege
      * @return
      */
-    public boolean hasPrivilege(Privilege privilege) {
+    public boolean hasPrivilege(final Privilege privilege) {
         return privileges.contains(privilege);
     }
 
@@ -123,22 +123,22 @@ public class Role implements Comparable<Role> {
      * @param node
      * @return
      */
-    public static Role load(String id, ConfigurationNode node) {
-        String name = node.getNode("name").getString(StringUtils.capitalize(id));
-        List<String> privs = node.getNode("privileges").getStringList(new ArrayList<String>());
-        Set<Privilege> privileges = new HashSet<Privilege>();
-        for (String priv : privs) {
-            Privilege p = Politics.getPrivilegeManager().getPrivilege(priv);
+    public static Role load(final String id, final ConfigurationNode node) {
+        final String name = node.getNode("name").getString(StringUtils.capitalize(id));
+        final List<String> privs = node.getNode("privileges").getStringList(new ArrayList<String>());
+        final Set<Privilege> privileges = new HashSet<Privilege>();
+        for (final String priv : privs) {
+            final Privilege p = Politics.getPrivilegeManager().getPrivilege(priv);
             if (p == null) {
                 continue;
             }
         }
-        int rank = node.getNode("rank").getInt(1);
+        final int rank = node.getNode("rank").getInt(1);
         return new Role(id, name, privileges, rank);
     }
 
     @Override
-    public int compareTo(Role other) {
+    public int compareTo(final Role other) {
         if (rank == other.getRank()) {
             return id.compareToIgnoreCase(other.getId());
         }

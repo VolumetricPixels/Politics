@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.exception;
 
 /**
- * Thrown when a property is not serialized successfully.
+ * Thrown when a property is not serialized successfully
  */
 public class PropertySerializationException extends Exception {
     private static final long serialVersionUID = -3792841042998190396L;
@@ -30,7 +30,7 @@ public class PropertySerializationException extends Exception {
      * 
      * @param string
      */
-    public PropertySerializationException(String string) {
+    public PropertySerializationException(final String string) {
         super(string);
     }
 
@@ -40,7 +40,7 @@ public class PropertySerializationException extends Exception {
      * @param string
      * @param thrwbl
      */
-    public PropertySerializationException(String string, Throwable thrwbl) {
+    public PropertySerializationException(final String string, final Throwable thrwbl) {
         super(string, thrwbl);
     }
 }

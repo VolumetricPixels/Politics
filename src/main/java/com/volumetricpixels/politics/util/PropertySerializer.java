@@ -32,7 +32,7 @@ import com.volumetricpixels.politics.exception.PropertySerializationException;
 
 /**
  * Contains various methods for serializing and deserializing certain properties
- * as strings.
+ * as strings
  */
 public class PropertySerializer {
     /**
@@ -42,10 +42,10 @@ public class PropertySerializer {
      *            The Serializable object to serialize
      * @return The serialized string
      */
-    public static String serialize(Serializable obj) throws PropertySerializationException {
+    public static String serialize(final Serializable obj) throws PropertySerializationException {
         try {
             return IOUtils.toString(obj);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new PropertySerializationException("IOException occurred while serializing an object of type " + obj.getClass().getName() + "!", e);
         }
     }
@@ -57,12 +57,12 @@ public class PropertySerializer {
      *            The serialized String
      * @return The deserialized Object from the given string
      */
-    public static Object deserialize(String string) throws PropertyDeserializationException {
+    public static Object deserialize(final String string) throws PropertyDeserializationException {
         try {
             return IOUtils.fromString(string);
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             throw new PropertyDeserializationException("Could not find the object class for the given string while deserializing!");
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new PropertyDeserializationException("IOException occurred while deserializing a string!", e);
         }
     }
@@ -74,7 +74,7 @@ public class PropertySerializer {
      *            The point to serialize.
      * @return The string representing the serialization.
      */
-    public static String serializePoint(Point point) throws PropertySerializationException {
+    public static String serializePoint(final Point point) throws PropertySerializationException {
         return serialize(point);
     }
 
@@ -85,7 +85,7 @@ public class PropertySerializer {
      * @return
      * @throws PropertyDeserializationException
      */
-    public static Point deserializePoint(String string) throws PropertyDeserializationException {
+    public static Point deserializePoint(final String string) throws PropertyDeserializationException {
         return (Point) deserialize(string);
     }
 
@@ -96,7 +96,7 @@ public class PropertySerializer {
      *            The transform to serialize.
      * @return The string representing the serialization.
      */
-    public static String serializeTransform(Transform transform) throws PropertySerializationException {
+    public static String serializeTransform(final Transform transform) throws PropertySerializationException {
         return serialize(transform);
     }
 
@@ -107,7 +107,7 @@ public class PropertySerializer {
      * @return
      * @throws PropertyDeserializationException
      */
-    public static Transform deserializeTransform(String string) throws PropertyDeserializationException {
+    public static Transform deserializeTransform(final String string) throws PropertyDeserializationException {
         return (Transform) deserialize(string);
     }
 }

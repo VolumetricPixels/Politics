@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.exception;
 
 /**
- * Thrown when a property is not deserialized successfully.
+ * Thrown when a property is not deserialized successfully
  */
 public class PropertyDeserializationException extends Exception {
     private static final long serialVersionUID = 2339358863788970401L;
@@ -30,7 +30,7 @@ public class PropertyDeserializationException extends Exception {
      * 
      * @param string
      */
-    public PropertyDeserializationException(String string) {
+    public PropertyDeserializationException(final String string) {
         super(string);
     }
 
@@ -40,7 +40,7 @@ public class PropertyDeserializationException extends Exception {
      * @param string
      * @param thrwbl
      */
-    public PropertyDeserializationException(String string, Throwable thrwbl) {
+    public PropertyDeserializationException(final String string, final Throwable thrwbl) {
         super(string, thrwbl);
     }
 }

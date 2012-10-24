@@ -44,7 +44,7 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
 
 /**
- * Manages plots.
+ * Manages plots
  */
 public class PlotManager {
     /**
@@ -69,15 +69,15 @@ public class PlotManager {
     public void loadWorldConfigs() {
         Politics.getFileSystem().getWorldConfigDir().mkdirs();
         configs = new HashMap<String, WorldConfig>();
-        for (File file : Politics.getFileSystem().getWorldConfigDir().listFiles()) {
-            String fileName = file.getName();
+        for (final File file : Politics.getFileSystem().getWorldConfigDir().listFiles()) {
+            final String fileName = file.getName();
             if (!fileName.endsWith(".yml") || fileName.length() <= 4) {
                 continue;
             }
-            String name = fileName.substring(0, fileName.length() - 4);
+            final String name = fileName.substring(0, fileName.length() - 4);
 
-            Configuration config = new YamlConfiguration(file);
-            WorldConfig wc = WorldConfig.load(name, config);
+            final Configuration config = new YamlConfiguration(file);
+            final WorldConfig wc = WorldConfig.load(name, config);
             configs.put(name, wc);
         }
     }
@@ -86,28 +86,28 @@ public class PlotManager {
      * Loads all GroupsWorlds.
      */
     public void loadWorlds() {
-        BSONDecoder decoder = new BasicBSONDecoder();
+        final BSONDecoder decoder = new BasicBSONDecoder();
         worlds = new HashMap<String, PoliticsWorld>();
 
         Politics.getFileSystem().getWorldsDir().mkdirs();
-        for (File file : Politics.getFileSystem().getWorldsDir().listFiles()) {
-            String fileName = file.getName();
+        for (final File file : Politics.getFileSystem().getWorldsDir().listFiles()) {
+            final String fileName = file.getName();
             if (!fileName.endsWith(".ptw") || fileName.length() <= 4) {
                 continue;
             }
-            String worldName = fileName.substring(0, fileName.length() - 4);
+            final String worldName = fileName.substring(0, fileName.length() - 4);
 
             byte[] data;
             try {
                 data = FileUtils.readFileToByteArray(file);
-            } catch (IOException ex) {
+            } catch (final IOException ex) {
                 PoliticsPlugin.logger().log(Level.SEVERE, "Could not read world file `" + fileName + "'!", ex);
                 continue;
             }
 
-            WorldConfig config = getWorldConfig(worldName);
-            BSONObject object = decoder.readObject(data);
-            PoliticsWorld world = PoliticsWorld.fromBSONObject(worldName, config, object);
+            final WorldConfig config = getWorldConfig(worldName);
+            final BSONObject object = decoder.readObject(data);
+            final PoliticsWorld world = PoliticsWorld.fromBSONObject(worldName, config, object);
             worlds.put(world.getName(), world);
         }
     }
@@ -116,17 +116,17 @@ public class PlotManager {
      * Saves all GroupsWorlds.
      */
     public void saveWorlds() {
-        BSONEncoder encoder = new BasicBSONEncoder();
+        final BSONEncoder encoder = new BasicBSONEncoder();
         Politics.getFileSystem().getWorldsDir().mkdirs();
 
-        for (PoliticsWorld world : worlds.values()) {
-            String fileName = world.getName() + ".cow";
-            File worldFile = new File(Politics.getFileSystem().getWorldsDir(), fileName);
+        for (final PoliticsWorld world : worlds.values()) {
+            final String fileName = world.getName() + ".cow";
+            final File worldFile = new File(Politics.getFileSystem().getWorldsDir(), fileName);
 
-            byte[] data = encoder.encode(world.toBSONObject());
+            final byte[] data = encoder.encode(world.toBSONObject());
             try {
                 FileUtils.writeByteArrayToFile(worldFile, data);
-            } catch (IOException ex) {
+            } catch (final IOException ex) {
                 PoliticsPlugin.logger().log(Level.SEVERE, "Could not save universe file `" + fileName + "' due to error!", ex);
                 continue;
             }
@@ -139,17 +139,17 @@ public class PlotManager {
      * @param name
      * @return
      */
-    public WorldConfig getWorldConfig(String name) {
+    public WorldConfig getWorldConfig(final String name) {
         WorldConfig conf = configs.get(name);
         if (conf == null) {
             conf = new WorldConfig(name);
             Politics.getFileSystem().getWorldConfigDir().mkdirs();
-            File toSave = new File(Politics.getFileSystem().getWorldConfigDir(), name + ".yml");
-            Configuration tc = new YamlConfiguration(toSave);
+            final File toSave = new File(Politics.getFileSystem().getWorldConfigDir(), name + ".yml");
+            final Configuration tc = new YamlConfiguration(toSave);
             conf.save(tc);
             try {
                 tc.save();
-            } catch (ConfigurationException e) {
+            } catch (final ConfigurationException e) {
                 PoliticsPlugin.logger().log(Level.SEVERE, "Could not write a world config file!", e);
             }
             configs.put(name, conf);
@@ -163,7 +163,7 @@ public class PlotManager {
      * @param name
      * @return
      */
-    public PoliticsWorld getWorld(String name) {
+    public PoliticsWorld getWorld(final String name) {
         PoliticsWorld world = worlds.get(name);
         if (world == null) {
             world = createWorld(name);
@@ -177,7 +177,7 @@ public class PlotManager {
      * @param world
      * @return
      */
-    public PoliticsWorld getWorld(World world) {
+    public PoliticsWorld getWorld(final World world) {
         return getWorld(world.getName());
     }
 
@@ -190,7 +190,7 @@ public class PlotManager {
      * @param z
      * @return
      */
-    public Plot getPlotAtPosition(String world, int x, int y, int z) {
+    public Plot getPlotAtPosition(final String world, final int x, final int y, final int z) {
         return getWorld(world).getPlotAtChunkPosition(x, y, z);
     }
 
@@ -203,7 +203,7 @@ public class PlotManager {
      * @param z
      * @return
      */
-    public Plot getPlotAtPosition(World world, int x, int y, int z) {
+    public Plot getPlotAtPosition(final World world, final int x, final int y, final int z) {
         return getWorld(world).getPlotAtChunkPosition(x, y, z);
     }
 
@@ -213,7 +213,7 @@ public class PlotManager {
      * @param chunk
      * @return
      */
-    public Plot getPlotAtChunk(Chunk chunk) {
+    public Plot getPlotAtChunk(final Chunk chunk) {
         return getWorld(chunk.getWorld()).getPlotAtChunkPosition(chunk.getX(), chunk.getY(), chunk.getZ());
     }
 
@@ -223,7 +223,7 @@ public class PlotManager {
      * @param position
      * @return
      */
-    public Plot getPlotAt(Point position) {
+    public Plot getPlotAt(final Point position) {
         return getPlotAtPosition(position.getWorld(), position.getChunkX(), position.getChunkY(), position.getChunkZ());
     }
 
@@ -233,8 +233,8 @@ public class PlotManager {
      * @param name
      * @return
      */
-    private PoliticsWorld createWorld(String name) {
-        PoliticsWorld world = new PoliticsWorld(name, getWorldConfig(name));
+    private PoliticsWorld createWorld(final String name) {
+        final PoliticsWorld world = new PoliticsWorld(name, getWorldConfig(name));
         worlds.put(name, world);
         return world;
     }

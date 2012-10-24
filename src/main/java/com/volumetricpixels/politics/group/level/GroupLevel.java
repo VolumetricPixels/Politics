@@ -36,7 +36,7 @@ import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.group.privilege.Privilege;
 
 /**
- * Represents a level of organization of a group.
+ * Represents a level of organization of a group
  */
 public final class GroupLevel {
     /**
@@ -106,8 +106,8 @@ public final class GroupLevel {
      * @param initial
      * @param founder
      */
-    public GroupLevel(String id, String name, int rank, Map<String, Role> roles, String plural, Map<String, List<String>> commands,
-            Map<String, RoleTrack> tracks, Role initial, Role founder) {
+    public GroupLevel(final String id, final String name, final int rank, final Map<String, Role> roles, final String plural,
+            final Map<String, List<String>> commands, final Map<String, RoleTrack> tracks, final Role initial, final Role founder) {
         this.id = id;
         this.name = name;
         this.rank = rank;
@@ -125,8 +125,8 @@ public final class GroupLevel {
      * @param set
      *            The set to use. This should be the only reference.
      */
-    public void setAllowedChildren(Set<GroupLevel> set) {
-        this.allowedChildren = set;
+    public void setAllowedChildren(final Set<GroupLevel> set) {
+        allowedChildren = set;
     }
 
     /**
@@ -180,7 +180,7 @@ public final class GroupLevel {
      * @param level
      * @return
      */
-    public boolean canBeChild(GroupLevel level) {
+    public boolean canBeChild(final GroupLevel level) {
         return allowedChildren.contains(level);
     }
 
@@ -200,7 +200,7 @@ public final class GroupLevel {
      * @return the ArrayList of aliases; an empty ArrayList if there are no
      *         aliases thus the command should not exist
      */
-    public List<String> getAliases(String command) {
+    public List<String> getAliases(final String command) {
         return new ArrayList<String>(commands.get(command.toLowerCase()));
     }
 
@@ -210,7 +210,7 @@ public final class GroupLevel {
      * @param roleId
      * @return
      */
-    public Role getRole(String roleId) {
+    public Role getRole(final String roleId) {
         return roles.get(roleId.toLowerCase());
     }
 
@@ -220,7 +220,7 @@ public final class GroupLevel {
      * @param id
      * @return
      */
-    public RoleTrack getTrack(String id) {
+    public RoleTrack getTrack(final String id) {
         return tracks.get(id.toLowerCase());
     }
 
@@ -265,22 +265,22 @@ public final class GroupLevel {
      * 
      * @param node
      */
-    public void save(ConfigurationNode node) {
+    public void save(final ConfigurationNode node) {
         node.getChild("name").setValue(name);
         node.getChild("rank").setValue(rank);
-        List<String> children = new ArrayList<String>();
-        for (GroupLevel child : getAllowedChildren()) {
+        final List<String> children = new ArrayList<String>();
+        for (final GroupLevel child : getAllowedChildren()) {
             children.add(child.getId());
         }
         node.getChild("children").setValue(children);
         node.getChild("plural").setValue(plural);
 
-        ConfigurationNode rolesNode = node.getChild("roles");
-        for (Entry<String, Role> role : roles.entrySet()) {
-            String roleName = role.getKey();
-            Role value = role.getValue();
-            List<String> privNames = new ArrayList<String>();
-            for (Privilege priv : value.getPrivileges()) {
+        final ConfigurationNode rolesNode = node.getChild("roles");
+        for (final Entry<String, Role> role : roles.entrySet()) {
+            final String roleName = role.getKey();
+            final Role value = role.getValue();
+            final List<String> privNames = new ArrayList<String>();
+            for (final Privilege priv : value.getPrivileges()) {
                 privNames.add(priv.getName());
             }
 
@@ -302,41 +302,41 @@ public final class GroupLevel {
      *            The map that the level names are stored in.
      * @return
      */
-    public static GroupLevel load(String id, ConfigurationNode node, Map<GroupLevel, List<String>> levels) {
+    public static GroupLevel load(String id, final ConfigurationNode node, final Map<GroupLevel, List<String>> levels) {
         // Load name
-        String levelName = node.getNode("name").getString(id);
+        final String levelName = node.getNode("name").getString(id);
 
         // Make id lowercase
         id = id.toLowerCase();
 
         // Load rank
-        int rank = node.getNode("rank").getInt();
+        final int rank = node.getNode("rank").getInt();
 
         // Load children
-        List<String> children = node.getNode("children").getStringList();
+        final List<String> children = node.getNode("children").getStringList();
 
         // Load roles
-        Map<String, Role> rolesMap = new HashMap<String, Role>();
-        for (Entry<String, ConfigurationNode> roleEntry : node.getNode("roles").getChildren().entrySet()) {
-            String roleId = roleEntry.getKey();
-            Role role = Role.load(roleId, roleEntry.getValue());
+        final Map<String, Role> rolesMap = new HashMap<String, Role>();
+        for (final Entry<String, ConfigurationNode> roleEntry : node.getNode("roles").getChildren().entrySet()) {
+            final String roleId = roleEntry.getKey();
+            final Role role = Role.load(roleId, roleEntry.getValue());
             rolesMap.put(roleId, role);
         }
 
         // Load plural
-        String plural = node.getNode("plural").getString(levelName + "s");
+        final String plural = node.getNode("plural").getString(levelName + "s");
 
         // Load allowed commands
-        Map<String, List<String>> commands = new HashMap<String, List<String>>();
+        final Map<String, List<String>> commands = new HashMap<String, List<String>>();
 
         // Set for checking for alias overlaps.
-        Set<String> alreadyLoadedCommands = new HashSet<String>();
+        final Set<String> alreadyLoadedCommands = new HashSet<String>();
 
         // Command node
-        ConfigurationNode commandNode = node.getNode("commands");
-        for (Entry<String, ConfigurationNode> commandAliasEntry : commandNode.getChildren().entrySet()) {
+        final ConfigurationNode commandNode = node.getNode("commands");
+        for (final Entry<String, ConfigurationNode> commandAliasEntry : commandNode.getChildren().entrySet()) {
             // Name of the command we want to alias
-            String commandName = commandAliasEntry.getKey().toLowerCase();
+            final String commandName = commandAliasEntry.getKey().toLowerCase();
 
             // Get the list we're putting aliases in
             List<String> theAliases = commands.get(commandName);
@@ -345,12 +345,12 @@ public final class GroupLevel {
                 commands.put(commandName, theAliases);
             }
 
-            ConfigurationNode aliasesNode = commandAliasEntry.getValue();
+            final ConfigurationNode aliasesNode = commandAliasEntry.getValue();
 
             // Check for list, if so add specified aliases. Does not
             // include the normal name unless explicitly specified.
             if (aliasesNode.getValue() instanceof List) {
-                List<String> aliases = aliasesNode.getStringList();
+                final List<String> aliases = aliasesNode.getStringList();
                 for (String alias : aliases) {
                     alias = alias.toLowerCase();
                     if (alreadyLoadedCommands.contains(alias)) {
@@ -374,7 +374,7 @@ public final class GroupLevel {
         }
 
         // Our variables
-        Map<String, RoleTrack> tracks = new HashMap<String, RoleTrack>();
+        final Map<String, RoleTrack> tracks = new HashMap<String, RoleTrack>();
         Role initial;
         Role founder;
 
@@ -382,15 +382,15 @@ public final class GroupLevel {
             initial = null;
             founder = null;
         } else {
-            ConfigurationNode tracksNode = node.getChild("tracks");
-            for (Entry<String, ConfigurationNode> trackEntry : tracksNode.getChildren().entrySet()) {
-                RoleTrack track = RoleTrack.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
+            final ConfigurationNode tracksNode = node.getChild("tracks");
+            for (final Entry<String, ConfigurationNode> trackEntry : tracksNode.getChildren().entrySet()) {
+                final RoleTrack track = RoleTrack.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
                 tracks.put(track.getId(), track);
             }
             if (!tracks.containsKey("default")) {
                 RoleTrack def;
                 if (tracks.isEmpty()) {
-                    List<Role> rolesSorted = new LinkedList<Role>(rolesMap.values());
+                    final List<Role> rolesSorted = new LinkedList<Role>(rolesMap.values());
                     Collections.sort(rolesSorted);
                     def = new RoleTrack("default", rolesSorted);
                 } else {
@@ -399,11 +399,11 @@ public final class GroupLevel {
                 tracks.put("default", def);
             }
 
-            String initialName = node.getChild("initial").getString();
+            final String initialName = node.getChild("initial").getString();
             if (initialName == null) {
                 int lowest = Integer.MAX_VALUE;
                 Role lowestRole = null;
-                for (Role role : rolesMap.values()) {
+                for (final Role role : rolesMap.values()) {
                     if (role.getRank() <= lowest) { // Incase of max value for
                         // rank
                         lowest = role.getRank();
@@ -418,11 +418,11 @@ public final class GroupLevel {
                 }
             }
 
-            String founderName = node.getChild("founder").getString();
+            final String founderName = node.getChild("founder").getString();
             if (founderName == null) {
                 int highest = 0;
                 Role highestRole = null;
-                for (Role role : rolesMap.values()) {
+                for (final Role role : rolesMap.values()) {
                     if (role.getRank() > highest) {
                         highest = role.getRank();
                         highestRole = role;
@@ -437,7 +437,7 @@ public final class GroupLevel {
             }
         }
 
-        GroupLevel theLevel = new GroupLevel(id, levelName, rank, rolesMap, plural, commands, tracks, initial, founder);
+        final GroupLevel theLevel = new GroupLevel(id, levelName, rank, rolesMap, plural, commands, tracks, initial, founder);
         // Children so we can get our allowed children in the future
         levels.put(theLevel, children);
         return theLevel;

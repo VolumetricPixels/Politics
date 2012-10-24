@@ -24,7 +24,7 @@ import org.spout.api.event.Event;
 import com.volumetricpixels.politics.group.Group;
 
 /**
- * An event related to a group.
+ * An event related to a group
  */
 public abstract class GroupEvent extends Event {
     /**
@@ -37,7 +37,7 @@ public abstract class GroupEvent extends Event {
      * 
      * @param group
      */
-    protected GroupEvent(Group group) {
+    protected GroupEvent(final Group group) {
         this.group = group;
     }
 

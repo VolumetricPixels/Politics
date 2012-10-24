@@ -23,13 +23,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Manages the various different types of privileges.
+ * Manages the various different types of privileges
  */
 public class PrivilegeManager {
     /**
      * Contains all privileges mapped to their names.
      */
-    private Map<String, Privilege> privileges = new HashMap<String, Privilege>();
+    private final Map<String, Privilege> privileges = new HashMap<String, Privilege>();
 
     /**
      * C'tor
@@ -52,7 +52,7 @@ public class PrivilegeManager {
      * @param privilege
      * @return True if a privilege was not displaced.
      */
-    public boolean registerPrivilege(Privilege privilege) {
+    public boolean registerPrivilege(final Privilege privilege) {
         return privileges.put(privilege.getName(), privilege) == null;
     }
 
@@ -62,8 +62,8 @@ public class PrivilegeManager {
      * @param privileges
      * @return
      */
-    public boolean registerPrivileges(Privilege... privileges) {
-        for (Privilege p : privileges) {
+    public boolean registerPrivileges(final Privilege... privileges) {
+        for (final Privilege p : privileges) {
             if (!registerPrivilege(p)) {
                 return false;
             }
@@ -77,7 +77,7 @@ public class PrivilegeManager {
      * @param name
      * @return
      */
-    public Privilege getPrivilege(String name) {
+    public Privilege getPrivilege(final String name) {
         return privileges.get(name.toUpperCase().replaceAll(" ", "_"));
     }
 }

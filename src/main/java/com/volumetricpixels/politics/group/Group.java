@@ -54,7 +54,7 @@ import com.volumetricpixels.politics.universe.UniverseRules;
 import com.volumetricpixels.politics.util.PropertySerializer;
 
 /**
- * Represents a group of players.
+ * Represents a group of players
  */
 public final class Group implements Comparable<Group>, Storable {
     /**
@@ -90,7 +90,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param universe
      * @param level
      */
-    public Group(int uid, GroupLevel level) {
+    public Group(final int uid, final GroupLevel level) {
         this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>());
     }
 
@@ -102,7 +102,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param properties
      * @param players
      */
-    private Group(int uid, GroupLevel level, TIntObjectMap<Object> properties, Map<String, Role> players) {
+    private Group(final int uid, final GroupLevel level, final TIntObjectMap<Object> properties, final Map<String, Role> players) {
         this.uid = uid;
         this.level = level;
         this.properties = properties;
@@ -114,7 +114,7 @@ public final class Group implements Comparable<Group>, Storable {
      * 
      * @param universe
      */
-    public void initialize(Universe universe) {
+    public void initialize(final Universe universe) {
         if (universe == null || this.universe != null) {
             throw new IllegalStateException("Someone is trying to screw with the plugin!");
         }
@@ -154,7 +154,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param group
      * @return True if the given group was able to be a child of the group.
      */
-    public boolean addChildGroup(Group group) {
+    public boolean addChildGroup(final Group group) {
         return universe.addChildGroup(this, group);
     }
 
@@ -166,7 +166,7 @@ public final class Group implements Comparable<Group>, Storable {
      * 
      * @see Universe#removeChildGroup(Group, Group)
      */
-    public boolean removeChildGroup(Group group) {
+    public boolean removeChildGroup(final Group group) {
         return universe.removeChildGroup(this, group);
     }
 
@@ -185,7 +185,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param property
      * @return
      */
-    public Object getProperty(int property) {
+    public Object getProperty(final int property) {
         return properties.get(property);
     }
 
@@ -195,7 +195,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param property
      * @return
      */
-    public String getStringProperty(int property) {
+    public String getStringProperty(final int property) {
         return getStringProperty(property, null);
     }
 
@@ -209,8 +209,8 @@ public final class Group implements Comparable<Group>, Storable {
      * @return The value of the given property, or <code>def</code> if not
      *         exists
      */
-    public String getStringProperty(int property, String def) {
-        Object p = getProperty(property);
+    public String getStringProperty(final int property, final String def) {
+        final Object p = getProperty(property);
         if (p != null) {
             return p.toString();
         }
@@ -224,7 +224,7 @@ public final class Group implements Comparable<Group>, Storable {
      *            The property to get
      * @return The int value of the given property
      */
-    public int getIntProperty(int property) {
+    public int getIntProperty(final int property) {
         return getIntProperty(property, -1);
     }
 
@@ -237,8 +237,8 @@ public final class Group implements Comparable<Group>, Storable {
      *            The default value
      * @return The value of the property, or <code>def</code> if not exists
      */
-    public int getIntProperty(int property, int def) {
-        Object p = getProperty(property);
+    public int getIntProperty(final int property, final int def) {
+        final Object p = getProperty(property);
         if (p != null) {
             if (p instanceof Integer) {
                 return ((Integer) p).intValue();
@@ -255,7 +255,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param property
      * @return
      */
-    public Transform getTransformProperty(int property) {
+    public Transform getTransformProperty(final int property) {
         return getTransformProperty(property, null);
     }
 
@@ -266,15 +266,15 @@ public final class Group implements Comparable<Group>, Storable {
      * @param def
      * @return
      */
-    public Transform getTransformProperty(int property, Transform def) {
-        String s = getStringProperty(property);
+    public Transform getTransformProperty(final int property, final Transform def) {
+        final String s = getStringProperty(property);
         if (s == null) {
             return def;
         }
         Transform t;
         try {
             t = PropertySerializer.deserializeTransform(s);
-        } catch (PropertyDeserializationException ex) {
+        } catch (final PropertyDeserializationException ex) {
             PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a transform!", ex);
             return def;
         }
@@ -287,7 +287,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param property
      * @return
      */
-    public Point getPointProperty(int property) {
+    public Point getPointProperty(final int property) {
         return getPointProperty(property, null);
     }
 
@@ -298,15 +298,15 @@ public final class Group implements Comparable<Group>, Storable {
      * @param def
      * @return
      */
-    public Point getPointProperty(int property, Point def) {
-        String s = getStringProperty(property);
+    public Point getPointProperty(final int property, final Point def) {
+        final String s = getStringProperty(property);
         if (s == null) {
             return def;
         }
         Point p;
         try {
             p = PropertySerializer.deserializePoint(s);
-        } catch (PropertyDeserializationException ex) {
+        } catch (final PropertyDeserializationException ex) {
             PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a point!", ex);
             return def;
         }
@@ -319,10 +319,10 @@ public final class Group implements Comparable<Group>, Storable {
      * @param property
      * @param value
      */
-    public void setProperty(int property, Transform value) {
+    public void setProperty(final int property, final Transform value) {
         try {
             setProperty(property, PropertySerializer.serializeTransform(value));
-        } catch (PropertySerializationException e) {
+        } catch (final PropertySerializationException e) {
             e.printStackTrace();
         }
     }
@@ -335,10 +335,10 @@ public final class Group implements Comparable<Group>, Storable {
      * @param block
      *            True if you wish to only store integer coordinates
      */
-    public void setProperty(int property, Point value) {
+    public void setProperty(final int property, final Point value) {
         try {
-            setProperty(property, (PropertySerializer.serializePoint(value)));
-        } catch (PropertySerializationException e) {
+            setProperty(property, PropertySerializer.serializePoint(value));
+        } catch (final PropertySerializationException e) {
             e.printStackTrace();
         }
     }
@@ -349,7 +349,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param property
      * @param value
      */
-    public void setProperty(int property, Object value) {
+    public void setProperty(final int property, final Object value) {
         PoliticsEventFactory.callGroupPropertySetEvent(this, property, value);
         properties.put(property, value);
     }
@@ -369,9 +369,9 @@ public final class Group implements Comparable<Group>, Storable {
      * @return
      */
     public List<Player> getImmediateOnlinePlayers() {
-        List<Player> players = new ArrayList<Player>();
-        for (String pn : getImmediatePlayers()) {
-            Player player = ((Server) Spout.getEngine()).getPlayer(pn, true);
+        final List<Player> players = new ArrayList<Player>();
+        for (final String pn : getImmediatePlayers()) {
+            final Player player = ((Server) Spout.getEngine()).getPlayer(pn, true);
             if (player != null) {
                 players.add(player);
             }
@@ -385,8 +385,8 @@ public final class Group implements Comparable<Group>, Storable {
      * @return
      */
     public List<String> getPlayers() {
-        List<String> players = new ArrayList<String>();
-        for (Group group : getGroups()) {
+        final List<String> players = new ArrayList<String>();
+        for (final Group group : getGroups()) {
             players.addAll(group.getPlayers());
         }
         players.addAll(this.players.keySet());
@@ -399,7 +399,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param player
      * @return
      */
-    public boolean isImmediateMember(String player) {
+    public boolean isImmediateMember(final String player) {
         return players.containsKey(player);
     }
 
@@ -409,12 +409,12 @@ public final class Group implements Comparable<Group>, Storable {
      * @param player
      * @return
      */
-    public boolean isMember(String player) {
+    public boolean isMember(final String player) {
         if (isImmediateMember(player)) {
             return true;
         }
 
-        for (Group group : getGroups()) {
+        for (final Group group : getGroups()) {
             if (group.isMember(player)) {
                 return true;
             }
@@ -428,7 +428,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param player
      * @return
      */
-    public Role getRole(String player) {
+    public Role getRole(final String player) {
         return players.get(player);
     }
 
@@ -438,7 +438,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param player
      * @param role
      */
-    public void setRole(String player, Role role) {
+    public void setRole(final String player, final Role role) {
         players.put(player, role);
     }
 
@@ -447,7 +447,7 @@ public final class Group implements Comparable<Group>, Storable {
      * 
      * @param player
      */
-    public void removeRole(String player) {
+    public void removeRole(final String player) {
         players.remove(player);
     }
 
@@ -458,10 +458,10 @@ public final class Group implements Comparable<Group>, Storable {
      * @param privilege
      * @return True if the source has the privilege
      */
-    public boolean can(CommandSource source, Privilege privilege) {
+    public boolean can(final CommandSource source, final Privilege privilege) {
         if (source instanceof Player) {
-            Role role = getRole(source.getName());
-            return (role == null) ? false : role.hasPrivilege(privilege);
+            final Role role = getRole(source.getName());
+            return role == null ? false : role.hasPrivilege(privilege);
         }
         return true;
     }
@@ -472,7 +472,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @return
      */
     public Group getParent() {
-        for (Group group : universe.getGroups()) {
+        for (final Group group : universe.getGroups()) {
             if (group.getGroups().contains(group)) {
                 return group;
             }
@@ -481,19 +481,19 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     @Override
-    public int compareTo(Group o) {
+    public int compareTo(final Group o) {
         return getProperty(GroupProperty.TAG).toString().compareTo(o.getProperty(GroupProperty.TAG).toString());
     }
 
     @Override
     public BasicBSONObject toBSONObject() {
-        BasicBSONObject object = new BasicBSONObject();
+        final BasicBSONObject object = new BasicBSONObject();
 
         object.put("uid", uid);
         object.put("level", level.getId());
 
         final BasicBSONObject propertiesBson = new BasicBSONObject();
-        TIntObjectIterator<Object> pit = properties.iterator();
+        final TIntObjectIterator<Object> pit = properties.iterator();
         while (pit.hasNext()) {
             pit.advance();
             propertiesBson.put(Integer.toHexString(pit.key()), pit.value());
@@ -501,7 +501,7 @@ public final class Group implements Comparable<Group>, Storable {
         object.put("properties", propertiesBson);
 
         final BasicBSONObject playersBson = new BasicBSONObject();
-        for (Entry<String, Role> roleEntry : players.entrySet()) {
+        for (final Entry<String, Role> roleEntry : players.entrySet()) {
             playersBson.put(roleEntry.getKey(), roleEntry.getValue().getId());
         }
         object.put("players", playersBson);
@@ -516,44 +516,44 @@ public final class Group implements Comparable<Group>, Storable {
      * @param object
      * @return
      */
-    public static Group fromBSONObject(UniverseRules rules, BSONObject object) {
+    public static Group fromBSONObject(final UniverseRules rules, final BSONObject object) {
         if (!(object instanceof BasicBSONObject)) {
             throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
         }
 
-        BasicBSONObject bobject = (BasicBSONObject) object;
+        final BasicBSONObject bobject = (BasicBSONObject) object;
 
-        int uid = bobject.getInt("uid");
+        final int uid = bobject.getInt("uid");
 
-        String levelName = bobject.getString("level");
-        GroupLevel level = rules.getGroupLevel(levelName);
+        final String levelName = bobject.getString("level");
+        final GroupLevel level = rules.getGroupLevel(levelName);
         if (level == null) {
             throw new IllegalStateException("Unknown level type '" + level + "'! (Did the universe rules change?)");
         }
 
         // Properties
-        Object propertiesObj = bobject.get("properties");
+        final Object propertiesObj = bobject.get("properties");
         if (!(propertiesObj instanceof BasicBSONObject)) {
             throw new IllegalStateException("WTF you screwed up the properties! CORRUPT!");
         }
-        BasicBSONObject propertiesBson = (BasicBSONObject) propertiesObj;
-        TIntObjectMap<Object> properties = new TIntObjectHashMap<Object>();
-        for (Entry<String, Object> entry : propertiesBson.entrySet()) {
-            int realKey = Integer.valueOf(entry.getKey(), 16);
-            Object value = entry.getValue();
+        final BasicBSONObject propertiesBson = (BasicBSONObject) propertiesObj;
+        final TIntObjectMap<Object> properties = new TIntObjectHashMap<Object>();
+        for (final Entry<String, Object> entry : propertiesBson.entrySet()) {
+            final int realKey = Integer.valueOf(entry.getKey(), 16);
+            final Object value = entry.getValue();
             properties.put(realKey, value);
         }
 
         // Players
-        Object playersObj = bobject.get("players");
+        final Object playersObj = bobject.get("players");
         if (!(playersObj instanceof BasicBSONObject)) {
             throw new IllegalStateException("Stupid server admin... don't mess with the data!");
         }
-        BasicBSONObject playersBson = (BasicBSONObject) playersObj;
-        Map<String, Role> players = new HashMap<String, Role>();
-        for (Entry<String, Object> entry : playersBson.entrySet()) {
-            String roleId = entry.getValue().toString();
-            Role role = level.getRole(roleId);
+        final BasicBSONObject playersBson = (BasicBSONObject) playersObj;
+        final Map<String, Role> players = new HashMap<String, Role>();
+        for (final Entry<String, Object> entry : playersBson.entrySet()) {
+            final String roleId = entry.getValue().toString();
+            final Role role = level.getRole(roleId);
             players.put(entry.getKey(), role);
         }
 

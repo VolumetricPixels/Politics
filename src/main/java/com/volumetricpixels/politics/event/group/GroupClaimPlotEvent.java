@@ -47,7 +47,7 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
      * @param claimer
      *            The person claiming the {@link Plot} for the {@link Group}
      */
-    public GroupClaimPlotEvent(Group group, Plot plot, CommandSource claimer) {
+    public GroupClaimPlotEvent(final Group group, final Plot plot, final CommandSource claimer) {
         super(group, plot);
         this.claimer = claimer;
     }
@@ -65,6 +65,7 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isCancelled() {
         return super.isCancelled();
     }
@@ -72,13 +73,15 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
     /**
      * {@inheritDoc}
      */
-    public void setCancelled(boolean cancelled) {
+    @Override
+    public void setCancelled(final boolean cancelled) {
         super.setCancelled(cancelled);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }

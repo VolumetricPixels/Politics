@@ -47,14 +47,14 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
- * Represents a world containing plots.
+ * Represents a world containing plots
  */
 public class PoliticsWorld implements Storable {
     /**
      * A store of already-created Plots. This is necessary for handling
      * protections
      */
-    private Map<String, Plot> plots = new HashMap<String, Plot>();
+    private final Map<String, Plot> plots = new HashMap<String, Plot>();
 
     /**
      * The name of the GroupsWorld.
@@ -76,7 +76,7 @@ public class PoliticsWorld implements Storable {
      * 
      * @param name
      */
-    PoliticsWorld(String name, WorldConfig config) {
+    PoliticsWorld(final String name, final WorldConfig config) {
         this(name, config, new TInt21TripleObjectHashMap<TIntList>());
     }
 
@@ -87,7 +87,7 @@ public class PoliticsWorld implements Storable {
      * @param config
      * @param owners
      */
-    private PoliticsWorld(String name, WorldConfig config, TInt21TripleObjectHashMap<TIntList> owners) {
+    private PoliticsWorld(final String name, final WorldConfig config, final TInt21TripleObjectHashMap<TIntList> owners) {
         this.name = name;
         this.config = config;
         this.owners = owners;
@@ -99,7 +99,7 @@ public class PoliticsWorld implements Storable {
      * @return
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -129,7 +129,7 @@ public class PoliticsWorld implements Storable {
      * @param z
      * @return the internal list of owners for given location
      */
-    TIntList getInternalOwnerList(int x, int y, int z) {
+    TIntList getInternalOwnerList(final int x, final int y, final int z) {
         TIntList list = owners.get(x, y, z);
         if (list == null) {
             list = new TIntArrayList();
@@ -146,7 +146,7 @@ public class PoliticsWorld implements Storable {
      * @param z
      * @return
      */
-    public TIntList getOwnerIds(int x, int y, int z) {
+    public TIntList getOwnerIds(final int x, final int y, final int z) {
         return new TIntArrayList(getInternalOwnerList(x, y, z));
     }
 
@@ -158,13 +158,13 @@ public class PoliticsWorld implements Storable {
      * @param z
      * @return
      */
-    public List<Group> getOwners(int x, int y, int z) {
-        TIntList ownerIdList = getInternalOwnerList(x, y, z);
-        List<Group> ret = new ArrayList<Group>();
-        TIntIterator it = ownerIdList.iterator();
+    public List<Group> getOwners(final int x, final int y, final int z) {
+        final TIntList ownerIdList = getInternalOwnerList(x, y, z);
+        final List<Group> ret = new ArrayList<Group>();
+        final TIntIterator it = ownerIdList.iterator();
         while (it.hasNext()) {
-            int id = it.next();
-            Group group = Politics.getUniverseManager().getGroupById(id);
+            final int id = it.next();
+            final Group group = Politics.getUniverseManager().getGroupById(id);
             if (group == null) {
                 ownerIdList.remove(id); // Group no longer exists
             } else {
@@ -180,7 +180,7 @@ public class PoliticsWorld implements Storable {
      * @param level
      * @return
      */
-    public Universe getUniverse(GroupLevel level) {
+    public Universe getUniverse(final GroupLevel level) {
         return Politics.getUniverseManager().getUniverse(this, level);
     }
 
@@ -192,8 +192,8 @@ public class PoliticsWorld implements Storable {
      * @param z
      * @return
      */
-    public Plot getPlotAt(int x, int y, int z) {
-        String str = x + "," + y + "," + z;
+    public Plot getPlotAt(final int x, final int y, final int z) {
+        final String str = x + "," + y + "," + z;
         if (plots.containsKey(str) == false) {
             plots.put(str, new Plot(this, x, y, z));
         }
@@ -208,7 +208,7 @@ public class PoliticsWorld implements Storable {
      * @param z
      * @return
      */
-    public Plot getPlotAtChunkPosition(int x, int y, int z) {
+    public Plot getPlotAtChunkPosition(final int x, final int y, final int z) {
         return getPlotAt(x / config.getPlotSizeX(), y / config.getPlotSizeY(), z / config.getPlotSizeZ());
     }
 
@@ -223,20 +223,20 @@ public class PoliticsWorld implements Storable {
 
     @Override
     public BSONObject toBSONObject() {
-        BasicBSONObject bson = new BasicBSONObject();
-        TLongObjectIterator<TIntList> it = owners.iterator();
+        final BasicBSONObject bson = new BasicBSONObject();
+        final TLongObjectIterator<TIntList> it = owners.iterator();
         while (it.hasNext()) {
             it.advance();
-            String key = Long.toHexString(it.key());
-            TIntList theOwners = it.value();
+            final String key = Long.toHexString(it.key());
+            final TIntList theOwners = it.value();
             if (theOwners.isEmpty()) {
                 continue; // No point in serializing an empty list
             }
-            BasicBSONList theOwnersBson = new BasicBSONList();
+            final BasicBSONList theOwnersBson = new BasicBSONList();
 
-            TIntIterator theOwnersIt = theOwners.iterator();
+            final TIntIterator theOwnersIt = theOwners.iterator();
             while (theOwnersIt.hasNext()) {
-                long val = theOwnersIt.next();
+                final long val = theOwnersIt.next();
                 theOwnersBson.add(val);
             }
 
@@ -253,34 +253,34 @@ public class PoliticsWorld implements Storable {
      * @param object
      * @return
      */
-    public static PoliticsWorld fromBSONObject(String name, WorldConfig config, BSONObject object) {
+    public static PoliticsWorld fromBSONObject(final String name, final WorldConfig config, final BSONObject object) {
         if (!(object instanceof BasicBSONObject)) {
             throw new IllegalArgumentException("Supplied BSONObject is not a BasicBSONObject!");
         }
-        TLongObjectMap<TIntList> ownersIds = new TLongObjectHashMap<TIntList>();
-        BasicBSONObject bobject = (BasicBSONObject) object;
-        for (Entry<String, Object> entry : bobject.entrySet()) {
-            String intStr = entry.getKey();
-            int key = Integer.parseInt(intStr, 16);
-            Object listVal = entry.getValue();
+        final TLongObjectMap<TIntList> ownersIds = new TLongObjectHashMap<TIntList>();
+        final BasicBSONObject bobject = (BasicBSONObject) object;
+        for (final Entry<String, Object> entry : bobject.entrySet()) {
+            final String intStr = entry.getKey();
+            final int key = Integer.parseInt(intStr, 16);
+            final Object listVal = entry.getValue();
             if (!(listVal instanceof BasicBSONList)) {
                 throw new IllegalArgumentException("listVal is not a BasicBSONList!");
             }
 
-            TIntList longs = new TIntArrayList();
-            BasicBSONList list = (BasicBSONList) listVal;
-            for (Object obj : list) {
+            final TIntList longs = new TIntArrayList();
+            final BasicBSONList list = (BasicBSONList) listVal;
+            for (final Object obj : list) {
                 if (!(obj instanceof Integer)) {
                     throw new IllegalArgumentException("obj is not an Integer!");
                 }
-                int val = ((Integer) obj).intValue();
+                final int val = ((Integer) obj).intValue();
                 longs.add(val);
             }
 
             ownersIds.put(key, longs);
         }
 
-        TInt21TripleObjectHashMap<TIntList> owners = new TInt21TripleObjectHashMap<TIntList>(ownersIds);
+        final TInt21TripleObjectHashMap<TIntList> owners = new TInt21TripleObjectHashMap<TIntList>(ownersIds);
         return new PoliticsWorld(name, config, owners);
     }
 }

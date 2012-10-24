@@ -44,7 +44,7 @@ import com.volumetricpixels.politics.universe.Universe;
  */
 public class Plot extends Protection {
     /**
-     * World of the plot.
+     * World of the plot
      */
     private final PoliticsWorld world;
 
@@ -61,10 +61,10 @@ public class Plot extends Protection {
      * @param y
      * @param z
      */
-    Plot(PoliticsWorld world, int x, int y, int z) {
+    Plot(final PoliticsWorld world, final int x, final int y, final int z) {
         super("Plot(" + world.getName() + "," + x + "," + y + "," + z + ")", world.getWorld());
         this.world = world;
-        this.chunk = world.getWorld().getChunk(x, y, z);
+        chunk = world.getWorld().getChunk(x, y, z);
 
         PoliticsProtectionService.getInstance().addProtection(this);
     }
@@ -147,8 +147,8 @@ public class Plot extends Protection {
      * @param universe
      * @return
      */
-    public Group getOwner(Universe universe) {
-        for (Group owner : getOwners()) {
+    public Group getOwner(final Universe universe) {
+        for (final Group owner : getOwners()) {
             if (owner.getUniverse().equals(universe)) {
                 return owner;
             }
@@ -162,8 +162,8 @@ public class Plot extends Protection {
      * @param universe
      * @return
      */
-    public List<Group> getOwners(Universe universe) {
-        List<Group> owners = new ArrayList<Group>();
+    public List<Group> getOwners(final Universe universe) {
+        final List<Group> owners = new ArrayList<Group>();
         Group group = getOwner(universe);
         while (group != null) {
             owners.add(group);
@@ -179,7 +179,7 @@ public class Plot extends Protection {
      *            The id of the owner.
      * @return True if successful.s
      */
-    public boolean addOwner(int id) {
+    public boolean addOwner(final int id) {
         return addOwner(Politics.getUniverseManager().getGroupById(id));
     }
 
@@ -189,13 +189,13 @@ public class Plot extends Protection {
      * @param group
      * @return True if successful
      */
-    public boolean addOwner(Group group) {
-        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, group.getUid(), true);
+    public boolean addOwner(final Group group) {
+        final PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, group.getUid(), true);
         if (event.isCancelled()) {
             return false;
         }
 
-        for (Group g : getOwners()) {
+        for (final Group g : getOwners()) {
             if (g.equals(group)) {
                 return false; // Already owns the plot
             }
@@ -207,7 +207,7 @@ public class Plot extends Protection {
             return false;
         }
 
-        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
+        final TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
         return list.add(group.getUid());
     }
 
@@ -217,12 +217,12 @@ public class Plot extends Protection {
      * @param id
      * @return True if successful
      */
-    public boolean removeOwner(int id) {
-        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
+    public boolean removeOwner(final int id) {
+        final TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
         if (!list.contains(id)) {
             return true; // Not in there
         }
-        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
+        final PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
         if (event.isCancelled()) {
             return false;
         }
@@ -235,7 +235,7 @@ public class Plot extends Protection {
      * @param group
      * @return True if successful
      */
-    public boolean removeOwner(Group group) {
+    public boolean removeOwner(final Group group) {
         return removeOwner(group.getUid());
     }
 
@@ -245,7 +245,7 @@ public class Plot extends Protection {
      * @param id
      * @return
      */
-    public boolean isOwner(int id) {
+    public boolean isOwner(final int id) {
         return world.getInternalOwnerList(getX(), getY(), getZ()).contains(id);
     }
 
@@ -255,7 +255,7 @@ public class Plot extends Protection {
      * @param group
      * @return
      */
-    public boolean isOwner(Group group) {
+    public boolean isOwner(final Group group) {
         return isOwner(group.getUid());
     }
 
@@ -265,13 +265,13 @@ public class Plot extends Protection {
      * @param player
      * @return
      */
-    public Set<Privilege> getPrivileges(Player player) {
-        Set<Privilege> privileges = new HashSet<Privilege>();
+    public Set<Privilege> getPrivileges(final Player player) {
+        final Set<Privilege> privileges = new HashSet<Privilege>();
         return privileges;
     }
 
     @Override
-    public boolean contains(Point point) {
+    public boolean contains(final Point point) {
         return chunk.contains(point);
     }
 }

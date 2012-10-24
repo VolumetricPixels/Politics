@@ -27,7 +27,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Called when a group tries to unclaim a plot.
+ * Called when a group tries to unclaim a plot
  */
 public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
@@ -43,7 +43,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
      * @param group
      * @param unclaimer
      */
-    public GroupUnclaimPlotEvent(Group group, Plot plot, CommandSource unclaimer) {
+    public GroupUnclaimPlotEvent(final Group group, final Plot plot, final CommandSource unclaimer) {
         super(group, plot);
         this.unclaimer = unclaimer;
     }
@@ -60,6 +60,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isCancelled() {
         return super.isCancelled();
     }
@@ -67,13 +68,15 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
     /**
      * {@inheritDoc}
      */
-    public void setCancelled(boolean cancelled) {
+    @Override
+    public void setCancelled(final boolean cancelled) {
         super.setCancelled(cancelled);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }

@@ -30,11 +30,14 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.world.Plot;
 
+/**
+ * Deals with Plot protections in Politics
+ */
 public class PoliticsProtectionServiceListener implements Listener {
     @EventHandler(order = Order.LATEST)
-    public void onEntityCanBreak(EntityCanBreakEvent event) {
-        Plot plot = Politics.getPlotAt(event.getBlock().getPosition());
-        List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getX(), plot.getY(), plot.getZ());
+    public void onEntityCanBreak(final EntityCanBreakEvent event) {
+        final Plot plot = Politics.getPlotAt(event.getBlock().getPosition());
+        final List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getX(), plot.getY(), plot.getZ());
 
         if (owners.size() == 0) {
             event.setCancelled(false);

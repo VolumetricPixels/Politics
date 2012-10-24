@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents things one is allowed to do.
+ * Represents things one is allowed to do
  */
 public class Privilege {
     /**
@@ -40,7 +40,7 @@ public class Privilege {
     /**
      * Private C'tor
      */
-    public Privilege(String name, PrivilegeType... types) {
+    public Privilege(final String name, final PrivilegeType... types) {
         name.replaceAll(" ", "_");
 
         if (name.matches(":")) {
@@ -75,9 +75,9 @@ public class Privilege {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static Set<Privilege> all(Set<Privilege>... sets) {
-        Set<Privilege> result = new HashSet<Privilege>();
-        for (Set<Privilege> set : sets) {
+    public static Set<Privilege> all(final Set<Privilege>... sets) {
+        final Set<Privilege> result = new HashSet<Privilege>();
+        for (final Set<Privilege> set : sets) {
             result.addAll(set);
         }
         return result;
@@ -90,18 +90,18 @@ public class Privilege {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static Set<Privilege> common(Set<Privilege>... sets) {
+    public static Set<Privilege> common(final Set<Privilege>... sets) {
         boolean first = true;
-        Set<Privilege> result = new HashSet<Privilege>();
-        for (Set<Privilege> set : sets) {
+        final Set<Privilege> result = new HashSet<Privilege>();
+        for (final Set<Privilege> set : sets) {
             if (first) {
                 result.addAll(set);
                 first = false;
                 continue;
             }
 
-            Set<Privilege> copy = new HashSet<Privilege>(result);
-            for (Privilege privilege : copy) {
+            final Set<Privilege> copy = new HashSet<Privilege>(result);
+            for (final Privilege privilege : copy) {
                 if (!set.contains(privilege)) {
                     result.remove(privilege);
                 }
@@ -117,10 +117,10 @@ public class Privilege {
      * @param types
      * @return
      */
-    public static Set<Privilege> filter(Set<Privilege> set, PrivilegeType... types) {
-        Set<Privilege> result = new HashSet<Privilege>();
-        Set<PrivilegeType> typesSet = EnumSet.of(types[0], types);
-        for (Privilege priv : set) {
+    public static Set<Privilege> filter(final Set<Privilege> set, final PrivilegeType... types) {
+        final Set<Privilege> result = new HashSet<Privilege>();
+        final Set<PrivilegeType> typesSet = EnumSet.of(types[0], types);
+        for (final Privilege priv : set) {
             if (priv.getTypes().containsAll(typesSet)) {
                 result.add(priv);
             }

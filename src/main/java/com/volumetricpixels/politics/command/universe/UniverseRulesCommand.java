@@ -42,9 +42,9 @@ public class UniverseRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-        List<UniverseRules> ruleList = Politics.getUniverseManager().listRules();
-        for (UniverseRules rules : ruleList) {
+    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+        final List<UniverseRules> ruleList = Politics.getUniverseManager().listRules();
+        for (final UniverseRules rules : ruleList) {
             source.sendMessage(MessageStyle.INFO, rules.getName() + " - " + rules.getDescription());
         }
     }
@@ -55,7 +55,7 @@ public class UniverseRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Lists all possible rules to use.");
         cmd.setUsage("");

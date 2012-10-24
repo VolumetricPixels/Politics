@@ -26,7 +26,7 @@ import org.spout.api.event.HandlerList;
 import com.volumetricpixels.politics.group.Group;
 
 /**
- * Called when a group is created.
+ * Called when a group is created
  */
 public final class GroupCreateEvent extends GroupEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
@@ -42,7 +42,7 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
      * @param group
      * @param creator
      */
-    public GroupCreateEvent(Group group, CommandSource creator) {
+    public GroupCreateEvent(final Group group, final CommandSource creator) {
         super(group);
         this.creator = creator;
     }
@@ -59,6 +59,7 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isCancelled() {
         return super.isCancelled();
     }
@@ -66,13 +67,15 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
     /**
      * {@inheritDoc}
      */
-    public void setCancelled(boolean cancelled) {
+    @Override
+    public void setCancelled(final boolean cancelled) {
         super.setCancelled(cancelled);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }

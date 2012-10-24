@@ -43,18 +43,18 @@ public class UniverseGenRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-        String templateName = args.getString(0).toLowerCase();
-        Set<String> templateNames = RuleTemplates.listTemplateNames();
+    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+        final String templateName = args.getString(0).toLowerCase();
+        final Set<String> templateNames = RuleTemplates.listTemplateNames();
         if (!templateNames.contains(templateName)) {
             source.sendMessage(MessageStyle.ERROR, "A template with the name of '" + templateName + "' does not exist.");
             return;
         }
 
-        String name = args.getFlagString('n', templateName).toLowerCase();
-        UniverseRules existing = Politics.getUniverseManager().getRules(name);
+        final String name = args.getFlagString('n', templateName).toLowerCase();
+        final UniverseRules existing = Politics.getUniverseManager().getRules(name);
 
-        boolean force = args.hasFlag('f');
+        final boolean force = args.hasFlag('f');
         if (existing != null && !force) {
             source.sendMessage(MessageStyle.ERROR, "A set of rules with the name of '" + name
                     + "' already exists. Use the '-f' option to overwrite an existing rule set.");
@@ -72,7 +72,7 @@ public class UniverseGenRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Generates a set of rules.");
         cmd.setUsage("<template> [-f] [-n name]");

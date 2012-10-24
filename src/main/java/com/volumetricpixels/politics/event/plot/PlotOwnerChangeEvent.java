@@ -27,7 +27,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Called when a plot's owners changes.
+ * Called when a plot's owners changes
  */
 public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
@@ -49,7 +49,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
      * @param group
      * @param add
      */
-    public PlotOwnerChangeEvent(Plot plot, int group, boolean add) {
+    public PlotOwnerChangeEvent(final Plot plot, final int group, final boolean add) {
         super(plot);
         this.group = group;
         this.add = add;
@@ -94,6 +94,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isCancelled() {
         return super.isCancelled();
     }
@@ -101,13 +102,15 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
     /**
      * {@inheritDoc}
      */
-    public void setCancelled(boolean cancelled) {
+    @Override
+    public void setCancelled(final boolean cancelled) {
         super.setCancelled(cancelled);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }

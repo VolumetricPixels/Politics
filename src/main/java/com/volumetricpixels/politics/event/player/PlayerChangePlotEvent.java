@@ -27,7 +27,7 @@ import org.spout.api.event.player.PlayerEvent;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Called when a player changes the plot they are in.
+ * Called when a player changes the plot they are in
  */
 public final class PlayerChangePlotEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
@@ -49,7 +49,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
      * @param from
      * @param to
      */
-    public PlayerChangePlotEvent(Player p, Plot from, Plot to) {
+    public PlayerChangePlotEvent(final Player p, final Plot from, final Plot to) {
         super(p);
         this.from = from;
         this.to = to;
@@ -76,20 +76,22 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
     /**
      * {@inheritDoc}
      */
-    public boolean isCancelled(boolean cancelled) {
+    public boolean isCancelled(final boolean cancelled) {
         return super.isCancelled();
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setCancelled(boolean cancelled) {
+    @Override
+    public void setCancelled(final boolean cancelled) {
         super.setCancelled(cancelled);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }

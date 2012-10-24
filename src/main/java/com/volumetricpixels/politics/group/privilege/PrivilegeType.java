@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.group.privilege;
 
 /**
- * Represents a type of privilege.
+ * Represents a type of privilege
  */
 public enum PrivilegeType {
     /**
@@ -31,5 +31,4 @@ public enum PrivilegeType {
      * A plot privilege.
      */
     PLOT;
-
 }

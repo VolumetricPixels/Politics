@@ -23,7 +23,7 @@ import org.spout.api.math.Vector3;
 import org.spout.api.util.config.Configuration;
 
 /**
- * Configuration of a world.
+ * Configuration of a world
  */
 public class WorldConfig {
     /**
@@ -49,7 +49,7 @@ public class WorldConfig {
     /**
      * C'tor
      */
-    public WorldConfig(String name) {
+    public WorldConfig(final String name) {
         this.name = name;
     }
 
@@ -73,7 +73,7 @@ public class WorldConfig {
      * @param plotSizeX
      *            the plotSizeX to set
      */
-    public void setPlotSizeX(int plotSizeX) {
+    public void setPlotSizeX(final int plotSizeX) {
         this.plotSizeX = plotSizeX;
     }
 
@@ -88,7 +88,7 @@ public class WorldConfig {
      * @param plotSizeY
      *            the plotSizeY to set
      */
-    public void setPlotSizeY(int plotSizeY) {
+    public void setPlotSizeY(final int plotSizeY) {
         this.plotSizeY = plotSizeY;
     }
 
@@ -103,7 +103,7 @@ public class WorldConfig {
      * @param plotSizeZ
      *            the plotSizeZ to set
      */
-    public void setPlotSizeZ(int plotSizeZ) {
+    public void setPlotSizeZ(final int plotSizeZ) {
         this.plotSizeZ = plotSizeZ;
     }
 
@@ -121,7 +121,7 @@ public class WorldConfig {
      * 
      * @param config
      */
-    public void save(Configuration config) {
+    public void save(final Configuration config) {
         config.getNode("plotsize.x").setValue(plotSizeX);
         config.getNode("plotsize.y").setValue(plotSizeY);
         config.getNode("plotsize.z").setValue(plotSizeZ);
@@ -134,8 +134,8 @@ public class WorldConfig {
      * @param config
      * @return the new WorldConfig
      */
-    public static WorldConfig load(String name, Configuration config) {
-        WorldConfig wc = new WorldConfig(name);
+    public static WorldConfig load(final String name, final Configuration config) {
+        final WorldConfig wc = new WorldConfig(name);
         wc.plotSizeX = config.getNode("plotsize.x").getInt(1);
         wc.plotSizeY = config.getNode("plotsize.y").getInt(8);
         wc.plotSizeZ = config.getNode("plotsize.z").getInt(1);

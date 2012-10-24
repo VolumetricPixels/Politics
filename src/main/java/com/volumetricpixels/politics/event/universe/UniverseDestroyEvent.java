@@ -24,7 +24,7 @@ import org.spout.api.event.HandlerList;
 import com.volumetricpixels.politics.universe.Universe;
 
 /**
- * Called when a universe is destroyed using the universe destruction command.
+ * Called when a universe is destroyed using the universe destruction command
  */
 public class UniverseDestroyEvent extends UniverseEvent {
     private static HandlerList handlers = new HandlerList();
@@ -34,13 +34,14 @@ public class UniverseDestroyEvent extends UniverseEvent {
      * 
      * @param universe
      */
-    public UniverseDestroyEvent(Universe universe) {
+    public UniverseDestroyEvent(final Universe universe) {
         super(universe);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }

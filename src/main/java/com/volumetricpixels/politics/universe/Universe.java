@@ -53,7 +53,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 /**
- * Represents a headless group of all groups within its scope.
+ * Represents a headless group of all groups within its scope
  */
 public class Universe implements Storable {
     /**
@@ -69,22 +69,22 @@ public class Universe implements Storable {
     /**
      * Contains the worlds in which this universe is part of.
      */
-    private List<PoliticsWorld> worlds;
+    private final List<PoliticsWorld> worlds;
 
     /**
      * The groups in this universe manager.
      */
-    private List<Group> groups;
+    private final List<Group> groups;
 
     /**
      * Contains the immediate children of each group.
      */
-    private Map<Group, Set<Group>> children;
+    private final Map<Group, Set<Group>> children;
 
     /**
      * Groups in the given levels.
      */
-    private Map<GroupLevel, List<Group>> levels;
+    private final Map<GroupLevel, List<Group>> levels;
 
     /**
      * Cache containing citizens.
@@ -97,7 +97,7 @@ public class Universe implements Storable {
      * @param name
      * @param properties
      */
-    public Universe(String name, UniverseRules properties) {
+    public Universe(final String name, final UniverseRules properties) {
         this(name, properties, new ArrayList<PoliticsWorld>(), new ArrayList<Group>(), new HashMap<Group, Set<Group>>());
     }
 
@@ -110,9 +110,10 @@ public class Universe implements Storable {
      * @param groups
      * @param children
      */
-    public Universe(String name, UniverseRules properties, List<PoliticsWorld> worlds, List<Group> groups, Map<Group, Set<Group>> children) {
+    public Universe(final String name, final UniverseRules properties, final List<PoliticsWorld> worlds, final List<Group> groups,
+            final Map<Group, Set<Group>> children) {
         this.name = name;
-        this.rules = properties;
+        rules = properties;
         this.worlds = worlds;
         this.groups = groups;
         this.children = children;
@@ -120,7 +121,7 @@ public class Universe implements Storable {
         buildCitizenCache();
 
         levels = new HashMap<GroupLevel, List<Group>>();
-        for (Group group : groups) {
+        for (final Group group : groups) {
             getInternalGroups(group.getLevel()).add(group);
         }
     }
@@ -130,16 +131,16 @@ public class Universe implements Storable {
      */
     private void buildCitizenCache() {
         // Build cache
-        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
+        final CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
 
         builder.maximumSize(((Server) Spout.getEngine()).getMaxPlayers());
         builder.expireAfterAccess(10L, TimeUnit.MINUTES);
 
         citizenGroupCache = builder.build(new CacheLoader<String, Set<Group>>() {
             @Override
-            public Set<Group> load(String name) throws Exception {
-                Set<Group> myGroups = new HashSet<Group>();
-                for (Group group : groups) {
+            public Set<Group> load(final String name) throws Exception {
+                final Set<Group> myGroups = new HashSet<Group>();
+                for (final Group group : groups) {
                     if (group.isImmediateMember(name)) {
                         myGroups.add(group);
                     }
@@ -183,9 +184,9 @@ public class Universe implements Storable {
      * @param value
      * @return
      */
-    public List<Group> getGroupsByProperty(int property, Object value) {
-        List<Group> groups = new ArrayList<Group>();
-        for (Group group : getGroups()) {
+    public List<Group> getGroupsByProperty(final int property, final Object value) {
+        final List<Group> groups = new ArrayList<Group>();
+        for (final Group group : getGroups()) {
             if (group.getProperty(property).equals(value)) {
                 groups.add(group);
             }
@@ -201,9 +202,9 @@ public class Universe implements Storable {
      * @param value
      * @return
      */
-    public List<Group> getGroupsByProperty(GroupLevel level, int property, Object value) {
-        List<Group> groups = new ArrayList<Group>();
-        for (Group group : getGroups(level)) {
+    public List<Group> getGroupsByProperty(final GroupLevel level, final int property, final Object value) {
+        final List<Group> groups = new ArrayList<Group>();
+        for (final Group group : getGroups(level)) {
             if (group.getProperty(property).equals(value)) {
                 groups.add(group);
             }
@@ -218,8 +219,8 @@ public class Universe implements Storable {
      * @param value
      * @return
      */
-    public Group getFirstGroupByProperty(int property, Object value) {
-        for (Group group : getGroups()) {
+    public Group getFirstGroupByProperty(final int property, final Object value) {
+        for (final Group group : getGroups()) {
             if (group.getProperty(property).equals(value)) {
                 return group;
             }
@@ -235,8 +236,8 @@ public class Universe implements Storable {
      * @param value
      * @return
      */
-    public Group getFirstGroupByProperty(GroupLevel level, int property, Object value) {
-        for (Group group : getGroups(level)) {
+    public Group getFirstGroupByProperty(final GroupLevel level, final int property, final Object value) {
+        for (final Group group : getGroups(level)) {
             if (group.getProperty(property).equals(value)) {
                 return group;
             }
@@ -250,10 +251,10 @@ public class Universe implements Storable {
      * @param world
      * @return True if the add was successful
      */
-    public boolean addWorld(PoliticsWorld world) {
-        List<GroupLevel> levels = rules.getGroupLevels();
+    public boolean addWorld(final PoliticsWorld world) {
+        final List<GroupLevel> levels = rules.getGroupLevels();
         // Check if the rules are already there
-        for (GroupLevel level : world.getLevels()) {
+        for (final GroupLevel level : world.getLevels()) {
             if (levels.contains(level)) {
                 return false;
             }
@@ -276,7 +277,7 @@ public class Universe implements Storable {
      * @param level
      * @return
      */
-    public List<Group> getGroups(GroupLevel level) {
+    public List<Group> getGroups(final GroupLevel level) {
         return new ArrayList<Group>(getInternalGroups(level));
     }
 
@@ -286,7 +287,7 @@ public class Universe implements Storable {
      * @param level
      * @return
      */
-    private List<Group> getInternalGroups(GroupLevel level) {
+    private List<Group> getInternalGroups(final GroupLevel level) {
         List<Group> levelGroups = levels.get(level);
         if (levelGroups == null) {
             levelGroups = new ArrayList<Group>();
@@ -301,7 +302,7 @@ public class Universe implements Storable {
      * @param group
      * @return
      */
-    public Set<Group> getChildGroups(Group group) {
+    public Set<Group> getChildGroups(final Group group) {
         return new HashSet<Group>(getInternalChildGroups(group));
     }
 
@@ -311,11 +312,11 @@ public class Universe implements Storable {
      * @param group
      * @return
      */
-    private Set<Group> getInternalChildGroups(Group group) {
+    private Set<Group> getInternalChildGroups(final Group group) {
         if (group == null) {
             return new HashSet<Group>();
         }
-        Set<Group> childs = children.get(group);
+        final Set<Group> childs = children.get(group);
         if (childs == null) {
             return new HashSet<Group>();
         }
@@ -329,7 +330,7 @@ public class Universe implements Storable {
      * @param child
      * @return True if the group could be made a child
      */
-    public boolean addChildGroup(Group group, Group child) {
+    public boolean addChildGroup(final Group group, final Group child) {
         if (!group.getLevel().canBeChild(child.getLevel())) {
             return false;
         }
@@ -350,8 +351,8 @@ public class Universe implements Storable {
      * @return True if the child was removed, false if the child was not a child
      *         in the first place
      */
-    public boolean removeChildGroup(Group group, Group child) {
-        Set<Group> childs = children.get(group);
+    public boolean removeChildGroup(final Group group, final Group child) {
+        final Set<Group> childs = children.get(group);
         if (childs == null) {
             return false;
         }
@@ -364,8 +365,8 @@ public class Universe implements Storable {
      * @param level
      * @return
      */
-    public Group createGroup(GroupLevel level) {
-        Group group = new Group(Politics.getUniverseManager().nextId(), level);
+    public Group createGroup(final GroupLevel level) {
+        final Group group = new Group(Politics.getUniverseManager().nextId(), level);
 
         groups.add(group);
         getInternalGroups(level).add(group);
@@ -378,7 +379,7 @@ public class Universe implements Storable {
      * 
      * @param group
      */
-    public void destroyGroup(Group group) {
+    public void destroyGroup(final Group group) {
         destroyGroup(group, false);
     }
 
@@ -390,21 +391,21 @@ public class Universe implements Storable {
      * @param deep
      *            True if child groups should be deleted
      */
-    public void destroyGroup(Group group, boolean deep) {
+    public void destroyGroup(final Group group, final boolean deep) {
         groups.remove(group);
         getInternalGroups(group.getLevel()).remove(group);
-        for (String member : group.getPlayers()) {
+        for (final String member : group.getPlayers()) {
             invalidateCitizenGroups(member);
         }
         if (deep) {
-            for (Group child : group.getGroups()) {
+            for (final Group child : group.getGroups()) {
                 destroyGroup(child, true);
             }
         }
 
         children.remove(group);
         // This can be expensive -- beware!
-        for (Set<Group> childrenOfAGroup : children.values()) {
+        for (final Set<Group> childrenOfAGroup : children.values()) {
             if (childrenOfAGroup.contains(group)) {
                 childrenOfAGroup.remove(group);
             }
@@ -418,7 +419,7 @@ public class Universe implements Storable {
      *            The player name, case-sensitive.
      * @return
      */
-    public Citizen getCitizen(String player) {
+    public Citizen getCitizen(final String player) {
         return new Citizen(player, this);
     }
 
@@ -428,10 +429,10 @@ public class Universe implements Storable {
      * @param player
      * @return
      */
-    public Set<Group> getCitizenGroups(String player) {
+    public Set<Group> getCitizenGroups(final String player) {
         try {
             return new HashSet<Group>(citizenGroupCache.get(player));
-        } catch (ExecutionException e) {
+        } catch (final ExecutionException e) {
             PoliticsPlugin.logger().log(Level.SEVERE, "Could not load a set of citizen groups! This is a PROBLEM!", e);
             return null;
         }
@@ -442,27 +443,27 @@ public class Universe implements Storable {
      * 
      * @param citizen
      */
-    public void invalidateCitizenGroups(String citizen) {
+    public void invalidateCitizenGroups(final String citizen) {
         citizenGroupCache.invalidate(citizen);
     }
 
     @Override
     public BasicBSONObject toBSONObject() {
-        BasicBSONObject bson = new BasicBSONObject();
+        final BasicBSONObject bson = new BasicBSONObject();
 
         bson.put("name", name);
         bson.put("rules", rules.getName());
 
-        BasicBSONList groupsBson = new BasicBSONList();
-        BasicBSONObject childrenBson = new BasicBSONObject();
+        final BasicBSONList groupsBson = new BasicBSONList();
+        final BasicBSONObject childrenBson = new BasicBSONObject();
 
-        for (Group group : groups) {
+        for (final Group group : groups) {
             // groups
             groupsBson.add(group.toBSONObject());
 
             // children
-            BasicBSONList children = new BasicBSONList();
-            for (Group child : group.getGroups()) {
+            final BasicBSONList children = new BasicBSONList();
+            for (final Group child : group.getGroups()) {
                 children.add(child.getUid());
             }
             childrenBson.put(Long.toHexString(group.getUid()), children);
@@ -479,29 +480,29 @@ public class Universe implements Storable {
      * @param object
      * @return
      */
-    public static Universe fromBSONObject(BSONObject object) {
+    public static Universe fromBSONObject(final BSONObject object) {
         if (!(object instanceof BasicBSONObject)) {
             throw new IllegalStateException("object is not a BasicBsonObject! ERROR ERROR ERROR!");
         }
-        BasicBSONObject bobject = (BasicBSONObject) object;
+        final BasicBSONObject bobject = (BasicBSONObject) object;
 
-        String aname = bobject.getString("name");
-        String rulesName = bobject.getString("rules");
-        UniverseRules rules = Politics.getUniverseManager().getRules(rulesName);
+        final String aname = bobject.getString("name");
+        final String rulesName = bobject.getString("rules");
+        final UniverseRules rules = Politics.getUniverseManager().getRules(rulesName);
 
         if (rules == null) {
             throw new IllegalStateException("Rules do not exist!");
         }
 
-        List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
-        Object worldsObj = bobject.get("worlds");
+        final List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
+        final Object worldsObj = bobject.get("worlds");
         if (!(worldsObj instanceof BasicBSONList)) {
             throw new IllegalStateException("GroupWorlds object is not a list!!! ASDFASDF");
         }
-        BasicBSONList worldsBson = (BasicBSONList) worldsObj;
-        for (Object worldName : worldsBson) {
-            String name = worldName.toString();
-            PoliticsWorld world = Politics.getPlotManager().getWorld(name);
+        final BasicBSONList worldsBson = (BasicBSONList) worldsObj;
+        for (final Object worldName : worldsBson) {
+            final String name = worldName.toString();
+            final PoliticsWorld world = Politics.getPlotManager().getWorld(name);
             if (world == null) {
                 PoliticsPlugin.logger().log(Level.WARNING, "GroupWorld `" + name + "' could not be found! (Did you delete it?)");
             } else {
@@ -509,52 +510,52 @@ public class Universe implements Storable {
             }
         }
 
-        Object groupsObj = bobject.get("groups");
+        final Object groupsObj = bobject.get("groups");
         if (!(groupsObj instanceof BasicBSONList)) {
             throw new IllegalStateException("groups isn't a list?! wtfhax?");
         }
-        BasicBSONList groupsBson = (BasicBSONList) groupsObj;
+        final BasicBSONList groupsBson = (BasicBSONList) groupsObj;
 
-        TLongObjectMap<Group> groups = new TLongObjectHashMap<Group>();
-        for (Object groupBson : groupsBson) {
+        final TLongObjectMap<Group> groups = new TLongObjectHashMap<Group>();
+        for (final Object groupBson : groupsBson) {
             if (!(groupBson instanceof BasicBSONObject)) {
                 throw new IllegalStateException("Invalid group!");
             }
-            Group c = Group.fromBSONObject(rules, (BasicBSONObject) groupBson);
+            final Group c = Group.fromBSONObject(rules, (BasicBSONObject) groupBson);
             groups.put(c.getUid(), c);
         }
 
-        Map<Group, Set<Group>> children = new HashMap<Group, Set<Group>>();
-        Object childrenObj = bobject.get("children");
+        final Map<Group, Set<Group>> children = new HashMap<Group, Set<Group>>();
+        final Object childrenObj = bobject.get("children");
         if (!(childrenObj instanceof BasicBSONObject)) {
             throw new IllegalStateException("Missing children report!");
         }
-        BasicBSONObject childrenBson = (BasicBSONObject) childrenObj;
-        for (Entry<String, Object> childEntry : childrenBson.entrySet()) {
-            String groupId = childEntry.getKey();
-            long uid = Long.parseLong(groupId, 16);
-            Group c = groups.get(uid);
+        final BasicBSONObject childrenBson = (BasicBSONObject) childrenObj;
+        for (final Entry<String, Object> childEntry : childrenBson.entrySet()) {
+            final String groupId = childEntry.getKey();
+            final long uid = Long.parseLong(groupId, 16);
+            final Group c = groups.get(uid);
             if (c == null) {
                 throw new IllegalStateException("Unknown group id " + Long.toHexString(uid));
             }
 
-            Object childsObj = childEntry.getValue();
+            final Object childsObj = childEntry.getValue();
             if (!(childsObj instanceof BasicBSONList)) {
                 throw new IllegalStateException("No bson list found for childsObj");
             }
-            Set<Group> childrenn = new HashSet<Group>();
-            BasicBSONList childs = (BasicBSONList) childsObj;
-            for (Object childN : childs) {
-                long theuid = (Long) childN;
-                Group ch = groups.get(theuid);
+            final Set<Group> childrenn = new HashSet<Group>();
+            final BasicBSONList childs = (BasicBSONList) childsObj;
+            for (final Object childN : childs) {
+                final long theuid = (Long) childN;
+                final Group ch = groups.get(theuid);
                 childrenn.add(ch);
             }
             children.put(c, childrenn);
         }
 
-        List<Group> groupz = new ArrayList<Group>(groups.valueCollection());
-        Universe universe = new Universe(aname, rules, worlds, groupz, children);
-        for (Group group : groupz) {
+        final List<Group> groupz = new ArrayList<Group>(groups.valueCollection());
+        final Universe universe = new Universe(aname, rules, worlds, groupz, children);
+        for (final Group group : groupz) {
             group.initialize(universe);
         }
         return universe;

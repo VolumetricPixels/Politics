@@ -23,7 +23,7 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Called whenever a group does something with a plot.
+ * Called whenever a group does something with a plot
  */
 public abstract class GroupPlotEvent extends GroupEvent {
     /**
@@ -37,7 +37,7 @@ public abstract class GroupPlotEvent extends GroupEvent {
      * @param group
      * @param plot
      */
-    protected GroupPlotEvent(Group group, Plot plot) {
+    protected GroupPlotEvent(final Group group, final Plot plot) {
         super(group);
         this.plot = plot;
     }

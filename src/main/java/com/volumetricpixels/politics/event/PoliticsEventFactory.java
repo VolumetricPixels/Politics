@@ -37,7 +37,7 @@ import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Factory for creating events.
+ * Factory for creating events
  */
 public class PoliticsEventFactory {
     /**
@@ -51,7 +51,7 @@ public class PoliticsEventFactory {
      *            The person claiming the Plot for the Group
      * @return The called GroupClaimPlotEvent
      */
-    public static GroupClaimPlotEvent callGroupClaimPlotEvent(Group group, Plot plot, CommandSource claimer) {
+    public static GroupClaimPlotEvent callGroupClaimPlotEvent(final Group group, final Plot plot, final CommandSource claimer) {
         return callEvent(new GroupClaimPlotEvent(group, plot, claimer));
     }
 
@@ -66,7 +66,7 @@ public class PoliticsEventFactory {
      *            The value the property is being set to
      * @return The called GroupPropertySetEvent
      */
-    public static GroupPropertySetEvent callGroupPropertySetEvent(Group group, int property, Object value) {
+    public static GroupPropertySetEvent callGroupPropertySetEvent(final Group group, final int property, final Object value) {
         return callEvent(new GroupPropertySetEvent(group, property, value));
     }
 
@@ -81,7 +81,7 @@ public class PoliticsEventFactory {
      *            The person who is unclaiming the Plot for the Group
      * @return The called GroupUnclaimPlotEvent
      */
-    public static GroupUnclaimPlotEvent callGroupUnclaimPlotEvent(Group group, Plot plot, CommandSource unclaimer) {
+    public static GroupUnclaimPlotEvent callGroupUnclaimPlotEvent(final Group group, final Plot plot, final CommandSource unclaimer) {
         return callEvent(new GroupUnclaimPlotEvent(group, plot, unclaimer));
     }
 
@@ -94,7 +94,7 @@ public class PoliticsEventFactory {
      *            The creator of the Group
      * @return The called GroupCreateEvent
      */
-    public static GroupCreateEvent callGroupCreateEvent(Group group, CommandSource creator) {
+    public static GroupCreateEvent callGroupCreateEvent(final Group group, final CommandSource creator) {
         return callEvent(new GroupCreateEvent(group, creator));
     }
 
@@ -109,7 +109,7 @@ public class PoliticsEventFactory {
      *            The Plot to which the Player is moving
      * @return The called PlayerChangePlotEvent
      */
-    public static PlayerChangePlotEvent callPlayerChangePlotEvent(Player player, Plot from, Plot to) {
+    public static PlayerChangePlotEvent callPlayerChangePlotEvent(final Player player, final Plot from, final Plot to) {
         return callEvent(new PlayerChangePlotEvent(player, from, to));
     }
 
@@ -124,7 +124,7 @@ public class PoliticsEventFactory {
      *            Whether the owner is being added
      * @return The called PlotOwnerChangeEvent
      */
-    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(Plot plot, int group, boolean add) {
+    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(final Plot plot, final int group, final boolean add) {
         return callEvent(new PlotOwnerChangeEvent(plot, group, add));
     }
 
@@ -135,7 +135,7 @@ public class PoliticsEventFactory {
      *            The universe being created
      * @return The called UniverseCreateEvent
      */
-    public static UniverseCreateEvent callUniverseCreateEvent(Universe universe) {
+    public static UniverseCreateEvent callUniverseCreateEvent(final Universe universe) {
         return callEvent(new UniverseCreateEvent(universe));
     }
 
@@ -146,7 +146,7 @@ public class PoliticsEventFactory {
      *            The universe being destroyed
      * @return The called UniverseDestroyEvent
      */
-    public static UniverseDestroyEvent callUniverseDestroyEvent(Universe universe) {
+    public static UniverseDestroyEvent callUniverseDestroyEvent(final Universe universe) {
         return callEvent(new UniverseDestroyEvent(universe));
     }
 
@@ -157,7 +157,7 @@ public class PoliticsEventFactory {
      *            The event to call
      * @return The called Event
      */
-    private static <T extends Event> T callEvent(T event) {
+    private static <T extends Event> T callEvent(final T event) {
         return Spout.getEngine().getEventManager().callEvent(event);
     }
 }

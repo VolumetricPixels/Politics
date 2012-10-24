@@ -31,6 +31,9 @@ import org.spout.api.plugin.services.ProtectionService;
 
 import com.volumetricpixels.politics.Politics;
 
+/**
+ * The ProtectionService of Politics
+ */
 public class PoliticsProtectionService extends ProtectionService {
     private static PoliticsProtectionService instance;
 
@@ -42,7 +45,7 @@ public class PoliticsProtectionService extends ProtectionService {
         Spout.getEventManager().registerEvents(new PoliticsProtectionServiceListener(), Politics.getPlugin());
     }
 
-    public boolean addProtection(Protection prot) {
+    public boolean addProtection(final Protection prot) {
         if (protections.contains(prot) == false) {
             if (prot != null) {
                 return protections.add(prot);
@@ -51,7 +54,7 @@ public class PoliticsProtectionService extends ProtectionService {
         return false;
     }
 
-    public boolean removeProtection(Protection prot) {
+    public boolean removeProtection(final Protection prot) {
         if (prot != null) {
             if (protections.contains(prot)) {
                 return protections.add(prot);
@@ -66,9 +69,9 @@ public class PoliticsProtectionService extends ProtectionService {
     }
 
     @Override
-    public Collection<Protection> getAllProtections(World world) {
-        Collection<Protection> result = new ArrayList<Protection>();
-        for (Protection p : protections) {
+    public Collection<Protection> getAllProtections(final World world) {
+        final Collection<Protection> result = new ArrayList<Protection>();
+        for (final Protection p : protections) {
             if (p.getWorld().equals(world)) {
                 result.add(p);
             }
@@ -77,9 +80,9 @@ public class PoliticsProtectionService extends ProtectionService {
     }
 
     @Override
-    public Collection<Protection> getAllProtections(Point location) {
-        Collection<Protection> result = new ArrayList<Protection>();
-        for (Protection p : protections) {
+    public Collection<Protection> getAllProtections(final Point location) {
+        final Collection<Protection> result = new ArrayList<Protection>();
+        for (final Protection p : protections) {
             if (p.contains(location)) {
                 result.add(p);
             }
@@ -88,7 +91,7 @@ public class PoliticsProtectionService extends ProtectionService {
     }
 
     @Override
-    public Protection getProtection(String name) {
+    public Protection getProtection(final String name) {
         return null;
     }
 
