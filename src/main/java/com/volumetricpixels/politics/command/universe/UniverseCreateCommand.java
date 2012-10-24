@@ -48,8 +48,8 @@ public class UniverseCreateCommand extends UniverseCommand {
     }
 
     @Override
-    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-        String name = args.getString(0).toLowerCase();
+    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+        final String name = args.getString(0).toLowerCase();
 
         if (name.contains(" ")) {
             source.sendMessage(MessageStyle.ERROR, "Spaces are not allowed in universe names.");
@@ -62,36 +62,36 @@ public class UniverseCreateCommand extends UniverseCommand {
         }
 
         // boolean force = args.hasFlag('f');
-        Universe existing = Politics.getUniverse(name);
+        final Universe existing = Politics.getUniverse(name);
         if (existing != null) {
             source.sendMessage(MessageStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `",
                     MessageStyle.ERROR_HIGHLIGHT, "universe destroy", MessageStyle.ERROR, "' command if you wish to overwrite that universe.");
             return;
         }
 
-        String rules = args.getString(1).toLowerCase();
-        UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
+        final String rules = args.getString(1).toLowerCase();
+        final UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
         if (theRules == null) {
             source.sendMessage(MessageStyle.ERROR, "There is no set of rules named ", MessageStyle.ERROR_HIGHLIGHT, rules, MessageStyle.ERROR,
                     ". To see the available rules, use ", MessageStyle.ERROR_HIGHLIGHT, "universe rules", MessageStyle.ERROR, ".");
             return;
         }
 
-        String worldsStr = args.getString(2);
-        List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
+        final String worldsStr = args.getString(2);
+        final List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
         if (worldsStr == null) {
-            for (World world : Spout.getEngine().getWorlds()) {
+            for (final World world : Spout.getEngine().getWorlds()) {
                 worlds.add(Politics.getWorld(world));
             }
         } else {
-            String[] worldNames = worldsStr.split(",");
-            for (String worldName : worldNames) {
-                String trimmed = worldName.trim();
-                World world = Spout.getEngine().getWorld(trimmed);
+            final String[] worldNames = worldsStr.split(",");
+            for (final String worldName : worldNames) {
+                final String trimmed = worldName.trim();
+                final World world = Spout.getEngine().getWorld(trimmed);
                 if (world == null) {
                     continue;
                 }
-                PoliticsWorld pw = Politics.getWorld(world);
+                final PoliticsWorld pw = Politics.getWorld(world);
                 worlds.add(pw);
             }
         }
@@ -101,7 +101,7 @@ public class UniverseCreateCommand extends UniverseCommand {
             return;
         }
 
-        Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
+        final Universe universe = Politics.getUniverseManager().createUniverse(name, theRules);
         PoliticsEventFactory.callUniverseCreateEvent(universe);
         source.sendMessage(MessageStyle.SUCCESS, "You have created the universe '" + name + "' with the rules '" + rules + "'.");
     }
@@ -112,7 +112,7 @@ public class UniverseCreateCommand extends UniverseCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(2, -1);
         cmd.setHelp("Creates a new Universe with the given rules.");
         cmd.setUsage("<name> <rules> [worlds...]");

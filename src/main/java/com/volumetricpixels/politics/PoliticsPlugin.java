@@ -88,7 +88,7 @@ public class PoliticsPlugin extends CommonPlugin {
         Commands.registerAll();
 
         // Register and schedule things with Spout
-        Engine e = getEngine();
+        final Engine e = getEngine();
         e.getEventManager().registerEvents(new PoliticsListener(), this);
         e.getServiceManager().register(ProtectionService.class, new PoliticsProtectionService(), this, ServicePriority.Highest);
         e.getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);

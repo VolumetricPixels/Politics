@@ -31,7 +31,7 @@ public abstract class UniverseCommand extends PCommand {
      * @param primary
      *            The primary label of the command
      */
-    public UniverseCommand(String primary) {
+    public UniverseCommand(final String primary) {
         super(primary);
     }
 

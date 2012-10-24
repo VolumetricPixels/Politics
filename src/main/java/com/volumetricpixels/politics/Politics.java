@@ -39,10 +39,9 @@ import com.volumetricpixels.politics.world.PoliticsWorld;
  */
 public final class Politics {
     /**
-     * C'tor
+     * The URL to download Politics from
      */
-    private Politics() {
-    }
+    public static final String JENKINS_URL = "http://ci.massiveminecraft.com/job/Politics";
 
     /**
      * Gets the PoliticsPlugin instance.
@@ -96,7 +95,7 @@ public final class Politics {
      *            The Point the Plot is located at
      * @return The Plot the given Point is inside
      */
-    public static Plot getPlotAt(Point position) {
+    public static Plot getPlotAt(final Point position) {
         return getPlotManager().getPlotAt(position);
     }
 
@@ -107,7 +106,7 @@ public final class Politics {
      *            The Spout World to get the PoliticsWorld from
      * @return The PoliticsWorld representing the given World
      */
-    public static PoliticsWorld getWorld(World world) {
+    public static PoliticsWorld getWorld(final World world) {
         return getPlotManager().getWorld(world);
     }
 
@@ -118,7 +117,7 @@ public final class Politics {
      *            The name of the requested Universe
      * @return The Universe that goes by the given name
      */
-    public static Universe getUniverse(String name) {
+    public static Universe getUniverse(final String name) {
         return getUniverseManager().getUniverse(name);
     }
 
@@ -131,7 +130,7 @@ public final class Politics {
      *            The GroupLevel the universe corresponds with
      * @return The Universe for the given World and GroupLevel
      */
-    public static Universe getUniverse(World world, GroupLevel level) {
+    public static Universe getUniverse(final World world, final GroupLevel level) {
         return getUniverseManager().getUniverse(world, level);
     }
 
@@ -142,5 +141,20 @@ public final class Politics {
      */
     public static Logger getLogger() {
         return PoliticsPlugin.logger();
+    }
+
+    /**
+     * Gets the running version of Politics
+     * 
+     * @return The version of Politics on the server
+     */
+    public static String getVersion() {
+        return getPlugin().getVersion();
+    }
+
+    /**
+     * C'tor
+     */
+    private Politics() {
     }
 }

@@ -38,9 +38,9 @@ public class UniverseCommands extends Commands {
      * Registers all universe commands.
      */
     @Override
-    public void setup(Command cmd) {
-        (new UniverseCreateCommand()).register(cmd);
-        (new UniverseDestroyCommand()).register(cmd);
-        (new UniverseRulesCommand()).register(cmd);
+    public void setup(final Command cmd) {
+        new UniverseCreateCommand().register(cmd);
+        new UniverseDestroyCommand().register(cmd);
+        new UniverseRulesCommand().register(cmd);
     }
 }
