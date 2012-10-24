@@ -33,4 +33,9 @@ public class GroupPlotPrivileges {
      */
     public static final Privilege INTERACT = new Privilege("INTERACT", PrivilegeType.GROUP, PrivilegeType.PLOT);
 
+    /**
+     * All group-plot privileges.
+     */
+    public static final Privilege[] ALL = {BUILD, INTERACT};
+
 }

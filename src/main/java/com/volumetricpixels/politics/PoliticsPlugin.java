@@ -31,6 +31,7 @@ import org.spout.api.scheduler.TaskPriority;
 import com.volumetricpixels.politics.command.Commands;
 import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.data.SaveTask;
+import com.volumetricpixels.politics.group.privilege.PrivilegeManager;
 import com.volumetricpixels.politics.protection.PoliticsProtectionService;
 import com.volumetricpixels.politics.universe.UniverseManager;
 import com.volumetricpixels.politics.world.PlotManager;
@@ -55,6 +56,11 @@ public class PoliticsPlugin extends CommonPlugin {
     private PlotManager plotManager;
 
     /**
+     * Politics' Privilege Manager
+     */
+    private PrivilegeManager privilegeManager;
+
+    /**
      * Politics' Universe Manager
      */
     private UniverseManager universeManager;
@@ -65,6 +71,9 @@ public class PoliticsPlugin extends CommonPlugin {
 
         // Initialise PoliticsFileSystem
         fileSystem = new PoliticsFileSystem();
+
+        // Load privileges
+        privilegeManager = new PrivilegeManager();
 
         // Load plots and worlds
         plotManager = new PlotManager();
@@ -99,7 +108,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the version of Politics this is.
-     * 
+     *
      * @return The version of Politics.
      */
     public String getVersion() {
@@ -108,7 +117,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the file system of the plugin.
-     * 
+     *
      * @return The PoliticsFileSystem Politics uses for File interaction
      */
     public PoliticsFileSystem getFileSystem() {
@@ -117,7 +126,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the PlotManager of the plugin.
-     * 
+     *
      * @return Politics' PlotManager
      */
     public PlotManager getPlotManager() {
@@ -125,8 +134,17 @@ public class PoliticsPlugin extends CommonPlugin {
     }
 
     /**
+     * Gets the PrivilegeManager of the plugin.
+     *
+     * @return
+     */
+    public PrivilegeManager getPrivilegeManager() {
+        return privilegeManager;
+    }
+
+    /**
      * Gets the UniverseManager of the plugin.
-     * 
+     *
      * @return Politics' PlotManager
      */
     public UniverseManager getUniverseManager() {
@@ -135,7 +153,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the instance of PoliticsPlugin.
-     * 
+     *
      * @return The running PoliticsPlugin instance
      */
     public static PoliticsPlugin getInstance() {
@@ -144,7 +162,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the logger of the plugin.
-     * 
+     *
      * @return Politics' Logger
      */
     public static Logger logger() {

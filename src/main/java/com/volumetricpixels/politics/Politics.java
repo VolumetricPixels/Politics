@@ -26,6 +26,7 @@ import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.group.level.GroupLevel;
+import com.volumetricpixels.politics.group.privilege.PrivilegeManager;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseManager;
 import com.volumetricpixels.politics.world.Plot;
@@ -45,7 +46,7 @@ public final class Politics {
 
     /**
      * Gets the PoliticsPlugin instance.
-     * 
+     *
      * @return The running PoliticsPlugin instance
      */
     public static PoliticsPlugin getPlugin() {
@@ -54,7 +55,7 @@ public final class Politics {
 
     /**
      * Gets the PoliticsFileSystem of the plugin.
-     * 
+     *
      * @return The PoliticsFileSystem used to keep track of files
      */
     public static PoliticsFileSystem getFileSystem() {
@@ -63,7 +64,7 @@ public final class Politics {
 
     /**
      * Gets the PlotManager of the plugin.
-     * 
+     *
      * @return The PlotManager used to keep track of Plots
      */
     public static PlotManager getPlotManager() {
@@ -71,8 +72,17 @@ public final class Politics {
     }
 
     /**
+     * Gets the PrivilegeManager of the plugin.
+     *
+     * @return
+     */
+    public static PrivilegeManager getPrivilegeManager() {
+        return getPlugin().getPrivilegeManager();
+    }
+
+    /**
      * Gets the UniverseManager of the plugin.
-     * 
+     *
      * @return The UniverseManager used to keep track of Universes
      */
     public static UniverseManager getUniverseManager() {
@@ -81,9 +91,8 @@ public final class Politics {
 
     /**
      * Gets the plot at the given position.
-     * 
-     * @param position
-     *            The Point the Plot is located at
+     *
+     * @param position The Point the Plot is located at
      * @return The Plot the given Point is inside
      */
     public static Plot getPlotAt(Point position) {
@@ -92,9 +101,8 @@ public final class Politics {
 
     /**
      * Gets a PoliticsWorld by a world.
-     * 
-     * @param world
-     *            The Spout World to get the PoliticsWorld from
+     *
+     * @param world The Spout World to get the PoliticsWorld from
      * @return The PoliticsWorld representing the given World
      */
     public static PoliticsWorld getWorld(World world) {
@@ -103,9 +111,8 @@ public final class Politics {
 
     /**
      * Gets a Universe by its name.
-     * 
-     * @param name
-     *            The name of the requested Universe
+     *
+     * @param name The name of the requested Universe
      * @return The Universe that goes by the given name
      */
     public static Universe getUniverse(String name) {
@@ -114,11 +121,9 @@ public final class Politics {
 
     /**
      * Gets the universe corresponding with the given world and group level.
-     * 
-     * @param world
-     *            The World the universe is in
-     * @param level
-     *            The GroupLevel the universe corresponds with
+     *
+     * @param world The World the universe is in
+     * @param level The GroupLevel the universe corresponds with
      * @return The Universe for the given World and GroupLevel
      */
     public static Universe getUniverse(World world, GroupLevel level) {
@@ -127,7 +132,7 @@ public final class Politics {
 
     /**
      * Gets the Logger Politics uses to print messages to the console
-     * 
+     *
      * @return Politics' unique Logger
      */
     public static Logger getLogger() {

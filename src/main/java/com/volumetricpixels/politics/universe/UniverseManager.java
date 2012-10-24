@@ -81,8 +81,6 @@ public class UniverseManager {
 
     /**
      * C'tor
-     * 
-     * @param plugin
      */
     public UniverseManager() {
     }

@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.group.level;
 
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.privilege.Privilege;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,10 +130,9 @@ public class Role implements Comparable<Role> {
         List<String> privs = node.getNode("privileges").getStringList(new ArrayList<String>());
         Set<Privilege> privileges = new HashSet<Privilege>();
         for (String priv : privs) {
-            try {
-                Privilege p = null; // TODO
-            } catch (IllegalArgumentException ex) {
-                PoliticsPlugin.logger().log(Level.WARNING, "Unknown privilege '" + priv + "'. Not adding.");
+            Privilege p = Politics.getPrivilegeManager().getPrivilege(name);
+            if (p == null) {
+                continue;
             }
         }
         int rank = node.getNode("rank").getInt(1);

@@ -52,7 +52,7 @@ public class Privilege {
     }
 
     /**
-     * Gets the name of this privilege.
+     * Gets the name of this privilege. This must be unique.
      *
      * @return
      */
@@ -67,15 +67,6 @@ public class Privilege {
      */
     public Set<PrivilegeType> getTypes() {
         return EnumSet.copyOf(types);
-    }
-
-    /**
-     * Gets the ID of this privilege.
-     *
-     * @return
-     */
-    public String getId() {
-        return Joiner.on("_").join(types) + ":" + name;
     }
 
     /**

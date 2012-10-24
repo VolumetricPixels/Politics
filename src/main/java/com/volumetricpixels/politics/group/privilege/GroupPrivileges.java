@@ -86,6 +86,11 @@ public final class GroupPrivileges {
     public static final Privilege SPAWN_OTHER = new Privilege("SPAWN_OTHER", PrivilegeType.GROUP);
 
     /**
+     * All group privileges.
+     */
+    public static final Privilege[] ALL = {CLAIM, DISBAND, INFO, INVITE, KICK, LEAVE, ONLINE, SET_ROLE, SET_SPAWN, SPAWN, SPAWN_OTHER, UNCLAIM};
+
+    /**
      * Private C'tor
      */
     private GroupPrivileges() {
