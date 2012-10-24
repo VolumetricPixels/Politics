@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.group.privilege;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,7 +29,7 @@ public class PrivilegeManager {
     /**
      * Contains all privileges mapped to their names.
      */
-    private Map<String, Privilege> privileges;
+    private Map<String, Privilege> privileges = new HashMap<String, Privilege>();
 
     /**
      * C'tor

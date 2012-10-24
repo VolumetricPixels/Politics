@@ -9,4 +9,4 @@ download:
 	wget -O server/plugins/Politics.jar http://ci.massiveminecraft.com/view/Spout%20Plugins/job/Politics/lastSuccessfulBuild/artifact/target/politics-0.0.1-SNAPSHOT.jar
 
 exec:
-	java -jar server/spout.jar -Xmx16G
+	cd server; java -Xmx16G -jar spout.jar -p server

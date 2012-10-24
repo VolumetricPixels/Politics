@@ -49,3 +49,7 @@ nb-configuration.xml
 #######################
 *.sublime-project
 *.sublime-workspace
+
+# Testing #
+###########
+tools/server/
