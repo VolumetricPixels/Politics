@@ -128,7 +128,7 @@ public class Role implements Comparable<Role> {
         List<String> privs = node.getNode("privileges").getStringList(new ArrayList<String>());
         Set<Privilege> privileges = new HashSet<Privilege>();
         for (String priv : privs) {
-            Privilege p = Politics.getPrivilegeManager().getPrivilege(name);
+            Privilege p = Politics.getPrivilegeManager().getPrivilege(priv);
             if (p == null) {
                 continue;
             }
