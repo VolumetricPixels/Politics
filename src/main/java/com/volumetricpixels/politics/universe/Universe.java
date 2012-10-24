@@ -126,6 +126,203 @@ public class Universe implements Storable {
     }
 
     /**
+     * Builds the citizen cache.
+     */
+    private void buildCitizenCache() {
+        // Build cache
+        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
+
+        builder.maximumSize(((Server) Spout.getEngine()).getMaxPlayers());
+        builder.expireAfterAccess(10L, TimeUnit.MINUTES);
+
+        citizenGroupCache = builder.build(new CacheLoader<String, Set<Group>>() {
+            @Override
+            public Set<Group> load(String name) throws Exception {
+                Set<Group> myGroups = new HashSet<Group>();
+                for (Group group : groups) {
+                    if (group.isImmediateMember(name)) {
+                        myGroups.add(group);
+                    }
+                }
+                return myGroups;
+            }
+        });
+    }
+
+    /**
+     * Gets the name of this Universe.
+     * 
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the rules of this universe.
+     * 
+     * @return
+     */
+    public UniverseRules getRules() {
+        return rules;
+    }
+
+    /**
+     * Gets a list of all groups in the universe.
+     * 
+     * @return
+     */
+    public List<Group> getGroups() {
+        return new ArrayList<Group>(groups);
+    }
+
+    /**
+     * Gets all groups with the given property.
+     * 
+     * @param property
+     * @param value
+     * @return
+     */
+    public List<Group> getGroupsByProperty(int property, Object value) {
+        List<Group> groups = new ArrayList<Group>();
+        for (Group group : getGroups()) {
+            if (group.getProperty(property).equals(value)) {
+                groups.add(group);
+            }
+        }
+        return groups;
+    }
+
+    /**
+     * Gets all groups of a certain level with the given property.
+     * 
+     * @param level
+     * @param property
+     * @param value
+     * @return
+     */
+    public List<Group> getGroupsByProperty(GroupLevel level, int property, Object value) {
+        List<Group> groups = new ArrayList<Group>();
+        for (Group group : getGroups(level)) {
+            if (group.getProperty(property).equals(value)) {
+                groups.add(group);
+            }
+        }
+        return groups;
+    }
+
+    /**
+     * Gets the first group found with the given property.
+     * 
+     * @param property
+     * @param value
+     * @return
+     */
+    public Group getFirstGroupByProperty(int property, Object value) {
+        for (Group group : getGroups()) {
+            if (group.getProperty(property).equals(value)) {
+                return group;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the first group found of a certain level with the given property.
+     * 
+     * @param level
+     * @param property
+     * @param value
+     * @return
+     */
+    public Group getFirstGroupByProperty(GroupLevel level, int property, Object value) {
+        for (Group group : getGroups(level)) {
+            if (group.getProperty(property).equals(value)) {
+                return group;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Adds the given PoliticsWorld to this Universe.
+     * 
+     * @param world
+     * @return True if the add was successful
+     */
+    public boolean addWorld(PoliticsWorld world) {
+        List<GroupLevel> levels = rules.getGroupLevels();
+        // Check if the rules are already there
+        for (GroupLevel level : world.getLevels()) {
+            if (levels.contains(level)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Gets a list of all worlds this universe is part of.
+     * 
+     * @return
+     */
+    public List<PoliticsWorld> getWorlds() {
+        return new ArrayList<PoliticsWorld>(worlds);
+    }
+
+    /**
+     * Gets a list of all groups with the given level in this universe.
+     * 
+     * @param level
+     * @return
+     */
+    public List<Group> getGroups(GroupLevel level) {
+        return new ArrayList<Group>(getInternalGroups(level));
+    }
+
+    /**
+     * Gets the internal groups corresponding with the given level.
+     * 
+     * @param level
+     * @return
+     */
+    private List<Group> getInternalGroups(GroupLevel level) {
+        List<Group> levelGroups = levels.get(level);
+        if (levelGroups == null) {
+            levelGroups = new ArrayList<Group>();
+            levels.put(level, levelGroups);
+        }
+        return levelGroups;
+    }
+
+    /**
+     * Gets the child groups of the given group.
+     * 
+     * @param group
+     * @return
+     */
+    public Set<Group> getChildGroups(Group group) {
+        return new HashSet<Group>(getInternalChildGroups(group));
+    }
+
+    /**
+     * Gets the internal child groups of the given group.
+     * 
+     * @param group
+     * @return
+     */
+    private Set<Group> getInternalChildGroups(Group group) {
+        if (group == null) {
+            return new HashSet<Group>();
+        }
+        Set<Group> childs = children.get(group);
+        if (childs == null) {
+            return new HashSet<Group>();
+        }
+        return childs;
+    }
+
+    /**
      * Adds the given child as a child for the given group.
      * 
      * @param group
@@ -146,20 +343,19 @@ public class Universe implements Storable {
     }
 
     /**
-     * Adds the given PoliticsWorld to this Universe.
+     * Removes the given child group from the children of the given group.
      * 
-     * @param world
-     * @return True if the add was successful
+     * @param group
+     * @param child
+     * @return True if the child was removed, false if the child was not a child
+     *         in the first place
      */
-    public boolean addWorld(PoliticsWorld world) {
-        List<GroupLevel> levels = rules.getGroupLevels();
-        // Check if the rules are already there
-        for (GroupLevel level : world.getLevels()) {
-            if (levels.contains(level)) {
-                return false;
-            }
+    public boolean removeChildGroup(Group group, Group child) {
+        Set<Group> childs = children.get(group);
+        if (childs == null) {
+            return false;
         }
-        return true;
+        return childs.remove(child);
     }
 
     /**
@@ -216,16 +412,6 @@ public class Universe implements Storable {
     }
 
     /**
-     * Gets the child groups of the given group.
-     * 
-     * @param group
-     * @return
-     */
-    public Set<Group> getChildGroups(Group group) {
-        return new HashSet<Group>(getInternalChildGroups(group));
-    }
-
-    /**
      * Gets the citizen corresponding with the given player name.
      * 
      * @param player
@@ -252,142 +438,12 @@ public class Universe implements Storable {
     }
 
     /**
-     * Gets the first group found of a certain level with the given property.
-     * 
-     * @param level
-     * @param property
-     * @param value
-     * @return
-     */
-    public Group getFirstGroupByProperty(GroupLevel level, int property, Object value) {
-        for (Group group : getGroups(level)) {
-            if (group.getProperty(property).equals(value)) {
-                return group;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets the first group found with the given property.
-     * 
-     * @param property
-     * @param value
-     * @return
-     */
-    public Group getFirstGroupByProperty(int property, Object value) {
-        for (Group group : getGroups()) {
-            if (group.getProperty(property).equals(value)) {
-                return group;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets a list of all groups in the universe.
-     * 
-     * @return
-     */
-    public List<Group> getGroups() {
-        return new ArrayList<Group>(groups);
-    }
-
-    /**
-     * Gets a list of all groups with the given level in this universe.
-     * 
-     * @param level
-     * @return
-     */
-    public List<Group> getGroups(GroupLevel level) {
-        return new ArrayList<Group>(getInternalGroups(level));
-    }
-
-    /**
-     * Gets all groups of a certain level with the given property.
-     * 
-     * @param level
-     * @param property
-     * @param value
-     * @return
-     */
-    public List<Group> getGroupsByProperty(GroupLevel level, int property, Object value) {
-        List<Group> groups = new ArrayList<Group>();
-        for (Group group : getGroups(level)) {
-            if (group.getProperty(property).equals(value)) {
-                groups.add(group);
-            }
-        }
-        return groups;
-    }
-
-    /**
-     * Gets all groups with the given property.
-     * 
-     * @param property
-     * @param value
-     * @return
-     */
-    public List<Group> getGroupsByProperty(int property, Object value) {
-        List<Group> groups = new ArrayList<Group>();
-        for (Group group : getGroups()) {
-            if (group.getProperty(property).equals(value)) {
-                groups.add(group);
-            }
-        }
-        return groups;
-    }
-
-    /**
-     * Gets the name of this Universe.
-     * 
-     * @return
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the rules of this universe.
-     * 
-     * @return
-     */
-    public UniverseRules getRules() {
-        return rules;
-    }
-
-    /**
-     * Gets a list of all worlds this universe is part of.
-     * 
-     * @return
-     */
-    public List<PoliticsWorld> getWorlds() {
-        return new ArrayList<PoliticsWorld>(worlds);
-    }
-
-    /**
      * Invalidates the given Set of groups for the given citizen.
      * 
      * @param citizen
      */
     public void invalidateCitizenGroups(String citizen) {
         citizenGroupCache.invalidate(citizen);
-    }
-
-    /**
-     * Removes the given child group from the children of the given group.
-     * 
-     * @param group
-     * @param child
-     * @return True if the child was removed, false if the child was not a child
-     *         in the first place
-     */
-    public boolean removeChildGroup(Group group, Group child) {
-        Set<Group> childs = children.get(group);
-        if (childs == null) {
-            return false;
-        }
-        return childs.remove(child);
     }
 
     @Override
@@ -415,62 +471,6 @@ public class Universe implements Storable {
         bson.put("children", childrenBson);
 
         return bson;
-    }
-
-    /**
-     * Builds the citizen cache.
-     */
-    private void buildCitizenCache() {
-        // Build cache
-        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
-
-        builder.maximumSize(((Server) Spout.getEngine()).getMaxPlayers());
-        builder.expireAfterAccess(10L, TimeUnit.MINUTES);
-
-        citizenGroupCache = builder.build(new CacheLoader<String, Set<Group>>() {
-            @Override
-            public Set<Group> load(String name) throws Exception {
-                Set<Group> myGroups = new HashSet<Group>();
-                for (Group group : groups) {
-                    if (group.isImmediateMember(name)) {
-                        myGroups.add(group);
-                    }
-                }
-                return myGroups;
-            }
-        });
-    }
-
-    /**
-     * Gets the internal child groups of the given group.
-     * 
-     * @param group
-     * @return
-     */
-    private Set<Group> getInternalChildGroups(Group group) {
-        if (group == null) {
-            return new HashSet<Group>();
-        }
-        Set<Group> childs = children.get(group);
-        if (childs == null) {
-            return new HashSet<Group>();
-        }
-        return childs;
-    }
-
-    /**
-     * Gets the internal groups corresponding with the given level.
-     * 
-     * @param level
-     * @return
-     */
-    private List<Group> getInternalGroups(GroupLevel level) {
-        List<Group> levelGroups = levels.get(level);
-        if (levelGroups == null) {
-            levelGroups = new ArrayList<Group>();
-            levels.put(level, levelGroups);
-        }
-        return levelGroups;
     }
 
     /**

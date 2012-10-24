@@ -65,13 +65,6 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    /**
      * Gets the plot the player entered.
      * 
      * @return
@@ -92,6 +85,13 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
      */
     public void setCancelled(boolean cancelled) {
         super.setCancelled(cancelled);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public HandlerList getHandlers() {
+        return handlers;
     }
 
     /**

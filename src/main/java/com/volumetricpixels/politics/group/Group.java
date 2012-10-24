@@ -110,33 +110,33 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Adds the given group as a child of this group.
+     * Initializes the universe.
      * 
-     * @param group
-     * @return True if the given group was able to be a child of the group.
+     * @param universe
      */
-    public boolean addChildGroup(Group group) {
-        return universe.addChildGroup(this, group);
+    public void initialize(Universe universe) {
+        if (universe == null || this.universe != null) {
+            throw new IllegalStateException("Someone is trying to screw with the plugin!");
+        }
+        this.universe = universe;
     }
 
     /**
-     * Checks if the given CommandSource has a certain privilege.
+     * Gets the universe of this Group.
      * 
-     * @param source
-     * @param privilege
-     * @return True if the source has the privilege
+     * @return
      */
-    public boolean can(CommandSource source, Privilege privilege) {
-        if (source instanceof Player) {
-            Role role = getRole(source.getName());
-            return (role == null) ? false : role.hasPrivilege(privilege);
-        }
-        return true;
+    public Universe getUniverse() {
+        return universe;
     }
 
-    @Override
-    public int compareTo(Group o) {
-        return getProperty(GroupProperty.TAG).toString().compareTo(o.getProperty(GroupProperty.TAG).toString());
+    /**
+     * Gets the UID of this Group.
+     * 
+     * @return
+     */
+    public int getUid() {
+        return uid;
     }
 
     /**
@@ -149,28 +149,72 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the immediate online players part of this group.
+     * Adds the given group as a child of this group.
      * 
-     * @return
+     * @param group
+     * @return True if the given group was able to be a child of the group.
      */
-    public List<Player> getImmediateOnlinePlayers() {
-        List<Player> players = new ArrayList<Player>();
-        for (String pn : getImmediatePlayers()) {
-            Player player = ((Server) Spout.getEngine()).getPlayer(pn, true);
-            if (player != null) {
-                players.add(player);
-            }
-        }
-        return players;
+    public boolean addChildGroup(Group group) {
+        return universe.addChildGroup(this, group);
     }
 
     /**
-     * Gets the immediate players part of this group.
+     * Removes the given group from this group's children.
+     * 
+     * @param group
+     * @return
+     * 
+     * @see Universe#removeChildGroup(Group, Group)
+     */
+    public boolean removeChildGroup(Group group) {
+        return universe.removeChildGroup(this, group);
+    }
+
+    /**
+     * Gets the GroupLevel of this Group.
      * 
      * @return
      */
-    public List<String> getImmediatePlayers() {
-        return new ArrayList<String>(players.keySet());
+    public GroupLevel getLevel() {
+        return level;
+    }
+
+    /**
+     * Gets the value of a property.
+     * 
+     * @param property
+     * @return
+     */
+    public Object getProperty(int property) {
+        return properties.get(property);
+    }
+
+    /**
+     * Gets a property as a String.
+     * 
+     * @param property
+     * @return
+     */
+    public String getStringProperty(int property) {
+        return getStringProperty(property, null);
+    }
+
+    /**
+     * Gets a property as a String.
+     * 
+     * @param property
+     *            The property to get
+     * @param def
+     *            Default value
+     * @return The value of the given property, or <code>def</code> if not
+     *         exists
+     */
+    public String getStringProperty(int property, String def) {
+        Object p = getProperty(property);
+        if (p != null) {
+            return p.toString();
+        }
+        return def;
     }
 
     /**
@@ -201,123 +245,6 @@ public final class Group implements Comparable<Group>, Storable {
             } else {
                 return def;
             }
-        }
-        return def;
-    }
-
-    /**
-     * Gets the GroupLevel of this Group.
-     * 
-     * @return
-     */
-    public GroupLevel getLevel() {
-        return level;
-    }
-
-    /**
-     * Gets the parent of this group.
-     * 
-     * @return
-     */
-    public Group getParent() {
-        for (Group group : universe.getGroups()) {
-            if (group.getGroups().contains(group)) {
-                return group;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets all players part of this group.
-     * 
-     * @return
-     */
-    public List<String> getPlayers() {
-        List<String> players = new ArrayList<String>();
-        for (Group group : getGroups()) {
-            players.addAll(group.getPlayers());
-        }
-        players.addAll(this.players.keySet());
-        return players;
-    }
-
-    /**
-     * Gets a property as a point.
-     * 
-     * @param property
-     * @return
-     */
-    public Point getPointProperty(int property) {
-        return getPointProperty(property, null);
-    }
-
-    /**
-     * Gets a property as a point.
-     * 
-     * @param property
-     * @param def
-     * @return
-     */
-    public Point getPointProperty(int property, Point def) {
-        String s = getStringProperty(property);
-        if (s == null) {
-            return def;
-        }
-        Point p;
-        try {
-            p = PropertySerializer.deserializePoint(s);
-        } catch (PropertyDeserializationException ex) {
-            PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a point!", ex);
-            return def;
-        }
-        return p;
-    }
-
-    /**
-     * Gets the value of a property.
-     * 
-     * @param property
-     * @return
-     */
-    public Object getProperty(int property) {
-        return properties.get(property);
-    }
-
-    /**
-     * Gets the role of the given player.
-     * 
-     * @param player
-     * @return
-     */
-    public Role getRole(String player) {
-        return players.get(player);
-    }
-
-    /**
-     * Gets a property as a String.
-     * 
-     * @param property
-     * @return
-     */
-    public String getStringProperty(int property) {
-        return getStringProperty(property, null);
-    }
-
-    /**
-     * Gets a property as a String.
-     * 
-     * @param property
-     *            The property to get
-     * @param def
-     *            Default value
-     * @return The value of the given property, or <code>def</code> if not
-     *         exists
-     */
-    public String getStringProperty(int property, String def) {
-        Object p = getProperty(property);
-        if (p != null) {
-            return p.toString();
         }
         return def;
     }
@@ -355,33 +282,115 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the UID of this Group.
+     * Gets a property as a point.
      * 
+     * @param property
      * @return
      */
-    public int getUid() {
-        return uid;
+    public Point getPointProperty(int property) {
+        return getPointProperty(property, null);
     }
 
     /**
-     * Gets the universe of this Group.
+     * Gets a property as a point.
      * 
+     * @param property
+     * @param def
      * @return
      */
-    public Universe getUniverse() {
-        return universe;
-    }
-
-    /**
-     * Initializes the universe.
-     * 
-     * @param universe
-     */
-    public void initialize(Universe universe) {
-        if (universe == null || this.universe != null) {
-            throw new IllegalStateException("Someone is trying to screw with the plugin!");
+    public Point getPointProperty(int property, Point def) {
+        String s = getStringProperty(property);
+        if (s == null) {
+            return def;
         }
-        this.universe = universe;
+        Point p;
+        try {
+            p = PropertySerializer.deserializePoint(s);
+        } catch (PropertyDeserializationException ex) {
+            PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a point!", ex);
+            return def;
+        }
+        return p;
+    }
+
+    /**
+     * Sets the value of a transform property.
+     * 
+     * @param property
+     * @param value
+     */
+    public void setProperty(int property, Transform value) {
+        try {
+            setProperty(property, PropertySerializer.serializeTransform(value));
+        } catch (PropertySerializationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sets the value of a point or block property.
+     * 
+     * @param property
+     * @param value
+     * @param block
+     *            True if you wish to only store integer coordinates
+     */
+    public void setProperty(int property, Point value) {
+        try {
+            setProperty(property, (PropertySerializer.serializePoint(value)));
+        } catch (PropertySerializationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sets the value of a property.
+     * 
+     * @param property
+     * @param value
+     */
+    public void setProperty(int property, Object value) {
+        PoliticsEventFactory.callGroupPropertySetEvent(this, property, value);
+        properties.put(property, value);
+    }
+
+    /**
+     * Gets the immediate players part of this group.
+     * 
+     * @return
+     */
+    public List<String> getImmediatePlayers() {
+        return new ArrayList<String>(players.keySet());
+    }
+
+    /**
+     * Gets the immediate online players part of this group.
+     * 
+     * @return
+     */
+    public List<Player> getImmediateOnlinePlayers() {
+        List<Player> players = new ArrayList<Player>();
+        for (String pn : getImmediatePlayers()) {
+            Player player = ((Server) Spout.getEngine()).getPlayer(pn, true);
+            if (player != null) {
+                players.add(player);
+            }
+        }
+        return players;
+    }
+
+    /**
+     * Gets all players part of this group.
+     * 
+     * @return
+     */
+    public List<String> getPlayers() {
+        List<String> players = new ArrayList<String>();
+        for (Group group : getGroups()) {
+            players.addAll(group.getPlayers());
+        }
+        players.addAll(this.players.keySet());
+        return players;
     }
 
     /**
@@ -414,15 +423,23 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Removes the given group from this group's children.
+     * Gets the role of the given player.
      * 
-     * @param group
+     * @param player
      * @return
-     * 
-     * @see Universe#removeChildGroup(Group, Group)
      */
-    public boolean removeChildGroup(Group group) {
-        return universe.removeChildGroup(this, group);
+    public Role getRole(String player) {
+        return players.get(player);
+    }
+
+    /**
+     * Sets the role of the given player to the given role.
+     * 
+     * @param player
+     * @param role
+     */
+    public void setRole(String player, Role role) {
+        players.put(player, role);
     }
 
     /**
@@ -435,54 +452,37 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Sets the value of a property.
+     * Checks if the given CommandSource has a certain privilege.
      * 
-     * @param property
-     * @param value
+     * @param source
+     * @param privilege
+     * @return True if the source has the privilege
      */
-    public void setProperty(int property, Object value) {
-        PoliticsEventFactory.callGroupPropertySetEvent(this, property, value);
-        properties.put(property, value);
-    }
-
-    /**
-     * Sets the value of a point or block property.
-     * 
-     * @param property
-     * @param value
-     * @param block
-     *            True if you wish to only store integer coordinates
-     */
-    public void setProperty(int property, Point value) {
-        try {
-            setProperty(property, (PropertySerializer.serializePoint(value)));
-        } catch (PropertySerializationException e) {
-            e.printStackTrace();
+    public boolean can(CommandSource source, Privilege privilege) {
+        if (source instanceof Player) {
+            Role role = getRole(source.getName());
+            return (role == null) ? false : role.hasPrivilege(privilege);
         }
+        return true;
     }
 
     /**
-     * Sets the value of a transform property.
+     * Gets the parent of this group.
      * 
-     * @param property
-     * @param value
+     * @return
      */
-    public void setProperty(int property, Transform value) {
-        try {
-            setProperty(property, PropertySerializer.serializeTransform(value));
-        } catch (PropertySerializationException e) {
-            e.printStackTrace();
+    public Group getParent() {
+        for (Group group : universe.getGroups()) {
+            if (group.getGroups().contains(group)) {
+                return group;
+            }
         }
+        return null;
     }
 
-    /**
-     * Sets the role of the given player to the given role.
-     * 
-     * @param player
-     * @param role
-     */
-    public void setRole(String player, Role role) {
-        players.put(player, role);
+    @Override
+    public int compareTo(Group o) {
+        return getProperty(GroupProperty.TAG).toString().compareTo(o.getProperty(GroupProperty.TAG).toString());
     }
 
     @Override

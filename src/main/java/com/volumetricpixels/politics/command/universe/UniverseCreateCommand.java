@@ -107,14 +107,14 @@ public class UniverseCreateCommand extends UniverseCommand {
     }
 
     @Override
+    protected String[] getAliases() {
+        return new String[] { "new", "c", "n" };
+    }
+
+    @Override
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(2, -1);
         cmd.setHelp("Creates a new Universe with the given rules.");
         cmd.setUsage("<name> <rules> [worlds...]");
-    }
-
-    @Override
-    protected String[] getAliases() {
-        return new String[] { "new", "c", "n" };
     }
 }

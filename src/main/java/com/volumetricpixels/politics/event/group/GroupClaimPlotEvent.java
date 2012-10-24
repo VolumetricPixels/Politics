@@ -65,13 +65,6 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
     /**
      * {@inheritDoc}
      */
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public boolean isCancelled() {
         return super.isCancelled();
     }
@@ -81,6 +74,13 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
      */
     public void setCancelled(boolean cancelled) {
         super.setCancelled(cancelled);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public HandlerList getHandlers() {
+        return handlers;
     }
 
     /**

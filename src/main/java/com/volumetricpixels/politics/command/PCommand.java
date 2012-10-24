@@ -66,16 +66,6 @@ public abstract class PCommand implements CommandExecutor {
     }
 
     /**
-     * Sets up the command created.
-     * 
-     * @param cmd
-     *            The command to set up
-     */
-    public void setupCommand(Command cmd) {
-        cmd.setArgBounds(0, -1);
-    }
-
-    /**
      * Gets the aliases for this command.
      * 
      * @return A String[] of aliases for this command
@@ -91,5 +81,15 @@ public abstract class PCommand implements CommandExecutor {
      */
     protected String[] getPermissions() {
         return new String[0];
+    }
+
+    /**
+     * Sets up the command created.
+     * 
+     * @param cmd
+     *            The command to set up
+     */
+    public void setupCommand(Command cmd) {
+        cmd.setArgBounds(0, -1);
     }
 }

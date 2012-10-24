@@ -45,6 +45,15 @@ public final class Politics {
     }
 
     /**
+     * Gets the PoliticsPlugin instance.
+     * 
+     * @return The running PoliticsPlugin instance
+     */
+    public static PoliticsPlugin getPlugin() {
+        return PoliticsPlugin.getInstance();
+    }
+
+    /**
      * Gets the PoliticsFileSystem of the plugin.
      * 
      * @return The PoliticsFileSystem used to keep track of files
@@ -54,12 +63,30 @@ public final class Politics {
     }
 
     /**
-     * Gets the Logger Politics uses to print messages to the console
+     * Gets the PlotManager of the plugin.
      * 
-     * @return Politics' unique Logger
+     * @return The PlotManager used to keep track of Plots
      */
-    public static Logger getLogger() {
-        return PoliticsPlugin.logger();
+    public static PlotManager getPlotManager() {
+        return getPlugin().getPlotManager();
+    }
+
+    /**
+     * Gets the PrivilegeManager of the plugin.
+     * 
+     * @return
+     */
+    public static PrivilegeManager getPrivilegeManager() {
+        return getPlugin().getPrivilegeManager();
+    }
+
+    /**
+     * Gets the UniverseManager of the plugin.
+     * 
+     * @return The UniverseManager used to keep track of Universes
+     */
+    public static UniverseManager getUniverseManager() {
+        return getPlugin().getUniverseManager();
     }
 
     /**
@@ -74,30 +101,14 @@ public final class Politics {
     }
 
     /**
-     * Gets the PlotManager of the plugin.
+     * Gets a PoliticsWorld by a world.
      * 
-     * @return The PlotManager used to keep track of Plots
+     * @param world
+     *            The Spout World to get the PoliticsWorld from
+     * @return The PoliticsWorld representing the given World
      */
-    public static PlotManager getPlotManager() {
-        return getPlugin().getPlotManager();
-    }
-
-    /**
-     * Gets the PoliticsPlugin instance.
-     * 
-     * @return The running PoliticsPlugin instance
-     */
-    public static PoliticsPlugin getPlugin() {
-        return PoliticsPlugin.getInstance();
-    }
-
-    /**
-     * Gets the PrivilegeManager of the plugin.
-     * 
-     * @return
-     */
-    public static PrivilegeManager getPrivilegeManager() {
-        return getPlugin().getPrivilegeManager();
+    public static PoliticsWorld getWorld(World world) {
+        return getPlotManager().getWorld(world);
     }
 
     /**
@@ -125,22 +136,11 @@ public final class Politics {
     }
 
     /**
-     * Gets the UniverseManager of the plugin.
+     * Gets the Logger Politics uses to print messages to the console
      * 
-     * @return The UniverseManager used to keep track of Universes
+     * @return Politics' unique Logger
      */
-    public static UniverseManager getUniverseManager() {
-        return getPlugin().getUniverseManager();
-    }
-
-    /**
-     * Gets a PoliticsWorld by a world.
-     * 
-     * @param world
-     *            The Spout World to get the PoliticsWorld from
-     * @return The PoliticsWorld representing the given World
-     */
-    public static PoliticsWorld getWorld(World world) {
-        return getPlotManager().getWorld(world);
+    public static Logger getLogger() {
+        return PoliticsPlugin.logger();
     }
 }

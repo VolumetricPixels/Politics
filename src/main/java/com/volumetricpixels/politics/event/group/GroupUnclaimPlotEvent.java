@@ -49,13 +49,6 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    /**
      * Gets the unclaimer of the plot.
      * 
      * @return
@@ -76,6 +69,13 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
      */
     public void setCancelled(boolean cancelled) {
         super.setCancelled(cancelled);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public HandlerList getHandlers() {
+        return handlers;
     }
 
     /**

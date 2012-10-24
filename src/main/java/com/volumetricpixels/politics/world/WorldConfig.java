@@ -63,44 +63,10 @@ public class WorldConfig {
     }
 
     /**
-     * Gets the plot size as a vector.
-     * 
-     * @return
-     */
-    public Vector3 getPlotSizeVector() {
-        return new Vector3(plotSizeX, plotSizeY, plotSizeZ);
-    }
-
-    /**
      * @return the plotSizeX
      */
     public int getPlotSizeX() {
         return plotSizeX;
-    }
-
-    /**
-     * @return the plotSizeY
-     */
-    public int getPlotSizeY() {
-        return plotSizeY;
-    }
-
-    /**
-     * @return the plotSizeZ
-     */
-    public int getPlotSizeZ() {
-        return plotSizeZ;
-    }
-
-    /**
-     * Saves a WorldConfig.
-     * 
-     * @param config
-     */
-    public void save(Configuration config) {
-        config.getNode("plotsize.x").setValue(plotSizeX);
-        config.getNode("plotsize.y").setValue(plotSizeY);
-        config.getNode("plotsize.z").setValue(plotSizeZ);
     }
 
     /**
@@ -112,6 +78,13 @@ public class WorldConfig {
     }
 
     /**
+     * @return the plotSizeY
+     */
+    public int getPlotSizeY() {
+        return plotSizeY;
+    }
+
+    /**
      * @param plotSizeY
      *            the plotSizeY to set
      */
@@ -120,11 +93,38 @@ public class WorldConfig {
     }
 
     /**
+     * @return the plotSizeZ
+     */
+    public int getPlotSizeZ() {
+        return plotSizeZ;
+    }
+
+    /**
      * @param plotSizeZ
      *            the plotSizeZ to set
      */
     public void setPlotSizeZ(int plotSizeZ) {
         this.plotSizeZ = plotSizeZ;
+    }
+
+    /**
+     * Gets the plot size as a vector.
+     * 
+     * @return
+     */
+    public Vector3 getPlotSizeVector() {
+        return new Vector3(plotSizeX, plotSizeY, plotSizeZ);
+    }
+
+    /**
+     * Saves a WorldConfig.
+     * 
+     * @param config
+     */
+    public void save(Configuration config) {
+        config.getNode("plotsize.x").setValue(plotSizeX);
+        config.getNode("plotsize.y").setValue(plotSizeY);
+        config.getNode("plotsize.z").setValue(plotSizeZ);
     }
 
     /**

@@ -86,142 +86,6 @@ public class UniverseManager {
     }
 
     /**
-     * Creates a new universe with the given name.
-     * 
-     * @param name
-     * @param theRules
-     * @return the created universe
-     */
-    public Universe createUniverse(String name, UniverseRules theRules) {
-        Universe universe = new Universe(name, theRules);
-        universes.put(name, universe);
-        return universe;
-    }
-
-    /**
-     * Destroys the given universe.
-     * 
-     * @param universe
-     */
-    public void destroyUniverse(Universe universe) {
-        universes.remove(universe.getName());
-        for (Group group : universe.getGroups()) {
-            universe.destroyGroup(group);
-        }
-    }
-
-    /**
-     * Gets a group by its id.
-     * 
-     * @param id
-     * @return
-     */
-    public Group getGroupById(int id) {
-        return groups.get(id);
-    }
-
-    /**
-     * Gets a group by their tag.
-     * 
-     * @param tag
-     * @return
-     */
-    public Group getGroupByTag(String tag) {
-        for (Group g : groups.valueCollection()) {
-            if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(tag)) {
-                return g;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets a list of all GroupLevels.
-     * 
-     * @return
-     */
-    public List<GroupLevel> getGroupLevels() {
-        List<GroupLevel> ret = new ArrayList<GroupLevel>();
-        for (UniverseRules rules : this.rules.values()) {
-            ret.addAll(rules.getGroupLevels());
-        }
-        return ret;
-    }
-
-    /**
-     * Gets the group levels in the given world.
-     * 
-     * @param world
-     * @return
-     */
-    public List<GroupLevel> getLevelsOfWorld(PoliticsWorld world) {
-        Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
-        if (levelUniverses == null) {
-            return new ArrayList<GroupLevel>();
-        }
-        return new ArrayList<GroupLevel>(levelUniverses.keySet());
-    }
-
-    /**
-     * Gets the rules with the corresponding name.
-     * 
-     * @param rulesName
-     * @return
-     */
-    public UniverseRules getRules(String rulesName) {
-        return rules.get(rulesName);
-    }
-
-    /**
-     * Gets the universe of the given CommandSource.
-     * 
-     * @param world
-     * @param level
-     * @return
-     */
-    public Universe getUniverse(PoliticsWorld world, GroupLevel level) {
-        Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
-        if (levelUniverses == null) {
-            return null;
-        }
-        return levelUniverses.get(world);
-    }
-
-    /**
-     * Gets a universe by its name.
-     * 
-     * @param name
-     * @return
-     */
-    public Universe getUniverse(String name) {
-        return universes.get(name.toLowerCase());
-    }
-
-    /**
-     * Gets a universe from its world and group level.
-     * 
-     * @param world
-     * @param level
-     * @return
-     */
-    public Universe getUniverse(World world, GroupLevel level) {
-        PoliticsWorld cw = Politics.getWorld(world);
-        if (cw == null) {
-            return null;
-        }
-        return getUniverse(cw, level);
-    }
-
-    /**
-     * Returns a list of all UniverseRules.
-     * 
-     * @return
-     */
-    public List<UniverseRules> listRules() {
-        return new ArrayList<UniverseRules>(rules.values());
-    }
-
-    /**
      * Loads the rules into memory.
      */
     public void loadRules() {
@@ -306,18 +170,6 @@ public class UniverseManager {
     }
 
     /**
-     * Gets the next ID to use for a group.
-     * 
-     * @return
-     */
-    public int nextId() {
-        while (getGroupById(nextId) != null) {
-            nextId++;
-        }
-        return nextId;
-    }
-
-    /**
      * Saves all universes in memory to files.
      */
     public void saveUniverses() {
@@ -336,5 +188,153 @@ public class UniverseManager {
             }
             // TODO make backups
         }
+    }
+
+    /**
+     * Gets a universe by its name.
+     * 
+     * @param name
+     * @return
+     */
+    public Universe getUniverse(String name) {
+        return universes.get(name.toLowerCase());
+    }
+
+    /**
+     * Gets the rules with the corresponding name.
+     * 
+     * @param rulesName
+     * @return
+     */
+    public UniverseRules getRules(String rulesName) {
+        return rules.get(rulesName);
+    }
+
+    /**
+     * Returns a list of all UniverseRules.
+     * 
+     * @return
+     */
+    public List<UniverseRules> listRules() {
+        return new ArrayList<UniverseRules>(rules.values());
+    }
+
+    /**
+     * Gets a universe from its world and group level.
+     * 
+     * @param world
+     * @param level
+     * @return
+     */
+    public Universe getUniverse(World world, GroupLevel level) {
+        PoliticsWorld cw = Politics.getWorld(world);
+        if (cw == null) {
+            return null;
+        }
+        return getUniverse(cw, level);
+    }
+
+    /**
+     * Gets a list of all GroupLevels.
+     * 
+     * @return
+     */
+    public List<GroupLevel> getGroupLevels() {
+        List<GroupLevel> ret = new ArrayList<GroupLevel>();
+        for (UniverseRules rules : this.rules.values()) {
+            ret.addAll(rules.getGroupLevels());
+        }
+        return ret;
+    }
+
+    /**
+     * Gets a group by its id.
+     * 
+     * @param id
+     * @return
+     */
+    public Group getGroupById(int id) {
+        return groups.get(id);
+    }
+
+    /**
+     * Gets a group by their tag.
+     * 
+     * @param tag
+     * @return
+     */
+    public Group getGroupByTag(String tag) {
+        for (Group g : groups.valueCollection()) {
+            if (g.getStringProperty(GroupProperty.TAG).equalsIgnoreCase(tag)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the universe of the given CommandSource.
+     * 
+     * @param world
+     * @param level
+     * @return
+     */
+    public Universe getUniverse(PoliticsWorld world, GroupLevel level) {
+        Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
+        if (levelUniverses == null) {
+            return null;
+        }
+        return levelUniverses.get(world);
+    }
+
+    /**
+     * Gets the group levels in the given world.
+     * 
+     * @param world
+     * @return
+     */
+    public List<GroupLevel> getLevelsOfWorld(PoliticsWorld world) {
+        Map<GroupLevel, Universe> levelUniverses = worldLevels.get(world);
+        if (levelUniverses == null) {
+            return new ArrayList<GroupLevel>();
+        }
+        return new ArrayList<GroupLevel>(levelUniverses.keySet());
+    }
+
+    /**
+     * Creates a new universe with the given name.
+     * 
+     * @param name
+     * @param theRules
+     * @return the created universe
+     */
+    public Universe createUniverse(String name, UniverseRules theRules) {
+        Universe universe = new Universe(name, theRules);
+        universes.put(name, universe);
+        return universe;
+    }
+
+    /**
+     * Destroys the given universe.
+     * 
+     * @param universe
+     */
+    public void destroyUniverse(Universe universe) {
+        universes.remove(universe.getName());
+        for (Group group : universe.getGroups()) {
+            universe.destroyGroup(group);
+        }
+    }
+
+    /**
+     * Gets the next ID to use for a group.
+     * 
+     * @return
+     */
+    public int nextId() {
+        while (getGroupById(nextId) != null) {
+            nextId++;
+        }
+        return nextId;
     }
 }

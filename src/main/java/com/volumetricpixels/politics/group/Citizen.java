@@ -54,18 +54,12 @@ public class Citizen {
     }
 
     /**
-     * Gets the groups of the given level this citizen is part of.
+     * Gets the name of this citizen.
      * 
-     * @param level
      * @return
      */
-    public Group getGroup(GroupLevel level) {
-        for (Group group : getGroups()) {
-            if (group.getLevel().equals(level)) {
-                return group;
-            }
-        }
-        return null;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -78,12 +72,18 @@ public class Citizen {
     }
 
     /**
-     * Gets the name of this citizen.
+     * Gets the groups of the given level this citizen is part of.
      * 
+     * @param level
      * @return
      */
-    public String getName() {
-        return name;
+    public Group getGroup(GroupLevel level) {
+        for (Group group : getGroups()) {
+            if (group.getLevel().equals(level)) {
+                return group;
+            }
+        }
+        return null;
     }
 
     /**

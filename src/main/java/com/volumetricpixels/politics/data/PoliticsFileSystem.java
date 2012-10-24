@@ -78,21 +78,21 @@ public class PoliticsFileSystem {
     }
 
     /**
-     * Gets the universes directory.
-     * 
-     * @return the universes directory
-     */
-    public File getUniversesDir() {
-        return universesDir;
-    }
-
-    /**
      * Gets the world config directory.
      * 
      * @return the world config directory
      */
     public File getWorldConfigDir() {
         return worldConfigDir;
+    }
+
+    /**
+     * Gets the universes directory.
+     * 
+     * @return the universes directory
+     */
+    public File getUniversesDir() {
+        return universesDir;
     }
 
     /**

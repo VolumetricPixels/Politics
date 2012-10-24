@@ -65,6 +65,56 @@ public class PoliticsPlugin extends CommonPlugin {
      */
     private UniverseManager universeManager;
 
+    @Override
+    public void onEnable() {
+        instance = this;
+
+        // Initialise PoliticsFileSystem
+        fileSystem = new PoliticsFileSystem();
+
+        // Load privileges
+        privilegeManager = new PrivilegeManager();
+
+        // Load plots and worlds
+        plotManager = new PlotManager();
+        plotManager.loadWorlds();
+
+        // Load universes and their rules
+        universeManager = new UniverseManager();
+        universeManager.loadRules();
+        universeManager.loadUniverses();
+
+        // Register all commands
+        Commands.registerAll();
+
+        // Register and schedule things with Spout
+        Engine e = getEngine();
+        e.getEventManager().registerEvents(new PoliticsListener(), this);
+        e.getServiceManager().register(ProtectionService.class, new PoliticsProtectionService(), this, ServicePriority.Highest);
+        e.getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);
+
+        getLogger().log(Level.INFO, "Politics enabled!");
+    }
+
+    @Override
+    public void onDisable() {
+        instance = null;
+
+        plotManager.saveWorlds();
+        universeManager.saveUniverses();
+
+        getLogger().log(Level.INFO, "Politics disabled!");
+    }
+
+    /**
+     * Gets the version of Politics this is.
+     * 
+     * @return The version of Politics.
+     */
+    public String getVersion() {
+        return getDescription().getVersion();
+    }
+
     /**
      * Gets the file system of the plugin.
      * 
@@ -99,56 +149,6 @@ public class PoliticsPlugin extends CommonPlugin {
      */
     public UniverseManager getUniverseManager() {
         return universeManager;
-    }
-
-    /**
-     * Gets the version of Politics this is.
-     * 
-     * @return The version of Politics.
-     */
-    public String getVersion() {
-        return getDescription().getVersion();
-    }
-
-    @Override
-    public void onDisable() {
-        instance = null;
-
-        plotManager.saveWorlds();
-        universeManager.saveUniverses();
-
-        getLogger().log(Level.INFO, "Politics disabled!");
-    }
-
-    @Override
-    public void onEnable() {
-        instance = this;
-
-        // Initialise PoliticsFileSystem
-        fileSystem = new PoliticsFileSystem();
-
-        // Load privileges
-        privilegeManager = new PrivilegeManager();
-
-        // Load plots and worlds
-        plotManager = new PlotManager();
-        plotManager.loadWorlds();
-
-        // Load universes and their rules
-        universeManager = new UniverseManager();
-        universeManager.loadRules();
-        universeManager.loadUniverses();
-
-        // Register all commands
-        Commands.registerAll();
-
-        // Register and schedule things with Spout
-        Engine e = getEngine();
-        e.getEventManager().registerEvents(new PoliticsListener(), this);
-        e.getServiceManager().register(ProtectionService.class, new PoliticsProtectionService(), this, ServicePriority.Highest);
-        e.getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);
-
-        getLogger().log(Level.INFO, "Politics enabled!");
     }
 
     /**

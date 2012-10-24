@@ -36,6 +36,21 @@ import com.volumetricpixels.politics.exception.PropertySerializationException;
  */
 public class PropertySerializer {
     /**
+     * Serializes any serializable object to a Base64 encoded String
+     * 
+     * @param obj
+     *            The Serializable object to serialize
+     * @return The serialized string
+     */
+    public static String serialize(Serializable obj) throws PropertySerializationException {
+        try {
+            return IOUtils.toString(obj);
+        } catch (IOException e) {
+            throw new PropertySerializationException("IOException occurred while serializing an object of type " + obj.getClass().getName() + "!", e);
+        }
+    }
+
+    /**
      * Deserializes any Base64 encoded string into an object from whence it came
      * 
      * @param string
@@ -53,43 +68,6 @@ public class PropertySerializer {
     }
 
     /**
-     * Deserializes a point from a string.
-     * 
-     * @param string
-     * @return
-     * @throws PropertyDeserializationException
-     */
-    public static Point deserializePoint(String string) throws PropertyDeserializationException {
-        return (Point) deserialize(string);
-    }
-
-    /**
-     * Deserializes a transform from a string.
-     * 
-     * @param string
-     * @return
-     * @throws PropertyDeserializationException
-     */
-    public static Transform deserializeTransform(String string) throws PropertyDeserializationException {
-        return (Transform) deserialize(string);
-    }
-
-    /**
-     * Serializes any serializable object to a Base64 encoded String
-     * 
-     * @param obj
-     *            The Serializable object to serialize
-     * @return The serialized string
-     */
-    public static String serialize(Serializable obj) throws PropertySerializationException {
-        try {
-            return IOUtils.toString(obj);
-        } catch (IOException e) {
-            throw new PropertySerializationException("IOException occurred while serializing an object of type " + obj.getClass().getName() + "!", e);
-        }
-    }
-
-    /**
      * Serializes a point to a string.
      * 
      * @param point
@@ -101,6 +79,17 @@ public class PropertySerializer {
     }
 
     /**
+     * Deserializes a point from a string.
+     * 
+     * @param string
+     * @return
+     * @throws PropertyDeserializationException
+     */
+    public static Point deserializePoint(String string) throws PropertyDeserializationException {
+        return (Point) deserialize(string);
+    }
+
+    /**
      * Serializes a transform to a string.
      * 
      * @param transform
@@ -109,5 +98,16 @@ public class PropertySerializer {
      */
     public static String serializeTransform(Transform transform) throws PropertySerializationException {
         return serialize(transform);
+    }
+
+    /**
+     * Deserializes a transform from a string.
+     * 
+     * @param string
+     * @return
+     * @throws PropertyDeserializationException
+     */
+    public static Transform deserializeTransform(String string) throws PropertyDeserializationException {
+        return (Transform) deserialize(string);
     }
 }

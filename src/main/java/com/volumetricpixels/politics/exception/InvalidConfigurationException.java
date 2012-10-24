@@ -38,6 +38,16 @@ public class InvalidConfigurationException extends Exception {
     /**
      * C'tor
      * 
+     * @param cause
+     *            The cause of the exception
+     */
+    public InvalidConfigurationException(Throwable cause) {
+        super(cause);
+    }
+
+    /**
+     * C'tor
+     * 
      * @param reason
      *            The reason for the exception
      * @param cause
@@ -45,15 +55,5 @@ public class InvalidConfigurationException extends Exception {
      */
     public InvalidConfigurationException(String reason, Throwable cause) {
         super(reason, cause);
-    }
-
-    /**
-     * C'tor
-     * 
-     * @param cause
-     *            The cause of the exception
-     */
-    public InvalidConfigurationException(Throwable cause) {
-        super(cause);
     }
 }

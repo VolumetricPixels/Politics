@@ -50,14 +50,14 @@ public class UniverseRulesCommand extends UniverseCommand {
     }
 
     @Override
+    protected String[] getAliases() {
+        return new String[] { "r" };
+    }
+
+    @Override
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Lists all possible rules to use.");
         cmd.setUsage("");
-    }
-
-    @Override
-    protected String[] getAliases() {
-        return new String[] { "r" };
     }
 }

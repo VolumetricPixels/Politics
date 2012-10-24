@@ -70,14 +70,6 @@ public class Role implements Comparable<Role> {
         this.rank = rank;
     }
 
-    @Override
-    public int compareTo(Role other) {
-        if (rank == other.getRank()) {
-            return id.compareToIgnoreCase(other.getId());
-        }
-        return rank - other.getRank();
-    }
-
     /**
      * Gets the ID of this Role.
      * 
@@ -88,12 +80,13 @@ public class Role implements Comparable<Role> {
     }
 
     /**
-     * Gets the name of the role.
+     * Checks if the role has the given privilege.
      * 
+     * @param privilege
      * @return
      */
-    public String getName() {
-        return name;
+    public boolean hasPrivilege(Privilege privilege) {
+        return privileges.contains(privilege);
     }
 
     /**
@@ -115,13 +108,12 @@ public class Role implements Comparable<Role> {
     }
 
     /**
-     * Checks if the role has the given privilege.
+     * Gets the name of the role.
      * 
-     * @param privilege
      * @return
      */
-    public boolean hasPrivilege(Privilege privilege) {
-        return privileges.contains(privilege);
+    public String getName() {
+        return name;
     }
 
     /**
@@ -143,5 +135,13 @@ public class Role implements Comparable<Role> {
         }
         int rank = node.getNode("rank").getInt(1);
         return new Role(id, name, privileges, rank);
+    }
+
+    @Override
+    public int compareTo(Role other) {
+        if (rank == other.getRank()) {
+            return id.compareToIgnoreCase(other.getId());
+        }
+        return rank - other.getRank();
     }
 }

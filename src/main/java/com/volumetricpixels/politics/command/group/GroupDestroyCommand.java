@@ -45,16 +45,6 @@ public class GroupDestroyCommand extends GroupCommand {
     }
 
     @Override
-    public String[] getPermissions() {
-        /*
-         * Permissions for this command must be handled manually as the command
-         * will work even without the admin permission if the user is a high
-         * enough rank within the group
-         */
-        return new String[0];
-    }
-
-    @Override
     public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
         if (!source.hasPermission("politics.group." + level.getId() + ".destroy")) {
             throw new CommandException("You aren't allowed to perform this command.");
@@ -68,6 +58,16 @@ public class GroupDestroyCommand extends GroupCommand {
 
         group.getUniverse().destroyGroup(group);
         source.sendMessage(MessageStyle.SUCCESS, "The group " + group.getStringProperty(GroupProperty.NAME) + " has been disbanded.");
+    }
+
+    @Override
+    public String[] getPermissions() {
+        /*
+         * Permissions for this command must be handled manually as the command
+         * will work even without the admin permission if the user is a high
+         * enough rank within the group
+         */
+        return new String[0];
     }
 
     @Override

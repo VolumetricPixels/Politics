@@ -54,14 +54,14 @@ public class UniverseDestroyCommand extends UniverseCommand {
     }
 
     @Override
+    protected String[] getAliases() {
+        return new String[] { "delete", "d" };
+    }
+
+    @Override
     public void setupCommand(Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Destroys the given universe.");
         cmd.setUsage("<name>");
-    }
-
-    @Override
-    protected String[] getAliases() {
-        return new String[] { "delete", "d" };
     }
 }

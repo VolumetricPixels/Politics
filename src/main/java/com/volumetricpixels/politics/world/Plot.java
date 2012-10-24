@@ -70,117 +70,6 @@ public class Plot extends Protection {
     }
 
     /**
-     * Adds an owner to the plot.
-     * 
-     * @param group
-     * @return True if successful
-     */
-    public boolean addOwner(Group group) {
-        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, group.getUid(), true);
-        if (event.isCancelled()) {
-            return false;
-        }
-
-        for (Group g : getOwners()) {
-            if (g.equals(group)) {
-                return false; // Already owns the plot
-            }
-
-            if (g.getUniverse().equals(group.getUniverse()) && group.getParent().equals(g)) {
-                removeOwner(g);
-                break; // We are a sub-plot
-            }
-            return false;
-        }
-
-        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
-        return list.add(group.getUid());
-    }
-
-    /**
-     * Adds an owner to the plot.
-     * 
-     * @param id
-     *            The id of the owner.
-     * @return True if successful.s
-     */
-    public boolean addOwner(int id) {
-        return addOwner(Politics.getUniverseManager().getGroupById(id));
-    }
-
-    @Override
-    public boolean contains(Point point) {
-        return chunk.contains(point);
-    }
-
-    /**
-     * Gets the point at the base of the plot.
-     * 
-     * @return
-     */
-    public Point getBase() {
-        return chunk.getBase();
-    }
-
-    /**
-     * Gets the Chunk of the Plot
-     * 
-     * @return The Chunk the Plot is inside
-     */
-    public Chunk getChunk() {
-        return chunk;
-    }
-
-    /**
-     * Gets the group owning this plot in the given universe.
-     * 
-     * @param universe
-     * @return
-     */
-    public Group getOwner(Universe universe) {
-        for (Group owner : getOwners()) {
-            if (owner.getUniverse().equals(universe)) {
-                return owner;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets the IDs of the owners of the plot.
-     * 
-     * @return
-     */
-    public TIntList getOwnerIds() {
-        return world.getOwnerIds(getX(), getY(), getZ());
-    }
-
-    /**
-     * Gets the list of the owners of the plot.
-     * 
-     * @return
-     */
-    public List<Group> getOwners() {
-        return world.getOwners(getX(), getY(), getZ());
-    }
-
-    /**
-     * Gets the owners of this plot in the universe. It's a chain.
-     * 
-     * @param universe
-     * @return
-     */
-    public List<Group> getOwners(Universe universe) {
-        List<Group> owners = new ArrayList<Group>();
-        Group group = getOwner(universe);
-        while (group != null) {
-            owners.add(group);
-            group = group.getParent();
-        }
-        return owners;
-    }
-
-    /**
      * Gets the PoliticsWorld this Plot is located in
      * 
      * @return This Plot's PoliticsWorld
@@ -190,14 +79,12 @@ public class Plot extends Protection {
     }
 
     /**
-     * Gets the privileges of the player.
+     * Gets the Chunk of the Plot
      * 
-     * @param player
-     * @return
+     * @return The Chunk the Plot is inside
      */
-    public Set<Privilege> getPrivileges(Player player) {
-        Set<Privilege> privileges = new HashSet<Privilege>();
-        return privileges;
+    public Chunk getChunk() {
+        return chunk;
     }
 
     /**
@@ -228,33 +115,100 @@ public class Plot extends Protection {
     }
 
     /**
-     * Returns true if the given owner is an owner of this plot.
+     * Gets the point at the base of the plot.
      * 
-     * @param group
      * @return
      */
-    public boolean isOwner(Group group) {
-        return isOwner(group.getUid());
+    public Point getBase() {
+        return chunk.getBase();
     }
 
     /**
-     * Returns true if the given owner id is an owner of this plot.
+     * Gets the IDs of the owners of the plot.
+     * 
+     * @return
+     */
+    public TIntList getOwnerIds() {
+        return world.getOwnerIds(getX(), getY(), getZ());
+    }
+
+    /**
+     * Gets the list of the owners of the plot.
+     * 
+     * @return
+     */
+    public List<Group> getOwners() {
+        return world.getOwners(getX(), getY(), getZ());
+    }
+
+    /**
+     * Gets the group owning this plot in the given universe.
+     * 
+     * @param universe
+     * @return
+     */
+    public Group getOwner(Universe universe) {
+        for (Group owner : getOwners()) {
+            if (owner.getUniverse().equals(universe)) {
+                return owner;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the owners of this plot in the universe. It's a chain.
+     * 
+     * @param universe
+     * @return
+     */
+    public List<Group> getOwners(Universe universe) {
+        List<Group> owners = new ArrayList<Group>();
+        Group group = getOwner(universe);
+        while (group != null) {
+            owners.add(group);
+            group = group.getParent();
+        }
+        return owners;
+    }
+
+    /**
+     * Adds an owner to the plot.
      * 
      * @param id
-     * @return
+     *            The id of the owner.
+     * @return True if successful.s
      */
-    public boolean isOwner(int id) {
-        return world.getInternalOwnerList(getX(), getY(), getZ()).contains(id);
+    public boolean addOwner(int id) {
+        return addOwner(Politics.getUniverseManager().getGroupById(id));
     }
 
     /**
-     * Removes the given owner from this plot's owners.
+     * Adds an owner to the plot.
      * 
      * @param group
      * @return True if successful
      */
-    public boolean removeOwner(Group group) {
-        return removeOwner(group.getUid());
+    public boolean addOwner(Group group) {
+        PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, group.getUid(), true);
+        if (event.isCancelled()) {
+            return false;
+        }
+
+        for (Group g : getOwners()) {
+            if (g.equals(group)) {
+                return false; // Already owns the plot
+            }
+
+            if (g.getUniverse().equals(group.getUniverse()) && group.getParent().equals(g)) {
+                removeOwner(g);
+                break; // We are a sub-plot
+            }
+            return false;
+        }
+
+        TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
+        return list.add(group.getUid());
     }
 
     /**
@@ -273,5 +227,51 @@ public class Plot extends Protection {
             return false;
         }
         return list.remove(id);
+    }
+
+    /**
+     * Removes the given owner from this plot's owners.
+     * 
+     * @param group
+     * @return True if successful
+     */
+    public boolean removeOwner(Group group) {
+        return removeOwner(group.getUid());
+    }
+
+    /**
+     * Returns true if the given owner id is an owner of this plot.
+     * 
+     * @param id
+     * @return
+     */
+    public boolean isOwner(int id) {
+        return world.getInternalOwnerList(getX(), getY(), getZ()).contains(id);
+    }
+
+    /**
+     * Returns true if the given owner is an owner of this plot.
+     * 
+     * @param group
+     * @return
+     */
+    public boolean isOwner(Group group) {
+        return isOwner(group.getUid());
+    }
+
+    /**
+     * Gets the privileges of the player.
+     * 
+     * @param player
+     * @return
+     */
+    public Set<Privilege> getPrivileges(Player player) {
+        Set<Privilege> privileges = new HashSet<Privilege>();
+        return privileges;
+    }
+
+    @Override
+    public boolean contains(Point point) {
+        return chunk.contains(point);
     }
 }

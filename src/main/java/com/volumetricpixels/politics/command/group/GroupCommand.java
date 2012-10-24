@@ -83,33 +83,49 @@ public abstract class GroupCommand extends PCommand {
         }
     }
 
-    /**
-     * Finds the group that is wanted from the arguments. Uses the `g' and `u'
-     * flags.
-     * 
-     * @param source
-     *            The source of the command
-     * @param cmd
-     *            The command executed
-     * @param context
-     *            The arguments of the command
-     * @return The group
-     */
-    public Group findGroup(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        Universe universe = findUniverse(source, cmd, context);
+    @Override
+    protected String[] getAliases() {
+        return aliases.toArray(new String[0]);
+    }
 
-        Group group = null;
-        String groupName = context.getFlagString('g');
-        if (groupName != null) {
-            group = universe.getFirstGroupByProperty(level, GroupProperty.TAG, groupName.toLowerCase());
-        } else {
-            if (source instanceof Player) {
-                group = getCitizen((Player) source).getGroup(level);
-            } else {
-                throw new CommandException("No " + level.getName() + " was specified.");
-            }
+    @Override
+    protected String[] getPermissions() {
+        return new String[] { "politics.group." + level.getId() + "." + truePrimary };
+    }
+
+    /**
+     * Gets this command's GroupLevel
+     * 
+     * @return The GroupLevel of this command
+     */
+    public GroupLevel getLevel() {
+        return level;
+    }
+
+    /**
+     * Gets the citizen corresponding with the given player.
+     * 
+     * @param player
+     *            The Player to get the Citizen for
+     * @return The Citizen corresponding with the given Player
+     */
+    public Citizen getCitizen(Player player) {
+        Universe universe = getUniverse(player);
+        if (universe != null) {
+            return universe.getCitizen(player.getName());
         }
-        return group;
+        return null;
+    }
+
+    /**
+     * Gets the universe of the given player in relation to this command.
+     * 
+     * @param player
+     *            The Player to get the Universe of
+     * @return The Universe the given Player is in
+     */
+    public Universe getUniverse(Player player) {
+        return Politics.getUniverse(player.getWorld(), level);
     }
 
     /**
@@ -146,38 +162,32 @@ public abstract class GroupCommand extends PCommand {
     }
 
     /**
-     * Gets the citizen corresponding with the given player.
+     * Finds the group that is wanted from the arguments. Uses the `g' and `u'
+     * flags.
      * 
-     * @param player
-     *            The Player to get the Citizen for
-     * @return The Citizen corresponding with the given Player
+     * @param source
+     *            The source of the command
+     * @param cmd
+     *            The command executed
+     * @param context
+     *            The arguments of the command
+     * @return The group
      */
-    public Citizen getCitizen(Player player) {
-        Universe universe = getUniverse(player);
-        if (universe != null) {
-            return universe.getCitizen(player.getName());
+    public Group findGroup(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+        Universe universe = findUniverse(source, cmd, context);
+
+        Group group = null;
+        String groupName = context.getFlagString('g');
+        if (groupName != null) {
+            group = universe.getFirstGroupByProperty(level, GroupProperty.TAG, groupName.toLowerCase());
+        } else {
+            if (source instanceof Player) {
+                group = getCitizen((Player) source).getGroup(level);
+            } else {
+                throw new CommandException("No " + level.getName() + " was specified.");
+            }
         }
-        return null;
-    }
-
-    /**
-     * Gets this command's GroupLevel
-     * 
-     * @return The GroupLevel of this command
-     */
-    public GroupLevel getLevel() {
-        return level;
-    }
-
-    /**
-     * Gets the universe of the given player in relation to this command.
-     * 
-     * @param player
-     *            The Player to get the Universe of
-     * @return The Universe the given Player is in
-     */
-    public Universe getUniverse(Player player) {
-        return Politics.getUniverse(player.getWorld(), level);
+        return group;
     }
 
     /**
@@ -189,15 +199,5 @@ public abstract class GroupCommand extends PCommand {
      */
     public boolean hasAdmin(CommandSource source) {
         return source.hasPermission("politics.admin.group." + level.getId() + "." + primary);
-    }
-
-    @Override
-    protected String[] getAliases() {
-        return aliases.toArray(new String[0]);
-    }
-
-    @Override
-    protected String[] getPermissions() {
-        return new String[] { "politics.group." + level.getId() + "." + truePrimary };
     }
 }
