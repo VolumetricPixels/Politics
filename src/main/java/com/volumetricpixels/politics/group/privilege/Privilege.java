@@ -74,6 +74,7 @@ public class Privilege {
      * @param sets
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static Set<Privilege> all(Set<Privilege>... sets) {
         Set<Privilege> result = new HashSet<Privilege>();
         for (Set<Privilege> set : sets) {
@@ -88,6 +89,7 @@ public class Privilege {
      * @param sets
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static Set<Privilege> common(Set<Privilege>... sets) {
         boolean first = true;
         Set<Privilege> result = new HashSet<Privilege>();
