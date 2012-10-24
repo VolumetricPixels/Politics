@@ -44,23 +44,23 @@ public class GroupUnclaimCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupUnclaimCommand(GroupLevel level) {
+    public GroupUnclaimCommand(final GroupLevel level) {
         super(level, "unclaim");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        Group group = findGroup(source, cmd, context);
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+        final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.UNCLAIM) && !hasAdmin(source)) {
             throw new CommandException("You don't have permissions to unclaim land in this " + level.getName() + ".");
         }
 
-        // TODO add a way to get the world,x,y,z from the command line (should
-        // be in GroupCommand)
-        Point position = ((Player) source).getTransform().getPosition();
+        // TODO add a way to get the world, x, y, z from the command line
+        // (should be in GroupCommand)
+        final Point position = ((Player) source).getTransform().getPosition();
 
-        Plot plot = Politics.getPlotAt(position);
+        final Plot plot = Politics.getPlotAt(position);
         if (!plot.isOwner(group)) {
             throw new CommandException("Sorry, this plot is not owned by " + group.getStringProperty(GroupProperty.NAME) + ".");
         }
@@ -73,7 +73,7 @@ public class GroupUnclaimCommand extends GroupCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Unclaims land from your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");

@@ -62,10 +62,10 @@ public abstract class GroupCommand extends PCommand {
      * @param primary
      *            The primary name of this command
      */
-    public GroupCommand(GroupLevel level, String primary) {
+    public GroupCommand(final GroupLevel level, final String primary) {
         super(primary.toLowerCase());
         this.level = level;
-        this.truePrimary = this.primary;
+        truePrimary = this.primary;
 
         // Load the primary and aliases
         aliases = level.getAliases(this.primary);
@@ -74,7 +74,7 @@ public abstract class GroupCommand extends PCommand {
             return;
         }
 
-        int index = aliases.indexOf(this.primary);
+        final int index = aliases.indexOf(this.primary);
         if (index != -1) {
             aliases.remove(index);
         } else {
@@ -103,14 +103,14 @@ public abstract class GroupCommand extends PCommand {
     }
 
     /**
-     * Gets the citizen corresponding with the given player.
+     * Gets the citizen corresponding with the given player
      * 
      * @param player
      *            The Player to get the Citizen for
      * @return The Citizen corresponding with the given Player
      */
-    public Citizen getCitizen(Player player) {
-        Universe universe = getUniverse(player);
+    public Citizen getCitizen(final Player player) {
+        final Universe universe = getUniverse(player);
         if (universe != null) {
             return universe.getCitizen(player.getName());
         }
@@ -124,7 +124,7 @@ public abstract class GroupCommand extends PCommand {
      *            The Player to get the Universe of
      * @return The Universe the given Player is in
      */
-    public Universe getUniverse(Player player) {
+    public Universe getUniverse(final Player player) {
         return Politics.getUniverse(player.getWorld(), level);
     }
 
@@ -139,9 +139,9 @@ public abstract class GroupCommand extends PCommand {
      *            The arguments of the command
      * @return The universe
      */
-    public Universe findUniverse(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+    public Universe findUniverse(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         Universe universe = null;
-        String universeName = context.getFlagString('u');
+        final String universeName = context.getFlagString('u');
 
         if (universeName != null) {
             universe = Politics.getUniverse(universeName);
@@ -173,11 +173,11 @@ public abstract class GroupCommand extends PCommand {
      *            The arguments of the command
      * @return The group
      */
-    public Group findGroup(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        Universe universe = findUniverse(source, cmd, context);
+    public Group findGroup(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+        final Universe universe = findUniverse(source, cmd, context);
 
         Group group = null;
-        String groupName = context.getFlagString('g');
+        final String groupName = context.getFlagString('g');
         if (groupName != null) {
             group = universe.getFirstGroupByProperty(level, GroupProperty.TAG, groupName.toLowerCase());
         } else {
@@ -197,7 +197,7 @@ public abstract class GroupCommand extends PCommand {
      *            The source of the command
      * @return True if the given source has admin privileges for this command.
      */
-    public boolean hasAdmin(CommandSource source) {
+    public boolean hasAdmin(final CommandSource source) {
         return source.hasPermission("politics.admin.group." + level.getId() + "." + primary);
     }
 }

@@ -39,23 +39,23 @@ public class GroupCommands extends Commands {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupCommands(GroupLevel level) {
+    public GroupCommands(final GroupLevel level) {
         super(level.getName().toLowerCase());
         this.level = level;
     }
 
     @Override
-    public void setup(Command cmd) {
-        (new GroupClaimCommand(level)).register(cmd);
-        (new GroupCreateCommand(level)).register(cmd);
-        (new GroupDemoteCommand(level)).register(cmd);
-        (new GroupDestroyCommand(level)).register(cmd);
-        (new GroupInfoCommand(level)).register(cmd);
-        (new GroupListCommand(level)).register(cmd);
-        (new GroupPromoteCommand(level)).register(cmd);
-        (new GroupSetRoleCommand(level)).register(cmd);
-        (new GroupSetSpawnCommand(level)).register(cmd);
-        (new GroupSpawnCommand(level)).register(cmd);
-        (new GroupUnclaimCommand(level)).register(cmd);
+    public void setup(final Command cmd) {
+        new GroupClaimCommand(level).register(cmd);
+        new GroupCreateCommand(level).register(cmd);
+        new GroupDemoteCommand(level).register(cmd);
+        new GroupDestroyCommand(level).register(cmd);
+        new GroupInfoCommand(level).register(cmd);
+        new GroupListCommand(level).register(cmd);
+        new GroupPromoteCommand(level).register(cmd);
+        new GroupSetRoleCommand(level).register(cmd);
+        new GroupSetSpawnCommand(level).register(cmd);
+        new GroupSpawnCommand(level).register(cmd);
+        new GroupUnclaimCommand(level).register(cmd);
     }
 }

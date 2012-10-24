@@ -42,23 +42,23 @@ public class GroupDemoteCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupDemoteCommand(GroupLevel level) {
+    public GroupDemoteCommand(final GroupLevel level) {
         super(level, "demote");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext args) throws CommandException {
-        Group group = findGroup(source, cmd, args);
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
+        final Group group = findGroup(source, cmd, args);
 
-        Player player = Spout.getEngine().getPlayer(args.getString(0), false);
+        final Player player = Spout.getEngine().getPlayer(args.getString(0), false);
         if (player == null) {
             throw new CommandException("That player is not online.");
         }
         if (!group.isImmediateMember(player.getName())) {
-            throw new CommandException("That player is not a member of the group.");
+            throw new CommandException("That player is not a member of the group!");
         }
 
-        String trackName = args.getFlagString('t');
+        final String trackName = args.getFlagString('t');
         RoleTrack track;
         if (trackName == null) {
             track = group.getLevel().getDefaultTrack();
@@ -66,27 +66,27 @@ public class GroupDemoteCommand extends GroupCommand {
             track = group.getLevel().getTrack(trackName.toLowerCase());
         }
         if (track == null) {
-            throw new CommandException("There isn't a track named '" + trackName + "'.");
+            throw new CommandException("There isn't a track named '" + trackName + "'!");
         }
-        Role role = group.getRole(player.getName());
-        Role next = track.getPreviousRole(role);
+        final Role role = group.getRole(player.getName());
+        final Role next = track.getPreviousRole(role);
         if (next == null) {
-            throw new CommandException("There is no role to demote to.");
+            throw new CommandException("There is no role to demote to!");
         }
 
         if (!hasAdmin(source)) {
-            Role myRole = group.getRole(source.getName());
+            final Role myRole = group.getRole(source.getName());
             if (myRole.getRank() - role.getRank() <= 0) {
-                throw new CommandException("You can't demote someone with a rank higher than yours.");
+                throw new CommandException("You can't demote someone with a rank higher than yours!");
             }
         }
 
         group.setRole(player.getName(), next);
-        source.sendMessage(MessageStyle.SUCCESS, player.getName() + " was demoted to " + next.getName() + " in the group.");
+        source.sendMessage(MessageStyle.SUCCESS, player.getName() + " was demoted to " + next.getName() + " in the group!");
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Demotes a player in this " + level.getName() + ".");
         cmd.setUsage("<player> [-t track] [-g group] [-u universe]");

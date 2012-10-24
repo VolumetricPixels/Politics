@@ -42,23 +42,23 @@ public class GroupPromoteCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupPromoteCommand(GroupLevel level) {
+    public GroupPromoteCommand(final GroupLevel level) {
         super(level, "promote");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext args) throws CommandException {
-        Group group = findGroup(source, cmd, args);
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
+        final Group group = findGroup(source, cmd, args);
 
-        Player player = Spout.getEngine().getPlayer(args.getString(0), false);
+        final Player player = Spout.getEngine().getPlayer(args.getString(0), false);
         if (player == null) {
-            throw new CommandException("That player is not online.");
+            throw new CommandException("That player is not online!");
         }
         if (!group.isImmediateMember(player.getName())) {
-            throw new CommandException("That player is not a member of the group.");
+            throw new CommandException("That player is not a member of the group!");
         }
 
-        String trackName = args.getFlagString('t');
+        final String trackName = args.getFlagString('t');
         RoleTrack track;
         if (trackName == null) {
             track = group.getLevel().getDefaultTrack();
@@ -66,18 +66,18 @@ public class GroupPromoteCommand extends GroupCommand {
             track = group.getLevel().getTrack(trackName.toLowerCase());
         }
         if (track == null) {
-            throw new CommandException("There isn't a track named '" + trackName + "'.");
+            throw new CommandException("There isn't a track named '" + trackName + "'!");
         }
-        Role role = group.getRole(player.getName());
-        Role next = track.getNextRole(role);
+        final Role role = group.getRole(player.getName());
+        final Role next = track.getNextRole(role);
         if (next == null) {
-            throw new CommandException("There is no role to promote to.");
+            throw new CommandException("There is no role to promote to!");
         }
 
         if (!hasAdmin(source)) {
-            Role myRole = group.getRole(source.getName());
+            final Role myRole = group.getRole(source.getName());
             if (myRole.getRank() - next.getRank() <= 1) {
-                throw new CommandException("You can't promote someone to a role equal to or higher than your own.");
+                throw new CommandException("You can't promote someone to a role equal to or higher than your own!");
             }
         }
 
@@ -87,7 +87,7 @@ public class GroupPromoteCommand extends GroupCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Promotes a player in this " + level.getName() + ".");
         cmd.setUsage("<player> [-t track] [-g group] [-u universe]");

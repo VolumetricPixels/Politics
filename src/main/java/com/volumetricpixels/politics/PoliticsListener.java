@@ -31,28 +31,28 @@ import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Politics' Listener
+ * The Listener of Politics
  * 
  * Used for calling custom events and tracking and/or cancelling other events
  */
 public class PoliticsListener implements Listener {
     @EventHandler(order = Order.EARLIEST)
-    public void checkPlotChange(EntityMoveEvent event) {
+    public void checkPlotChange(final EntityMoveEvent event) {
         if (!(event.getEntity() instanceof Player) || event.isCancelled()) {
             return;
         }
 
-        Point from = event.getFrom();
-        Point to = event.getTo();
+        final Point from = event.getFrom();
+        final Point to = event.getTo();
 
         // Check for chunk movement
         if (from.getChunkX() != to.getChunkX() || from.getChunkY() != to.getChunkY() || from.getChunkZ() != to.getChunkZ()) {
             return;
         }
 
-        Player player = (Player) event.getEntity();
-        Plot prev = Politics.getPlotAt(from);
-        Plot now = Politics.getPlotAt(to);
+        final Player player = (Player) event.getEntity();
+        final Plot prev = Politics.getPlotAt(from);
+        final Plot now = Politics.getPlotAt(to);
 
         // Check for different plot
         if (prev.equals(now)) {
@@ -60,7 +60,7 @@ public class PoliticsListener implements Listener {
         }
 
         // Call event
-        PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
+        final PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
         if (pcpe.isCancelled()) {
             event.setCancelled(true);
         }

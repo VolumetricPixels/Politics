@@ -43,7 +43,7 @@ public abstract class Commands {
      * @param name
      *            The name of the base command
      */
-    public Commands(String name) {
+    public Commands(final String name) {
         this.name = name.toLowerCase();
     }
 
@@ -53,7 +53,7 @@ public abstract class Commands {
      * @return The registered command.
      */
     public final Command register() {
-        Command command = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), name);
+        final Command command = Spout.getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), name);
         setup(command);
         command.closeSubCommand();
         return command;
@@ -71,12 +71,15 @@ public abstract class Commands {
      * Registers all of the commands in Politics
      */
     public static void registerAll() {
-        (new PoliticsCommands()).register();
-        (new UniverseCommands()).register();
+        // First register Politics commands
+        new PoliticsCommands().register();
+
+        // Then register Universe commands
+        new UniverseCommands().register();
 
         // Now register all Group commands
-        for (GroupLevel level : Politics.getUniverseManager().getGroupLevels()) {
-            (new GroupCommands(level)).register();
+        for (final GroupLevel level : Politics.getUniverseManager().getGroupLevels()) {
+            new GroupCommands(level).register();
         }
     }
 }

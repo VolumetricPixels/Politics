@@ -41,23 +41,23 @@ public class GroupInfoCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupInfoCommand(GroupLevel level) {
+    public GroupInfoCommand(final GroupLevel level) {
         super(level, "info");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         if (!(source instanceof Player)) {
-            throw new CommandException("Consoles aren't part of a group");
+            throw new CommandException("Consoles can't be part of a group");
         }
 
-        Player p = (Player) source;
-        Citizen citizen = getCitizen(p);
+        final Player p = (Player) source;
+        final Citizen citizen = getCitizen(p);
         if (citizen == null) {
             throw new CommandException("You can't use this command in this world.");
         }
 
-        Group group = citizen.getGroup(level);
+        final Group group = citizen.getGroup(level);
         if (group == null) {
             throw new CommandException("You aren't in a " + level.getName() + ".");
         }
@@ -68,7 +68,7 @@ public class GroupInfoCommand extends GroupCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setHelp("Gets information about the current group you are in.");
     }
 }

@@ -40,24 +40,24 @@ public class GroupDestroyCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupDestroyCommand(GroupLevel level) {
+    public GroupDestroyCommand(final GroupLevel level) {
         super(level, "destroy");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         if (!source.hasPermission("politics.group." + level.getId() + ".destroy")) {
-            throw new CommandException("You aren't allowed to perform this command.");
+            throw new CommandException("You aren't allowed to perform this command!");
         }
 
-        Group group = findGroup(source, cmd, context);
+        final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.DISBAND) && !hasAdmin(source)) {
-            throw new CommandException("You aren't allowed to disband this group.");
+            throw new CommandException("You aren't allowed to disband this group!");
         }
 
         group.getUniverse().destroyGroup(group);
-        source.sendMessage(MessageStyle.SUCCESS, "The group " + group.getStringProperty(GroupProperty.NAME) + " has been disbanded.");
+        source.sendMessage(MessageStyle.SUCCESS, "The group " + group.getStringProperty(GroupProperty.NAME) + " has been disbanded!");
     }
 
     @Override
@@ -71,7 +71,7 @@ public class GroupDestroyCommand extends GroupCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Destroys your " + level.getName() + ".");
         cmd.setUsage("<template> [-f] [-n name]");

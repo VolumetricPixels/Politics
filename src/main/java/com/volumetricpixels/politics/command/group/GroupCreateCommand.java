@@ -39,13 +39,13 @@ public class GroupCreateCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupCreateCommand(GroupLevel level) {
+    public GroupCreateCommand(final GroupLevel level) {
         super(level, "create");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        // Get le founder
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+        // Get the founder
         String founderName = null;
         if (source instanceof Player) {
             founderName = source.getName();
@@ -59,35 +59,35 @@ public class GroupCreateCommand extends GroupCommand {
                     + " is unknown. A founder can be specified with the `-f' option.");
         }
 
-        // Get le universe
-        Universe universe = findUniverse(source, cmd, context);
+        // Get the universe
+        final Universe universe = findUniverse(source, cmd, context);
 
         // Name
-        StringBuilder nameBuilder = new StringBuilder();
+        final StringBuilder nameBuilder = new StringBuilder();
         for (int i = 0; i < context.length(); i++) {
             nameBuilder.append(context.getString(i)).append(' ');
         }
-        String name = nameBuilder.toString().trim();
+        final String name = nameBuilder.toString().trim();
 
         // Tag
-        String tag = context.getFlagString('t', name.toLowerCase().replace(" ", "-"));
+        final String tag = context.getFlagString('t', name.toLowerCase().replace(" ", "-"));
 
         // Create le group
-        Group group = universe.createGroup(level);
+        final Group group = universe.createGroup(level);
         group.setRole(founderName, level.getFounder());
         group.setProperty(GroupProperty.NAME, name);
         group.setProperty(GroupProperty.TAG, tag);
 
         if (PoliticsEventFactory.callGroupCreateEvent(group, source).isCancelled()) {
             universe.destroyGroup(group);
-            throw new CommandException(level.getName() + " creation denied.");
+            throw new CommandException(level.getName() + " creation denied!");
         }
 
         source.sendMessage(MessageStyle.SUCCESS, "Your " + level.getName() + " was created successfully.");
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Creates a new " + level.getName() + ".");
         cmd.setUsage("<name> [-f founder] [-u universe] [-t tag]");

@@ -44,19 +44,19 @@ public class GroupListCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupListCommand(GroupLevel level) {
+    public GroupListCommand(final GroupLevel level) {
         super(level, "list");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext args) throws CommandException {
-        Universe universe = findUniverse(source, cmd, args);
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
+        final Universe universe = findUniverse(source, cmd, args);
 
         source.sendMessage(MessageStyle.INFO, "========= " + level.getPlural().toUpperCase() + " =========");
 
-        List<Group> groups = universe.getGroups(level);
+        final List<Group> groups = universe.getGroups(level);
         if (groups == null) {
-            throw new CommandException("There are no " + level.getPlural() + ".");
+            throw new CommandException("There are no " + level.getPlural() + "!");
         }
 
         int page = 1;
@@ -64,14 +64,14 @@ public class GroupListCommand extends GroupCommand {
             page = args.getInteger(0);
         }
 
-        int min = ((page - 1) * PAGE_HEIGHT) - 1; // Screen height
-        int max = Math.min(groups.size(), page * PAGE_HEIGHT) - 2;
+        final int min = (page - 1) * PAGE_HEIGHT - 1; // Screen height
+        final int max = Math.min(groups.size(), page * PAGE_HEIGHT) - 2;
         if (max <= min) {
-            throw new CommandException("There are no " + level.getPlural() + " on this page.");
+            throw new CommandException("There are no " + level.getPlural() + " on this page!");
         }
 
-        List<Group> pageGroups = groups.subList(min, max);
-        for (Group group : pageGroups) {
+        final List<Group> pageGroups = groups.subList(min, max);
+        for (final Group group : pageGroups) {
             source.sendMessage(group.getProperty(GroupProperty.TAG));
             // TODO prettify list
         }

@@ -44,32 +44,32 @@ public class GroupSetSpawnCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupSetSpawnCommand(GroupLevel level) {
+    public GroupSetSpawnCommand(final GroupLevel level) {
         super(level, "setspawn");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        Group group = findGroup(source, cmd, context);
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+        final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.SET_SPAWN) && !hasAdmin(source)) {
-            throw new CommandException("You don't have permissions to set the spawn of your " + level.getName() + ".");
+            throw new CommandException("You don't have permissions to set the spawn of your " + level.getName() + "!");
         }
 
-        Transform transform = ((Player) source).getTransform().getTransform();
+        final Transform transform = ((Player) source).getTransform().getTransform();
 
-        Plot plot = Politics.getPlotAt(transform.getPosition());
+        final Plot plot = Politics.getPlotAt(transform.getPosition());
         if (!plot.isOwner(group)) {
             throw new CommandException("Sorry, the plot you are in must be owned by " + group.getStringProperty(GroupProperty.NAME)
-                    + " to set your spawn in it.");
+                    + " to set your spawn in it!");
         }
 
         group.setProperty(GroupProperty.SPAWN, transform);
-        source.sendMessage(MessageStyle.SUCCESS, "The spawn of your " + level.getName() + " was set successfully.");
+        source.sendMessage(MessageStyle.SUCCESS, "The spawn of your " + level.getName() + " was set successfully!");
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Sets the spawn of your " + level.getName() + ".");
         cmd.setUsage("[-p player] [-g " + level.getName() + "] [-u universe]");

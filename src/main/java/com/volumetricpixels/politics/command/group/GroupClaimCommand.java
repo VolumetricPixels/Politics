@@ -44,31 +44,31 @@ public class GroupClaimCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupClaimCommand(GroupLevel level) {
+    public GroupClaimCommand(final GroupLevel level) {
         super(level, "claim");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        Group group = findGroup(source, cmd, context);
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+        final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.CLAIM) && !hasAdmin(source)) {
             throw new CommandException("You don't have permissions to claim land in this " + level.getName() + ".");
         }
 
-        // TODO add a way to get the world,x,y,z from the command line (should
-        // be in GroupCommand)
-        Point position = ((Player) source).getTransform().getPosition();
+        // TODO add a way to get the world, x, y, z from the command line
+        // (should be in GroupCommand)
+        final Point position = ((Player) source).getTransform().getPosition();
         if (!group.getUniverse().getWorlds().contains(Politics.getWorld(position.getWorld()))) {
             throw new CommandException("You can't create a plot for that group in this world.");
         }
 
-        Plot plot = Politics.getPlotAt(position);
+        final Plot plot = Politics.getPlotAt(position);
         if (plot.isOwner(group)) {
             throw new CommandException(group.getStringProperty(GroupProperty.NAME) + " already owns this plot.");
         }
 
-        Group owner = plot.getOwner(group.getUniverse());
+        final Group owner = plot.getOwner(group.getUniverse());
         if (owner != null) {
             throw new CommandException("Sorry, this plot is already owned by " + owner.getStringProperty(GroupProperty.NAME) + ".");
         }
@@ -81,7 +81,7 @@ public class GroupClaimCommand extends GroupCommand {
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Claims land for your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");

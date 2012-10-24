@@ -43,25 +43,25 @@ public class GroupSpawnCommand extends GroupCommand {
      * @param level
      *            The GroupLevel of this command
      */
-    public GroupSpawnCommand(GroupLevel level) {
+    public GroupSpawnCommand(final GroupLevel level) {
         super(level, "spawn");
     }
 
     @Override
-    public void processCommand(CommandSource source, Command cmd, CommandContext context) throws CommandException {
-        Group group = findGroup(source, cmd, context);
+    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+        final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.SPAWN) && !hasAdmin(source)) {
             throw new CommandException("You don't have permissions to spawn to that " + level.getName() + ".");
         }
 
-        Transform spawn = group.getTransformProperty(GroupProperty.SPAWN);
+        final Transform spawn = group.getTransformProperty(GroupProperty.SPAWN);
         if (spawn == null) {
             throw new CommandException("The " + level.getName() + " doesn't have a spawn!");
         }
 
         Player player = null;
-        String playerName = context.getFlagString('p');
+        final String playerName = context.getFlagString('p');
         if (playerName == null) {
             if (source instanceof Player) {
                 player = (Player) source;
@@ -80,14 +80,13 @@ public class GroupSpawnCommand extends GroupCommand {
         player.getTransform().setTransform(spawn);
 
         if (playerName != null) {
-            source.sendMessage(MessageStyle.SUCCESS, playerName + " was teleported to the " + level.getName() + " spawn.");
+            source.sendMessage(MessageStyle.SUCCESS, playerName + " was teleported to the " + level.getName() + " spawn!");
         }
-        source.sendMessage(MessageStyle.INFO, "You have been teleported to the spawn of " + group.getStringProperty(GroupProperty.NAME) + ".");
-
+        player.sendMessage(MessageStyle.INFO, "You have been teleported to the spawn of " + group.getStringProperty(GroupProperty.NAME) + "!");
     }
 
     @Override
-    public void setupCommand(Command cmd) {
+    public void setupCommand(final Command cmd) {
         cmd.setArgBounds(1, -1);
         cmd.setHelp("Sets the spawn of your " + level.getName() + ".");
         cmd.setUsage("[-p player] [-g " + level.getName() + "] [-u universe]");
