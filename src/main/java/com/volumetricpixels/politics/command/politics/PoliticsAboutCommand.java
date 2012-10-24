@@ -41,7 +41,7 @@ public class PoliticsAboutCommand extends PoliticsCommand {
     }
 
     @Override
-    public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
+    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
         source.sendMessage(MessageStyle.INFO, "Politics ", Politics.getPlugin().getVersion());
         source.sendMessage(MessageStyle.INFO, "Copyright (c) 2012-" + Calendar.getInstance().get(Calendar.YEAR) + " Volumetric Pixels");
         source.sendMessage(MessageStyle.INFO,

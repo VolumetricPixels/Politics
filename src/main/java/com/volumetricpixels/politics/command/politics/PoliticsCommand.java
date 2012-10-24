@@ -31,7 +31,7 @@ public abstract class PoliticsCommand extends PCommand {
      * @param primary
      *            The primary command label
      */
-    public PoliticsCommand(String primary) {
+    public PoliticsCommand(final String primary) {
         super(primary.toLowerCase());
     }
 

@@ -35,7 +35,8 @@ public class PoliticsCommands extends Commands {
     }
 
     @Override
-    public void setup(Command cmd) {
-        (new PoliticsAboutCommand()).register(cmd);
+    public void setup(final Command cmd) {
+        new PoliticsAboutCommand().register(cmd);
+        new PoliticsVersionCommand().register(cmd);
     }
 }
