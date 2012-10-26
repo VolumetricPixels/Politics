@@ -42,7 +42,7 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * that fun gameplay requires". - adapted from Paul Davies
  * </p>
  */
-public class UniverseRules {
+public final class UniverseRules {
     /**
      * The name of these UniverseRules
      */

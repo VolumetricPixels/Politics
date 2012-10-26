@@ -24,7 +24,7 @@ import org.spout.api.chat.style.ChatStyle;
 /**
  * The constant ChatStyles used in Politics for specific message types
  */
-public class MessageStyle {
+public final class MessageStyle {
     /**
      * Error ChatStyle
      */
@@ -44,4 +44,7 @@ public class MessageStyle {
      * Success ChatStyle
      */
     public static final ChatStyle SUCCESS = ChatStyle.BRIGHT_GREEN;
+
+    private MessageStyle() {
+    }
 }

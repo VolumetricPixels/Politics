@@ -41,7 +41,7 @@ public class PrivilegeManager {
     /**
      * Loads all default privileges.
      */
-    private void loadDefaultPrivileges() {
+    private final void loadDefaultPrivileges() {
         registerPrivileges(GroupPrivileges.ALL);
         registerPrivileges(GroupPlotPrivileges.ALL);
     }

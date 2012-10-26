@@ -33,5 +33,5 @@ public interface Storable {
      * 
      * @return A BSONObject that represents this storable object
      */
-    public BSONObject toBSONObject();
+    BSONObject toBSONObject();
 }

@@ -34,7 +34,7 @@ import com.volumetricpixels.politics.group.privilege.Privilege;
 /**
  * A role
  */
-public class Role implements Comparable<Role> {
+public final class Role implements Comparable<Role> {
     /**
      * The string id of the role. All lowercase.
      */

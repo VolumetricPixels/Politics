@@ -1,6 +1,6 @@
 package com.volumetricpixels.utils.io;
 
-public class Base64Coder {
+public final class Base64Coder {
     // The line separator string of the operating system.
     private static final String systemLineSeparator = System.getProperty("line.separator");
 

@@ -39,6 +39,8 @@ import com.volumetricpixels.politics.group.privilege.Privilege;
  * Represents a level of organization of a group
  */
 public final class GroupLevel {
+    private static final String DEFAULT_TRACK = "default";
+
     /**
      * The ID of the GroupLevel.
      */
@@ -230,7 +232,7 @@ public final class GroupLevel {
      * @return
      */
     public RoleTrack getDefaultTrack() {
-        return getTrack("default");
+        return getTrack(DEFAULT_TRACK);
     }
 
     /**
@@ -387,16 +389,16 @@ public final class GroupLevel {
                 final RoleTrack track = RoleTrack.load(trackEntry.getKey(), trackEntry.getValue(), rolesMap);
                 tracks.put(track.getId(), track);
             }
-            if (!tracks.containsKey("default")) {
+            if (!tracks.containsKey(DEFAULT_TRACK)) {
                 RoleTrack def;
                 if (tracks.isEmpty()) {
                     final List<Role> rolesSorted = new LinkedList<Role>(rolesMap.values());
                     Collections.sort(rolesSorted);
-                    def = new RoleTrack("default", rolesSorted);
+                    def = new RoleTrack(DEFAULT_TRACK, rolesSorted);
                 } else {
                     def = tracks.entrySet().iterator().next().getValue();
                 }
-                tracks.put("default", def);
+                tracks.put(DEFAULT_TRACK, def);
             }
 
             final String initialName = node.getChild("initial").getString();

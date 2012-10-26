@@ -61,7 +61,6 @@ public class UniverseCreateCommand extends UniverseCommand {
             return;
         }
 
-        // boolean force = args.hasFlag('f');
         final Universe existing = Politics.getUniverse(name);
         if (existing != null) {
             source.sendMessage(MessageStyle.ERROR, "A universe named '" + name + "' already exists. Please destroy that universe via the `",

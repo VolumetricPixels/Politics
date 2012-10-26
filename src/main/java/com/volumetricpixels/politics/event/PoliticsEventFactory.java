@@ -39,7 +39,7 @@ import com.volumetricpixels.politics.world.Plot;
 /**
  * Factory for creating events
  */
-public class PoliticsEventFactory {
+public final class PoliticsEventFactory {
     /**
      * Calls a new group claim plot event.
      * 
@@ -159,5 +159,8 @@ public class PoliticsEventFactory {
      */
     private static <T extends Event> T callEvent(final T event) {
         return Spout.getEngine().getEventManager().callEvent(event);
+    }
+
+    private PoliticsEventFactory() {
     }
 }

@@ -41,6 +41,7 @@ import org.spout.api.geo.discrete.Transform;
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 
+import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
@@ -323,7 +324,7 @@ public final class Group implements Comparable<Group>, Storable {
         try {
             setProperty(property, PropertySerializer.serializeTransform(value));
         } catch (final PropertySerializationException e) {
-            e.printStackTrace();
+            Politics.getLogger().log(Level.SEVERE, "Error serializing property!", e);
         }
     }
 
@@ -339,7 +340,7 @@ public final class Group implements Comparable<Group>, Storable {
         try {
             setProperty(property, PropertySerializer.serializePoint(value));
         } catch (final PropertySerializationException e) {
-            e.printStackTrace();
+            Politics.getLogger().log(Level.SEVERE, "Error serializing property!", e);
         }
     }
 

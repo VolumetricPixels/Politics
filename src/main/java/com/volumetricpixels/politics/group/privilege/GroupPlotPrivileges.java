@@ -22,7 +22,7 @@ package com.volumetricpixels.politics.group.privilege;
 /**
  * Contains privileges pertaining to groups and plots
  */
-public class GroupPlotPrivileges {
+public final class GroupPlotPrivileges {
     /**
      * Allows the player to build.
      */
@@ -38,4 +38,6 @@ public class GroupPlotPrivileges {
      */
     public static final Privilege[] ALL = { BUILD, INTERACT };
 
+    private GroupPlotPrivileges() {
+    }
 }

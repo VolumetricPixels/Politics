@@ -34,7 +34,7 @@ import com.volumetricpixels.politics.exception.PropertySerializationException;
  * Contains various methods for serializing and deserializing certain properties
  * as strings
  */
-public class PropertySerializer {
+public final class PropertySerializer {
     /**
      * Serializes any serializable object to a Base64 encoded String
      * 
@@ -61,7 +61,7 @@ public class PropertySerializer {
         try {
             return IOUtils.fromString(string);
         } catch (final ClassNotFoundException e) {
-            throw new PropertyDeserializationException("Could not find the object class for the given string while deserializing!");
+            throw new PropertyDeserializationException("Could not find the object class for the given string while deserializing!", e);
         } catch (final IOException e) {
             throw new PropertyDeserializationException("IOException occurred while deserializing a string!", e);
         }
@@ -109,5 +109,8 @@ public class PropertySerializer {
      */
     public static Transform deserializeTransform(final String string) throws PropertyDeserializationException {
         return (Transform) deserialize(string);
+    }
+
+    private PropertySerializer() {
     }
 }

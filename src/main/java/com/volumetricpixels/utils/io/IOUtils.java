@@ -15,7 +15,7 @@ import java.sql.Connection;
 /**
  * @author VolumetricPixels
  */
-public class IOUtils {
+public final class IOUtils {
     /**
      * No instances
      */

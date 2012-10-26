@@ -138,7 +138,7 @@ public class Universe implements Storable {
 
         citizenGroupCache = builder.build(new CacheLoader<String, Set<Group>>() {
             @Override
-            public Set<Group> load(final String name) throws Exception {
+            public Set<Group> load(final String name) {
                 final Set<Group> myGroups = new HashSet<Group>();
                 for (final Group group : groups) {
                     if (group.isImmediateMember(name)) {

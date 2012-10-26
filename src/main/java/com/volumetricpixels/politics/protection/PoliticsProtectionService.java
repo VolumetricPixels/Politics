@@ -46,10 +46,8 @@ public class PoliticsProtectionService extends ProtectionService {
     }
 
     public boolean addProtection(final Protection prot) {
-        if (protections.contains(prot) == false) {
-            if (prot != null) {
-                return protections.add(prot);
-            }
+        if (prot != null && protections.contains(prot) == false) {
+            return protections.add(prot);
         }
         return false;
     }
