@@ -25,7 +25,7 @@ import java.io.Serializable;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
 
-import com.volumetricpixels.utils.io.IOUtils;
+import com.volumetricpixels.utils.io.Serialization;
 
 import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import com.volumetricpixels.politics.exception.PropertySerializationException;
@@ -44,7 +44,7 @@ public final class PropertySerializer {
      */
     public static String serialize(final Serializable obj) throws PropertySerializationException {
         try {
-            return IOUtils.toString(obj);
+            return Serialization.toString(obj);
         } catch (final IOException e) {
             throw new PropertySerializationException("IOException occurred while serializing an object of type " + obj.getClass().getName() + "!", e);
         }
@@ -59,7 +59,7 @@ public final class PropertySerializer {
      */
     public static Object deserialize(final String string) throws PropertyDeserializationException {
         try {
-            return IOUtils.fromString(string);
+            return Serialization.fromString(string);
         } catch (final ClassNotFoundException e) {
             throw new PropertyDeserializationException("Could not find the object class for the given string while deserializing!", e);
         } catch (final IOException e) {
