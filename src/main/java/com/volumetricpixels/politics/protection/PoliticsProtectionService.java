@@ -31,6 +31,8 @@ import org.spout.api.plugin.services.ProtectionService;
 
 import com.volumetricpixels.politics.Politics;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * The ProtectionService of Politics
  */
@@ -90,7 +92,9 @@ public class PoliticsProtectionService extends ProtectionService {
 
     @Override
     public Protection getProtection(final String name) {
-        return null;
+        String[] split = name.split(",");
+        Point point = new Point(Spout.getEngine().getWorld(split[0]), parseInt(split[1]), parseInt(split[2]), parseInt(split[3]));
+        return Politics.getWorld(point.getWorld()).getPlotAt(point.getBlockX(), point.getBlockY(), point.getBlockZ());
     }
 
     public static PoliticsProtectionService getInstance() {
