@@ -37,7 +37,7 @@ import com.volumetricpixels.politics.world.Plot;
 /**
  * Deals with Plot protections in Politics
  */
-public class PoliticsProtectionServiceListener implements Listener {
+public class PoliticsProtectionListener implements Listener {
     @EventHandler(order = Order.LATEST)
     public void onEntityCanBreak(final EntityCanBreakEvent event) {
         final Entity entity = event.getEntity();

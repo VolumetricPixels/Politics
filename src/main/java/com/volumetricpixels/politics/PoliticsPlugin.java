@@ -24,15 +24,13 @@ import java.util.logging.Logger;
 
 import org.spout.api.Engine;
 import org.spout.api.plugin.CommonPlugin;
-import org.spout.api.plugin.ServiceManager.ServicePriority;
-import org.spout.api.plugin.services.ProtectionService;
 import org.spout.api.scheduler.TaskPriority;
 
 import com.volumetricpixels.politics.command.Commands;
 import com.volumetricpixels.politics.data.PoliticsFileSystem;
 import com.volumetricpixels.politics.data.SaveTask;
 import com.volumetricpixels.politics.group.privilege.PrivilegeManager;
-import com.volumetricpixels.politics.protection.PoliticsProtectionService;
+import com.volumetricpixels.politics.protection.PoliticsProtectionListener;
 import com.volumetricpixels.politics.universe.UniverseManager;
 import com.volumetricpixels.politics.world.PlotManager;
 
@@ -90,7 +88,7 @@ public class PoliticsPlugin extends CommonPlugin {
         // Register and schedule things with Spout
         final Engine e = getEngine();
         e.getEventManager().registerEvents(new PoliticsListener(), this);
-        e.getServiceManager().register(ProtectionService.class, new PoliticsProtectionService(), this, ServicePriority.Highest);
+        e.getEventManager().registerEvents(new PoliticsProtectionListener(), this);
         e.getScheduler().scheduleSyncRepeatingTask(this, new SaveTask(), 5 * 60 * 20, 5 * 60 * 20, TaskPriority.LOWEST);
 
         getLogger().log(Level.INFO, "Politics enabled!");
