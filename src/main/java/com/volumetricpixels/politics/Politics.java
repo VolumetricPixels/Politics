@@ -41,7 +41,7 @@ public final class Politics {
     /**
      * The URL to download Politics from
      */
-    public static final String JENKINS_URL = "http://ci.massiveminecraft.com/job/Politics";
+    public static final String JENKINS_URL = "";
 
     /**
      * Gets the PoliticsPlugin instance.

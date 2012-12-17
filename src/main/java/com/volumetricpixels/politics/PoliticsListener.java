@@ -22,9 +22,7 @@ package com.volumetricpixels.politics;
 import org.spout.api.event.Listener;
 
 /**
- * The Listener of Politics
- * 
- * Used for calling custom events and tracking and/or cancelling other events
+ * The main listener of Politics
  */
 public class PoliticsListener implements Listener {
 }

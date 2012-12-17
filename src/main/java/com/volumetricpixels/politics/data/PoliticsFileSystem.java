@@ -28,6 +28,11 @@ import com.volumetricpixels.politics.Politics;
  */
 public class PoliticsFileSystem {
     /**
+     * Base directory
+     */
+    private final File baseDir;
+
+    /**
      * Rules directory
      */
     private final File rulesDir;
@@ -51,12 +56,11 @@ public class PoliticsFileSystem {
      * C'tor
      */
     public PoliticsFileSystem() {
-        final File base = Politics.getPlugin().getDataFolder();
-
-        rulesDir = new File(base, "rules/");
-        worldConfigDir = new File(base, "worlds/");
-        worldsDir = new File(base, "data/worlds/");
-        universesDir = new File(base, "data/universes/");
+        baseDir = Politics.getPlugin().getDataFolder();
+        rulesDir = new File(baseDir, "rules/");
+        worldConfigDir = new File(baseDir, "worlds/");
+        worldsDir = new File(baseDir, "data/worlds/");
+        universesDir = new File(baseDir, "data/universes/");
 
         if (!rulesDir.exists()) {
             rulesDir.mkdirs();
@@ -70,6 +74,15 @@ public class PoliticsFileSystem {
         if (!universesDir.exists()) {
             universesDir.mkdirs();
         }
+    }
+
+    /**
+     * Gets the base directory
+     * 
+     * @return the base directory
+     */
+    public File getBaseDir() {
+        return baseDir;
     }
 
     /**
