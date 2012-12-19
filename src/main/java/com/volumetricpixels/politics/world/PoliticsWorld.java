@@ -27,9 +27,7 @@ import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.spout.api.Spout;
@@ -50,12 +48,6 @@ import com.volumetricpixels.politics.universe.Universe;
  * Represents a world containing plots
  */
 public class PoliticsWorld implements Storable {
-    /**
-     * A store of already-created Plots. This is necessary for handling
-     * protections
-     */
-    private final Map<String, Plot> plots = new HashMap<String, Plot>();
-
     /**
      * The name of the GroupsWorld.
      */
@@ -193,11 +185,7 @@ public class PoliticsWorld implements Storable {
      * @return
      */
     public Plot getPlotAt(final int x, final int y, final int z) {
-        final String str = x + "," + y + "," + z;
-        if (plots.containsKey(str) == false) {
-            plots.put(str, new Plot(this, x, y, z));
-        }
-        return plots.get(str);
+        return new Plot(this, x, y, z);
     }
 
     /**
