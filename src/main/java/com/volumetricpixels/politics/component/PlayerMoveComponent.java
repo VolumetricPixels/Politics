@@ -1,6 +1,6 @@
 package com.volumetricpixels.politics.component;
 
-import org.spout.api.component.components.EntityComponent;
+import org.spout.api.component.type.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
