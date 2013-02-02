@@ -29,7 +29,7 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.privilege.PrivilegeManager;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.universe.UniverseManager;
-import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.AbstractPlot;
 import com.volumetricpixels.politics.world.PlotManager;
 import com.volumetricpixels.politics.world.PoliticsWorld;
 
@@ -92,10 +92,10 @@ public final class Politics {
      * Gets the plot at the given position.
      * 
      * @param position
-     *            The Point the Plot is located at
-     * @return The Plot the given Point is inside
+     *            The Point the ChunkPlot is located at
+     * @return The ChunkPlot the given Point is inside
      */
-    public static Plot getPlotAt(final Point position) {
+    public static AbstractPlot getPlotAt(final Point position) {
         return getPlotManager().getPlotAt(position);
     }
 

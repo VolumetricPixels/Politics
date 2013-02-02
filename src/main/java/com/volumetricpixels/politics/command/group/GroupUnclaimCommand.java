@@ -32,7 +32,7 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.util.MessageStyle;
-import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.AbstractPlot;
 
 /**
  * Claims the plot you are in.
@@ -60,7 +60,7 @@ public class GroupUnclaimCommand extends GroupCommand {
         // (should be in GroupCommand)
         final Point position = ((Player) source).getScene().getPosition();
 
-        final Plot plot = Politics.getPlotAt(position);
+        final AbstractPlot plot = Politics.getPlotAt(position);
         if (!plot.isOwner(group)) {
             throw new CommandException("Sorry, this plot is not owned by " + group.getStringProperty(GroupProperty.NAME) + ".");
         }

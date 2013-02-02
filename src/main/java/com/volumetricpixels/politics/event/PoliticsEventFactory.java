@@ -34,7 +34,7 @@ import com.volumetricpixels.politics.event.universe.UniverseCreateEvent;
 import com.volumetricpixels.politics.event.universe.UniverseDestroyEvent;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.universe.Universe;
-import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.AbstractPlot;
 
 /**
  * Factory for creating events
@@ -44,14 +44,14 @@ public final class PoliticsEventFactory {
      * Calls a new group claim plot event.
      * 
      * @param group
-     *            The Group claiming the Plot
+     *            The Group claiming the AbstractPlot
      * @param plot
-     *            The Plot being claimed
+     *            The AbstractPlot being claimed
      * @param claimer
-     *            The person claiming the Plot for the Group
+     *            The person claiming the AbstractPlot for the Group
      * @return The called GroupClaimPlotEvent
      */
-    public static GroupClaimPlotEvent callGroupClaimPlotEvent(final Group group, final Plot plot, final CommandSource claimer) {
+    public static GroupClaimPlotEvent callGroupClaimPlotEvent(final Group group, final AbstractPlot plot, final CommandSource claimer) {
         return callEvent(new GroupClaimPlotEvent(group, plot, claimer));
     }
 
@@ -74,14 +74,14 @@ public final class PoliticsEventFactory {
      * Calls a new group unclaim plot event.
      * 
      * @param group
-     *            The Group which is unclaiming the Plot
+     *            The Group which is unclaiming the AbstractPlot
      * @param plot
-     *            The Plot which is being unclaimed
+     *            The AbstractPlot which is being unclaimed
      * @param unclaimer
-     *            The person who is unclaiming the Plot for the Group
+     *            The person who is unclaiming the AbstractPlot for the Group
      * @return The called GroupUnclaimPlotEvent
      */
-    public static GroupUnclaimPlotEvent callGroupUnclaimPlotEvent(final Group group, final Plot plot, final CommandSource unclaimer) {
+    public static GroupUnclaimPlotEvent callGroupUnclaimPlotEvent(final Group group, final AbstractPlot plot, final CommandSource unclaimer) {
         return callEvent(new GroupUnclaimPlotEvent(group, plot, unclaimer));
     }
 
@@ -102,14 +102,14 @@ public final class PoliticsEventFactory {
      * Calls a new plot change event.
      * 
      * @param player
-     *            The Player changing Plot
+     *            The Player changing AbstractPlot
      * @param from
-     *            The Plot from which the Player moved
+     *            The AbstractPlot from which the Player moved
      * @param to
-     *            The Plot to which the Player is moving
+     *            The AbstractPlot to which the Player is moving
      * @return The called PlayerChangePlotEvent
      */
-    public static PlayerChangePlotEvent callPlayerChangePlotEvent(final Player player, final Plot from, final Plot to) {
+    public static PlayerChangePlotEvent callPlayerChangePlotEvent(final Player player, final AbstractPlot from, final AbstractPlot to) {
         return callEvent(new PlayerChangePlotEvent(player, from, to));
     }
 
@@ -117,14 +117,14 @@ public final class PoliticsEventFactory {
      * Calls a new PlotOwnerChangeEvent.
      * 
      * @param plot
-     *            The Plot of which the owner is changing
+     *            The AbstractPlot of which the owner is changing
      * @param group
      *            The ID of the group the plot belongs to
      * @param add
      *            Whether the owner is being added
      * @return The called PlotOwnerChangeEvent
      */
-    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(final Plot plot, final int group, final boolean add) {
+    public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(final AbstractPlot plot, final int group, final boolean add) {
         return callEvent(new PlotOwnerChangeEvent(plot, group, add));
     }
 

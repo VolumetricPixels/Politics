@@ -27,29 +27,37 @@ import java.util.List;
 import java.util.Set;
 
 import org.spout.api.entity.Player;
-import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.Politics;
+import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.plot.PlotOwnerChangeEvent;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.privilege.Privilege;
 import com.volumetricpixels.politics.universe.Universe;
+import com.volumetricpixels.politics.util.DataUtils;
+import gnu.trove.iterator.TIntIterator;
+import gnu.trove.list.array.TIntArrayList;
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+import org.bson.types.BasicBSONList;
+import org.spout.api.Spout;
+import org.spout.api.geo.World;
 
 /**
  * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
  */
-public class Plot {
+public abstract class AbstractPlot implements Storable {
     /**
      * World of the plot
      */
     private final PoliticsWorld world;
 
     /**
-     * The Chunk the Plot is in
+     * Owners of this plot
      */
-    private final Chunk chunk;
+    private final TIntList owners;
 
     /**
      * C'tor
@@ -59,9 +67,45 @@ public class Plot {
      * @param y
      * @param z
      */
-    Plot(final PoliticsWorld world, final int x, final int y, final int z) {
+    AbstractPlot(final PoliticsWorld world) {
+        this(world, new TIntArrayList());
+    }
+
+    /**
+     * C'tor
+     * 
+     * @param world
+     * @param x
+     * @param y
+     * @param z
+     */
+    AbstractPlot(final PoliticsWorld world, final TIntList owners) {
         this.world = world;
-        chunk = world.getWorld().getChunk(x, y, z);
+        this.owners = owners;
+    }
+
+    /**
+     * C'tor
+     * 
+     * @param world
+     * @param x
+     * @param y
+     * @param z
+     */
+    AbstractPlot(BasicBSONObject object) {
+        this.world = Politics.getWorld(DataUtils.getWorld(object.getString("world", null)));
+        BasicBSONList list = DataUtils.getList(object);
+        final TIntList tList = new TIntArrayList();
+        for (final Object obj : list) {
+            if (!(obj instanceof Integer)) {
+                throw new IllegalArgumentException("obj is not an Integer!");
+            }
+            final int val = (Integer) obj;
+            tList.add(val);
+        }
+        this.owners = tList;
+        
+        
     }
 
     /**
@@ -74,49 +118,39 @@ public class Plot {
     }
 
     /**
-     * Gets the Chunk of the Plot
+     * Gets the x coordinate of the Plot
      * 
-     * @return The Chunk the Plot is inside
+     * @return The Plot's x coordinate
      */
-    public Chunk getChunk() {
-        return chunk;
+    public final int getX() {
+        return getBasePoint().getBlockX();
     }
 
     /**
-     * Gets the x chunk coordinate of the Plot
+     * Gets the y coordinate of the Plot
      * 
-     * @return The Plot's Chunk's x coordinate
+     * @return The Plot's y coordinate
      */
-    public int getX() {
-        return chunk.getX();
+    public final int getY() {
+        return getBasePoint().getBlockY();
     }
 
     /**
-     * Gets the y chunk coordinate of the Plot
-     * 
-     * @return The Plot's Chunk's y coordinate
-     */
-    public int getY() {
-        return chunk.getY();
-    }
-
-    /**
-     * Gets the z chunk coordinate of the Plot
+     * Gets the z coordinate of the Plot
      * 
      * @return The Plot's Chunk's z coordinate
      */
-    public int getZ() {
-        return chunk.getZ();
+    public final int getZ() {
+        return getBasePoint().getBlockZ();
     }
 
     /**
-     * Gets the point at the base of the plot.
+     * Gets the point at the base of the Plot as determined by the specific type of Plot
+     * This is used for saving and is completely up to implementation.
      * 
      * @return
      */
-    public Point getBase() {
-        return chunk.getBase();
-    }
+    public abstract Point getBasePoint();
 
     /**
      * Gets the IDs of the owners of the plot.
@@ -124,7 +158,7 @@ public class Plot {
      * @return
      */
     public TIntList getOwnerIds() {
-        return world.getOwnerIds(getX(), getY(), getZ());
+        return owners;
     }
 
     /**
@@ -133,7 +167,18 @@ public class Plot {
      * @return
      */
     public List<Group> getOwners() {
-        return world.getOwners(getX(), getY(), getZ());
+        final List<Group> ret = new ArrayList<Group>();
+        final TIntIterator it = owners.iterator();
+        while (it.hasNext()) {
+            final int id = it.next();
+            final Group group = Politics.getUniverseManager().getGroupById(id);
+            if (group == null) {
+                owners.remove(id); // Group no longer exists
+            } else {
+                ret.add(group);
+            }
+        }
+        return ret;
     }
 
     /**
@@ -201,9 +246,7 @@ public class Plot {
             }
             return false;
         }
-
-        final TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
-        return list.add(group.getUid());
+        return owners.add(group.getUid());
     }
 
     /**
@@ -213,15 +256,15 @@ public class Plot {
      * @return True if successful
      */
     public boolean removeOwner(final int id) {
-        final TIntList list = world.getInternalOwnerList(getX(), getY(), getZ());
-        if (!list.contains(id)) {
+        Point base = getBasePoint();
+        if (!owners.contains(id)) {
             return true; // Not in there
         }
         final PlotOwnerChangeEvent event = PoliticsEventFactory.callPlotOwnerChangeEvent(this, id, true);
         if (event.isCancelled()) {
             return false;
         }
-        return list.remove(id);
+        return owners.remove(id);
     }
 
     /**
@@ -241,7 +284,7 @@ public class Plot {
      * @return
      */
     public boolean isOwner(final int id) {
-        return world.getInternalOwnerList(getX(), getY(), getZ()).contains(id);
+        return owners.contains(id);
     }
 
     /**
@@ -266,7 +309,16 @@ public class Plot {
         return privileges;
     }
 
-    public boolean contains(final Point point) {
-        return chunk.contains(point);
+    @Override
+    public BSONObject toBSONObject() {
+        BasicBSONObject obj = new BasicBSONObject();
+        obj.put("world", world.getName());
+        return obj;
+    }
+
+    public abstract boolean contains(final Point point);
+    
+    public enum Type {
+        CHUNK;
     }
 }

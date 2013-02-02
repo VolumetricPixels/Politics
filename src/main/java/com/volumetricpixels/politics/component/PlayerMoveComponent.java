@@ -8,7 +8,7 @@ import org.spout.api.geo.discrete.Transform;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
-import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.AbstractPlot;
 
 public class PlayerMoveComponent extends EntityComponent {
         private Transform prev;
@@ -25,8 +25,8 @@ public class PlayerMoveComponent extends EntityComponent {
                     return;
                 }
 
-                final Plot prev = Politics.getPlotAt(from);
-                final Plot now = Politics.getPlotAt(to);
+                final AbstractPlot prev = Politics.getPlotAt(from);
+                final AbstractPlot now = Politics.getPlotAt(to);
 
                 // Check for different plot
                 if (prev.equals(now)) {

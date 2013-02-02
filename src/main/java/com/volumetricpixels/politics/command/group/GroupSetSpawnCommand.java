@@ -32,7 +32,7 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.util.MessageStyle;
-import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.AbstractPlot;
 
 /**
  * Claims the plot you are in.
@@ -58,7 +58,7 @@ public class GroupSetSpawnCommand extends GroupCommand {
 
         final Transform transform = ((Player) source).getScene().getTransform();
 
-        final Plot plot = Politics.getPlotAt(transform.getPosition());
+        final AbstractPlot plot = Politics.getPlotAt(transform.getPosition());
         if (!plot.isOwner(group)) {
             throw new CommandException("Sorry, the plot you are in must be owned by " + group.getStringProperty(GroupProperty.NAME)
                     + " to set your spawn in it!");

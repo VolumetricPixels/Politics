@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.event.group;
 
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.AbstractPlot;
 
 /**
  * Called whenever a group does something with a plot
@@ -29,7 +29,7 @@ public abstract class GroupPlotEvent extends GroupEvent {
     /**
      * A plot.
      */
-    private final Plot plot;
+    private final AbstractPlot plot;
 
     /**
      * C'tor
@@ -37,7 +37,7 @@ public abstract class GroupPlotEvent extends GroupEvent {
      * @param group
      * @param plot
      */
-    protected GroupPlotEvent(final Group group, final Plot plot) {
+    protected GroupPlotEvent(final Group group, final AbstractPlot plot) {
         super(group);
         this.plot = plot;
     }
@@ -47,7 +47,7 @@ public abstract class GroupPlotEvent extends GroupEvent {
      * 
      * @return
      */
-    public final Plot getPlot() {
+    public final AbstractPlot getPlot() {
         return plot;
     }
 }

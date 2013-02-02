@@ -24,7 +24,7 @@ import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.AbstractPlot;
 
 /**
  * Called when a group tries to unclaim a plot
@@ -43,7 +43,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
      * @param group
      * @param unclaimer
      */
-    public GroupUnclaimPlotEvent(final Group group, final Plot plot, final CommandSource unclaimer) {
+    public GroupUnclaimPlotEvent(final Group group, final AbstractPlot plot, final CommandSource unclaimer) {
         super(group, plot);
         this.unclaimer = unclaimer;
     }
