@@ -32,7 +32,8 @@ import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.util.MessageStyle;
-import com.volumetricpixels.politics.world.AbstractPlot;
+import com.volumetricpixels.politics.world.Plot;
+import org.spout.api.geo.LoadOption;
 
 /**
  * Claims the plot you are in.
@@ -48,7 +49,7 @@ public class GroupClaimCommand extends GroupCommand {
         super(level, "claim");
     }
 
-    // separate this into cuboid and chunk. It's only chunk now.
+    //TODO separate this into cuboid and chunk. It's only chunk now.
     @Override
     public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         final Group group = findGroup(source, cmd, context);
@@ -64,7 +65,7 @@ public class GroupClaimCommand extends GroupCommand {
             throw new CommandException("You can't create a plot for that group in this world.");
         }
 
-        final AbstractPlot plot = Politics.getPlotAt(position);
+        final Plot plot = Politics.getPlotManager().getPlotAtChunk(position.getChunk(LoadOption.NO_LOAD));
         if (plot.isOwner(group)) {
             throw new CommandException(group.getStringProperty(GroupProperty.NAME) + " already owns this plot.");
         }

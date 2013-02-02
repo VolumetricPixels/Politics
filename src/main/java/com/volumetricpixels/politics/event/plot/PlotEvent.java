@@ -21,7 +21,7 @@ package com.volumetricpixels.politics.event.plot;
 
 import org.spout.api.event.Event;
 
-import com.volumetricpixels.politics.world.AbstractPlot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Called with plot-related actions
@@ -30,12 +30,12 @@ public abstract class PlotEvent extends Event {
     /**
      * The plot involved in this event.
      */
-    protected final AbstractPlot plot;
+    protected final Plot plot;
 
     /**
      * C'tor
      */
-    protected PlotEvent(final AbstractPlot plot) {
+    protected PlotEvent(final Plot plot) {
         this.plot = plot;
     }
 
@@ -44,7 +44,7 @@ public abstract class PlotEvent extends Event {
      * 
      * @return
      */
-    public AbstractPlot getPlot() {
+    public Plot getPlot() {
         return plot;
     }
 }

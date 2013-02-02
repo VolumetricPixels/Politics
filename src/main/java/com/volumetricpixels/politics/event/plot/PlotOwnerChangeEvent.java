@@ -24,7 +24,7 @@ import org.spout.api.event.HandlerList;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.world.AbstractPlot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Called when a plot's owners changes
@@ -49,7 +49,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
      * @param group
      * @param add
      */
-    public PlotOwnerChangeEvent(final AbstractPlot plot, final int group, final boolean add) {
+    public PlotOwnerChangeEvent(final Plot plot, final int group, final boolean add) {
         super(plot);
         this.group = group;
         this.add = add;

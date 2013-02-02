@@ -24,16 +24,16 @@ import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 
 import com.volumetricpixels.politics.group.Group;
-import com.volumetricpixels.politics.world.AbstractPlot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Called when a {@link Group} tries to claim a {@link AbstractPlot}.
+ * Called when a {@link Group} tries to claim a {@link Plot}.
  */
 public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 
     /**
-     * The person claiming the {@link AbstractPlot} for the {@link Group}
+     * The person claiming the {@link Plot} for the {@link Group}
      */
     private final CommandSource claimer;
 
@@ -41,13 +41,13 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
      * C'tor
      * 
      * @param group
-     *            The {@link Group} claiming the {@link AbstractPlot}
+     *            The {@link Group} claiming the {@link Plot}
      * @param plot
-     *            The {@link AbstractPlot} being claimed
+     *            The {@link Plot} being claimed
      * @param claimer
-     *            The person claiming the {@link AbstractPlot} for the {@link Group}
+     *            The person claiming the {@link Plot} for the {@link Group}
      */
-    public GroupClaimPlotEvent(final Group group, final AbstractPlot plot, final CommandSource claimer) {
+    public GroupClaimPlotEvent(final Group group, final Plot plot, final CommandSource claimer) {
         super(group, plot);
         this.claimer = claimer;
     }
@@ -55,7 +55,7 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
     /**
      * Gets the claimer of the plot.
      * 
-     * @return The {@link CommandSender} claiming the {@link AbstractPlot} for the
+     * @return The {@link CommandSender} claiming the {@link Plot} for the
      *         {@link Group}
      */
     public CommandSource getClaimer() {

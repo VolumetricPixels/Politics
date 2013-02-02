@@ -21,30 +21,29 @@ package com.volumetricpixels.politics.world;
 
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
-import org.spout.api.geo.cuboid.Chunk;
+import org.spout.api.geo.cuboid.Cuboid;
 import org.spout.api.geo.discrete.Point;
+import org.spout.api.math.Vector3;
 
 
 /**
- * A ChunkPlot wraps around a Chunk as well as storing a PoliticsWorld and owners
+ * A RegionPlot wraps around a cuboid
  */
-public class ChunkPlot extends Plot {
-    /**
-     * The Chunk the ChunkPlot is in
-     */
-    private final Chunk chunk;
+public class RegionPlot extends Plot {
+
+    private final Cuboid cuboid;
 
     /**
      * C'tor
      * 
      * @param world
-     * @param x
-     * @param y
-     * @param z
+     * @param xSize
+     * @param ySize
+     * @param zSize
      */
-    ChunkPlot(final PoliticsWorld world, final int x, final int y, final int z) {
+    RegionPlot(final PoliticsWorld world, final Point basePoint, final int xSize, final int ySize, final int zSize) {
         super(world);
-        chunk = world.getWorld().getChunk(x, y, z);
+        cuboid = new Cuboid(basePoint, new Vector3(xSize, ySize, zSize));
     }
 
     /**
@@ -55,30 +54,42 @@ public class ChunkPlot extends Plot {
      * @param y
      * @param z
      */
-    ChunkPlot(BasicBSONObject object) {
+    RegionPlot(BasicBSONObject object) {
         super(object);
         Object x = object.get("x");
         Object y = object.get("y");
         Object z = object.get("z");
+        Object xSize = object.get("xSize");
+        Object ySize = object.get("ySize");
+        Object zSize = object.get("zSize");
         if (!(x instanceof Integer)) {
-            throw new IllegalArgumentException("X was not available.");
+            throw new IllegalArgumentException("x was not an Integer.");
         }
         if (!(y instanceof Integer)) {
-            throw new IllegalArgumentException("Y was not available.");
+            throw new IllegalArgumentException("y was not an Integer.");
         }
         if (!(z instanceof Integer)) {
-            throw new IllegalArgumentException("Z was not available.");
+            throw new IllegalArgumentException("z was not an Integer.");
         }
-        chunk = getPoliticsWorld().getWorld().getChunk((Integer) x, (Integer) y, (Integer) z);
+        if (!(xSize instanceof Integer)) {
+            throw new IllegalArgumentException("xSize was not  an Integer.");
+        }
+        if (!(ySize instanceof Integer)) {
+            throw new IllegalArgumentException("ySize was not  an Integer.");
+        }
+        if (!(zSize instanceof Integer)) {
+            throw new IllegalArgumentException("zSize was not  an Integer.");
+        }
+        cuboid = new Cuboid(new Point(getPoliticsWorld().getWorld(), (Integer) x, (Integer) y, (Integer) z), new Vector3((Integer) xSize, (Integer) ySize, (Integer) zSize));
     }
 
     /**
-     * Gets the Chunk of the ChunkPlot
+     * Gets the Cuboid
      * 
-     * @return The Chunk the ChunkPlot is inside
+     * @return The Cuboid the RegionPlot is inside
      */
-    public Chunk getChunk() {
-        return chunk;
+    public Cuboid getCuboid() {
+        return cuboid;
     }
 
     /**
@@ -88,12 +99,12 @@ public class ChunkPlot extends Plot {
      */
     @Override
     public Point getBasePoint() {
-        return chunk.getBase();
+        return cuboid.getBase();
     }
 
     @Override
     public boolean contains(final Point point) {
-        return chunk.contains(point);
+        return cuboid.contains(point);
     }
 
     @Override
@@ -102,7 +113,11 @@ public class ChunkPlot extends Plot {
         obj.put("x", getX());
         obj.put("y", getY());
         obj.put("z", getZ());
-        obj.put("type", Type.CHUNK.name());
+        Vector3 size = cuboid.getSize();
+        obj.put("xSize", size.getX());
+        obj.put("ySize", size.getY());
+        obj.put("zSize", size.getZ());
+        obj.put("type", Type.REGION.name());
         return obj;
     }
 
@@ -114,8 +129,8 @@ public class ChunkPlot extends Plot {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ChunkPlot other = (ChunkPlot) obj;
-        if (this.chunk != other.chunk && (this.chunk == null || !this.chunk.equals(other.chunk))) {
+        final RegionPlot other = (RegionPlot) obj;
+        if (this.cuboid != other.cuboid && (this.cuboid == null || !this.cuboid.equals(other.cuboid))) {
             return false;
         }
         return super.equals(obj);
@@ -123,8 +138,8 @@ public class ChunkPlot extends Plot {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + (this.chunk != null ? this.chunk.hashCode() : 0);
+        int hash = 5;
+        hash = 67 * hash + (this.cuboid != null ? this.cuboid.hashCode() : 0);
         return hash;
     }
     

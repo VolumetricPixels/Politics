@@ -24,7 +24,7 @@ import org.spout.api.event.Cancellable;
 import org.spout.api.event.HandlerList;
 import org.spout.api.event.player.PlayerEvent;
 
-import com.volumetricpixels.politics.world.AbstractPlot;
+import com.volumetricpixels.politics.world.Plot;
 
 /**
  * Called when a player changes the plot they are in
@@ -35,12 +35,12 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
     /**
      * From plot
      */
-    private final AbstractPlot from;
+    private final Plot from;
 
     /**
      * To plot
      */
-    private final AbstractPlot to;
+    private final Plot to;
 
     /**
      * C'tor
@@ -49,7 +49,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
      * @param from
      * @param to
      */
-    public PlayerChangePlotEvent(final Player p, final AbstractPlot from, final AbstractPlot to) {
+    public PlayerChangePlotEvent(final Player p, final Plot from, final Plot to) {
         super(p);
         this.from = from;
         this.to = to;
@@ -60,7 +60,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
      * 
      * @return
      */
-    public AbstractPlot getFrom() {
+    public Plot getFrom() {
         return from;
     }
 
@@ -69,7 +69,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
      * 
      * @return
      */
-    public AbstractPlot getTo() {
+    public Plot getTo() {
         return to;
     }
 

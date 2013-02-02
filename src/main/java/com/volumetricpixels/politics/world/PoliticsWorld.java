@@ -19,11 +19,6 @@
  */
 package com.volumetricpixels.politics.world;
 
-import gnu.trove.iterator.TIntIterator;
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TIntArrayList;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.spout.api.Spout;
@@ -59,7 +54,7 @@ public class PoliticsWorld implements Storable {
     /**
      * Contains all owners corresponding to their proper positions.
      */
-    private final TripleIntObjectMap<AbstractPlot> plots;
+    private final TripleIntObjectMap<Plot> plots;
 
     /**
      * Creates a new GroupsWorld.
@@ -67,7 +62,7 @@ public class PoliticsWorld implements Storable {
      * @param name
      */
     PoliticsWorld(final String name, final WorldConfig config) {
-        this(name, config, new TSyncInt21TripleObjectHashMap<AbstractPlot>());
+        this(name, config, new TSyncInt21TripleObjectHashMap<Plot>());
     }
 
     /**
@@ -77,7 +72,7 @@ public class PoliticsWorld implements Storable {
      * @param config
      * @param owners
      */
-    private PoliticsWorld(final String name, final WorldConfig config, final TripleIntObjectMap<AbstractPlot> plots) {
+    private PoliticsWorld(final String name, final WorldConfig config, final TripleIntObjectMap<Plot> plots) {
         this.name = name;
         this.config = config;
         this.plots = plots;
@@ -92,7 +87,7 @@ public class PoliticsWorld implements Storable {
      */
     public PoliticsWorld(final String name, final WorldConfig config, final BasicBSONObject object) {
         this.name = object.getString("name", null);
-        this.plots = new TSyncInt21TripleObjectHashMap<AbstractPlot>();
+        this.plots = new TSyncInt21TripleObjectHashMap<Plot>();
         BasicBSONList list = DataUtils.getList(object.get("plots"));
         for (Object o : list) {
             if (!(o instanceof BasicBSONObject)) {
@@ -100,14 +95,22 @@ public class PoliticsWorld implements Storable {
             }
             BasicBSONObject plotObj = (BasicBSONObject) o;
             String string = plotObj.getString("type", null);
-            if (string == null || AbstractPlot.Type.valueOf(string) == null) {
+            if (string == null || Plot.Type.valueOf(string) == null) {
                 throw new IllegalArgumentException("Type is not a recognized string");
             }
-            switch (AbstractPlot.Type.valueOf(string)) {
+            switch (Plot.Type.valueOf(string)) {
                 case CHUNK:
+                    {
                     ChunkPlot p = new ChunkPlot(plotObj);
                     plots.put(p.getX(), p.getY(), p.getZ(), p);
                     break;
+                    }
+                case REGION:
+                    {
+                    RegionPlot p = new RegionPlot(plotObj);
+                    plots.put(p.getX(), p.getY(), p.getZ(), p);
+                    break;
+                    }
                 default:
                     throw new IllegalStateException("Was unable to handle Type");
             }
@@ -203,20 +206,20 @@ public class PoliticsWorld implements Storable {
      * @param z
      * @return
      */
-    public AbstractPlot getPlotAt(final int x, final int y, final int z) {
+    public Plot getPlotAt(final int x, final int y, final int z) {
         return plots.get(x, y, z);
     }
 
     /**
      * Gets the plot at the given chunk position.
      * 
-     * @param x
-     * @param y
-     * @param z
+     * @param x chunkX
+     * @param y chunkY
+     * @param z chunkZ
      * @return
      */
     public ChunkPlot getPlotAtChunkPosition(final int x, final int y, final int z) {
-        return new ChunkPlot(this, x / config.getPlotSizeX(), y / config.getPlotSizeY(), z / config.getPlotSizeZ());
+        return new ChunkPlot(this, x, y, z);
     }
 
     /**
@@ -233,10 +236,16 @@ public class PoliticsWorld implements Storable {
         final BasicBSONObject bson = new BasicBSONObject();
         bson.put("name", name);
         BasicBSONList plotList = new BasicBSONList();
-        for (AbstractPlot plot : plots.valueCollection()) {
+        for (Plot plot : plots.valueCollection()) {
+            if (!plot.canStore()) continue;
             plotList.add(plot.toBSONObject());
         }
         bson.put("plots", plots);
         return bson;
+    }
+
+    @Override
+    public boolean canStore() {
+        return true;
     }
 }

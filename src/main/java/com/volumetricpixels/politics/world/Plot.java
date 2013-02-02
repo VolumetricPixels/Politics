@@ -42,13 +42,11 @@ import gnu.trove.list.array.TIntArrayList;
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 import org.bson.types.BasicBSONList;
-import org.spout.api.Spout;
-import org.spout.api.geo.World;
 
 /**
  * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
  */
-public abstract class AbstractPlot implements Storable {
+public abstract class Plot implements Storable {
     /**
      * World of the plot
      */
@@ -67,7 +65,7 @@ public abstract class AbstractPlot implements Storable {
      * @param y
      * @param z
      */
-    AbstractPlot(final PoliticsWorld world) {
+    Plot(final PoliticsWorld world) {
         this(world, new TIntArrayList());
     }
 
@@ -79,7 +77,7 @@ public abstract class AbstractPlot implements Storable {
      * @param y
      * @param z
      */
-    AbstractPlot(final PoliticsWorld world, final TIntList owners) {
+    Plot(final PoliticsWorld world, final TIntList owners) {
         this.world = world;
         this.owners = owners;
     }
@@ -92,7 +90,7 @@ public abstract class AbstractPlot implements Storable {
      * @param y
      * @param z
      */
-    AbstractPlot(BasicBSONObject object) {
+    Plot(BasicBSONObject object) {
         this.world = Politics.getWorld(DataUtils.getWorld(object.getString("world", null)));
         BasicBSONList list = DataUtils.getList(object);
         final TIntList tList = new TIntArrayList();
@@ -316,9 +314,39 @@ public abstract class AbstractPlot implements Storable {
         return obj;
     }
 
+    @Override
+    public boolean canStore() {
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Plot other = (Plot) obj;
+        if (this.world != other.world && (this.world == null || !this.world.equals(other.world))) {
+            return false;
+        }
+        if (this.owners != other.owners && (this.owners == null || !this.owners.equals(other.owners))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+    
+    
     public abstract boolean contains(final Point point);
     
     public enum Type {
-        CHUNK;
+        CHUNK, REGION;
     }
 }

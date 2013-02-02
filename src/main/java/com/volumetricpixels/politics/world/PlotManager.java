@@ -120,6 +120,7 @@ public class PlotManager {
         Politics.getFileSystem().getWorldsDir().mkdirs();
 
         for (final PoliticsWorld world : worlds.values()) {
+            if (!world.canStore()) continue;
             final String fileName = world.getName() + ".ptw";
             final File worldFile = new File(Politics.getFileSystem().getWorldsDir(), fileName);
 
@@ -190,7 +191,7 @@ public class PlotManager {
      * @param z
      * @return
      */
-    public AbstractPlot getPlotAtPosition(final String world, final int x, final int y, final int z) {
+    public Plot getPlotAtPosition(final String world, final int x, final int y, final int z) {
         return getWorld(world).getPlotAtChunkPosition(x, y, z);
     }
 
@@ -203,7 +204,7 @@ public class PlotManager {
      * @param z
      * @return
      */
-    public AbstractPlot getPlotAtPosition(final World world, final int x, final int y, final int z) {
+    public Plot getPlotAtPosition(final World world, final int x, final int y, final int z) {
         return getWorld(world).getPlotAtChunkPosition(x, y, z);
     }
 
@@ -223,7 +224,7 @@ public class PlotManager {
      * @param position
      * @return
      */
-    public AbstractPlot getPlotAt(final Point position) {
+    public Plot getPlotAt(final Point position) {
         return getPlotAtPosition(position.getWorld(), position.getChunkX(), position.getChunkY(), position.getChunkZ());
     }
 
