@@ -58,7 +58,7 @@ public class GroupClaimCommand extends GroupCommand {
 
         // TODO add a way to get the world, x, y, z from the command line
         // (should be in GroupCommand)
-        final Point position = ((Player) source).getTransform().getPosition();
+        final Point position = ((Player) source).getScene().getPosition();
         if (!group.getUniverse().getWorlds().contains(Politics.getWorld(position.getWorld()))) {
             throw new CommandException("You can't create a plot for that group in this world.");
         }

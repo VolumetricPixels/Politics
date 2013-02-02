@@ -15,10 +15,10 @@ public class PlayerMoveComponent extends EntityComponent {
 
         @Override
         public void onTick(float dt) {
-            if (prev != null && !prev.equals(getOwner().getTransform().getTransform())) {
+            if (prev != null && !prev.equals(getOwner().getScene().getTransform())) {
                 Player player = (Player) getOwner();
                 Point from = prev.getPosition();
-                Point to = getOwner().getTransform().getPosition();
+                Point to = getOwner().getScene().getPosition();
 
                 // Check for chunk movement
                 if (from.getChunkX() == to.getChunkX() && from.getChunkY() == to.getChunkY() && from.getChunkZ() == to.getChunkZ()) {
@@ -36,10 +36,10 @@ public class PlayerMoveComponent extends EntityComponent {
                 // Call event
                 final PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
                 if (pcpe.isCancelled()) {
-                    getOwner().getTransform().setPosition(from);
+                    getOwner().getScene().setPosition(from);
                 }
 
-                this.prev = getOwner().getTransform().getTransform();
+                this.prev = getOwner().getScene().getTransform();
             }
         }
 }
