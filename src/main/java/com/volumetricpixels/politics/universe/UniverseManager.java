@@ -176,6 +176,7 @@ public class UniverseManager {
         final BSONEncoder encoder = new BasicBSONEncoder();
         Politics.getFileSystem().getUniversesDir().mkdirs();
         for (final Universe universe : universes.values()) {
+            if (!universe.canStore()) continue;
             final String fileName = universe.getName() + ".cou";
             final File universeFile = new File(Politics.getFileSystem().getUniversesDir(), fileName);
 

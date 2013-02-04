@@ -33,18 +33,19 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.privilege.GroupPlotPrivileges;
 import com.volumetricpixels.politics.world.Plot;
+import com.volumetricpixels.politics.world.ChunkPlot;
 
 /**
- * Deals with Plot protections in Politics
+ * Deals with ChunkPlot protections in Politics
  */
 public class PoliticsProtectionListener implements Listener {
     @EventHandler(order = Order.LATEST)
     public void onEntityCanBreak(final EntityCanBreakEvent event) {
         final Entity entity = event.getEntity();
         final Plot plot = Politics.getPlotAt(event.getBlock().getPosition());
-        final List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getX(), plot.getY(), plot.getZ());
+        final List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getBasePoint().getBlockX(), plot.getBasePoint().getBlockY(), plot.getBasePoint().getBlockZ());
 
-        if (owners.size() == 0) {
+        if (owners.isEmpty()) {
             return;
         }
 
@@ -64,9 +65,9 @@ public class PoliticsProtectionListener implements Listener {
     public void onEntityCanBuild(final EntityCanBuildEvent event) {
         final Entity entity = event.getEntity();
         final Plot plot = Politics.getPlotAt(event.getPoint());
-        final List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getX(), plot.getY(), plot.getZ());
+        final List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getBasePoint().getBlockX(), plot.getBasePoint().getBlockY(), plot.getBasePoint().getBlockZ());
 
-        if (owners.size() == 0) {
+        if (owners.isEmpty()) {
             return;
         }
 

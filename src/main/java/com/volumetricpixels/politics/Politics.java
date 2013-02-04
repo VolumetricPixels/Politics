@@ -92,8 +92,8 @@ public final class Politics {
      * Gets the plot at the given position.
      * 
      * @param position
-     *            The Point the Plot is located at
-     * @return The Plot the given Point is inside
+     *            The Point the ChunkPlot is located at
+     * @return The ChunkPlot the given Point is inside
      */
     public static Plot getPlotAt(final Point position) {
         return getPlotManager().getPlotAt(position);
