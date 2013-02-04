@@ -560,4 +560,9 @@ public final class Group implements Comparable<Group>, Storable {
 
         return new Group(uid, level, properties, players);
     }
+
+    @Override
+    public boolean canStore() {
+        return true;
+    }
 }

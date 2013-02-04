@@ -1,3 +1,22 @@
+/*
+ * This file is part of Politics.
+ *
+ * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
+ * Politics is licensed under the Affero General Public License Version 3.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.volumetricpixels.politics.component;
 
 import org.spout.api.component.type.EntityComponent;
@@ -15,31 +34,27 @@ public class PlayerMoveComponent extends EntityComponent {
 
         @Override
         public void onTick(float dt) {
-            if (prev != null && !prev.equals(getOwner().getTransform().getTransform())) {
+            if (prev != null && !prev.equals(getOwner().getScene().getTransform())) {
                 Player player = (Player) getOwner();
                 Point from = prev.getPosition();
-                Point to = getOwner().getTransform().getPosition();
-
-                // Check for chunk movement
-                if (from.getChunkX() == to.getChunkX() && from.getChunkY() == to.getChunkY() && from.getChunkZ() == to.getChunkZ()) {
-                    return;
-                }
+                Point to = getOwner().getScene().getPosition();
 
                 final Plot prev = Politics.getPlotAt(from);
                 final Plot now = Politics.getPlotAt(to);
 
                 // Check for different plot
-                if (prev.equals(now)) {
+                
+                if (prev == now || (prev == null) || prev.equals(now)) {
                     return;
                 }
 
                 // Call event
                 final PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
                 if (pcpe.isCancelled()) {
-                    getOwner().getTransform().setPosition(from);
+                    getOwner().getScene().setPosition(from);
                 }
 
-                this.prev = getOwner().getTransform().getTransform();
+                this.prev = getOwner().getScene().getTransform();
             }
         }
 }

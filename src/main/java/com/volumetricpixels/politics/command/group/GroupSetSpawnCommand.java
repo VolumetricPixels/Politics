@@ -56,9 +56,12 @@ public class GroupSetSpawnCommand extends GroupCommand {
             throw new CommandException("You don't have permissions to set the spawn of your " + level.getName() + "!");
         }
 
-        final Transform transform = ((Player) source).getTransform().getTransform();
+        final Transform transform = ((Player) source).getScene().getTransform();
 
         final Plot plot = Politics.getPlotAt(transform.getPosition());
+        if (plot == null) {
+            throw new CommandException("There is no plot here!");
+        }
         if (!plot.isOwner(group)) {
             throw new CommandException("Sorry, the plot you are in must be owned by " + group.getStringProperty(GroupProperty.NAME)
                     + " to set your spawn in it!");

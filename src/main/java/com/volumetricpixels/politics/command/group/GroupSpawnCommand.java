@@ -77,7 +77,7 @@ public class GroupSpawnCommand extends GroupCommand {
             throw new CommandException("The player wasn't specified!");
         }
 
-        player.getTransform().setTransform(spawn);
+        player.getScene().setTransform(spawn);
 
         if (playerName != null) {
             source.sendMessage(MessageStyle.SUCCESS, playerName + " was teleported to the " + level.getName() + " spawn!");

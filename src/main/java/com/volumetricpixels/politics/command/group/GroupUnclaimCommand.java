@@ -58,9 +58,12 @@ public class GroupUnclaimCommand extends GroupCommand {
 
         // TODO add a way to get the world, x, y, z from the command line
         // (should be in GroupCommand)
-        final Point position = ((Player) source).getTransform().getPosition();
+        final Point position = ((Player) source).getScene().getPosition();
 
         final Plot plot = Politics.getPlotAt(position);
+        if (plot == null) {
+            throw new CommandException("There is no plot here!");
+        }
         if (!plot.isOwner(group)) {
             throw new CommandException("Sorry, this plot is not owned by " + group.getStringProperty(GroupProperty.NAME) + ".");
         }

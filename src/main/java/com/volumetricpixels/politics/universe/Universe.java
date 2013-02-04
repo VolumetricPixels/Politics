@@ -458,6 +458,7 @@ public class Universe implements Storable {
         final BasicBSONObject childrenBson = new BasicBSONObject();
 
         for (final Group group : groups) {
+            if (!group.canStore()) continue;
             // groups
             groupsBson.add(group.toBSONObject());
 
@@ -559,5 +560,10 @@ public class Universe implements Storable {
             group.initialize(universe);
         }
         return universe;
+    }
+
+    @Override
+    public boolean canStore() {
+        return true;
     }
 }
