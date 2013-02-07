@@ -30,31 +30,32 @@ import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.world.Plot;
 
 public class PlayerMoveComponent extends EntityComponent {
-        private Transform prev;
 
-        @Override
-        public void onTick(float dt) {
-            if (prev != null && !prev.equals(getOwner().getScene().getTransform())) {
-                Player player = (Player) getOwner();
-                Point from = prev.getPosition();
-                Point to = getOwner().getScene().getPosition();
+    private Transform prev;
 
-                final Plot prev = Politics.getPlotAt(from);
-                final Plot now = Politics.getPlotAt(to);
+    @Override
+    public void onTick(float dt) {
+        if (prev != null && !prev.equals(getOwner().getScene().getTransform())) {
+            Player player = (Player) getOwner();
+            Point from = prev.getPosition();
+            Point to = getOwner().getScene().getPosition();
 
-                // Check for different plot
-                
-                if (prev == now || (prev == null) || prev.equals(now)) {
-                    return;
-                }
+            final Plot prev = Politics.getPlotAt(from);
+            final Plot now = Politics.getPlotAt(to);
 
-                // Call event
-                final PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
-                if (pcpe.isCancelled()) {
-                    getOwner().getScene().setPosition(from);
-                }
+            // Check for different plot
 
-                this.prev = getOwner().getScene().getTransform();
+            if (prev == now || (prev == null) || prev.equals(now)) {
+                return;
             }
+
+            // Call event
+            final PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
+            if (pcpe.isCancelled()) {
+                getOwner().getScene().setPosition(from);
+            }
+
+            this.prev = getOwner().getScene().getTransform();
         }
+    }
 }

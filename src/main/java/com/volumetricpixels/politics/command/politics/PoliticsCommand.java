@@ -25,11 +25,11 @@ import com.volumetricpixels.politics.command.PCommand;
  * Politics administration command.
  */
 public abstract class PoliticsCommand extends PCommand {
+
     /**
      * C'tor
-     * 
-     * @param primary
-     *            The primary command label
+     *
+     * @param primary The primary command label
      */
     public PoliticsCommand(final String primary) {
         super(primary.toLowerCase());
@@ -37,6 +37,6 @@ public abstract class PoliticsCommand extends PCommand {
 
     @Override
     protected String[] getPermissions() {
-        return new String[] { "politics.politics." + primary };
+        return new String[]{"politics.politics." + primary};
     }
 }

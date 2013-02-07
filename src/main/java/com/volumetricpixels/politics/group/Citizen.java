@@ -28,11 +28,11 @@ import com.volumetricpixels.politics.universe.Universe;
  * Represents a player with for extra information for Politics
  */
 public class Citizen {
+
     /**
      * The name of the citizen.
      */
     private final String name;
-
     /**
      * The universe this citizen is part of.
      */
@@ -40,13 +40,10 @@ public class Citizen {
 
     /**
      * C'tor
-     * 
-     * @param name
-     *            The name of the citizen.
-     * @param groups
-     *            The groups of this citizen. This should be the only reference.
-     * @param universe
-     *            The Universe this citizen is part of
+     *
+     * @param name The name of the citizen.
+     * @param groups The groups of this citizen. This should be the only reference.
+     * @param universe The Universe this citizen is part of
      */
     public Citizen(final String name, final Universe universe) {
         this.name = name;
@@ -55,7 +52,7 @@ public class Citizen {
 
     /**
      * Gets the name of this citizen.
-     * 
+     *
      * @return
      */
     public String getName() {
@@ -64,7 +61,7 @@ public class Citizen {
 
     /**
      * Gets the groups this citizen is part of.
-     * 
+     *
      * @return
      */
     public Set<Group> getGroups() {
@@ -73,7 +70,7 @@ public class Citizen {
 
     /**
      * Gets the groups of the given level this citizen is part of.
-     * 
+     *
      * @param level
      * @return
      */
@@ -88,7 +85,7 @@ public class Citizen {
 
     /**
      * Gets the universe this Citizen is part of.
-     * 
+     *
      * @return
      */
     public Universe getUniverse() {
@@ -96,8 +93,7 @@ public class Citizen {
     }
 
     /**
-     * Invalidates this Citizen's groups. This should happen when this Citizen
-     * is added to or removed from a group.
+     * Invalidates this Citizen's groups. This should happen when this Citizen is added to or removed from a group.
      */
     public void invalidateGroups() {
         universe.invalidateCitizenGroups(name);

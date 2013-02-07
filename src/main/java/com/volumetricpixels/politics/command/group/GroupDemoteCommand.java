@@ -36,11 +36,11 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Group promote command.
  */
 public class GroupDemoteCommand extends GroupCommand {
+
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupDemoteCommand(final GroupLevel level) {
         super(level, "demote");

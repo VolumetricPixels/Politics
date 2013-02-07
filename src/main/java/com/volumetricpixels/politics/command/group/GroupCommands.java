@@ -28,6 +28,7 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * Group commands.
  */
 public class GroupCommands extends Commands {
+
     /**
      * The level of these GroupCommands.
      */
@@ -35,9 +36,8 @@ public class GroupCommands extends Commands {
 
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupCommands(final GroupLevel level) {
         super(level.getName().toLowerCase());

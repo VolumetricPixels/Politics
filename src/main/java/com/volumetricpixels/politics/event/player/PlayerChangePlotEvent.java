@@ -30,13 +30,12 @@ import com.volumetricpixels.politics.world.Plot;
  * Called when a player changes the plot they are in
  */
 public final class PlayerChangePlotEvent extends PlayerEvent implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     /**
      * From plot
      */
     private final Plot from;
-
     /**
      * To plot
      */
@@ -44,7 +43,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
 
     /**
      * C'tor
-     * 
+     *
      * @param p
      * @param from
      * @param to
@@ -57,7 +56,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
 
     /**
      * Gets the plot the player left.
-     * 
+     *
      * @return
      */
     public Plot getFrom() {
@@ -66,7 +65,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
 
     /**
      * Gets the plot the player entered.
-     * 
+     *
      * @return
      */
     public Plot getTo() {
@@ -98,7 +97,7 @@ public final class PlayerChangePlotEvent extends PlayerEvent implements Cancella
 
     /**
      * Gets the HandlerList of the event.
-     * 
+     *
      * @return
      */
     public static HandlerList getHandlerList() {

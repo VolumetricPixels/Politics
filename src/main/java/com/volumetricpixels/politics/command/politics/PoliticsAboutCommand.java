@@ -33,6 +33,7 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Gives information about Politics to the executor of the command
  */
 public class PoliticsAboutCommand extends PoliticsCommand {
+
     /**
      * C'tor
      */

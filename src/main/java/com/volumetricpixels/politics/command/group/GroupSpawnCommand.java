@@ -37,11 +37,11 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Teleports you to your group's spawn.
  */
 public class GroupSpawnCommand extends GroupCommand {
+
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupSpawnCommand(final GroupLevel level) {
         super(level, "spawn");

@@ -23,17 +23,18 @@ import org.bson.BSONObject;
 
 /**
  * Represents something that can be stored.
- * 
- * As well as implementing toBSONObject, classes that implement Storable should
- * have a static <code>fromBSONObject(BSONObject)</code> method
+ *
+ * As well as implementing toBSONObject, classes that implement Storable should have a static
+ * <code>fromBSONObject(BSONObject)</code> method
  */
 public interface Storable {
+
     /**
      * Converts this object into a {@link BSONObject}
-     * 
+     *
      * @return A BSONObject that represents this storable object
      */
     BSONObject toBSONObject();
-    
+
     boolean canStore();
 }

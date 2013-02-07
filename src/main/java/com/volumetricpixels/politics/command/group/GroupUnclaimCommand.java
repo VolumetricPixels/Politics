@@ -38,11 +38,11 @@ import com.volumetricpixels.politics.world.Plot;
  * Claims the plot you are in.
  */
 public class GroupUnclaimCommand extends GroupCommand {
+
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupUnclaimCommand(final GroupLevel level) {
         super(level, "unclaim");

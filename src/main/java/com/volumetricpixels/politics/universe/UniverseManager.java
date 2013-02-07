@@ -54,26 +54,23 @@ import com.volumetricpixels.politics.world.PoliticsWorld;
  * Contains all universes
  */
 public class UniverseManager {
+
     /**
      * The rules of the universe.
      */
     private Map<String, UniverseRules> rules;
-
     /**
      * Universes mapped to their names.
      */
     private Map<String, Universe> universes;
-
     /**
      * Stores groups.
      */
     private TIntObjectMap<Group> groups;
-
     /**
      * Worlds mapped to their levels.
      */
     private Map<PoliticsWorld, Map<GroupLevel, Universe>> worldLevels;
-
     /**
      * The next id to assign a Group.
      */
@@ -176,7 +173,9 @@ public class UniverseManager {
         final BSONEncoder encoder = new BasicBSONEncoder();
         Politics.getFileSystem().getUniversesDir().mkdirs();
         for (final Universe universe : universes.values()) {
-            if (!universe.canStore()) continue;
+            if (!universe.canStore()) {
+                continue;
+            }
             final String fileName = universe.getName() + ".cou";
             final File universeFile = new File(Politics.getFileSystem().getUniversesDir(), fileName);
 
@@ -193,7 +192,7 @@ public class UniverseManager {
 
     /**
      * Gets a universe by its name.
-     * 
+     *
      * @param name
      * @return
      */
@@ -203,7 +202,7 @@ public class UniverseManager {
 
     /**
      * Gets the rules with the corresponding name.
-     * 
+     *
      * @param rulesName
      * @return
      */
@@ -213,7 +212,7 @@ public class UniverseManager {
 
     /**
      * Returns a list of all UniverseRules.
-     * 
+     *
      * @return
      */
     public List<UniverseRules> listRules() {
@@ -222,7 +221,7 @@ public class UniverseManager {
 
     /**
      * Gets a universe from its world and group level.
-     * 
+     *
      * @param world
      * @param level
      * @return
@@ -237,7 +236,7 @@ public class UniverseManager {
 
     /**
      * Gets a list of all GroupLevels.
-     * 
+     *
      * @return
      */
     public List<GroupLevel> getGroupLevels() {
@@ -250,7 +249,7 @@ public class UniverseManager {
 
     /**
      * Gets a group by its id.
-     * 
+     *
      * @param id
      * @return
      */
@@ -260,7 +259,7 @@ public class UniverseManager {
 
     /**
      * Gets a group by their tag.
-     * 
+     *
      * @param tag
      * @return
      */
@@ -275,7 +274,7 @@ public class UniverseManager {
 
     /**
      * Gets the universe of the given CommandSource.
-     * 
+     *
      * @param world
      * @param level
      * @return
@@ -290,7 +289,7 @@ public class UniverseManager {
 
     /**
      * Gets the group levels in the given world.
-     * 
+     *
      * @param world
      * @return
      */
@@ -304,7 +303,7 @@ public class UniverseManager {
 
     /**
      * Creates a new universe with the given name.
-     * 
+     *
      * @param name
      * @param theRules
      * @return the created universe
@@ -317,7 +316,7 @@ public class UniverseManager {
 
     /**
      * Destroys the given universe.
-     * 
+     *
      * @param universe
      */
     public void destroyUniverse(final Universe universe) {
@@ -329,7 +328,7 @@ public class UniverseManager {
 
     /**
      * Gets the next ID to use for a group.
-     * 
+     *
      * @return
      */
     public int nextId() {

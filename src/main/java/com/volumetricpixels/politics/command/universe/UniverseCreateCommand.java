@@ -40,6 +40,7 @@ import com.volumetricpixels.politics.world.PoliticsWorld;
  * Used to create universes.
  */
 public class UniverseCreateCommand extends UniverseCommand {
+
     /**
      * C'tor
      */
@@ -107,7 +108,7 @@ public class UniverseCreateCommand extends UniverseCommand {
 
     @Override
     protected String[] getAliases() {
-        return new String[] { "new", "c", "n" };
+        return new String[]{"new", "c", "n"};
     }
 
     @Override

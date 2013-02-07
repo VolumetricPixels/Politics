@@ -27,6 +27,7 @@ import com.volumetricpixels.politics.world.Plot;
  * Called with plot-related actions
  */
 public abstract class PlotEvent extends Event {
+
     /**
      * The plot involved in this event.
      */
@@ -41,7 +42,7 @@ public abstract class PlotEvent extends Event {
 
     /**
      * Gets the plot involved in this event.
-     * 
+     *
      * @return
      */
     public Plot getPlot() {

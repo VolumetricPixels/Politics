@@ -32,6 +32,7 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * Registration for all commands
  */
 public abstract class Commands {
+
     /**
      * The name of the command.
      */
@@ -39,9 +40,8 @@ public abstract class Commands {
 
     /**
      * C'tor
-     * 
-     * @param name
-     *            The name of the base command
+     *
+     * @param name The name of the base command
      */
     public Commands(final String name) {
         this.name = name.toLowerCase();
@@ -49,7 +49,7 @@ public abstract class Commands {
 
     /**
      * Registers this command with Spout.
-     * 
+     *
      * @return The registered command.
      */
     public final Command register() {
@@ -61,9 +61,8 @@ public abstract class Commands {
 
     /**
      * Sets up the command by adding subcommands etc
-     * 
-     * @param cmd
-     *            The Command to add this command to as a subcommand
+     *
+     * @param cmd The Command to add this command to as a subcommand
      */
     public abstract void setup(Command cmd);
 

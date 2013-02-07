@@ -39,11 +39,11 @@ import org.spout.api.geo.LoadOption;
  * Claims the plot you are in.
  */
 public class GroupClaimCommand extends GroupCommand {
+
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupClaimCommand(final GroupLevel level) {
         super(level, "claim");

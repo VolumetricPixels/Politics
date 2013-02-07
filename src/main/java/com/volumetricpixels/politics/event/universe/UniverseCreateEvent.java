@@ -27,11 +27,12 @@ import com.volumetricpixels.politics.universe.Universe;
  * Called when a universe is created using the universe creation command
  */
 public class UniverseCreateEvent extends UniverseEvent {
+
     private static HandlerList handlers = new HandlerList();
 
     /**
      * C'tor
-     * 
+     *
      * @param universe
      */
     public UniverseCreateEvent(final Universe universe) {
@@ -48,7 +49,7 @@ public class UniverseCreateEvent extends UniverseEvent {
 
     /**
      * Gets the handler list of this event.
-     * 
+     *
      * @return The event's {@link HandlerList}
      */
     public static HandlerList getHandlerList() {

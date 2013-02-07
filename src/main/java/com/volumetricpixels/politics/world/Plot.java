@@ -47,11 +47,11 @@ import org.bson.types.BasicBSONList;
  * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
  */
 public abstract class Plot implements Storable {
+
     /**
      * World of the plot
      */
     private final PoliticsWorld world;
-
     /**
      * Owners of this plot
      */
@@ -59,7 +59,7 @@ public abstract class Plot implements Storable {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -71,7 +71,7 @@ public abstract class Plot implements Storable {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -84,7 +84,7 @@ public abstract class Plot implements Storable {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -102,13 +102,13 @@ public abstract class Plot implements Storable {
             tList.add(val);
         }
         this.owners = tList;
-        
-        
+
+
     }
 
     /**
      * Gets the PoliticsWorld this Plot is located in
-     * 
+     *
      * @return This Plot's PoliticsWorld
      */
     public PoliticsWorld getPoliticsWorld() {
@@ -117,7 +117,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the x coordinate of the Plot
-     * 
+     *
      * @return The Plot's x coordinate
      */
     public final int getX() {
@@ -126,7 +126,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the y coordinate of the Plot
-     * 
+     *
      * @return The Plot's y coordinate
      */
     public final int getY() {
@@ -135,7 +135,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the z coordinate of the Plot
-     * 
+     *
      * @return The Plot's Chunk's z coordinate
      */
     public final int getZ() {
@@ -143,16 +143,15 @@ public abstract class Plot implements Storable {
     }
 
     /**
-     * Gets the point at the base of the Plot as determined by the specific type of Plot
-     * This is used for saving and is completely up to implementation.
-     * 
+     * Gets the point at the base of the Plot as determined by the specific type of Plot This is used for saving and is completely up to implementation.
+     *
      * @return
      */
     public abstract Point getBasePoint();
 
     /**
      * Gets the IDs of the owners of the plot.
-     * 
+     *
      * @return
      */
     public TIntList getOwnerIds() {
@@ -161,7 +160,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the list of the owners of the plot.
-     * 
+     *
      * @return
      */
     public List<Group> getOwners() {
@@ -181,7 +180,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the group owning this plot in the given universe.
-     * 
+     *
      * @param universe
      * @return
      */
@@ -196,7 +195,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the owners of this plot in the universe. It's a chain.
-     * 
+     *
      * @param universe
      * @return
      */
@@ -212,9 +211,8 @@ public abstract class Plot implements Storable {
 
     /**
      * Adds an owner to the plot.
-     * 
-     * @param id
-     *            The id of the owner.
+     *
+     * @param id The id of the owner.
      * @return True if successful.s
      */
     public boolean addOwner(final int id) {
@@ -223,7 +221,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Adds an owner to the plot.
-     * 
+     *
      * @param group
      * @return True if successful
      */
@@ -249,7 +247,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Removes an owner from the plot.
-     * 
+     *
      * @param id
      * @return True if successful
      */
@@ -267,7 +265,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Removes the given owner from this plot's owners.
-     * 
+     *
      * @param group
      * @return True if successful
      */
@@ -277,7 +275,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Returns true if the given owner id is an owner of this plot.
-     * 
+     *
      * @param id
      * @return
      */
@@ -287,7 +285,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Returns true if the given owner is an owner of this plot.
-     * 
+     *
      * @param group
      * @return
      */
@@ -297,7 +295,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the privileges of the player.
-     * 
+     *
      * @param player
      * @return
      */
@@ -342,11 +340,11 @@ public abstract class Plot implements Storable {
         int hash = 3;
         return hash;
     }
-    
-    
+
     public abstract boolean contains(final Point point);
-    
+
     public enum Type {
+
         CHUNK, REGION;
     }
 }

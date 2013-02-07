@@ -27,6 +27,7 @@ import com.volumetricpixels.politics.universe.Universe;
  * An event regarding a Universe
  */
 public abstract class UniverseEvent extends Event {
+
     /**
      * The Universe
      */
@@ -34,7 +35,7 @@ public abstract class UniverseEvent extends Event {
 
     /**
      * C'tor
-     * 
+     *
      * @param universe
      */
     public UniverseEvent(final Universe universe) {
@@ -43,7 +44,7 @@ public abstract class UniverseEvent extends Event {
 
     /**
      * Gets the universe involved in this event.
-     * 
+     *
      * @return
      */
     public Universe getUniverse() {

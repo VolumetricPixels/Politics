@@ -27,11 +27,12 @@ import com.volumetricpixels.politics.universe.Universe;
  * Called when a universe is destroyed using the universe destruction command
  */
 public class UniverseDestroyEvent extends UniverseEvent {
+
     private static HandlerList handlers = new HandlerList();
 
     /**
      * C'tor
-     * 
+     *
      * @param universe
      */
     public UniverseDestroyEvent(final Universe universe) {
@@ -48,7 +49,7 @@ public class UniverseDestroyEvent extends UniverseEvent {
 
     /**
      * Gets the handler list of this event.
-     * 
+     *
      * @return The event's {@link HandlerList}
      */
     public static HandlerList getHandlerList() {

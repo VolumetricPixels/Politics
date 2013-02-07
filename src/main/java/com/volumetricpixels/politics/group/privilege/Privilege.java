@@ -27,11 +27,11 @@ import java.util.Set;
  * Represents things one is allowed to do
  */
 public class Privilege {
+
     /**
      * The name of the privilege.
      */
     private final String name;
-
     /**
      * The bit that represents the privilege.
      */
@@ -52,7 +52,7 @@ public class Privilege {
 
     /**
      * Gets the name of this privilege. This must be unique.
-     * 
+     *
      * @return
      */
     public String getName() {
@@ -61,7 +61,7 @@ public class Privilege {
 
     /**
      * Gets the types of this privilege.
-     * 
+     *
      * @return
      */
     public Set<PrivilegeType> getTypes() {
@@ -70,7 +70,7 @@ public class Privilege {
 
     /**
      * Merges two sets of privileges together.
-     * 
+     *
      * @param sets
      * @return
      */
@@ -84,7 +84,7 @@ public class Privilege {
 
     /**
      * Gets the privileges found in all given sets.
-     * 
+     *
      * @param sets
      * @return
      */
@@ -110,7 +110,7 @@ public class Privilege {
 
     /**
      * Filters the given set by the given privilege types.
-     * 
+     *
      * @param set
      * @param types
      * @return

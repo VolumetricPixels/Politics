@@ -23,11 +23,12 @@ package com.volumetricpixels.politics.exception;
  * Thrown when a property is not deserialized successfully
  */
 public class PropertyDeserializationException extends Exception {
+
     private static final long serialVersionUID = 2339358863788970401L;
 
     /**
      * C'tor
-     * 
+     *
      * @param string
      */
     public PropertyDeserializationException(final String string) {
@@ -36,7 +37,7 @@ public class PropertyDeserializationException extends Exception {
 
     /**
      * C'tor
-     * 
+     *
      * @param string
      * @param thrwbl
      */

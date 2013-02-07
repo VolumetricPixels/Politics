@@ -27,6 +27,7 @@ import com.volumetricpixels.politics.command.Commands;
  * Deals with commands related to Universes.
  */
 public class UniverseCommands extends Commands {
+
     /**
      * C'tor
      */

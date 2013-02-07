@@ -39,16 +39,15 @@ import com.volumetricpixels.politics.universe.Universe;
  * A group-related command.
  */
 public abstract class GroupCommand extends PCommand {
+
     /**
      * Level of this GroupCommand.
      */
     protected final GroupLevel level;
-
     /**
      * The original primary name of the command.
      */
     private String truePrimary;
-
     /**
      * Aliases of this GroupCommand.
      */
@@ -56,11 +55,9 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
-     * @param primary
-     *            The primary name of this command
+     *
+     * @param level The GroupLevel of this command
+     * @param primary The primary name of this command
      */
     public GroupCommand(final GroupLevel level, final String primary) {
         super(primary.toLowerCase());
@@ -90,12 +87,12 @@ public abstract class GroupCommand extends PCommand {
 
     @Override
     protected String[] getPermissions() {
-        return new String[] { "politics.group." + level.getId() + "." + truePrimary };
+        return new String[]{"politics.group." + level.getId() + "." + truePrimary};
     }
 
     /**
      * Gets this command's GroupLevel
-     * 
+     *
      * @return The GroupLevel of this command
      */
     public GroupLevel getLevel() {
@@ -104,9 +101,8 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Gets the citizen corresponding with the given player
-     * 
-     * @param player
-     *            The Player to get the Citizen for
+     *
+     * @param player The Player to get the Citizen for
      * @return The Citizen corresponding with the given Player
      */
     public Citizen getCitizen(final Player player) {
@@ -119,9 +115,8 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Gets the universe of the given player in relation to this command.
-     * 
-     * @param player
-     *            The Player to get the Universe of
+     *
+     * @param player The Player to get the Universe of
      * @return The Universe the given Player is in
      */
     public Universe getUniverse(final Player player) {
@@ -130,13 +125,10 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Finds the universe that is wanted from the arguments. Uses the 'u' flag.
-     * 
-     * @param source
-     *            The source of the command
-     * @param cmd
-     *            The Command executed
-     * @param context
-     *            The arguments of the command
+     *
+     * @param source The source of the command
+     * @param cmd The Command executed
+     * @param context The arguments of the command
      * @return The universe
      */
     public Universe findUniverse(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
@@ -162,15 +154,11 @@ public abstract class GroupCommand extends PCommand {
     }
 
     /**
-     * Finds the group that is wanted from the arguments. Uses the `g' and `u'
-     * flags.
-     * 
-     * @param source
-     *            The source of the command
-     * @param cmd
-     *            The command executed
-     * @param context
-     *            The arguments of the command
+     * Finds the group that is wanted from the arguments. Uses the `g' and `u' flags.
+     *
+     * @param source The source of the command
+     * @param cmd The command executed
+     * @param context The arguments of the command
      * @return The group
      */
     public Group findGroup(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
@@ -192,9 +180,8 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Returns true if the given source has admin privileges for this command.
-     * 
-     * @param source
-     *            The source of the command
+     *
+     * @param source The source of the command
      * @return True if the given source has admin privileges for this command.
      */
     public boolean hasAdmin(final CommandSource source) {

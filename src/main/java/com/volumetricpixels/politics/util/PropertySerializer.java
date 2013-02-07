@@ -31,15 +31,14 @@ import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import com.volumetricpixels.politics.exception.PropertySerializationException;
 
 /**
- * Contains various methods for serializing and deserializing certain properties
- * as strings
+ * Contains various methods for serializing and deserializing certain properties as strings
  */
 public final class PropertySerializer {
+
     /**
      * Serializes any serializable object to a Base64 encoded String
-     * 
-     * @param obj
-     *            The Serializable object to serialize
+     *
+     * @param obj The Serializable object to serialize
      * @return The serialized string
      */
     public static String serialize(final Serializable obj) throws PropertySerializationException {
@@ -52,9 +51,8 @@ public final class PropertySerializer {
 
     /**
      * Deserializes any Base64 encoded string into an object from whence it came
-     * 
-     * @param string
-     *            The serialized String
+     *
+     * @param string The serialized String
      * @return The deserialized Object from the given string
      */
     public static Object deserialize(final String string) throws PropertyDeserializationException {
@@ -69,9 +67,8 @@ public final class PropertySerializer {
 
     /**
      * Serializes a point to a string.
-     * 
-     * @param point
-     *            The point to serialize.
+     *
+     * @param point The point to serialize.
      * @return The string representing the serialization.
      */
     public static String serializePoint(final Point point) throws PropertySerializationException {
@@ -80,7 +77,7 @@ public final class PropertySerializer {
 
     /**
      * Deserializes a point from a string.
-     * 
+     *
      * @param string
      * @return
      * @throws PropertyDeserializationException
@@ -91,9 +88,8 @@ public final class PropertySerializer {
 
     /**
      * Serializes a transform to a string.
-     * 
-     * @param transform
-     *            The transform to serialize.
+     *
+     * @param transform The transform to serialize.
      * @return The string representing the serialization.
      */
     public static String serializeTransform(final Transform transform) throws PropertySerializationException {
@@ -102,7 +98,7 @@ public final class PropertySerializer {
 
     /**
      * Deserializes a transform from a string.
-     * 
+     *
      * @param string
      * @return
      * @throws PropertyDeserializationException

@@ -42,6 +42,7 @@ import com.volumetricpixels.politics.PoliticsPlugin;
  * Rule template helper class
  */
 public final class RuleTemplates {
+
     /**
      * C'tor
      */
@@ -49,13 +50,10 @@ public final class RuleTemplates {
     }
 
     /**
-     * Copies a template with the given name to a new ruleset with the given
-     * name.
-     * 
-     * @param name
-     *            The name of the template.
-     * @param as
-     *            The new name of the copied template.
+     * Copies a template with the given name to a new ruleset with the given name.
+     *
+     * @param name The name of the template.
+     * @param as The new name of the copied template.
      */
     public static void copyTemplate(final String name, final String as) {
         final InputStream templateStream = RuleTemplates.class.getResourceAsStream("templates/" + name.toLowerCase() + ".yml");
@@ -79,7 +77,7 @@ public final class RuleTemplates {
 
     /**
      * Lists all available template names.
-     * 
+     *
      * @return
      */
     public static Set<String> listTemplateNames() {

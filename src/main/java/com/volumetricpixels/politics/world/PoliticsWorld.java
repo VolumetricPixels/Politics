@@ -41,16 +41,15 @@ import org.spout.api.util.map.concurrent.TripleIntObjectMap;
  * Represents a world containing plots
  */
 public class PoliticsWorld implements Storable {
+
     /**
      * The name of the GroupsWorld.
      */
     private final String name;
-
     /**
      * The config of the world.
      */
     private final WorldConfig config;
-
     /**
      * Contains all owners corresponding to their proper positions.
      */
@@ -58,7 +57,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Creates a new GroupsWorld.
-     * 
+     *
      * @param name
      */
     PoliticsWorld(final String name, final WorldConfig config) {
@@ -67,7 +66,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * C'tor
-     * 
+     *
      * @param name
      * @param config
      * @param owners
@@ -80,7 +79,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets a GroupsWorld from a BSON object.
-     * 
+     *
      * @param name
      * @param config
      * @param object
@@ -99,18 +98,16 @@ public class PoliticsWorld implements Storable {
                 throw new IllegalArgumentException("Type is not a recognized string");
             }
             switch (Plot.Type.valueOf(string)) {
-                case CHUNK:
-                    {
+                case CHUNK: {
                     ChunkPlot p = new ChunkPlot(plotObj);
                     plots.put(p.getX(), p.getY(), p.getZ(), p);
                     break;
-                    }
-                case REGION:
-                    {
+                }
+                case REGION: {
                     RegionPlot p = new RegionPlot(plotObj);
                     plots.put(p.getX(), p.getY(), p.getZ(), p);
                     break;
-                    }
+                }
                 default:
                     throw new IllegalStateException("Was unable to handle Type");
             }
@@ -120,7 +117,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the name of the GroupsWorld.
-     * 
+     *
      * @return
      */
     public String getName() {
@@ -129,7 +126,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the configuration of this world.
-     * 
+     *
      * @return
      */
     public WorldConfig getConfig() {
@@ -138,7 +135,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the World of this PoliticsWorld.
-     * 
+     *
      * @return
      */
     public World getWorld() {
@@ -163,7 +160,6 @@ public class PoliticsWorld implements Storable {
 //        }
 //        return list;
 //    }
-
 //    /**
 //     * Gets the list of owners at the given location.
 //     * 
@@ -175,10 +171,9 @@ public class PoliticsWorld implements Storable {
 //    public TIntList getOwnerIds(final int x, final int y, final int z) {
 //        return new TIntArrayList(getInternalOwnerList(x, y, z));
 //    }
-
     /**
      * Gets the owners of a given plot location within this world.
-     * 
+     *
      * @param x
      * @param y
      * @param z
@@ -190,7 +185,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets a universe from its GroupLevel.
-     * 
+     *
      * @param level
      * @return
      */
@@ -200,7 +195,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the plot at the given point.
-     * 
+     *
      * @param x
      * @param y
      * @param z
@@ -212,7 +207,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the plot at the given chunk position.
-     * 
+     *
      * @param x chunkX
      * @param y chunkY
      * @param z chunkZ
@@ -224,7 +219,7 @@ public class PoliticsWorld implements Storable {
 
     /**
      * Gets the GroupLevels within this world.
-     * 
+     *
      * @return
      */
     public List<GroupLevel> getLevels() {
@@ -237,7 +232,9 @@ public class PoliticsWorld implements Storable {
         bson.put("name", name);
         BasicBSONList plotList = new BasicBSONList();
         for (Plot plot : plots.valueCollection()) {
-            if (!plot.canStore()) continue;
+            if (!plot.canStore()) {
+                continue;
+            }
             plotList.add(plot.toBSONObject());
         }
         bson.put("plots", plots);

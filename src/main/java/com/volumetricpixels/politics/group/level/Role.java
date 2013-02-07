@@ -35,21 +35,19 @@ import com.volumetricpixels.politics.group.privilege.Privilege;
  * A role
  */
 public final class Role implements Comparable<Role> {
+
     /**
      * The string id of the role. All lowercase.
      */
     private final String id;
-
     /**
      * The name of the role.
      */
     private final String name;
-
     /**
      * The bitset of the role.
      */
     private final Set<Privilege> privileges;
-
     /**
      * The rank of the role.
      */
@@ -57,7 +55,7 @@ public final class Role implements Comparable<Role> {
 
     /**
      * C'tor
-     * 
+     *
      * @param id
      * @param name
      * @param privileges
@@ -72,7 +70,7 @@ public final class Role implements Comparable<Role> {
 
     /**
      * Gets the ID of this Role.
-     * 
+     *
      * @return
      */
     public String getId() {
@@ -81,7 +79,7 @@ public final class Role implements Comparable<Role> {
 
     /**
      * Checks if the role has the given privilege.
-     * 
+     *
      * @param privilege
      * @return
      */
@@ -91,7 +89,7 @@ public final class Role implements Comparable<Role> {
 
     /**
      * Gets the set of privileges of this Role.
-     * 
+     *
      * @return
      */
     public Set<Privilege> getPrivileges() {
@@ -100,7 +98,7 @@ public final class Role implements Comparable<Role> {
 
     /**
      * Gets the rank of the role.
-     * 
+     *
      * @return
      */
     public int getRank() {
@@ -109,7 +107,7 @@ public final class Role implements Comparable<Role> {
 
     /**
      * Gets the name of the role.
-     * 
+     *
      * @return
      */
     public String getName() {
@@ -118,7 +116,7 @@ public final class Role implements Comparable<Role> {
 
     /**
      * Loads a role from a string id and node.
-     * 
+     *
      * @param id
      * @param node
      * @return

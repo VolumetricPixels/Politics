@@ -30,13 +30,12 @@ import com.volumetricpixels.politics.world.Plot;
  * Called when a plot's owners changes
  */
 public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     /**
      * The creator of the group.
      */
     private final int group;
-
     /**
      * True if this adds a group.
      */
@@ -44,7 +43,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * C'tor
-     * 
+     *
      * @param plot
      * @param group
      * @param add
@@ -57,7 +56,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Gets the id of the group that will change ownership.
-     * 
+     *
      * @return
      */
     public int getGroupId() {
@@ -66,7 +65,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Gets the group that will change ownership.
-     * 
+     *
      * @return
      */
     public Group getGroup() {
@@ -75,7 +74,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Returns true if this adds the group.
-     * 
+     *
      * @return
      */
     public boolean isAdd() {
@@ -84,7 +83,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Returns true if this removes the group.
-     * 
+     *
      * @return
      */
     public boolean isRemove() {
@@ -117,7 +116,7 @@ public final class PlotOwnerChangeEvent extends PlotEvent implements Cancellable
 
     /**
      * Gets the HandlerList of the event.
-     * 
+     *
      * @return
      */
     public static HandlerList getHandlerList() {

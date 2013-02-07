@@ -25,10 +25,10 @@ import org.spout.api.command.CommandExecutor;
 import com.volumetricpixels.politics.Politics;
 
 /**
- * Represents a command that can be run in Politics. Helps out with command
- * registration.
+ * Represents a command that can be run in Politics. Helps out with command registration.
  */
 public abstract class PCommand implements CommandExecutor {
+
     /**
      * The primary name of this command.
      */
@@ -36,9 +36,8 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * C'tor
-     * 
-     * @param primary
-     *            The primary name of the command
+     *
+     * @param primary The primary name of the command
      */
     protected PCommand(final String primary) {
         this.primary = primary;
@@ -46,9 +45,8 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Registers this command with the given parent.
-     * 
-     * @param parent
-     *            The command to set this command as a subcommand of
+     *
+     * @param parent The command to set this command as a subcommand of
      * @return A Command object representing this command
      */
     public final Command register(final Command parent) {
@@ -67,7 +65,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Gets the aliases for this command.
-     * 
+     *
      * @return A String[] of aliases for this command
      */
     protected String[] getAliases() {
@@ -76,7 +74,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Gets the permissions required to execute this command.
-     * 
+     *
      * @return A String[] of permissions for this command
      */
     protected String[] getPermissions() {
@@ -85,9 +83,8 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Sets up the command created.
-     * 
-     * @param cmd
-     *            The command to set up
+     *
+     * @param cmd The command to set up
      */
     public void setupCommand(final Command cmd) {
         cmd.setArgBounds(0, -1);

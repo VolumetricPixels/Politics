@@ -33,11 +33,11 @@ import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.util.MessageStyle;
 
 public class GroupCreateCommand extends GroupCommand {
+
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupCreateCommand(final GroupLevel level) {
         super(level, "create");

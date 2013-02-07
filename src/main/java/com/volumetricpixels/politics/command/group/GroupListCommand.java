@@ -36,13 +36,13 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Group list command
  */
 public class GroupListCommand extends GroupCommand {
+
     public static final int PAGE_HEIGHT = 20;
 
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupListCommand(final GroupLevel level) {
         super(level, "list");

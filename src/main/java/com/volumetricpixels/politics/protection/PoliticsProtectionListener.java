@@ -39,6 +39,7 @@ import com.volumetricpixels.politics.world.ChunkPlot;
  * Deals with ChunkPlot protections in Politics
  */
 public class PoliticsProtectionListener implements Listener {
+
     @EventHandler(order = Order.LATEST)
     public void onEntityCanBreak(final EntityCanBreakEvent event) {
         final Entity entity = event.getEntity();

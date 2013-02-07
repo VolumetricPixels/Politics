@@ -34,6 +34,7 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Lists available rules.
  */
 public class UniverseRulesCommand extends UniverseCommand {
+
     /**
      * C'tor
      */
@@ -51,7 +52,7 @@ public class UniverseRulesCommand extends UniverseCommand {
 
     @Override
     protected String[] getAliases() {
-        return new String[] { "r" };
+        return new String[]{"r"};
     }
 
     @Override

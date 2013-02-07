@@ -40,15 +40,13 @@ import com.volumetricpixels.politics.world.Plot;
  * Factory for creating events
  */
 public final class PoliticsEventFactory {
+
     /**
      * Calls a new group claim plot event.
-     * 
-     * @param group
-     *            The Group claiming the Plot
-     * @param plot
-     *            The Plot being claimed
-     * @param claimer
-     *            The person claiming the Plot for the Group
+     *
+     * @param group The Group claiming the Plot
+     * @param plot The Plot being claimed
+     * @param claimer The person claiming the Plot for the Group
      * @return The called GroupClaimPlotEvent
      */
     public static GroupClaimPlotEvent callGroupClaimPlotEvent(final Group group, final Plot plot, final CommandSource claimer) {
@@ -57,13 +55,10 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls a new group property set event.
-     * 
-     * @param group
-     *            The Group of which the property is being set
-     * @param property
-     *            The type of GroupProperty being set
-     * @param value
-     *            The value the property is being set to
+     *
+     * @param group The Group of which the property is being set
+     * @param property The type of GroupProperty being set
+     * @param value The value the property is being set to
      * @return The called GroupPropertySetEvent
      */
     public static GroupPropertySetEvent callGroupPropertySetEvent(final Group group, final int property, final Object value) {
@@ -72,13 +67,10 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls a new group unclaim plot event.
-     * 
-     * @param group
-     *            The Group which is unclaiming the Plot
-     * @param plot
-     *            The Plot which is being unclaimed
-     * @param unclaimer
-     *            The person who is unclaiming the Plot for the Group
+     *
+     * @param group The Group which is unclaiming the Plot
+     * @param plot The Plot which is being unclaimed
+     * @param unclaimer The person who is unclaiming the Plot for the Group
      * @return The called GroupUnclaimPlotEvent
      */
     public static GroupUnclaimPlotEvent callGroupUnclaimPlotEvent(final Group group, final Plot plot, final CommandSource unclaimer) {
@@ -87,11 +79,9 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls a new group create event.
-     * 
-     * @param group
-     *            The Group that has been created
-     * @param creator
-     *            The creator of the Group
+     *
+     * @param group The Group that has been created
+     * @param creator The creator of the Group
      * @return The called GroupCreateEvent
      */
     public static GroupCreateEvent callGroupCreateEvent(final Group group, final CommandSource creator) {
@@ -100,13 +90,10 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls a new plot change event.
-     * 
-     * @param player
-     *            The Player changing Plot
-     * @param from
-     *            The Plot from which the Player moved
-     * @param to
-     *            The Plot to which the Player is moving
+     *
+     * @param player The Player changing Plot
+     * @param from The Plot from which the Player moved
+     * @param to The Plot to which the Player is moving
      * @return The called PlayerChangePlotEvent
      */
     public static PlayerChangePlotEvent callPlayerChangePlotEvent(final Player player, final Plot from, final Plot to) {
@@ -115,13 +102,10 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls a new PlotOwnerChangeEvent.
-     * 
-     * @param plot
-     *            The Plot of which the owner is changing
-     * @param group
-     *            The ID of the group the plot belongs to
-     * @param add
-     *            Whether the owner is being added
+     *
+     * @param plot The Plot of which the owner is changing
+     * @param group The ID of the group the plot belongs to
+     * @param add Whether the owner is being added
      * @return The called PlotOwnerChangeEvent
      */
     public static PlotOwnerChangeEvent callPlotOwnerChangeEvent(final Plot plot, final int group, final boolean add) {
@@ -130,9 +114,8 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls a new universe create event.
-     * 
-     * @param universe
-     *            The universe being created
+     *
+     * @param universe The universe being created
      * @return The called UniverseCreateEvent
      */
     public static UniverseCreateEvent callUniverseCreateEvent(final Universe universe) {
@@ -141,9 +124,8 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls a new universe destroy event.
-     * 
-     * @param universe
-     *            The universe being destroyed
+     *
+     * @param universe The universe being destroyed
      * @return The called UniverseDestroyEvent
      */
     public static UniverseDestroyEvent callUniverseDestroyEvent(final Universe universe) {
@@ -152,9 +134,8 @@ public final class PoliticsEventFactory {
 
     /**
      * Calls the given event.
-     * 
-     * @param event
-     *            The event to call
+     *
+     * @param event The event to call
      * @return The called Event
      */
     private static <T extends Event> T callEvent(final T event) {

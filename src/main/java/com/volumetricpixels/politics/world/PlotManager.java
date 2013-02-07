@@ -47,11 +47,11 @@ import com.volumetricpixels.politics.util.DataUtils;
  * Manages plots
  */
 public class PlotManager {
+
     /**
      * Configs of worlds.
      */
     private Map<String, WorldConfig> configs;
-
     /**
      * World names mapped to GroupWorlds.
      */
@@ -120,7 +120,9 @@ public class PlotManager {
         Politics.getFileSystem().getWorldsDir().mkdirs();
 
         for (final PoliticsWorld world : worlds.values()) {
-            if (!world.canStore()) continue;
+            if (!world.canStore()) {
+                continue;
+            }
             final String fileName = world.getName() + ".ptw";
             final File worldFile = new File(Politics.getFileSystem().getWorldsDir(), fileName);
 
@@ -136,7 +138,7 @@ public class PlotManager {
 
     /**
      * Gets the WorldConfig of the given world name.
-     * 
+     *
      * @param name
      * @return
      */
@@ -160,7 +162,7 @@ public class PlotManager {
 
     /**
      * Gets a PoliticsWorld from its name.
-     * 
+     *
      * @param name
      * @return
      */
@@ -174,7 +176,7 @@ public class PlotManager {
 
     /**
      * Gets a PoliticsWorld from its World.
-     * 
+     *
      * @param world
      * @return
      */
@@ -184,7 +186,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given chunk position.
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -197,7 +199,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given chunk position.
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -210,7 +212,7 @@ public class PlotManager {
 
     /**
      * Gets the plot corresponding with the given Chunk.
-     * 
+     *
      * @param chunk
      * @return
      */
@@ -220,7 +222,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given position.
-     * 
+     *
      * @param position
      * @return
      */
@@ -230,7 +232,7 @@ public class PlotManager {
 
     /**
      * Creates a new GroupsWorld.
-     * 
+     *
      * @param name
      * @return
      */

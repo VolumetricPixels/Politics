@@ -25,11 +25,11 @@ import com.volumetricpixels.politics.command.PCommand;
  * A Universe-related command.
  */
 public abstract class UniverseCommand extends PCommand {
+
     /**
      * C'tor
-     * 
-     * @param primary
-     *            The primary label of the command
+     *
+     * @param primary The primary label of the command
      */
     public UniverseCommand(final String primary) {
         super(primary);
@@ -37,6 +37,6 @@ public abstract class UniverseCommand extends PCommand {
 
     @Override
     protected String[] getPermissions() {
-        return new String[] { "politics.universe." + primary };
+        return new String[]{"politics.universe." + primary};
     }
 }

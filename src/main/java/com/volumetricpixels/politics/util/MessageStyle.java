@@ -25,21 +25,19 @@ import org.spout.api.chat.style.ChatStyle;
  * The constant ChatStyles used in Politics for specific message types
  */
 public final class MessageStyle {
+
     /**
      * Error ChatStyle
      */
     public static final ChatStyle ERROR = ChatStyle.RED;
-
     /**
      * Error highlight ChatStyle
      */
     public static final ChatStyle ERROR_HIGHLIGHT = ChatStyle.YELLOW;
-
     /**
      * Info ChatStyle
      */
     public static final ChatStyle INFO = ChatStyle.GOLD;
-
     /**
      * Success ChatStyle
      */

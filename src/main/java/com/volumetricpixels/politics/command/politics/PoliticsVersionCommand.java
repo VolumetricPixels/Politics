@@ -28,6 +28,7 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.util.MessageStyle;
 
 public class PoliticsVersionCommand extends PoliticsCommand {
+
     /**
      * C'tor
      */

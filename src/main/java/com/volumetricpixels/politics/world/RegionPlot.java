@@ -25,7 +25,6 @@ import org.spout.api.geo.cuboid.Cuboid;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
-
 /**
  * A RegionPlot wraps around a cuboid
  */
@@ -35,7 +34,7 @@ public class RegionPlot extends Plot {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param xSize
      * @param ySize
@@ -48,7 +47,7 @@ public class RegionPlot extends Plot {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -85,7 +84,7 @@ public class RegionPlot extends Plot {
 
     /**
      * Gets the Cuboid
-     * 
+     *
      * @return The Cuboid the RegionPlot is inside
      */
     public Cuboid getCuboid() {
@@ -94,7 +93,7 @@ public class RegionPlot extends Plot {
 
     /**
      * Gets the point at the base of the plot.
-     * 
+     *
      * @return
      */
     @Override
@@ -142,6 +141,4 @@ public class RegionPlot extends Plot {
         hash = 67 * hash + (this.cuboid != null ? this.cuboid.hashCode() : 0);
         return hash;
     }
-    
-    
 }

@@ -33,26 +33,23 @@ import org.spout.api.util.config.ConfigurationNode;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 
 /**
- * Represents the sum of the rules of a given universe. In essence, it is a
- * configuration object.
- * 
+ * Represents the sum of the rules of a given universe. In essence, it is a configuration object.
+ *
  * <p>
- * "...the conclusion is not so much that the Universe is fine-tuned for fun
- * gameplay; rather it is fine-tuned for the building blocks and environments
- * that fun gameplay requires". - adapted from Paul Davies
+ * "...the conclusion is not so much that the Universe is fine-tuned for fun gameplay; rather it is fine-tuned for the building blocks and environments that fun gameplay requires". - adapted from Paul
+ * Davies
  * </p>
  */
 public final class UniverseRules {
+
     /**
      * The name of these UniverseRules
      */
     private final String name;
-
     /**
      * The description of these UniverseRules.
      */
     private final String description;
-
     /**
      * The GroupLevels apparent in this Universe.
      */
@@ -69,7 +66,7 @@ public final class UniverseRules {
 
     /**
      * Gets the name of these UniverseRules.
-     * 
+     *
      * @return The name of these rules
      */
     public String getName() {
@@ -78,7 +75,7 @@ public final class UniverseRules {
 
     /**
      * Gets the description of these UniverseRules.
-     * 
+     *
      * @return The description of these rules
      */
     public String getDescription() {
@@ -87,7 +84,7 @@ public final class UniverseRules {
 
     /**
      * Gets the group levels of these UniverseRules.
-     * 
+     *
      * @return The GroupLevels of these rules
      */
     public List<GroupLevel> getGroupLevels() {
@@ -96,9 +93,8 @@ public final class UniverseRules {
 
     /**
      * Gets the GroupLevel with the given name.
-     * 
-     * @param name
-     *            The name of the GroupLevel
+     *
+     * @param name The name of the GroupLevel
      * @return The GroupLevel with the given name
      */
     public GroupLevel getGroupLevel(final String name) {
@@ -107,9 +103,8 @@ public final class UniverseRules {
 
     /**
      * Saves the UniverseRules to the given config.
-     * 
-     * @param config
-     *            The Configuration to save the rules to
+     *
+     * @param config The Configuration to save the rules to
      */
     public void save(final Configuration config) {
         for (final GroupLevel level : groupLevels.values()) {
@@ -120,9 +115,8 @@ public final class UniverseRules {
 
     /**
      * Loads a UniverseRules from the given config.
-     * 
-     * @param config
-     *            The Configuration to load the rules to
+     *
+     * @param config The Configuration to load the rules to
      * @return The loaded UniverseRules
      */
     public static UniverseRules load(final String name, final Configuration config) {

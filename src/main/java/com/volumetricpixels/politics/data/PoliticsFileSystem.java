@@ -27,26 +27,23 @@ import com.volumetricpixels.politics.Politics;
  * Manages all Files used in Politics
  */
 public class PoliticsFileSystem {
+
     /**
      * Base directory
      */
     private final File baseDir;
-
     /**
      * Rules directory
      */
     private final File rulesDir;
-
     /**
      * Universe directory
      */
     private final File universesDir;
-
     /**
      * World Configuration Directory
      */
     private final File worldConfigDir;
-
     /**
      * Directory containing the folders.
      */
@@ -78,7 +75,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the base directory
-     * 
+     *
      * @return the base directory
      */
     public File getBaseDir() {
@@ -87,7 +84,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the rules directory.
-     * 
+     *
      * @return the rules directory
      */
     public File getRulesDir() {
@@ -96,7 +93,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the world config directory.
-     * 
+     *
      * @return the world config directory
      */
     public File getWorldConfigDir() {
@@ -105,7 +102,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the universes directory.
-     * 
+     *
      * @return the universes directory
      */
     public File getUniversesDir() {
@@ -114,7 +111,7 @@ public class PoliticsFileSystem {
 
     /**
      * Gets the worlds directory.
-     * 
+     *
      * @return the worlds directory
      */
     public File getWorldsDir() {

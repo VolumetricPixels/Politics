@@ -23,13 +23,13 @@ package com.volumetricpixels.politics.exception;
  * Thrown when any type of configuration in Politics is invalid
  */
 public class InvalidConfigurationException extends Exception {
+
     private static final long serialVersionUID = 4786584962519951847L;
 
     /**
      * C'tor
-     * 
-     * @param reason
-     *            The reason for the exception
+     *
+     * @param reason The reason for the exception
      */
     public InvalidConfigurationException(final String reason) {
         super(reason);
@@ -37,9 +37,8 @@ public class InvalidConfigurationException extends Exception {
 
     /**
      * C'tor
-     * 
-     * @param cause
-     *            The cause of the exception
+     *
+     * @param cause The cause of the exception
      */
     public InvalidConfigurationException(final Throwable cause) {
         super(cause);
@@ -47,11 +46,9 @@ public class InvalidConfigurationException extends Exception {
 
     /**
      * C'tor
-     * 
-     * @param reason
-     *            The reason for the exception
-     * @param cause
-     *            The cause of the exception
+     *
+     * @param reason The reason for the exception
+     * @param cause The cause of the exception
      */
     public InvalidConfigurationException(final String reason, final Throwable cause) {
         super(reason, cause);

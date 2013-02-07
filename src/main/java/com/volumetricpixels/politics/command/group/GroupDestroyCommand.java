@@ -34,11 +34,11 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Used to destroy (delete) a group
  */
 public class GroupDestroyCommand extends GroupCommand {
+
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupDestroyCommand(final GroupLevel level) {
         super(level, "destroy");

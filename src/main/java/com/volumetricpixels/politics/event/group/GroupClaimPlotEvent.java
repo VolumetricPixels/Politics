@@ -30,8 +30,8 @@ import com.volumetricpixels.politics.world.Plot;
  * Called when a {@link Group} tries to claim a {@link Plot}.
  */
 public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     /**
      * The person claiming the {@link Plot} for the {@link Group}
      */
@@ -39,13 +39,10 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
 
     /**
      * C'tor
-     * 
-     * @param group
-     *            The {@link Group} claiming the {@link Plot}
-     * @param plot
-     *            The {@link Plot} being claimed
-     * @param claimer
-     *            The person claiming the {@link Plot} for the {@link Group}
+     *
+     * @param group The {@link Group} claiming the {@link Plot}
+     * @param plot The {@link Plot} being claimed
+     * @param claimer The person claiming the {@link Plot} for the {@link Group}
      */
     public GroupClaimPlotEvent(final Group group, final Plot plot, final CommandSource claimer) {
         super(group, plot);
@@ -54,9 +51,8 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
 
     /**
      * Gets the claimer of the plot.
-     * 
-     * @return The {@link CommandSender} claiming the {@link Plot} for the
-     *         {@link Group}
+     *
+     * @return The {@link CommandSender} claiming the {@link Plot} for the {@link Group}
      */
     public CommandSource getClaimer() {
         return claimer;
@@ -88,7 +84,7 @@ public class GroupClaimPlotEvent extends GroupPlotEvent implements Cancellable {
 
     /**
      * Gets the event's handlers
-     * 
+     *
      * @return The {@link HandlerList} for the event
      */
     public static HandlerList getHandlerList() {

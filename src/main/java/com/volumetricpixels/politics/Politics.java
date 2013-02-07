@@ -34,10 +34,10 @@ import com.volumetricpixels.politics.world.PlotManager;
 import com.volumetricpixels.politics.world.PoliticsWorld;
 
 /**
- * Static class for accessing the managers of Politics, along with some utility
- * methods
+ * Static class for accessing the managers of Politics, along with some utility methods
  */
 public final class Politics {
+
     /**
      * The URL to download Politics from
      */
@@ -45,7 +45,7 @@ public final class Politics {
 
     /**
      * Gets the PoliticsPlugin instance.
-     * 
+     *
      * @return The running PoliticsPlugin instance
      */
     public static PoliticsPlugin getPlugin() {
@@ -54,7 +54,7 @@ public final class Politics {
 
     /**
      * Gets the PoliticsFileSystem of the plugin.
-     * 
+     *
      * @return The PoliticsFileSystem used to keep track of files
      */
     public static PoliticsFileSystem getFileSystem() {
@@ -63,7 +63,7 @@ public final class Politics {
 
     /**
      * Gets the PlotManager of the plugin.
-     * 
+     *
      * @return The PlotManager used to keep track of Plots
      */
     public static PlotManager getPlotManager() {
@@ -72,7 +72,7 @@ public final class Politics {
 
     /**
      * Gets the PrivilegeManager of the plugin.
-     * 
+     *
      * @return
      */
     public static PrivilegeManager getPrivilegeManager() {
@@ -81,7 +81,7 @@ public final class Politics {
 
     /**
      * Gets the UniverseManager of the plugin.
-     * 
+     *
      * @return The UniverseManager used to keep track of Universes
      */
     public static UniverseManager getUniverseManager() {
@@ -90,9 +90,8 @@ public final class Politics {
 
     /**
      * Gets the plot at the given position.
-     * 
-     * @param position
-     *            The Point the ChunkPlot is located at
+     *
+     * @param position The Point the ChunkPlot is located at
      * @return The ChunkPlot the given Point is inside
      */
     public static Plot getPlotAt(final Point position) {
@@ -101,9 +100,8 @@ public final class Politics {
 
     /**
      * Gets a PoliticsWorld by a world.
-     * 
-     * @param world
-     *            The Spout World to get the PoliticsWorld from
+     *
+     * @param world The Spout World to get the PoliticsWorld from
      * @return The PoliticsWorld representing the given World
      */
     public static PoliticsWorld getWorld(final World world) {
@@ -112,9 +110,8 @@ public final class Politics {
 
     /**
      * Gets a Universe by its name.
-     * 
-     * @param name
-     *            The name of the requested Universe
+     *
+     * @param name The name of the requested Universe
      * @return The Universe that goes by the given name
      */
     public static Universe getUniverse(final String name) {
@@ -123,11 +120,9 @@ public final class Politics {
 
     /**
      * Gets the universe corresponding with the given world and group level.
-     * 
-     * @param world
-     *            The World the universe is in
-     * @param level
-     *            The GroupLevel the universe corresponds with
+     *
+     * @param world The World the universe is in
+     * @param level The GroupLevel the universe corresponds with
      * @return The Universe for the given World and GroupLevel
      */
     public static Universe getUniverse(final World world, final GroupLevel level) {
@@ -136,7 +131,7 @@ public final class Politics {
 
     /**
      * Gets the Logger Politics uses to print messages to the console
-     * 
+     *
      * @return Politics' unique Logger
      */
     public static Logger getLogger() {
@@ -145,7 +140,7 @@ public final class Politics {
 
     /**
      * Gets the running version of Politics
-     * 
+     *
      * @return The version of Politics on the server
      */
     public static String getVersion() {

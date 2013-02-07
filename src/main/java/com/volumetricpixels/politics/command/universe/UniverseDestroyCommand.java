@@ -33,6 +33,7 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Destroys a universe and all of its groups.
  */
 public class UniverseDestroyCommand extends UniverseCommand {
+
     /**
      * C'tor
      */
@@ -55,7 +56,7 @@ public class UniverseDestroyCommand extends UniverseCommand {
 
     @Override
     protected String[] getAliases() {
-        return new String[] { "delete", "d" };
+        return new String[]{"delete", "d"};
     }
 
     @Override

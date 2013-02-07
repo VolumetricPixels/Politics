@@ -27,6 +27,7 @@ import com.volumetricpixels.politics.command.Commands;
  * Deals with subcommands of /politics
  */
 public class PoliticsCommands extends Commands {
+
     /**
      * C'tor
      */

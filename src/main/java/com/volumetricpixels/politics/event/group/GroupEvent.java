@@ -27,6 +27,7 @@ import com.volumetricpixels.politics.group.Group;
  * An event related to a group
  */
 public abstract class GroupEvent extends Event {
+
     /**
      * The group.
      */
@@ -34,7 +35,7 @@ public abstract class GroupEvent extends Event {
 
     /**
      * C'tor
-     * 
+     *
      * @param group
      */
     protected GroupEvent(final Group group) {
@@ -43,7 +44,7 @@ public abstract class GroupEvent extends Event {
 
     /**
      * Gets the group in this event.
-     * 
+     *
      * @return
      */
     public Group getGroup() {

@@ -24,11 +24,11 @@ import org.bson.BasicBSONObject;
 import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
 
-
 /**
  * A ChunkPlot wraps around a Chunk as well as storing a PoliticsWorld and owners
  */
 public class ChunkPlot extends Plot {
+
     /**
      * The Chunk the ChunkPlot is in
      */
@@ -36,7 +36,7 @@ public class ChunkPlot extends Plot {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -49,7 +49,7 @@ public class ChunkPlot extends Plot {
 
     /**
      * C'tor
-     * 
+     *
      * @param world
      * @param x
      * @param y
@@ -74,7 +74,7 @@ public class ChunkPlot extends Plot {
 
     /**
      * Gets the Chunk of the ChunkPlot
-     * 
+     *
      * @return The Chunk the ChunkPlot is inside
      */
     public Chunk getChunk() {
@@ -83,7 +83,7 @@ public class ChunkPlot extends Plot {
 
     /**
      * Gets the point at the base of the plot.
-     * 
+     *
      * @return
      */
     @Override
@@ -127,6 +127,4 @@ public class ChunkPlot extends Plot {
         hash = 79 * hash + (this.chunk != null ? this.chunk.hashCode() : 0);
         return hash;
     }
-    
-    
 }

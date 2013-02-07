@@ -29,8 +29,8 @@ import com.volumetricpixels.politics.group.Group;
  * Called when a group is created
  */
 public final class GroupCreateEvent extends GroupEvent implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     /**
      * The creator of the group.
      */
@@ -38,7 +38,7 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
 
     /**
      * C'tor
-     * 
+     *
      * @param group
      * @param creator
      */
@@ -49,7 +49,7 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
 
     /**
      * Gets the creator of the group.
-     * 
+     *
      * @return
      */
     public CommandSource getCreator() {
@@ -82,7 +82,7 @@ public final class GroupCreateEvent extends GroupEvent implements Cancellable {
 
     /**
      * Gets the HandlerList of the event.
-     * 
+     *
      * @return
      */
     public static HandlerList getHandlerList() {

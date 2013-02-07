@@ -35,11 +35,11 @@ import com.volumetricpixels.politics.util.MessageStyle;
  * Group set role command
  */
 public class GroupSetRoleCommand extends GroupCommand {
+
     /**
      * C'tor
-     * 
-     * @param level
-     *            The GroupLevel of this command
+     *
+     * @param level The GroupLevel of this command
      */
     public GroupSetRoleCommand(final GroupLevel level) {
         super(level, "setrole");

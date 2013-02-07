@@ -27,13 +27,12 @@ import com.volumetricpixels.politics.group.Group;
  * Called when a property is set. Note that objects will all be strings
  */
 public class GroupPropertySetEvent extends GroupEvent {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     /**
      * The property that was set.
      */
     private final int property;
-
     /**
      * The value of the property.
      */
@@ -41,10 +40,9 @@ public class GroupPropertySetEvent extends GroupEvent {
 
     /**
      * C'tor
-     * 
+     *
      * @param group
-     * @param value
-     *            The value
+     * @param value The value
      */
     public GroupPropertySetEvent(final Group group, final int property, final Object value) {
         super(group);
@@ -54,7 +52,7 @@ public class GroupPropertySetEvent extends GroupEvent {
 
     /**
      * Gets the property that will be set.
-     * 
+     *
      * @return
      */
     public int getProperty() {
@@ -63,7 +61,7 @@ public class GroupPropertySetEvent extends GroupEvent {
 
     /**
      * Gets the value that the property will be set to.
-     * 
+     *
      * @return
      */
     public Object getValue() {
@@ -80,7 +78,7 @@ public class GroupPropertySetEvent extends GroupEvent {
 
     /**
      * Gets the HandlerList of the event.
-     * 
+     *
      * @return
      */
     public static HandlerList getHandlerList() {

@@ -6,12 +6,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <inceptionYear>2012</inceptionYear>
 
-	<!-- Description -->
+    <!-- Description -->
     <name>Politics</name>
     <url>http://volumetricpixels.com</url>
     <description>${project.name} is a full-featured replacement for Towny, Factions, and other similar plugins built on the Spout platform.</description>
 
-	<!-- Properties -->
+    <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.volumetricpixels.politics.PoliticsPlugin</mainClass>
@@ -22,7 +22,7 @@
         <github.global.server>github</github.global.server>
     </properties>
 
-	<!-- License -->
+    <!-- License -->
     <licenses>
         <license>
             <name>Affero General Public License Version 3</name>
@@ -31,32 +31,32 @@
         </license>
     </licenses>
 
-	<!-- Source code -->
+    <!-- Source code -->
     <scm>
         <developerConnection>scm:git:git@github.com:VolumetricPixels/${project.name}.git</developerConnection>
         <connection>scm:git:git://github.com/VolumetricPixels/${project.name}.git</connection>
         <url>https://github.com/VolumetricPixels/${project.name}</url>
     </scm>
 
-	<!-- Issue Management -->
+    <!-- Issue Management -->
     <issueManagement>
         <system>github</system>
         <url>http://github.com/VolumetricPixels/${project.name}/issues</url>
     </issueManagement>
 
-	<!-- Continuous integration -->
+    <!-- Continuous integration -->
     <ciManagement>
         <system>travis-ci</system>
         <url>http://travis-ci.org/#!/simplyianm/${project.name}</url>
     </ciManagement>
 
-	<!-- Organization -->
+    <!-- Organization -->
     <organization>
         <name>VolumetricPixels</name>
         <url>http://volumetricpixels.com</url>
     </organization>
 
-	<!-- Repository locations -->
+    <!-- Repository locations -->
     <repositories>
         <repository>
             <id>spout-repo</id>
@@ -70,17 +70,17 @@
         </pluginRepository>
     </pluginRepositories>
 
-	<!-- Dependencies -->
+    <!-- Dependencies -->
     <dependencies>
-		<!-- Compile -->
-		<!-- SpoutAPI -->
+        <!-- Compile -->
+        <!-- SpoutAPI -->
         <dependency>
             <groupId>org.spout</groupId>
             <artifactId>spoutapi</artifactId>
             <version>${apiVersion}</version>
             <scope>compile</scope>
         </dependency>
-		<!-- BSON support -->
+        <!-- BSON support -->
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
@@ -88,8 +88,8 @@
             <scope>compile</scope>
         </dependency>
 
-		<!-- Test -->
-		<!-- JUnit - Unit Testing -->
+        <!-- Test -->
+        <!-- JUnit - Unit Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -113,11 +113,11 @@
         </dependency>
     </dependencies>
 
-	<!-- Build -->
+    <!-- Build -->
     <build>
         <defaultGoal>clean install</defaultGoal>
 
-		<!-- Resources -->
+        <!-- Resources -->
         <resources>
             <resource>
                 <targetPath>.</targetPath>
@@ -137,9 +137,9 @@
             </resource>
         </resources>
 
-		<!-- Plugins -->
+        <!-- Plugins -->
         <plugins>
-			<!-- License header formatting plugin -->
+            <!-- License header formatting plugin -->
             <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
@@ -177,7 +177,7 @@
                     </includes>
                 </configuration>
             </plugin>
-			<!-- Version strip plugin -->
+            <!-- Version strip plugin -->
             <plugin>
                 <groupId>com.sourcesense.maven</groupId>
                 <artifactId>maven-nosnapshot-plugin</artifactId>
@@ -195,7 +195,7 @@
                     <propertyName>releaseVersion</propertyName>
                 </configuration>
             </plugin>
-			<!-- Compiler plugin -->
+            <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -239,7 +239,7 @@
                     </archive>
                 </configuration>
             </plugin>
-			<!-- Uber JAR creation -->
+            <!-- Uber JAR creation -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -269,7 +269,7 @@
                     </execution>
                 </executions>
             </plugin>
-			<!-- Testing plugin -->
+            <!-- Testing plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -281,7 +281,7 @@
         </plugins>
         <pluginManagement>
             <plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>

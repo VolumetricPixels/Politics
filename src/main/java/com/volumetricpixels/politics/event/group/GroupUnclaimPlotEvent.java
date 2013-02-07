@@ -30,8 +30,8 @@ import com.volumetricpixels.politics.world.Plot;
  * Called when a group tries to unclaim a plot
  */
 public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     /**
      * The unclaimer of the plot.
      */
@@ -39,7 +39,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
 
     /**
      * C'tor
-     * 
+     *
      * @param group
      * @param unclaimer
      */
@@ -50,7 +50,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
 
     /**
      * Gets the unclaimer of the plot.
-     * 
+     *
      * @return
      */
     public CommandSource getUnclaimer() {
@@ -83,7 +83,7 @@ public class GroupUnclaimPlotEvent extends GroupPlotEvent implements Cancellable
 
     /**
      * Gets the HandlerList of the event.
-     * 
+     *
      * @return
      */
     public static HandlerList getHandlerList() {

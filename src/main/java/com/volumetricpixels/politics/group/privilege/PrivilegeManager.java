@@ -26,6 +26,7 @@ import java.util.Map;
  * Manages the various different types of privileges
  */
 public class PrivilegeManager {
+
     /**
      * Contains all privileges mapped to their names.
      */
@@ -48,7 +49,7 @@ public class PrivilegeManager {
 
     /**
      * Registers a privilege with this PrivilegeManager.
-     * 
+     *
      * @param privilege
      * @return True if a privilege was not displaced.
      */
@@ -58,7 +59,7 @@ public class PrivilegeManager {
 
     /**
      * Registers multiple privileges.
-     * 
+     *
      * @param privileges
      * @return
      */
@@ -73,7 +74,7 @@ public class PrivilegeManager {
 
     /**
      * Gets a privilege by its name.
-     * 
+     *
      * @param name
      * @return
      */
