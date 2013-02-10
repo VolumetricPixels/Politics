@@ -19,7 +19,6 @@
  */
 package com.volumetricpixels.politics.util;
 
-import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 import org.bson.types.BasicBSONList;
 import org.spout.api.Spout;

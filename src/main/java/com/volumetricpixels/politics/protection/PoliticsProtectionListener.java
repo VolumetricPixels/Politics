@@ -33,7 +33,6 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.privilege.GroupPlotPrivileges;
 import com.volumetricpixels.politics.world.Plot;
-import com.volumetricpixels.politics.world.ChunkPlot;
 
 /**
  * Deals with ChunkPlot protections in Politics

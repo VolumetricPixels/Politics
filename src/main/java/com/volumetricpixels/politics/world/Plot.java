@@ -252,7 +252,6 @@ public abstract class Plot implements Storable {
      * @return True if successful
      */
     public boolean removeOwner(final int id) {
-        Point base = getBasePoint();
         if (!owners.contains(id)) {
             return true; // Not in there
         }
