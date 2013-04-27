@@ -3,7 +3,7 @@ Politics
 
 ![Brock Obama](http://i.imgur.com/3jv8G.jpg)
 
-Politics is a sub-community management plugin for [Spout](http://spout.org).
+Politics is a self-serve sub-community management plugin for [Spout](http://spout.org), allowing for maximum flexibility. More information can be found on the [Wiki][Wiki]
 
 License
 -------
@@ -39,4 +39,4 @@ Pull Request Standards
 **Please follow the above conventions if you want your pull request(s) accepted.**
 
 [License]: http://www.gnu.org/licenses/agpl.html
-
+[Wiki]: https://github.com/VolumetricPixels/Politics/wiki
