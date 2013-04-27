@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.world;
 
@@ -53,7 +53,7 @@ public class WorldConfig {
 
     /**
      * Gets the name of the WorldConfig.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -68,7 +68,8 @@ public class WorldConfig {
     }
 
     /**
-     * @param plotSizeX the plotSizeX to set
+     * @param plotSizeX
+     *            the plotSizeX to set
      */
     public void setPlotSizeX(final int plotSizeX) {
         this.plotSizeX = plotSizeX;
@@ -82,7 +83,8 @@ public class WorldConfig {
     }
 
     /**
-     * @param plotSizeY the plotSizeY to set
+     * @param plotSizeY
+     *            the plotSizeY to set
      */
     public void setPlotSizeY(final int plotSizeY) {
         this.plotSizeY = plotSizeY;
@@ -96,7 +98,8 @@ public class WorldConfig {
     }
 
     /**
-     * @param plotSizeZ the plotSizeZ to set
+     * @param plotSizeZ
+     *            the plotSizeZ to set
      */
     public void setPlotSizeZ(final int plotSizeZ) {
         this.plotSizeZ = plotSizeZ;
@@ -104,7 +107,7 @@ public class WorldConfig {
 
     /**
      * Gets the plot size as a vector.
-     *
+     * 
      * @return
      */
     public Vector3 getPlotSizeVector() {
@@ -113,7 +116,7 @@ public class WorldConfig {
 
     /**
      * Saves a WorldConfig.
-     *
+     * 
      * @param config
      */
     public void save(final Configuration config) {
@@ -124,7 +127,7 @@ public class WorldConfig {
 
     /**
      * Loads a WorldConfig.
-     *
+     * 
      * @param name
      * @param config
      * @return the new WorldConfig

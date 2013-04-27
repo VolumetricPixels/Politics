@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.world;
 
@@ -59,7 +59,7 @@ public abstract class Plot implements Storable {
 
     /**
      * C'tor
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -71,7 +71,7 @@ public abstract class Plot implements Storable {
 
     /**
      * C'tor
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -84,15 +84,15 @@ public abstract class Plot implements Storable {
 
     /**
      * C'tor
-     *
+     * 
      * @param world
      * @param x
      * @param y
      * @param z
      */
-    Plot(BasicBSONObject object) {
-        this.world = Politics.getWorld(DataUtils.getWorld(object.getString("world", null)));
-        BasicBSONList list = DataUtils.getList(object);
+    Plot(final BasicBSONObject object) {
+        world = Politics.getWorld(DataUtils.getWorld(object.getString("world", null)));
+        final BasicBSONList list = DataUtils.getList(object);
         final TIntList tList = new TIntArrayList();
         for (final Object obj : list) {
             if (!(obj instanceof Integer)) {
@@ -101,14 +101,13 @@ public abstract class Plot implements Storable {
             final int val = (Integer) obj;
             tList.add(val);
         }
-        this.owners = tList;
-
+        owners = tList;
 
     }
 
     /**
      * Gets the PoliticsWorld this Plot is located in
-     *
+     * 
      * @return This Plot's PoliticsWorld
      */
     public PoliticsWorld getPoliticsWorld() {
@@ -117,7 +116,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the x coordinate of the Plot
-     *
+     * 
      * @return The Plot's x coordinate
      */
     public final int getX() {
@@ -126,7 +125,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the y coordinate of the Plot
-     *
+     * 
      * @return The Plot's y coordinate
      */
     public final int getY() {
@@ -135,7 +134,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the z coordinate of the Plot
-     *
+     * 
      * @return The Plot's Chunk's z coordinate
      */
     public final int getZ() {
@@ -143,15 +142,16 @@ public abstract class Plot implements Storable {
     }
 
     /**
-     * Gets the point at the base of the Plot as determined by the specific type of Plot This is used for saving and is completely up to implementation.
-     *
+     * Gets the point at the base of the Plot as determined by the specific type
+     * of Plot This is used for saving and is completely up to implementation.
+     * 
      * @return
      */
     public abstract Point getBasePoint();
 
     /**
      * Gets the IDs of the owners of the plot.
-     *
+     * 
      * @return
      */
     public TIntList getOwnerIds() {
@@ -160,7 +160,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the list of the owners of the plot.
-     *
+     * 
      * @return
      */
     public List<Group> getOwners() {
@@ -180,7 +180,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the group owning this plot in the given universe.
-     *
+     * 
      * @param universe
      * @return
      */
@@ -195,7 +195,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the owners of this plot in the universe. It's a chain.
-     *
+     * 
      * @param universe
      * @return
      */
@@ -211,8 +211,9 @@ public abstract class Plot implements Storable {
 
     /**
      * Adds an owner to the plot.
-     *
-     * @param id The id of the owner.
+     * 
+     * @param id
+     *            The id of the owner.
      * @return True if successful.s
      */
     public boolean addOwner(final int id) {
@@ -221,7 +222,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Adds an owner to the plot.
-     *
+     * 
      * @param group
      * @return True if successful
      */
@@ -247,7 +248,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Removes an owner from the plot.
-     *
+     * 
      * @param id
      * @return True if successful
      */
@@ -264,7 +265,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Removes the given owner from this plot's owners.
-     *
+     * 
      * @param group
      * @return True if successful
      */
@@ -274,7 +275,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Returns true if the given owner id is an owner of this plot.
-     *
+     * 
      * @param id
      * @return
      */
@@ -284,7 +285,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Returns true if the given owner is an owner of this plot.
-     *
+     * 
      * @param group
      * @return
      */
@@ -294,7 +295,7 @@ public abstract class Plot implements Storable {
 
     /**
      * Gets the privileges of the player.
-     *
+     * 
      * @param player
      * @return
      */
@@ -306,7 +307,7 @@ public abstract class Plot implements Storable {
 
     @Override
     public BSONObject toBSONObject() {
-        BasicBSONObject obj = new BasicBSONObject();
+        final BasicBSONObject obj = new BasicBSONObject();
         obj.put("world", world.getName());
         return obj;
     }
@@ -317,7 +318,7 @@ public abstract class Plot implements Storable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         }
@@ -325,10 +326,10 @@ public abstract class Plot implements Storable {
             return false;
         }
         final Plot other = (Plot) obj;
-        if (this.world != other.world && (this.world == null || !this.world.equals(other.world))) {
+        if (world != other.world && (world == null || !world.equals(other.world))) {
             return false;
         }
-        if (this.owners != other.owners && (this.owners == null || !this.owners.equals(other.owners))) {
+        if (owners != other.owners && (owners == null || !owners.equals(other.owners))) {
             return false;
         }
         return true;
@@ -336,7 +337,7 @@ public abstract class Plot implements Storable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        final int hash = 3;
         return hash;
     }
 

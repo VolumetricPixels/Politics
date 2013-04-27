@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.world;
 
@@ -138,7 +138,7 @@ public class PlotManager {
 
     /**
      * Gets the WorldConfig of the given world name.
-     *
+     * 
      * @param name
      * @return
      */
@@ -162,7 +162,7 @@ public class PlotManager {
 
     /**
      * Gets a PoliticsWorld from its name.
-     *
+     * 
      * @param name
      * @return
      */
@@ -176,7 +176,7 @@ public class PlotManager {
 
     /**
      * Gets a PoliticsWorld from its World.
-     *
+     * 
      * @param world
      * @return
      */
@@ -186,7 +186,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given chunk position.
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -199,7 +199,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given chunk position.
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -212,7 +212,7 @@ public class PlotManager {
 
     /**
      * Gets the plot corresponding with the given Chunk.
-     *
+     * 
      * @param chunk
      * @return
      */
@@ -222,7 +222,7 @@ public class PlotManager {
 
     /**
      * Gets the plot at the given position.
-     *
+     * 
      * @param position
      * @return
      */
@@ -232,7 +232,7 @@ public class PlotManager {
 
     /**
      * Creates a new GroupsWorld.
-     *
+     * 
      * @param name
      * @return
      */

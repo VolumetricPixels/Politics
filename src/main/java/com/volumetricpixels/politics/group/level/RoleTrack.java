@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.group.level;
 
@@ -42,7 +42,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * C'tor
-     *
+     * 
      * @param id
      * @param roles
      */
@@ -53,7 +53,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the id of the track.
-     *
+     * 
      * @return
      */
     public String getId() {
@@ -62,7 +62,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the roles of the track.
-     *
+     * 
      * @return
      */
     public List<Role> getRoles() {
@@ -71,7 +71,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the role before the given role.
-     *
+     * 
      * @param role
      * @return
      */
@@ -85,7 +85,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Gets the role after the given role.
-     *
+     * 
      * @param role
      * @return
      */
@@ -104,7 +104,7 @@ public class RoleTrack implements Iterable<Role> {
 
     /**
      * Loads a Track.
-     *
+     * 
      * @param id
      * @param node
      * @param roles

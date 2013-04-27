@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.universe;
 
@@ -192,7 +192,7 @@ public class UniverseManager {
 
     /**
      * Gets a universe by its name.
-     *
+     * 
      * @param name
      * @return
      */
@@ -202,7 +202,7 @@ public class UniverseManager {
 
     /**
      * Gets the rules with the corresponding name.
-     *
+     * 
      * @param rulesName
      * @return
      */
@@ -212,7 +212,7 @@ public class UniverseManager {
 
     /**
      * Returns a list of all UniverseRules.
-     *
+     * 
      * @return
      */
     public List<UniverseRules> listRules() {
@@ -221,7 +221,7 @@ public class UniverseManager {
 
     /**
      * Gets a universe from its world and group level.
-     *
+     * 
      * @param world
      * @param level
      * @return
@@ -236,7 +236,7 @@ public class UniverseManager {
 
     /**
      * Gets a list of all GroupLevels.
-     *
+     * 
      * @return
      */
     public List<GroupLevel> getGroupLevels() {
@@ -249,7 +249,7 @@ public class UniverseManager {
 
     /**
      * Gets a group by its id.
-     *
+     * 
      * @param id
      * @return
      */
@@ -259,7 +259,7 @@ public class UniverseManager {
 
     /**
      * Gets a group by their tag.
-     *
+     * 
      * @param tag
      * @return
      */
@@ -274,7 +274,7 @@ public class UniverseManager {
 
     /**
      * Gets the universe of the given CommandSource.
-     *
+     * 
      * @param world
      * @param level
      * @return
@@ -289,7 +289,7 @@ public class UniverseManager {
 
     /**
      * Gets the group levels in the given world.
-     *
+     * 
      * @param world
      * @return
      */
@@ -303,7 +303,7 @@ public class UniverseManager {
 
     /**
      * Creates a new universe with the given name.
-     *
+     * 
      * @param name
      * @param theRules
      * @return the created universe
@@ -316,7 +316,7 @@ public class UniverseManager {
 
     /**
      * Destroys the given universe.
-     *
+     * 
      * @param universe
      */
     public void destroyUniverse(final Universe universe) {
@@ -328,7 +328,7 @@ public class UniverseManager {
 
     /**
      * Gets the next ID to use for a group.
-     *
+     * 
      * @return
      */
     public int nextId() {

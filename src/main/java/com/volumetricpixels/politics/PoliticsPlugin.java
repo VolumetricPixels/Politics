@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics;
 
@@ -37,8 +37,7 @@ import com.volumetricpixels.politics.world.PlotManager;
 /**
  * The main class of the Politics Spout plugin
  */
-public class PoliticsPlugin extends CommonPlugin {
-
+public final class PoliticsPlugin extends CommonPlugin {
     /**
      * Singleton instance of the plugin
      */
@@ -103,7 +102,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the version of Politics this is.
-     *
+     * 
      * @return The version of Politics.
      */
     public String getVersion() {
@@ -112,7 +111,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the file system of the plugin.
-     *
+     * 
      * @return The PoliticsFileSystem Politics uses for File interaction
      */
     public PoliticsFileSystem getFileSystem() {
@@ -121,7 +120,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the PlotManager of the plugin.
-     *
+     * 
      * @return Politics' PlotManager
      */
     public PlotManager getPlotManager() {
@@ -130,7 +129,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the PrivilegeManager of the plugin.
-     *
+     * 
      * @return
      */
     public PrivilegeManager getPrivilegeManager() {
@@ -139,7 +138,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the UniverseManager of the plugin.
-     *
+     * 
      * @return Politics' PlotManager
      */
     public UniverseManager getUniverseManager() {
@@ -148,7 +147,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the instance of PoliticsPlugin.
-     *
+     * 
      * @return The running PoliticsPlugin instance
      */
     public static PoliticsPlugin getInstance() {
@@ -157,7 +156,7 @@ public class PoliticsPlugin extends CommonPlugin {
 
     /**
      * Gets the logger of the plugin.
-     *
+     * 
      * @return Politics' Logger
      */
     public static Logger logger() {

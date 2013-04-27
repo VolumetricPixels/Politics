@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.group.privilege;
 
@@ -52,7 +52,7 @@ public class Privilege {
 
     /**
      * Gets the name of this privilege. This must be unique.
-     *
+     * 
      * @return
      */
     public String getName() {
@@ -61,7 +61,7 @@ public class Privilege {
 
     /**
      * Gets the types of this privilege.
-     *
+     * 
      * @return
      */
     public Set<PrivilegeType> getTypes() {
@@ -70,10 +70,11 @@ public class Privilege {
 
     /**
      * Merges two sets of privileges together.
-     *
+     * 
      * @param sets
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static Set<Privilege> all(final Set<Privilege>... sets) {
         final Set<Privilege> result = new HashSet<Privilege>();
         for (final Set<Privilege> set : sets) {
@@ -84,10 +85,11 @@ public class Privilege {
 
     /**
      * Gets the privileges found in all given sets.
-     *
+     * 
      * @param sets
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static Set<Privilege> common(final Set<Privilege>... sets) {
         boolean first = true;
         final Set<Privilege> result = new HashSet<Privilege>();
@@ -110,7 +112,7 @@ public class Privilege {
 
     /**
      * Filters the given set by the given privilege types.
-     *
+     * 
      * @param set
      * @param types
      * @return

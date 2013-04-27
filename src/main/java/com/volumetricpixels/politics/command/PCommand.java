@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.command;
 
@@ -25,7 +25,8 @@ import org.spout.api.command.CommandExecutor;
 import com.volumetricpixels.politics.Politics;
 
 /**
- * Represents a command that can be run in Politics. Helps out with command registration.
+ * Represents a command that can be run in Politics. Helps out with command
+ * registration.
  */
 public abstract class PCommand implements CommandExecutor {
 
@@ -36,8 +37,9 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * C'tor
-     *
-     * @param primary The primary name of the command
+     * 
+     * @param primary
+     *            The primary name of the command
      */
     protected PCommand(final String primary) {
         this.primary = primary;
@@ -45,8 +47,9 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Registers this command with the given parent.
-     *
-     * @param parent The command to set this command as a subcommand of
+     * 
+     * @param parent
+     *            The command to set this command as a subcommand of
      * @return A Command object representing this command
      */
     public final Command register(final Command parent) {
@@ -65,7 +68,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Gets the aliases for this command.
-     *
+     * 
      * @return A String[] of aliases for this command
      */
     protected String[] getAliases() {
@@ -74,7 +77,7 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Gets the permissions required to execute this command.
-     *
+     * 
      * @return A String[] of permissions for this command
      */
     protected String[] getPermissions() {
@@ -83,8 +86,9 @@ public abstract class PCommand implements CommandExecutor {
 
     /**
      * Sets up the command created.
-     *
-     * @param cmd The command to set up
+     * 
+     * @param cmd
+     *            The command to set up
      */
     public void setupCommand(final Command cmd) {
         cmd.setArgBounds(0, -1);

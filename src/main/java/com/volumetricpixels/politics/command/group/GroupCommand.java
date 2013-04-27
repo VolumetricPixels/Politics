@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.command.group;
 
@@ -55,9 +55,11 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * C'tor
-     *
-     * @param level The GroupLevel of this command
-     * @param primary The primary name of this command
+     * 
+     * @param level
+     *            The GroupLevel of this command
+     * @param primary
+     *            The primary name of this command
      */
     public GroupCommand(final GroupLevel level, final String primary) {
         super(primary.toLowerCase());
@@ -87,12 +89,12 @@ public abstract class GroupCommand extends PCommand {
 
     @Override
     protected String[] getPermissions() {
-        return new String[]{"politics.group." + level.getId() + "." + truePrimary};
+        return new String[] { "politics.group." + level.getId() + "." + truePrimary };
     }
 
     /**
      * Gets this command's GroupLevel
-     *
+     * 
      * @return The GroupLevel of this command
      */
     public GroupLevel getLevel() {
@@ -101,8 +103,9 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Gets the citizen corresponding with the given player
-     *
-     * @param player The Player to get the Citizen for
+     * 
+     * @param player
+     *            The Player to get the Citizen for
      * @return The Citizen corresponding with the given Player
      */
     public Citizen getCitizen(final Player player) {
@@ -115,8 +118,9 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Gets the universe of the given player in relation to this command.
-     *
-     * @param player The Player to get the Universe of
+     * 
+     * @param player
+     *            The Player to get the Universe of
      * @return The Universe the given Player is in
      */
     public Universe getUniverse(final Player player) {
@@ -125,10 +129,13 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Finds the universe that is wanted from the arguments. Uses the 'u' flag.
-     *
-     * @param source The source of the command
-     * @param cmd The Command executed
-     * @param context The arguments of the command
+     * 
+     * @param source
+     *            The source of the command
+     * @param cmd
+     *            The Command executed
+     * @param context
+     *            The arguments of the command
      * @return The universe
      */
     public Universe findUniverse(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
@@ -154,11 +161,15 @@ public abstract class GroupCommand extends PCommand {
     }
 
     /**
-     * Finds the group that is wanted from the arguments. Uses the `g' and `u' flags.
-     *
-     * @param source The source of the command
-     * @param cmd The command executed
-     * @param context The arguments of the command
+     * Finds the group that is wanted from the arguments. Uses the `g' and `u'
+     * flags.
+     * 
+     * @param source
+     *            The source of the command
+     * @param cmd
+     *            The command executed
+     * @param context
+     *            The arguments of the command
      * @return The group
      */
     public Group findGroup(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
@@ -180,8 +191,9 @@ public abstract class GroupCommand extends PCommand {
 
     /**
      * Returns true if the given source has admin privileges for this command.
-     *
-     * @param source The source of the command
+     * 
+     * @param source
+     *            The source of the command
      * @return True if the given source has admin privileges for this command.
      */
     public boolean hasAdmin(final CommandSource source) {

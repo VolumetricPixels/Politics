@@ -1,21 +1,21 @@
 /*
  * This file is part of Politics.
- *
+ * 
  * Copyright (c) 2012-2012, VolumetricPixels <http://volumetricpixels.com/>
  * Politics is licensed under the Affero General Public License Version 3.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
+ * 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ * 
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.volumetricpixels.politics.world;
 
@@ -25,7 +25,8 @@ import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
 
 /**
- * A ChunkPlot wraps around a Chunk as well as storing a PoliticsWorld and owners
+ * A ChunkPlot wraps around a Chunk as well as storing a PoliticsWorld and
+ * owners
  */
 public class ChunkPlot extends Plot {
 
@@ -36,7 +37,7 @@ public class ChunkPlot extends Plot {
 
     /**
      * C'tor
-     *
+     * 
      * @param world
      * @param x
      * @param y
@@ -49,17 +50,17 @@ public class ChunkPlot extends Plot {
 
     /**
      * C'tor
-     *
+     * 
      * @param world
      * @param x
      * @param y
      * @param z
      */
-    ChunkPlot(BasicBSONObject object) {
+    ChunkPlot(final BasicBSONObject object) {
         super(object);
-        Object x = object.get("x");
-        Object y = object.get("y");
-        Object z = object.get("z");
+        final Object x = object.get("x");
+        final Object y = object.get("y");
+        final Object z = object.get("z");
         if (!(x instanceof Integer)) {
             throw new IllegalArgumentException("X was not available.");
         }
@@ -74,7 +75,7 @@ public class ChunkPlot extends Plot {
 
     /**
      * Gets the Chunk of the ChunkPlot
-     *
+     * 
      * @return The Chunk the ChunkPlot is inside
      */
     public Chunk getChunk() {
@@ -83,7 +84,7 @@ public class ChunkPlot extends Plot {
 
     /**
      * Gets the point at the base of the plot.
-     *
+     * 
      * @return
      */
     @Override
@@ -98,7 +99,7 @@ public class ChunkPlot extends Plot {
 
     @Override
     public BSONObject toBSONObject() {
-        BSONObject obj = super.toBSONObject();
+        final BSONObject obj = super.toBSONObject();
         obj.put("x", getX());
         obj.put("y", getY());
         obj.put("z", getZ());
@@ -107,7 +108,7 @@ public class ChunkPlot extends Plot {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         }
@@ -115,7 +116,7 @@ public class ChunkPlot extends Plot {
             return false;
         }
         final ChunkPlot other = (ChunkPlot) obj;
-        if (this.chunk != other.chunk && (this.chunk == null || !this.chunk.equals(other.chunk))) {
+        if (chunk != other.chunk && (chunk == null || !chunk.equals(other.chunk))) {
             return false;
         }
         return super.equals(obj);
@@ -124,7 +125,7 @@ public class ChunkPlot extends Plot {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 79 * hash + (this.chunk != null ? this.chunk.hashCode() : 0);
+        hash = 79 * hash + (chunk != null ? chunk.hashCode() : 0);
         return hash;
     }
 }
