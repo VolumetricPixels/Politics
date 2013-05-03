@@ -68,50 +68,6 @@ public final class PropertySerializer {
         }
     }
 
-    /**
-     * Serializes a point to a string.
-     * 
-     * @param point
-     *            The point to serialize.
-     * @return The string representing the serialization.
-     */
-    public static String serializePoint(final Point point) throws PropertySerializationException {
-        return serialize(point);
-    }
-
-    /**
-     * Deserializes a point from a string.
-     * 
-     * @param string
-     * @return
-     * @throws PropertyDeserializationException
-     */
-    public static Point deserializePoint(final String string) throws PropertyDeserializationException {
-        return (Point) deserialize(string);
-    }
-
-    /**
-     * Serializes a transform to a string.
-     * 
-     * @param transform
-     *            The transform to serialize.
-     * @return The string representing the serialization.
-     */
-    public static String serializeTransform(final Transform transform) throws PropertySerializationException {
-        return serialize(transform);
-    }
-
-    /**
-     * Deserializes a transform from a string.
-     * 
-     * @param string
-     * @return
-     * @throws PropertyDeserializationException
-     */
-    public static Transform deserializeTransform(final String string) throws PropertyDeserializationException {
-        return (Transform) deserialize(string);
-    }
-
     private PropertySerializer() {
     }
 }

@@ -57,7 +57,6 @@ import com.volumetricpixels.politics.util.PropertySerializer;
  * Represents a group of players
  */
 public final class Group implements Comparable<Group>, Storable {
-
     /**
      * The unique identifier of this group. This is unique for the entire
      * plugin.
@@ -268,14 +267,12 @@ public final class Group implements Comparable<Group>, Storable {
         if (s == null) {
             return def;
         }
-        Transform t;
         try {
-            t = PropertySerializer.deserializeTransform(s);
+            return (Transform) PropertySerializer.deserialize(s);
         } catch (final PropertyDeserializationException ex) {
             PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a transform!", ex);
             return def;
         }
-        return t;
     }
 
     /**
@@ -300,14 +297,12 @@ public final class Group implements Comparable<Group>, Storable {
         if (s == null) {
             return def;
         }
-        Point p;
         try {
-            p = PropertySerializer.deserializePoint(s);
+            return (Point) PropertySerializer.deserialize(s);
         } catch (final PropertyDeserializationException ex) {
             PoliticsPlugin.logger().log(Level.WARNING, "Property '" + Integer.toHexString(property) + "' is not a point!", ex);
             return def;
         }
-        return p;
     }
 
     /**
@@ -318,7 +313,7 @@ public final class Group implements Comparable<Group>, Storable {
      */
     public void setProperty(final int property, final Transform value) {
         try {
-            setProperty(property, PropertySerializer.serializeTransform(value));
+            setProperty(property, PropertySerializer.serialize(value));
         } catch (final PropertySerializationException e) {
             Politics.getLogger().log(Level.SEVERE, "Error serializing property!", e);
         }
@@ -334,7 +329,7 @@ public final class Group implements Comparable<Group>, Storable {
      */
     public void setProperty(final int property, final Point value) {
         try {
-            setProperty(property, PropertySerializer.serializePoint(value));
+            setProperty(property, PropertySerializer.serialize(value));
         } catch (final PropertySerializationException e) {
             Politics.getLogger().log(Level.SEVERE, "Error serializing property!", e);
         }

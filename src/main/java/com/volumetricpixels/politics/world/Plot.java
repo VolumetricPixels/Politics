@@ -47,7 +47,6 @@ import org.bson.types.BasicBSONList;
  * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
  */
 public abstract class Plot implements Storable {
-
     /**
      * World of the plot
      */
@@ -338,13 +337,13 @@ public abstract class Plot implements Storable {
     @Override
     public int hashCode() {
         final int hash = 3;
+        // dafaq Ian?
         return hash;
     }
 
     public abstract boolean contains(final Point point);
 
     public enum Type {
-
         CHUNK, REGION;
     }
 }

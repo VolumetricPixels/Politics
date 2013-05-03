@@ -39,8 +39,8 @@ import com.volumetricpixels.politics.group.privilege.Privilege;
  * Represents a level of organization of a group
  */
 public final class GroupLevel {
-
     private static final String DEFAULT_TRACK = "default";
+
     /**
      * The ID of the GroupLevel.
      */

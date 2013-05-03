@@ -25,7 +25,6 @@ import org.spout.api.chat.style.ChatStyle;
  * The constant ChatStyles used in Politics for specific message types
  */
 public final class MessageStyle {
-
     /**
      * Error ChatStyle
      */

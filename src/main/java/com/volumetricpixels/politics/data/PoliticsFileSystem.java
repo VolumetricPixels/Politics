@@ -27,7 +27,6 @@ import com.volumetricpixels.politics.Politics;
  * Manages all Files used in Politics
  */
 public class PoliticsFileSystem {
-
     /**
      * Base directory
      */
