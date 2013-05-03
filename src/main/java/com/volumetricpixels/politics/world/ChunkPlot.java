@@ -19,17 +19,17 @@
  */
 package com.volumetricpixels.politics.world;
 
-import org.bson.BSONObject;
-import org.bson.BasicBSONObject;
 import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
+
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
 
 /**
  * A ChunkPlot wraps around a Chunk as well as storing a PoliticsWorld and
  * owners
  */
 public class ChunkPlot extends Plot {
-
     /**
      * The Chunk the ChunkPlot is in
      */

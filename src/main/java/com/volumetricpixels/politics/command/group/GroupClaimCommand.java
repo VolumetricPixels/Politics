@@ -24,6 +24,7 @@ import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
+import org.spout.api.geo.LoadOption;
 import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.Politics;
@@ -33,7 +34,6 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.util.MessageStyle;
 import com.volumetricpixels.politics.world.Plot;
-import org.spout.api.geo.LoadOption;
 
 /**
  * Claims the plot you are in.

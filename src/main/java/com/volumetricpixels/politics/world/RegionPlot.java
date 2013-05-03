@@ -19,17 +19,17 @@
  */
 package com.volumetricpixels.politics.world;
 
-import org.bson.BSONObject;
-import org.bson.BasicBSONObject;
 import org.spout.api.geo.cuboid.Cuboid;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
+
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
 
 /**
  * A RegionPlot wraps around a cuboid
  */
 public class RegionPlot extends Plot {
-
     private final Cuboid cuboid;
 
     /**

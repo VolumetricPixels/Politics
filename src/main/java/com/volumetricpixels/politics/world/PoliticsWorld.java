@@ -22,6 +22,8 @@ package com.volumetricpixels.politics.world;
 import java.util.List;
 
 import org.spout.api.geo.World;
+import org.spout.api.util.map.concurrent.TSyncInt21TripleObjectHashMap;
+import org.spout.api.util.map.concurrent.TripleIntObjectMap;
 
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
@@ -33,14 +35,11 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.util.DataUtils;
-import org.spout.api.util.map.concurrent.TSyncInt21TripleObjectHashMap;
-import org.spout.api.util.map.concurrent.TripleIntObjectMap;
 
 /**
  * Represents a world containing plots
  */
 public class PoliticsWorld implements Storable {
-
     /**
      * The name of the GroupsWorld.
      */

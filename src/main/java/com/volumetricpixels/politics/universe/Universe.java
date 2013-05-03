@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import org.spout.api.Server;
+
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 import org.bson.types.BasicBSONList;
@@ -54,7 +55,6 @@ import com.google.common.cache.LoadingCache;
  * Represents a headless group of all groups within its scope
  */
 public class Universe implements Storable {
-
     /**
      * The name of the universe.
      */

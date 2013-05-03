@@ -19,7 +19,9 @@
  */
 package com.volumetricpixels.politics.world;
 
+import gnu.trove.iterator.TIntIterator;
 import gnu.trove.list.TIntList;
+import gnu.trove.list.array.TIntArrayList;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,6 +31,10 @@ import java.util.Set;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
+import org.bson.types.BasicBSONList;
+
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.data.Storable;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
@@ -37,11 +43,6 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.privilege.Privilege;
 import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.util.DataUtils;
-import gnu.trove.iterator.TIntIterator;
-import gnu.trove.list.array.TIntArrayList;
-import org.bson.BSONObject;
-import org.bson.BasicBSONObject;
-import org.bson.types.BasicBSONList;
 
 /**
  * A Plot wraps around a Chunk as well as storing a PoliticsWorld and owners
