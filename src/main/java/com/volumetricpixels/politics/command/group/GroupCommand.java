@@ -39,7 +39,6 @@ import com.volumetricpixels.politics.universe.Universe;
  * A group-related command.
  */
 public abstract class GroupCommand extends PCommand {
-
     /**
      * Level of this GroupCommand.
      */
