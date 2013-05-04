@@ -29,6 +29,9 @@ import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.event.player.PlayerChangePlotEvent;
 import com.volumetricpixels.politics.world.Plot;
 
+/**
+ * Checks for player movement between plots every tick
+ */
 public class PlayerMoveComponent extends EntityComponent {
     private Transform prev;
 
@@ -53,8 +56,8 @@ public class PlayerMoveComponent extends EntityComponent {
             if (pcpe.isCancelled()) {
                 getOwner().getScene().setPosition(from);
             }
-
-            this.prev = getOwner().getScene().getTransform();
         }
+
+        this.prev = getOwner().getScene().getTransform();
     }
 }

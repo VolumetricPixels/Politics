@@ -27,18 +27,22 @@ import java.util.Set;
  * Represents things one is allowed to do
  */
 public class Privilege {
-
     /**
      * The name of the privilege.
      */
     private final String name;
     /**
-     * The bit that represents the privilege.
+     * The types of the privilege.
      */
     private final Set<PrivilegeType> types;
 
     /**
-     * Private C'tor
+     * C'tor
+     * 
+     * @param name
+     *            The name of the privilege
+     * @param types
+     *            The types of the privilege
      */
     public Privilege(final String name, final PrivilegeType... types) {
         name.replaceAll(" ", "_");
@@ -53,7 +57,7 @@ public class Privilege {
     /**
      * Gets the name of this privilege. This must be unique.
      * 
-     * @return
+     * @return The name of this privilege
      */
     public String getName() {
         return name;
@@ -62,7 +66,7 @@ public class Privilege {
     /**
      * Gets the types of this privilege.
      * 
-     * @return
+     * @return The types of this privilege
      */
     public Set<PrivilegeType> getTypes() {
         return EnumSet.copyOf(types);
@@ -72,7 +76,8 @@ public class Privilege {
      * Merges two sets of privileges together.
      * 
      * @param sets
-     * @return
+     *            The sets of privileges to merge
+     * @return A Set containing all privileges in the given sets
      */
     @SuppressWarnings("unchecked")
     public static Set<Privilege> all(final Set<Privilege>... sets) {
