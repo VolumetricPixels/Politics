@@ -103,7 +103,7 @@ public class ChunkPlot extends Plot {
         obj.put("x", getX());
         obj.put("y", getY());
         obj.put("z", getZ());
-        obj.put("type", Type.CHUNK.name());
+        obj.put("type", PlotType.CHUNK.name());
         return obj;
     }
 

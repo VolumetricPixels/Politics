@@ -30,7 +30,6 @@ import java.io.Serializable;
  * @author VolumetricPixels
  */
 public final class Serialization {
-
     /**
      * No instances
      */

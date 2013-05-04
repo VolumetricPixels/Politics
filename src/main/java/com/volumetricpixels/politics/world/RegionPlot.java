@@ -116,7 +116,7 @@ public class RegionPlot extends Plot {
         obj.put("xSize", size.getX());
         obj.put("ySize", size.getY());
         obj.put("zSize", size.getZ());
-        obj.put("type", Type.REGION.name());
+        obj.put("type", PlotType.REGION.name());
         return obj;
     }
 

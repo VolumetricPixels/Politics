@@ -41,20 +41,20 @@ import com.volumetricpixels.politics.util.DataUtils;
  */
 public class PoliticsWorld implements Storable {
     /**
-     * The name of the GroupsWorld.
+     * The name of the GroupsWorld
      */
     private final String name;
     /**
-     * The config of the world.
+     * The config of the world
      */
     private final WorldConfig config;
     /**
-     * Contains all owners corresponding to their proper positions.
+     * Contains all owners corresponding to their proper positions
      */
     private final TripleIntObjectMap<Plot> plots;
 
     /**
-     * Creates a new GroupsWorld.
+     * Creates a new PoliticsWorld
      * 
      * @param name
      */
@@ -76,7 +76,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets a GroupsWorld from a BSON object.
+     * Gets a PoliticsWorld from a BSON object
      * 
      * @param name
      * @param config
@@ -92,10 +92,10 @@ public class PoliticsWorld implements Storable {
             }
             final BasicBSONObject plotObj = (BasicBSONObject) o;
             final String string = plotObj.getString("type", null);
-            if (string == null || Plot.Type.valueOf(string) == null) {
+            if (string == null || PlotType.valueOf(string) == null) {
                 throw new IllegalArgumentException("Type is not a recognized string");
             }
-            switch (Plot.Type.valueOf(string)) {
+            switch (PlotType.valueOf(string)) {
                 case CHUNK: {
                     final ChunkPlot p = new ChunkPlot(plotObj);
                     plots.put(p.getX(), p.getY(), p.getZ(), p);
@@ -114,7 +114,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the name of the GroupsWorld.
+     * Gets the name of the GroupsWorld
      * 
      * @return
      */
@@ -123,7 +123,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the configuration of this world.
+     * Gets the configuration of this world
      * 
      * @return
      */
@@ -132,7 +132,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the World of this PoliticsWorld.
+     * Gets the World of this PoliticsWorld
      * 
      * @return
      */
@@ -169,8 +169,9 @@ public class PoliticsWorld implements Storable {
 //    public TIntList getOwnerIds(final int x, final int y, final int z) {
 //        return new TIntArrayList(getInternalOwnerList(x, y, z));
 //    }
+
     /**
-     * Gets the owners of a given plot location within this world.
+     * Gets the owners of a given plot location within this world
      * 
      * @param x
      * @param y
@@ -182,7 +183,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets a universe from its GroupLevel.
+     * Gets a universe from its GroupLevel
      * 
      * @param level
      * @return
@@ -192,7 +193,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the plot at the given point.
+     * Gets the plot at the given point
      * 
      * @param x
      * @param y
@@ -204,7 +205,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the plot at the given chunk position.
+     * Gets the plot at the given chunk position
      * 
      * @param x
      *            chunkX
@@ -219,7 +220,7 @@ public class PoliticsWorld implements Storable {
     }
 
     /**
-     * Gets the GroupLevels within this world.
+     * Gets the GroupLevels within this world
      * 
      * @return
      */

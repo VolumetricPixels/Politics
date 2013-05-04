@@ -337,14 +337,10 @@ public abstract class Plot implements Storable {
 
     @Override
     public int hashCode() {
-        final int hash = 3;
-        // dafaq Ian?
+        int hash = 3;
+        hash *= 73 + (world != null ? world.hashCode() : 0) + (owners != null ? owners.hashCode() : 0);
         return hash;
     }
 
     public abstract boolean contains(final Point point);
-
-    public enum Type {
-        CHUNK, REGION;
-    }
 }

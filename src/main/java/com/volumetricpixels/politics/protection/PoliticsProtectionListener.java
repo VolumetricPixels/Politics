@@ -28,6 +28,7 @@ import org.spout.api.event.Listener;
 import org.spout.api.event.Order;
 import org.spout.api.event.server.protection.EntityCanBreakEvent;
 import org.spout.api.event.server.protection.EntityCanBuildEvent;
+import org.spout.api.geo.discrete.Point;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
@@ -35,10 +36,9 @@ import com.volumetricpixels.politics.group.privilege.GroupPlotPrivileges;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Deals with ChunkPlot protections in Politics
+ * Deals with protections in Politics (i.e plots)
  */
 public class PoliticsProtectionListener implements Listener {
-
     @EventHandler(order = Order.LATEST)
     public void onEntityCanBreak(final EntityCanBreakEvent event) {
         final Entity entity = event.getEntity();
@@ -58,7 +58,7 @@ public class PoliticsProtectionListener implements Listener {
             }
         } else {
             // TODO: Configurable entity damage to plots (eg creeper explosions,
-// AI)... Toggleable per plot
+            // AI)... Toggleable per plot
         }
     }
 
@@ -66,7 +66,8 @@ public class PoliticsProtectionListener implements Listener {
     public void onEntityCanBuild(final EntityCanBuildEvent event) {
         final Entity entity = event.getEntity();
         final Plot plot = Politics.getPlotAt(event.getPoint());
-        final List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getBasePoint().getBlockX(), plot.getBasePoint().getBlockY(), plot.getBasePoint().getBlockZ());
+        final Point base = plot.getBasePoint();
+        final List<Group> owners = plot.getPoliticsWorld().getOwners(base.getBlockX(), base.getBlockY(), base.getBlockZ());
 
         if (owners.isEmpty()) {
             return;
