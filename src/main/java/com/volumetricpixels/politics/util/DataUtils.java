@@ -33,7 +33,7 @@ public class DataUtils {
         }
         final World world = Politics.getPlugin().getEngine().getWorld(string);
         if (world == null) {
-            throw new IllegalArgumentException("'" + string + "' is not a valid world.");
+            throw new IllegalArgumentException("'" + string + "' is not a valid world!");
         }
         return world;
     }

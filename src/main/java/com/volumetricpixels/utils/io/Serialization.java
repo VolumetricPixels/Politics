@@ -38,7 +38,7 @@ public final class Serialization {
 
     /**
      * Uses Base64 along with Java's Serialization API to get an Object from a
-     * Serialized String.
+     * Serialized Base64 String.
      * 
      * Please note the input String should be encoded in Base64. If you use the
      * toString(Serializable) method, the result will be encoded in Base64, so
@@ -58,7 +58,7 @@ public final class Serialization {
      *             If the written Object's class is not found
      */
     public static Object fromString(final String s) throws IOException, ClassNotFoundException {
-        final byte[] data = Base64Coder.decode(s);
+        final byte[] data = Base64Coder.decode(s.toCharArray(), 0, s.length());
         final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         final Object o = ois.readObject();
         ois.close();
@@ -86,6 +86,7 @@ public final class Serialization {
         final ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(o);
         oos.close();
-        return new String(Base64Coder.encode(baos.toByteArray()));
+        byte[] byteArray = baos.toByteArray();
+        return new String(Base64Coder.encode(byteArray, 0, byteArray.length));
     }
 }
