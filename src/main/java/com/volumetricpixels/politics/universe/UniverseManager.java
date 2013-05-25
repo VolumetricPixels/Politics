@@ -54,7 +54,6 @@ import com.volumetricpixels.politics.world.PoliticsWorld;
  * Contains all universes
  */
 public class UniverseManager {
-
     /**
      * The rules of the universe.
      */

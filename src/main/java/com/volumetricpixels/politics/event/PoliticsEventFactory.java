@@ -37,7 +37,7 @@ import com.volumetricpixels.politics.universe.Universe;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Factory for creating events
+ * Factory for creating and calling events
  */
 public final class PoliticsEventFactory {
     /**

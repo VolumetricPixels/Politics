@@ -29,7 +29,6 @@ import com.volumetricpixels.politics.Politics;
  * registration.
  */
 public abstract class PCommand implements CommandExecutor {
-
     /**
      * The primary name of this command.
      */

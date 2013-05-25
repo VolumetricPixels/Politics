@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import org.spout.api.Server;
@@ -79,7 +80,7 @@ public final class Group implements Comparable<Group>, Storable {
      * The entity 'members' of this group. The keys are the entity ids, and the
      * values are the entity roles
      */
-    private final Map<Integer, Role> entities;
+    private final Map<UUID, Role> entities;
 
     /**
      * The universe this group is part of
@@ -93,7 +94,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param level
      */
     public Group(final int uid, final GroupLevel level) {
-        this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>(), new HashMap<Integer, Role>());
+        this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>(), new HashMap<UUID, Role>());
     }
 
     /**
@@ -104,7 +105,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param properties
      * @param players
      */
-    private Group(final int uid, final GroupLevel level, final TIntObjectMap<Object> properties, final Map<String, Role> players, final Map<Integer, Role> entities) {
+    private Group(final int uid, final GroupLevel level, final TIntObjectMap<Object> properties, final Map<String, Role> players, final Map<UUID, Role> entities) {
         this.uid = uid;
         this.level = level;
         this.properties = properties;
@@ -365,8 +366,8 @@ public final class Group implements Comparable<Group>, Storable {
      * 
      * @return
      */
-    public List<Integer> getImmediateEntities() {
-        return new ArrayList<Integer>(entities.keySet());
+    public List<UUID> getImmediateEntities() {
+        return new ArrayList<UUID>(entities.keySet());
     }
 
     /**
@@ -404,8 +405,8 @@ public final class Group implements Comparable<Group>, Storable {
      * 
      * @return
      */
-    public List<Integer> getEntities() {
-        final List<Integer> entities = new ArrayList<Integer>();
+    public List<UUID> getEntities() {
+        final List<UUID> entities = new ArrayList<UUID>();
         for (final Group group : getGroups()) {
             entities.addAll(group.getEntities());
         }
@@ -507,7 +508,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param player
      * @param role
      */
-    public void setRole(final int entity, final Role role) {
+    public void setRole(final UUID entity, final Role role) {
         entities.put(entity, role);
     }
 
@@ -600,8 +601,8 @@ public final class Group implements Comparable<Group>, Storable {
         object.put("players", playersBson);
 
         final BasicBSONObject entitiesBson = new BasicBSONObject();
-        for (final Entry<Integer, Role> roleEntry : entities.entrySet()) {
-            entitiesBson.put(Integer.toString(roleEntry.getKey()), roleEntry.getValue().getId());
+        for (final Entry<UUID, Role> roleEntry : entities.entrySet()) {
+            entitiesBson.put(roleEntry.getKey().toString(), roleEntry.getValue().getId());
         }
         object.put("entities", entitiesBson);
 
@@ -667,11 +668,11 @@ public final class Group implements Comparable<Group>, Storable {
             throw new IllegalStateException("Damnit admin! Y u do dis! Corrupt data!");
         }
         final BasicBSONObject entitiesBson = (BasicBSONObject) entitiesObj;
-        final Map<Integer, Role> entities = new HashMap<Integer, Role>();
+        final Map<UUID, Role> entities = new HashMap<UUID, Role>();
         for (final Entry<String, Object> entry : entitiesBson.entrySet()) {
             final String roleId = entry.getValue().toString();
             final Role role = level.getRole(roleId);
-            entities.put(Integer.parseInt(entry.getKey()), role);
+            entities.put(UUID.fromString(entry.getKey()), role);
         }
 
         return new Group(uid, level, properties, players, entities);
