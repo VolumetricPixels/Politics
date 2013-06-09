@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.command.group;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
@@ -29,7 +29,6 @@ import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.level.Role;
-import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Group set role command
@@ -46,7 +45,7 @@ public class GroupSetRoleCommand extends GroupCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandArguments args) throws CommandException {
         final Group group = findGroup(source, cmd, args);
 
         final Player player = Politics.getPlugin().getEngine().getPlayer(args.getString(0), false);
@@ -71,12 +70,12 @@ public class GroupSetRoleCommand extends GroupCommand {
         }
 
         group.setRole(player.getName(), role);
-        source.sendMessage(MessageStyle.SUCCESS, player.getName() + " is now part of the " + level.getName() + "!");
+        source.sendMessage(player.getName() + " is now part of the " + level.getName() + "!");
     }
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgBounds(2, -1);
+        cmd.setArgumentBounds(2, -1);
         cmd.setHelp("Sets the role of a player in this " + level.getName() + ".");
         cmd.setUsage("<player> <role> [-g group] [-u universe]");
     }

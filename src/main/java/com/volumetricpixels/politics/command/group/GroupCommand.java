@@ -22,7 +22,7 @@ package com.volumetricpixels.politics.command.group;
 import java.util.List;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
@@ -137,7 +137,7 @@ public abstract class GroupCommand extends PCommand {
      *            The arguments of the command
      * @return The universe
      */
-    public Universe findUniverse(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public Universe findUniverse(final CommandSource source, final Command cmd, final CommandArguments context) throws CommandException {
         Universe universe = null;
         final String universeName = context.getFlagString('u');
 
@@ -171,7 +171,7 @@ public abstract class GroupCommand extends PCommand {
      *            The arguments of the command
      * @return The group
      */
-    public Group findGroup(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public Group findGroup(final CommandSource source, final Command cmd, final CommandArguments context) throws CommandException {
         final Universe universe = findUniverse(source, cmd, context);
 
         Group group = null;

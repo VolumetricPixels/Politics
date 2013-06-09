@@ -19,9 +19,8 @@
  */
 package com.volumetricpixels.politics.command.group;
 
-import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
@@ -46,7 +45,7 @@ public class GroupInfoCommand extends GroupCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandArguments context) throws CommandException {
         if (!(source instanceof Player)) {
             throw new CommandException("Consoles can't be part of a group");
         }

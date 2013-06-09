@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.command.universe;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
@@ -42,16 +42,16 @@ public class UniverseDestroyCommand extends UniverseCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
         final Universe universe = Politics.getUniverse(args.getString(0));
         if (universe == null) {
-            source.sendMessage(MessageStyle.ERROR, "A universe with the name '" + args.getString(0) + "' doesn't exist.");
+            source.sendMessage("A universe with the name '" + args.getString(0) + "' doesn't exist.");
             return;
         }
 
         Politics.getUniverseManager().destroyUniverse(universe);
         PoliticsEventFactory.callUniverseDestroyEvent(universe);
-        source.sendMessage(MessageStyle.SUCCESS, "The universe has been destroyed, sir.");
+        source.sendMessage(sir.");
     }
 
     @Override
@@ -61,7 +61,7 @@ public class UniverseDestroyCommand extends UniverseCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgBounds(1, -1);
+        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Destroys the given universe.");
         cmd.setUsage("<name>");
     }

@@ -22,8 +22,6 @@ package com.volumetricpixels.politics.command;
 import org.spout.api.command.Command;
 import org.spout.api.command.Executor;
 
-import com.volumetricpixels.politics.Politics;
-
 /**
  * Represents a command that can be run in Politics. Helps out with command
  * registration.
@@ -56,12 +54,11 @@ public abstract class PCommand implements Executor {
             return null; // Don't register
         }
 
-        final Command cmd = parent.addSubCommand(Politics.getPlugin(), primary);
+        final Command cmd = parent.getChild(primary);
         cmd.setExecutor(this);
         cmd.addAlias(getAliases());
-        cmd.setPermissions(true, getPermissions());
+        cmd.setPermission(getPermissions()[0]); // TODO: How to do this :(
         setupCommand(cmd);
-        cmd.closeSubCommand();
         return cmd;
     }
 
@@ -90,6 +87,6 @@ public abstract class PCommand implements Executor {
      *            The command to set up
      */
     public void setupCommand(final Command cmd) {
-        cmd.setArgBounds(0, -1);
+        cmd.setArgumentBounds(0, -1);
     }
 }

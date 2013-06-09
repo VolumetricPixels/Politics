@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.command.group;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
@@ -31,7 +31,6 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
-import com.volumetricpixels.politics.util.MessageStyle;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
@@ -50,7 +49,7 @@ public class GroupUnclaimCommand extends GroupCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandArguments context) throws CommandException {
         final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.UNCLAIM) && !hasAdmin(source)) {
@@ -73,12 +72,12 @@ public class GroupUnclaimCommand extends GroupCommand {
             throw new CommandException("The plot could not be unclaimed.");
         }
 
-        source.sendMessage(MessageStyle.SUCCESS, "The plot was unclaimed successfully.");
+        source.sendMessage("The plot was unclaimed successfully.");
     }
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgBounds(1, -1);
+        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Unclaims land from your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");
     }

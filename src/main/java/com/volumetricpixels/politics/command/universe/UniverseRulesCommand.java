@@ -22,13 +22,12 @@ package com.volumetricpixels.politics.command.universe;
 import java.util.List;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.universe.UniverseRules;
-import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Lists available rules.
@@ -43,10 +42,10 @@ public class UniverseRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
         final List<UniverseRules> ruleList = Politics.getUniverseManager().listRules();
         for (final UniverseRules rules : ruleList) {
-            source.sendMessage(MessageStyle.INFO, rules.getName() + " - " + rules.getDescription());
+            source.sendMessage(rules.getName() + " - " + rules.getDescription());
         }
     }
 
@@ -57,7 +56,7 @@ public class UniverseRulesCommand extends UniverseCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgBounds(1, -1);
+        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Lists all possible rules to use.");
         cmd.setUsage("");
     }

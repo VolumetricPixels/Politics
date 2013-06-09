@@ -52,9 +52,8 @@ public abstract class Commands {
      * @return The registered command.
      */
     public final Command register() {
-        final Command command = Politics.getPlugin().getEngine().getRootCommand().addSubCommand(Politics.getPlugin(), name);
+        final Command command = Politics.getPlugin().getEngine().getCommandManager().getCommand(name);
         setup(command);
-        command.closeSubCommand();
         return command;
     }
 

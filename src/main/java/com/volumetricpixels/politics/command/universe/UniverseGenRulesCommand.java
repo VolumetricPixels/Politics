@@ -22,14 +22,13 @@ package com.volumetricpixels.politics.command.universe;
 import java.util.Set;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.universe.RuleTemplates;
 import com.volumetricpixels.politics.universe.UniverseRules;
-import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Creates Universe rules.
@@ -44,11 +43,11 @@ public class UniverseGenRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
         final String templateName = args.getString(0).toLowerCase();
         final Set<String> templateNames = RuleTemplates.listTemplateNames();
         if (!templateNames.contains(templateName)) {
-            source.sendMessage(MessageStyle.ERROR, "A template with the name of '" + templateName + "' does not exist.");
+            source.sendMessage("A template with the name of '" + templateName + "' does not exist.");
             return;
         }
 
@@ -57,13 +56,13 @@ public class UniverseGenRulesCommand extends UniverseCommand {
 
         final boolean force = args.hasFlag('f');
         if (existing != null && !force) {
-            source.sendMessage(MessageStyle.ERROR, "A set of rules with the name of '" + name
+            source.sendMessage("A set of rules with the name of '" + name
                     + "' already exists. Use the '-f' option to overwrite an existing rule set.");
             return;
         }
 
         RuleTemplates.copyTemplate(templateName, name);
-        source.sendMessage(MessageStyle.SUCCESS, "A new set of rules named '" + name + "' based on the template '" + templateName
+        source.sendMessage("A new set of rules named '" + name + "' based on the template '" + templateName
                 + "' has been generated. Please restart the server to see your changes.");
     }
 
@@ -74,7 +73,7 @@ public class UniverseGenRulesCommand extends UniverseCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgBounds(1, -1);
+        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Generates a set of rules.");
         cmd.setUsage("<template> [-f] [-n name]");
     }

@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.command.group;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
@@ -31,7 +31,6 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
-import com.volumetricpixels.politics.util.MessageStyle;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
@@ -50,7 +49,7 @@ public class GroupSetSpawnCommand extends GroupCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandArguments context) throws CommandException {
         final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.SET_SPAWN) && !hasAdmin(source)) {
@@ -69,12 +68,12 @@ public class GroupSetSpawnCommand extends GroupCommand {
         }
 
         group.setProperty(GroupProperty.SPAWN, transform);
-        source.sendMessage(MessageStyle.SUCCESS, "The spawn of your " + level.getName() + " was set successfully!");
+        source.sendMessage("The spawn of your " + level.getName() + " was set successfully!");
     }
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgBounds(1, -1);
+        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Sets the spawn of your " + level.getName() + ".");
         cmd.setUsage("[-p player] [-g " + level.getName() + "] [-u universe]");
     }

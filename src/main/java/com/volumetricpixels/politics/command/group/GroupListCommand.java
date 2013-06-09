@@ -22,7 +22,7 @@ package com.volumetricpixels.politics.command.group;
 import java.util.List;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.exception.CommandException;
 
@@ -30,7 +30,6 @@ import com.volumetricpixels.politics.group.Group;
 import com.volumetricpixels.politics.group.GroupProperty;
 import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
-import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Group list command
@@ -50,10 +49,10 @@ public class GroupListCommand extends GroupCommand {
     }
 
     @Override
-    public void execute(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandArguments args) throws CommandException {
         final Universe universe = findUniverse(source, cmd, args);
 
-        source.sendMessage(MessageStyle.INFO, "========= " + level.getPlural().toUpperCase() + " =========");
+        source.sendMessage("========= " + level.getPlural().toUpperCase() + " =========");
 
         final List<Group> groups = universe.getGroups(level);
         if (groups == null) {
