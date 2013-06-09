@@ -50,7 +50,7 @@ public class GroupSetSpawnCommand extends GroupCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.SET_SPAWN) && !hasAdmin(source)) {

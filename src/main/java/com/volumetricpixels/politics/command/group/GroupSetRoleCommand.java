@@ -46,7 +46,7 @@ public class GroupSetRoleCommand extends GroupCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
         final Group group = findGroup(source, cmd, args);
 
         final Player player = Politics.getPlugin().getEngine().getPlayer(args.getString(0), false);

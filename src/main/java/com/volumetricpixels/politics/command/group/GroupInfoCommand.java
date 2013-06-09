@@ -35,7 +35,6 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * Used to get info about a group
  */
 public class GroupInfoCommand extends GroupCommand {
-
     /**
      * C'tor
      * 
@@ -47,7 +46,7 @@ public class GroupInfoCommand extends GroupCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         if (!(source instanceof Player)) {
             throw new CommandException("Consoles can't be part of a group");
         }

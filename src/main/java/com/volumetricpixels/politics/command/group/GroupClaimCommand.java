@@ -52,7 +52,7 @@ public class GroupClaimCommand extends GroupCommand {
 
     // TODO separate this into cuboid and chunk. It's only chunk now.
     @Override
-    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.CLAIM) && !hasAdmin(source)) {

@@ -37,7 +37,7 @@ public class PoliticsVersionCommand extends PoliticsCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
         source.sendMessage(MessageStyle.INFO, "Politics Version: " + Politics.getVersion());
         source.sendMessage(MessageStyle.INFO, "New versions of Politics can be found at " + Politics.CI_URL);
     }

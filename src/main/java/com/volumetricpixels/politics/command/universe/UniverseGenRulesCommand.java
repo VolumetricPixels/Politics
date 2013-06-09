@@ -44,7 +44,7 @@ public class UniverseGenRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
         final String templateName = args.getString(0).toLowerCase();
         final Set<String> templateNames = RuleTemplates.listTemplateNames();
         if (!templateNames.contains(templateName)) {

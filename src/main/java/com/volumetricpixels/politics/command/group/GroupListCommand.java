@@ -50,7 +50,7 @@ public class GroupListCommand extends GroupCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandContext args) throws CommandException {
         final Universe universe = findUniverse(source, cmd, args);
 
         source.sendMessage(MessageStyle.INFO, "========= " + level.getPlural().toUpperCase() + " =========");

@@ -46,7 +46,7 @@ public class GroupDestroyCommand extends GroupCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         if (!source.hasPermission("politics.group." + level.getId() + ".destroy")) {
             throw new CommandException("You aren't allowed to perform this command!");
         }

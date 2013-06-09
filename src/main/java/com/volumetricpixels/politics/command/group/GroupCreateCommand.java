@@ -45,7 +45,7 @@ public class GroupCreateCommand extends GroupCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
+    public void execute(final CommandSource source, final Command cmd, final CommandContext context) throws CommandException {
         // Get the founder
         String founderName = null;
         if (source instanceof Player) {

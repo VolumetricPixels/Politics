@@ -43,7 +43,7 @@ public class UniverseRulesCommand extends UniverseCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
         final List<UniverseRules> ruleList = Politics.getUniverseManager().listRules();
         for (final UniverseRules rules : ruleList) {
             source.sendMessage(MessageStyle.INFO, rules.getName() + " - " + rules.getDescription());

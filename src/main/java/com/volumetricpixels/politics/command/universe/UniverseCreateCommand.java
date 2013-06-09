@@ -48,7 +48,7 @@ public class UniverseCreateCommand extends UniverseCommand {
     }
 
     @Override
-    public void processCommand(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
+    public void execute(final CommandSource source, final Command command, final CommandContext args) throws CommandException {
         final String name = args.getString(0).toLowerCase();
 
         if (name.contains(" ")) {

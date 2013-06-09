@@ -20,7 +20,7 @@
 package com.volumetricpixels.politics.command;
 
 import org.spout.api.command.Command;
-import org.spout.api.command.CommandExecutor;
+import org.spout.api.command.Executor;
 
 import com.volumetricpixels.politics.Politics;
 
@@ -28,7 +28,7 @@ import com.volumetricpixels.politics.Politics;
  * Represents a command that can be run in Politics. Helps out with command
  * registration.
  */
-public abstract class PCommand implements CommandExecutor {
+public abstract class PCommand implements Executor {
     /**
      * The primary name of this command.
      */
