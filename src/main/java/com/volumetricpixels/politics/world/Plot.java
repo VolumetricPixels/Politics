@@ -92,17 +92,23 @@ public abstract class Plot implements Storable {
      */
     Plot(final BasicBSONObject object) {
         world = Politics.getWorld(DataUtils.getWorld(object.getString("world", null)));
-        final BasicBSONList list = DataUtils.getList(object);
-        final TIntList tList = new TIntArrayList();
-        for (final Object obj : list) {
-            if (!(obj instanceof Integer)) {
-                throw new IllegalArgumentException("obj is not an Integer!");
-            }
-            final int val = (Integer) obj;
-            tList.add(val);
+        if (object.containsField("owners")) {
+            owners = (TIntList) object.get("owners"); // TODO does this work?
+        } else {
+            owners = new TIntArrayList();
         }
-        owners = tList;
 
+        // based on toBSONObject(), below code never made sense
+//      final BasicBSONList list = DataUtils.getList(object);
+//      final TIntList tList = new TIntArrayList();
+//      for (final Object obj : list) {
+//          if (!(obj instanceof Integer)) {
+//              throw new IllegalArgumentException("obj is not an Integer!"); 
+//          }
+//          final int val = (Integer) obj;
+//          tList.add(val);
+//      }
+//      owners = tList;
     }
 
     /**
@@ -309,6 +315,7 @@ public abstract class Plot implements Storable {
     public BSONObject toBSONObject() {
         final BasicBSONObject obj = new BasicBSONObject();
         obj.put("world", world.getName());
+        obj.put("owners", owners);
         return obj;
     }
 
