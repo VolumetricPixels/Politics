@@ -42,9 +42,8 @@ public class PoliticsAboutCommand extends PoliticsCommand {
 
     @Override
     public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
-        source.sendMessage(Politics.getPlugin().getVersion());
+        source.sendMessage("Politics " + Politics.getPlugin().getVersion());
         source.sendMessage("Copyright (c) 2012-" + Calendar.getInstance().get(Calendar.YEAR) + " Volumetric Pixels");
-        source.sendMessage(MessageStyle.INFO,
-                "Politics is a self-serve community management system, designed as the final replacement for Towny, Factions and other similar plugins.");
+        source.sendMessage("Politics is a self-serve community management system, designed as the final replacement for Towny, Factions and other similar plugins.");
     }
 }

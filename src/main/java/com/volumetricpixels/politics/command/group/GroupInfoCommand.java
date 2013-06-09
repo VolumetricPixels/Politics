@@ -61,9 +61,9 @@ public class GroupInfoCommand extends GroupCommand {
             throw new CommandException("You aren't in a " + level.getName() + ".");
         }
 
-        p.sendMessage(ChatStyle.BLUE, "============= INFO =============");
-        p.sendMessage(ChatStyle.DARK_GREEN, "Current Group: " + group.getStringProperty(GroupProperty.NAME));
-        p.sendMessage(ChatStyle.BLUE, "================================");
+        p.sendMessage("============= INFO =============");
+        p.sendMessage("Current Group: " + group.getStringProperty(GroupProperty.NAME));
+        p.sendMessage("================================");
     }
 
     @Override

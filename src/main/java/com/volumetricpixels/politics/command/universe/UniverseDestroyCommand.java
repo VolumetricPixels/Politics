@@ -27,7 +27,6 @@ import org.spout.api.exception.CommandException;
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.event.PoliticsEventFactory;
 import com.volumetricpixels.politics.universe.Universe;
-import com.volumetricpixels.politics.util.MessageStyle;
 
 /**
  * Destroys a universe and all of its groups.
@@ -51,7 +50,7 @@ public class UniverseDestroyCommand extends UniverseCommand {
 
         Politics.getUniverseManager().destroyUniverse(universe);
         PoliticsEventFactory.callUniverseDestroyEvent(universe);
-        source.sendMessage(sir.");
+        source.sendMessage("Universe destroyed, sir.");
     }
 
     @Override

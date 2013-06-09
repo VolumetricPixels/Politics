@@ -35,7 +35,6 @@ import com.volumetricpixels.politics.universe.Universe;
  * Group list command
  */
 public class GroupListCommand extends GroupCommand {
-
     public static final int PAGE_HEIGHT = 20;
 
     /**
@@ -72,7 +71,7 @@ public class GroupListCommand extends GroupCommand {
 
         final List<Group> pageGroups = groups.subList(min, max);
         for (final Group group : pageGroups) {
-            source.sendMessage(group.getProperty(GroupProperty.TAG));
+            source.sendMessage((String) group.getProperty(GroupProperty.TAG));
             // TODO prettify list
         }
     }
