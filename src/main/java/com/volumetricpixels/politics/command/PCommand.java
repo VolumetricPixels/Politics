@@ -57,7 +57,7 @@ public abstract class PCommand implements Executor {
         final Command cmd = parent.getChild(primary);
         cmd.setExecutor(this);
         cmd.addAlias(getAliases());
-        cmd.setPermission(getPermissions()[0]); // TODO: How to do this :(
+        cmd.setPermission(getPermission());
         setupCommand(cmd);
         return cmd;
     }
@@ -76,8 +76,8 @@ public abstract class PCommand implements Executor {
      * 
      * @return A String[] of permissions for this command
      */
-    protected String[] getPermissions() {
-        return new String[0];
+    protected String getPermission() {
+        return new String();
     }
 
     /**

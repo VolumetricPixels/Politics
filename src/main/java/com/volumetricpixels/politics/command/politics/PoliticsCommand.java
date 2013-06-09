@@ -37,7 +37,7 @@ public abstract class PoliticsCommand extends PCommand {
     }
 
     @Override
-    protected String[] getPermissions() {
-        return new String[] { "politics.politics." + primary };
+    protected String getPermission() {
+        return "politics.politics." + primary;
     }
 }

@@ -87,8 +87,8 @@ public abstract class GroupCommand extends PCommand {
     }
 
     @Override
-    protected String[] getPermissions() {
-        return new String[] { "politics.group." + level.getId() + "." + truePrimary };
+    protected String getPermission() {
+        return "politics.group." + level.getId() + "." + truePrimary;
     }
 
     /**

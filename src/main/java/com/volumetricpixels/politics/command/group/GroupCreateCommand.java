@@ -32,7 +32,6 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
 import com.volumetricpixels.politics.universe.Universe;
 
 public class GroupCreateCommand extends GroupCommand {
-
     /**
      * C'tor
      * 

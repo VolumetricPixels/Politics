@@ -33,7 +33,6 @@ import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
  * Used to destroy (delete) a group
  */
 public class GroupDestroyCommand extends GroupCommand {
-
     /**
      * C'tor
      * 
@@ -46,10 +45,6 @@ public class GroupDestroyCommand extends GroupCommand {
 
     @Override
     public void execute(final CommandSource source, final Command cmd, final CommandArguments context) throws CommandException {
-        if (!source.hasPermission("politics.group." + level.getId() + ".destroy")) {
-            throw new CommandException("You aren't allowed to perform this command!");
-        }
-
         final Group group = findGroup(source, cmd, context);
 
         if (!group.can(source, GroupPrivileges.DISBAND) && !hasAdmin(source)) {
@@ -58,16 +53,6 @@ public class GroupDestroyCommand extends GroupCommand {
 
         group.getUniverse().destroyGroup(group);
         source.sendMessage("The group " + group.getStringProperty(GroupProperty.NAME) + " has been disbanded!");
-    }
-
-    @Override
-    public String[] getPermissions() {
-        /*
-         * Permissions for this command must be handled manually as the command
-         * will work even without the admin permission if the user is a high
-         * enough rank within the group
-         */
-        return new String[0];
     }
 
     @Override
