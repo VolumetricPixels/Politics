@@ -21,6 +21,7 @@ package com.volumetricpixels.politics.util;
 
 public final class Base64Coder {
     // The line separator string of the operating system.
+
     private static final String systemLineSeparator = System.getProperty("line.separator");
     // Mapping table from 6-bit nibbles to Base64 characters.
     private static final char[] map1 = new char[64];
@@ -39,7 +40,6 @@ public final class Base64Coder {
         map1[i++] = '+';
         map1[i++] = '/';
     }
-
     // Mapping table from Base64 characters to 6-bit nibbles.
     private static final byte[] map2 = new byte[128];
 
@@ -50,6 +50,44 @@ public final class Base64Coder {
         for (int i = 0; i < 64; i++) {
             map2[map1[i]] = (byte) i;
         }
+    }
+
+    public static String encodeString(final String s) {
+        return new String(encode(s.getBytes()));
+    }
+
+    public static String encodeLines(final byte[] in) {
+        return encodeLines(in, 0, in.length, 76, systemLineSeparator);
+    }
+
+    public static String encodeLines(final byte[] in, final int iOff, final int iLen, final int lineLen, final String lineSeparator) {
+        final int blockLen = lineLen * 3 / 4;
+
+        if (blockLen <= 0) {
+            throw new IllegalArgumentException();
+        }
+
+        final int lines = (iLen + blockLen - 1) / blockLen;
+        final int bufLen = (iLen + 2) / 3 * 4 + lines * lineSeparator.length();
+
+        final StringBuilder buf = new StringBuilder(bufLen);
+        int ip = 0;
+        while (ip < iLen) {
+            final int l = Math.min(iLen - ip, blockLen);
+            buf.append(encode(in, iOff + ip, l));
+            buf.append(lineSeparator);
+            ip += l;
+        }
+
+        return buf.toString();
+    }
+
+    public static char[] encode(final byte[] in) {
+        return encode(in, 0, in.length);
+    }
+
+    public static char[] encode(final byte[] in, final int iLen) {
+        return encode(in, 0, iLen);
     }
 
     public static char[] encode(final byte[] in, final int iOff, final int iLen) {
@@ -78,6 +116,31 @@ public final class Base64Coder {
         }
 
         return out;
+    }
+
+    public static String decodeString(final String s) {
+        return new String(decode(s));
+    }
+
+    public static byte[] decodeLines(final String s) {
+        final char[] buf = new char[s.length()];
+        int p = 0;
+        for (int ip = 0; ip < s.length(); ip++) {
+            final char c = s.charAt(ip);
+            if (c != ' ' && c != '\r' && c != '\n' && c != '\t') {
+                buf[p++] = c;
+            }
+        }
+
+        return decode(buf, 0, p);
+    }
+
+    public static byte[] decode(final String s) {
+        return decode(s.toCharArray());
+    }
+
+    public static byte[] decode(final char[] in) {
+        return decode(in, 0, in.length);
     }
 
     public static byte[] decode(final char[] in, final int iOff, int iLen) {

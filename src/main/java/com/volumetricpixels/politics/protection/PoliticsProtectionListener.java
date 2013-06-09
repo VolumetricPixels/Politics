@@ -21,7 +21,6 @@ package com.volumetricpixels.politics.protection;
 
 import java.util.List;
 
-import org.spout.api.command.CommandSource;
 import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.event.EventHandler;
@@ -44,8 +43,7 @@ public class PoliticsProtectionListener implements Listener {
     public void onEntityCanBreak(final EntityCanBreakEvent event) {
         final Entity entity = event.getEntity();
         final Plot plot = Politics.getPlotAt(event.getBlock().getPosition());
-        final Point base = plot.getBasePoint();
-        final List<Group> owners = plot.getPoliticsWorld().getOwners(base.getBlockX(), base.getBlockY(), base.getBlockZ());
+        final List<Group> owners = plot.getPoliticsWorld().getOwners(plot.getBasePoint().getBlockX(), plot.getBasePoint().getBlockY(), plot.getBasePoint().getBlockZ());
 
         if (owners.isEmpty()) {
             return;
@@ -54,19 +52,13 @@ public class PoliticsProtectionListener implements Listener {
         if (entity instanceof Player) {
             final Player player = (Player) entity;
             for (final Group group : owners) {
-                if (!group.can((CommandSource) player, GroupPlotPrivileges.BUILD)) {
+                if (!group.can(player, GroupPlotPrivileges.BUILD)) {
                     event.setCancelled(true);
                 }
             }
         } else {
-            // TODO: We need to make this more advanced. This is for stuff like
-            // AI entities that are part of a group on an entity-by-entity
-            // basis. There needs to be stuff for explosions, creepers, etc
-            for (Group group : owners) {
-                if (!group.can(entity, GroupPlotPrivileges.BUILD)) {
-                    event.setCancelled(true);
-                }
-            }
+            // TODO: Configurable entity damage to plots (eg creeper explosions,
+            // AI)... Toggleable per plot
         }
     }
 
@@ -84,19 +76,12 @@ public class PoliticsProtectionListener implements Listener {
         if (entity instanceof Player) {
             final Player player = (Player) entity;
             for (final Group group : owners) {
-                if (!group.can((CommandSource) player, GroupPlotPrivileges.BUILD)) {
+                if (!group.can(player, GroupPlotPrivileges.BUILD)) {
                     event.setCancelled(true);
                 }
             }
         } else {
-            // TODO: We need to make this more advanced. This is for stuff like
-            // AI entities that are part of a group on an entity-by-entity
-            // basis. There needs to be stuff for explosions, creepers, etc
-            for (Group group : owners) {
-                if (!group.can(entity, GroupPlotPrivileges.BUILD)) {
-                    event.setCancelled(true);
-                }
-            }
+            // TODO: other entities (such as AI)
         }
     }
 }

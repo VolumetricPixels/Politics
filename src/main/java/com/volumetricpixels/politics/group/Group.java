@@ -34,7 +34,6 @@ import java.util.logging.Level;
 
 import org.spout.api.Server;
 import org.spout.api.command.CommandSource;
-import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
@@ -60,28 +59,23 @@ import com.volumetricpixels.politics.util.PropertySerializer;
  */
 public final class Group implements Comparable<Group>, Storable {
     /**
-     * The unique identifier of this group. This is unique for the entire plugin
+     * The unique identifier of this group. This is unique for the entire
+     * plugin.
      */
     private final int uid;
     /**
-     * The level of the group
+     * The level of the group.
      */
     private final GroupLevel level;
     /**
-     * Properties of this group
+     * Properties of this group.
      */
     private final TIntObjectMap<Object> properties;
     /**
      * The immediate players of this group. The keys are the players, and the
-     * values are the player roles
+     * values are the player privileges.
      */
     private final Map<String, Role> players;
-    /**
-     * The entity 'members' of this group. The keys are the entity ids, and the
-     * values are the entity roles
-     */
-    private final Map<UUID, Role> entities;
-
     /**
      * The universe this group is part of
      */
@@ -94,7 +88,7 @@ public final class Group implements Comparable<Group>, Storable {
      * @param level
      */
     public Group(final int uid, final GroupLevel level) {
-        this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>(), new HashMap<UUID, Role>());
+        this(uid, level, new TIntObjectHashMap<Object>(), new HashMap<String, Role>());
     }
 
     /**
@@ -105,16 +99,15 @@ public final class Group implements Comparable<Group>, Storable {
      * @param properties
      * @param players
      */
-    private Group(final int uid, final GroupLevel level, final TIntObjectMap<Object> properties, final Map<String, Role> players, final Map<UUID, Role> entities) {
+    private Group(final int uid, final GroupLevel level, final TIntObjectMap<Object> properties, final Map<String, Role> players) {
         this.uid = uid;
         this.level = level;
         this.properties = properties;
         this.players = players;
-        this.entities = entities;
     }
 
     /**
-     * Initializes the universe
+     * Initializes the universe.
      * 
      * @param universe
      */
@@ -126,7 +119,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the universe of this Group
+     * Gets the universe of this Group.
      * 
      * @return
      */
@@ -135,7 +128,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the UID of this Group
+     * Gets the UID of this Group.
      * 
      * @return
      */
@@ -144,7 +137,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the groups composing this group
+     * Gets the groups composing this group.
      * 
      * @return
      */
@@ -153,17 +146,17 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Adds the given group as a child of this group
+     * Adds the given group as a child of this group.
      * 
      * @param group
-     * @return True if the given group was able to be a child of the group
+     * @return True if the given group was able to be a child of the group.
      */
     public boolean addChildGroup(final Group group) {
         return universe.addChildGroup(this, group);
     }
 
     /**
-     * Removes the given group from this group's children
+     * Removes the given group from this group's children.
      * 
      * @param group
      * @return
@@ -175,7 +168,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the GroupLevel of this Group
+     * Gets the GroupLevel of this Group.
      * 
      * @return
      */
@@ -184,7 +177,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the value of a property
+     * Gets the value of a property.
      * 
      * @param property
      * @return
@@ -194,7 +187,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a String
+     * Gets a property as a String.
      * 
      * @param property
      * @return
@@ -204,7 +197,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a String
+     * Gets a property as a String.
      * 
      * @param property
      *            The property to get
@@ -222,7 +215,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as an integer
+     * Gets a property as an integer.
      * 
      * @param property
      *            The property to get
@@ -233,7 +226,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as an integer
+     * Gets a property as an integer.
      * 
      * @param property
      *            The property to get
@@ -254,7 +247,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a transform
+     * Gets a property as a transform.
      * 
      * @param property
      * @return
@@ -264,7 +257,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a transform
+     * Gets a property as a transform.
      * 
      * @param property
      * @param def
@@ -284,7 +277,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a point
+     * Gets a property as a point.
      * 
      * @param property
      * @return
@@ -294,7 +287,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a point
+     * Gets a property as a point.
      * 
      * @param property
      * @param def
@@ -328,10 +321,12 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Sets the value of a point property
+     * Sets the value of a point or block property.
      * 
      * @param property
      * @param value
+     * @param block
+     *            True if you wish to only store integer coordinates
      */
     public void setProperty(final int property, final Point value) {
         try {
@@ -342,7 +337,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Sets the value of a property
+     * Sets the value of a property.
      * 
      * @param property
      * @param value
@@ -353,21 +348,12 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the immediate players part of this group
+     * Gets the immediate players part of this group.
      * 
      * @return
      */
     public List<String> getImmediatePlayers() {
         return new ArrayList<String>(players.keySet());
-    }
-
-    /**
-     * Gets the immediate entities part of this group
-     * 
-     * @return
-     */
-    public List<UUID> getImmediateEntities() {
-        return new ArrayList<UUID>(entities.keySet());
     }
 
     /**
@@ -387,7 +373,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets all players part of this group
+     * Gets all players part of this group.
      * 
      * @return
      */
@@ -401,20 +387,6 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets all entities part of this group
-     * 
-     * @return
-     */
-    public List<UUID> getEntities() {
-        final List<UUID> entities = new ArrayList<UUID>();
-        for (final Group group : getGroups()) {
-            entities.addAll(group.getEntities());
-        }
-        entities.addAll(this.entities.keySet());
-        return entities;
-    }
-
-    /**
      * Returns true if the given player is an immediate member of this group
      * 
      * @param player
@@ -425,17 +397,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Returns true if the given entity is an immediate member of this group
-     * 
-     * @param entity
-     * @return
-     */
-    public boolean isImmediateMember(final int entity) {
-        return entities.containsKey(entity);
-    }
-
-    /**
-     * Checks if the given player is a member of this group or child groups
+     * Checks if the given player is a member of this group or child groups.
      * 
      * @param player
      * @return
@@ -454,26 +416,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Checks if the given entity is a member of this group or child groups
-     * 
-     * @param entity
-     * @return
-     */
-    public boolean isMember(final int entity) {
-        if (isImmediateMember(entity)) {
-            return true;
-        }
-
-        for (final Group group : getGroups()) {
-            if (group.isMember(entity)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Gets the role of the given player
+     * Gets the role of the given player.
      * 
      * @param player
      * @return
@@ -483,17 +426,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the role of the given entity
-     * 
-     * @param entity
-     * @return
-     */
-    public Role getRole(final int entity) {
-        return entities.get(entity);
-    }
-
-    /**
-     * Sets the role of the given player to the given role
+     * Sets the role of the given player to the given role.
      * 
      * @param player
      * @param role
@@ -503,17 +436,10 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Sets the role of the given player to the given role
-     * 
-     * @param player
-     * @param role
-     */
-    public void setRole(final UUID entity, final Role role) {
-        entities.put(entity, role);
-    }
-
-    /**
      * Removes the role of the given player from this group
+=======
+     * Removes the role of the given player from this group.
+>>>>>>> parent of 3f40c1b... Protection work & remove unused methods from Base64Coder
      * 
      * @param player
      */
@@ -522,16 +448,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Removes the role of the given entity from this group
-     * 
-     * @param entity
-     */
-    public void removeRole(final int entity) {
-        entities.remove(entity);
-    }
-
-    /**
-     * Checks if the given CommandSource has a certain privilege
+     * Checks if the given CommandSource has a certain privilege.
      * 
      * @param source
      * @param privilege
@@ -546,22 +463,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Checks if the given Entity has a certain privilege
-     * 
-     * @param entity
-     * @param privilege
-     * @return True if the entity has the privilege
-     */
-    public boolean can(final Entity entity, final Privilege privilege) {
-        if (entity instanceof Player) {
-            return can((CommandSource) entity, privilege);
-        }
-        final Role role = getRole(entity.getId());
-        return role == null ? false : role.hasPrivilege(privilege);
-    }
-
-    /**
-     * Gets the parent of this group
+     * Gets the parent of this group.
      * 
      * @return
      */
@@ -599,23 +501,11 @@ public final class Group implements Comparable<Group>, Storable {
             playersBson.put(roleEntry.getKey(), roleEntry.getValue().getId());
         }
         object.put("players", playersBson);
-
-        final BasicBSONObject entitiesBson = new BasicBSONObject();
-        for (final Entry<UUID, Role> roleEntry : entities.entrySet()) {
-            entitiesBson.put(roleEntry.getKey().toString(), roleEntry.getValue().getId());
-        }
-        object.put("entities", entitiesBson);
-
         return object;
     }
 
-    @Override
-    public boolean canStore() {
-        return true;
-    }
-
     /**
-     * Gets the Group from the given BSONObject
+     * Gets the Group from the given BSONObject.
      * 
      * @param rules
      * @param object
@@ -662,19 +552,11 @@ public final class Group implements Comparable<Group>, Storable {
             players.put(entry.getKey(), role);
         }
 
-        // Entities
-        final Object entitiesObj = bobject.get("entities");
-        if (!(entitiesObj instanceof BasicBSONObject)) {
-            throw new IllegalStateException("Damnit admin! Y u do dis! Corrupt data!");
-        }
-        final BasicBSONObject entitiesBson = (BasicBSONObject) entitiesObj;
-        final Map<UUID, Role> entities = new HashMap<UUID, Role>();
-        for (final Entry<String, Object> entry : entitiesBson.entrySet()) {
-            final String roleId = entry.getValue().toString();
-            final Role role = level.getRole(roleId);
-            entities.put(UUID.fromString(entry.getKey()), role);
-        }
+        return new Group(uid, level, properties, players);
+    }
 
-        return new Group(uid, level, properties, players, entities);
+    @Override
+    public boolean canStore() {
+        return true;
     }
 }
