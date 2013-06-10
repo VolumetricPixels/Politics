@@ -58,6 +58,6 @@ public class PlayerMoveComponent extends EntityComponent {
             }
         }
 
-        this.prev = getOwner().getScene().getTransform();
+        prev = getOwner().getScene().getTransform();
     }
 }

@@ -28,7 +28,6 @@ import com.volumetricpixels.politics.group.level.GroupLevel;
  * Group commands.
  */
 public class GroupCommands extends Commands {
-
     /**
      * The level of these GroupCommands.
      */

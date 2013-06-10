@@ -25,7 +25,6 @@ import com.volumetricpixels.politics.command.PCommand;
  * Politics administration command.
  */
 public abstract class PoliticsCommand extends PCommand {
-
     /**
      * C'tor
      * 

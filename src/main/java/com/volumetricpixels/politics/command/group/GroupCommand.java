@@ -144,16 +144,16 @@ public abstract class GroupCommand extends PCommand {
         if (universeName != null) {
             universe = Politics.getUniverse(universeName);
             if (universe == null) {
-                throw new CommandException("There isn't a universe with the name of '" + universeName + "'.");
+                throw new CommandException("There isn't a universe with the name of '" + universeName + "'!");
             }
         } else {
             if (source instanceof Player) {
                 universe = getUniverse((Player) source);
                 if (universe == null) {
-                    throw new CommandException("You aren't currently in a world containing " + level.getPlural() + ".");
+                    throw new CommandException("You aren't currently in a world containing " + level.getPlural() + "!");
                 }
             } else {
-                throw new CommandException("There was no universe specified.");
+                throw new CommandException("There was no universe specified!");
             }
         }
         return universe;

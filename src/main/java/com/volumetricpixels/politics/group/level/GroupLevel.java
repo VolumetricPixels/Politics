@@ -42,44 +42,44 @@ public final class GroupLevel {
     private static final String DEFAULT_TRACK = "default";
 
     /**
-     * The ID of the GroupLevel.
+     * The ID of the GroupLevel
      */
     private final String id;
     /**
-     * The name of the GroupLevel.
+     * The name of the GroupLevel
      */
     private final String name;
     /**
      * The rank of this GroupLevel. Smaller means lower. For example, in Towny,
-     * a Nation would have a higher rank than a Town.
+     * a Nation would have a higher rank than a Town
      */
     private final int rank;
     /**
-     * Contains the allowed children for this GroupLevel.
+     * Contains the allowed children for this GroupLevel
      */
     private Set<GroupLevel> allowedChildren;
     /**
-     * Roles mapped to their ids.
+     * Roles mapped to their ids
      */
     private final Map<String, Role> roles;
     /**
-     * Plural form of this group level name.
+     * Plural form of this group level name
      */
     private final String plural;
     /**
-     * The commands allowed in the UniverseRules along with their aliases.
+     * The commands allowed in the UniverseRules along with their aliases
      */
     private final Map<String, List<String>> commands;
     /**
-     * The tracks of the group level.
+     * The tracks of the group level
      */
     private final Map<String, RoleTrack> tracks;
     /**
-     * The initial role of the group level.
+     * The initial role of the group level
      */
     private final Role initial;
     /**
-     * The founding role of the group level.
+     * The founding role of the group level
      */
     private final Role founder;
 
@@ -87,7 +87,7 @@ public final class GroupLevel {
      * C'tor
      * 
      * There must be a better way... if final doesn't really matter then I will
-     * switch from it.
+     * switch from it
      * 
      * @param id
      * @param name
@@ -113,17 +113,17 @@ public final class GroupLevel {
     }
 
     /**
-     * Sets the allowed children to the given set.
+     * Sets the allowed children to the given set
      * 
      * @param set
-     *            The set to use. This should be the only reference.
+     *            The set to use. This should be the only reference
      */
     public void setAllowedChildren(final Set<GroupLevel> set) {
         allowedChildren = set;
     }
 
     /**
-     * Gets the ID of this GroupLevel.
+     * Gets the ID of this GroupLevel
      * 
      * @return
      */
@@ -132,7 +132,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the name of this GroupLevel.
+     * Gets the name of this GroupLevel
      * 
      * @return
      */
@@ -141,7 +141,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the rank of this GroupLevel.
+     * Gets the rank of this GroupLevel
      * 
      * @return
      */
@@ -150,7 +150,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the plural form of this GroupLevel.
+     * Gets the plural form of this GroupLevel
      * 
      * @return
      */
@@ -159,7 +159,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the set of allowed children of this GroupLevel.
+     * Gets the set of allowed children of this GroupLevel
      * 
      * @return
      */
@@ -168,7 +168,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Returns true if this level can have children of the given level.
+     * Returns true if this level can have children of the given level
      * 
      * @param level
      * @return
@@ -178,7 +178,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the roles of the GroupLevel, named.
+     * Gets the roles of the GroupLevel, named
      * 
      * @return
      */
@@ -187,7 +187,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the aliases of the given command.
+     * Gets the aliases of the given command
      * 
      * @param command
      * @return the ArrayList of aliases; an empty ArrayList if there are no
@@ -198,7 +198,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets a Role from its id.
+     * Gets a Role from its id
      * 
      * @param roleId
      * @return
@@ -208,7 +208,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the track with the given id.
+     * Gets the track with the given id
      * 
      * @param id
      * @return
@@ -218,7 +218,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the default track of the GroupLevel.
+     * Gets the default track of the GroupLevel
      * 
      * @return
      */
@@ -227,7 +227,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the initial role of a member of the group.
+     * Gets the initial role of a member of the group
      * 
      * @return
      */
@@ -236,7 +236,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Gets the role of a founder of the group.
+     * Gets the role of a founder of the group
      * 
      * @return
      */
@@ -245,7 +245,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Checks if this GroupLevel can be founded.
+     * Checks if this GroupLevel can be founded
      * 
      * @return
      */
@@ -254,7 +254,7 @@ public final class GroupLevel {
     }
 
     /**
-     * Saves this GroupLevel to the provided node.
+     * Saves this GroupLevel to the provided node
      * 
      * @param node
      */
@@ -292,7 +292,7 @@ public final class GroupLevel {
      * @param id
      * @param node
      * @param levels
-     *            The map that the level names are stored in.
+     *            The map that the level names are stored in
      * @return
      */
     public static GroupLevel load(String id, final ConfigurationNode node, final Map<GroupLevel, List<String>> levels) {

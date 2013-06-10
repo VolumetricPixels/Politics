@@ -41,7 +41,7 @@ public final class Politics {
     /**
      * The URL to download Politics from
      */
-    public static final String CI_URL = "";
+    public static final String DL_URL = "";
 
     /**
      * Gets the PoliticsPlugin instance.

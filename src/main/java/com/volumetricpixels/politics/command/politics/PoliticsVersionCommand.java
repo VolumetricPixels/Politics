@@ -27,7 +27,6 @@ import org.spout.api.exception.CommandException;
 import com.volumetricpixels.politics.Politics;
 
 public class PoliticsVersionCommand extends PoliticsCommand {
-
     /**
      * C'tor
      */
@@ -37,7 +36,7 @@ public class PoliticsVersionCommand extends PoliticsCommand {
 
     @Override
     public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
-        source.sendMessage("Politics Version: " + Politics.getVersion());
-        source.sendMessage("New versions of Politics can be found at " + Politics.CI_URL);
+        source.sendMessage("Running Politics version: " + Politics.getVersion());
+        source.sendMessage("New versions of Politics can be found at: " + Politics.DL_URL);
     }
 }

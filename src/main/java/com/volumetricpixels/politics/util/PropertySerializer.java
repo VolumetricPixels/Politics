@@ -29,7 +29,6 @@ import java.io.Serializable;
 import com.volumetricpixels.politics.exception.PropertyDeserializationException;
 import com.volumetricpixels.politics.exception.PropertySerializationException;
 
-
 /**
  * Contains various methods for serializing and deserializing certain properties
  * as strings
@@ -88,7 +87,7 @@ public final class PropertySerializer {
         final ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(o);
         oos.close();
-        byte[] byteArray = baos.toByteArray();
+        final byte[] byteArray = baos.toByteArray();
         return new String(Base64Coder.encode(byteArray, 0, byteArray.length));
     }
 

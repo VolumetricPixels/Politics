@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.spout.api.Server;
@@ -60,20 +59,20 @@ import com.volumetricpixels.politics.util.PropertySerializer;
 public final class Group implements Comparable<Group>, Storable {
     /**
      * The unique identifier of this group. This is unique for the entire
-     * plugin.
+     * plugin
      */
     private final int uid;
     /**
-     * The level of the group.
+     * The level of the group
      */
     private final GroupLevel level;
     /**
-     * Properties of this group.
+     * Properties of this group
      */
     private final TIntObjectMap<Object> properties;
     /**
      * The immediate players of this group. The keys are the players, and the
-     * values are the player privileges.
+     * values are the player privileges
      */
     private final Map<String, Role> players;
     /**
@@ -107,7 +106,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Initializes the universe.
+     * Initializes the universe
      * 
      * @param universe
      */
@@ -119,7 +118,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the universe of this Group.
+     * Gets the universe of this Group
      * 
      * @return
      */
@@ -128,7 +127,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the UID of this Group.
+     * Gets the UID of this Group
      * 
      * @return
      */
@@ -137,7 +136,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the groups composing this group.
+     * Gets the groups composing this group
      * 
      * @return
      */
@@ -146,7 +145,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Adds the given group as a child of this group.
+     * Adds the given group as a child of this group
      * 
      * @param group
      * @return True if the given group was able to be a child of the group.
@@ -156,7 +155,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Removes the given group from this group's children.
+     * Removes the given group from this group's children
      * 
      * @param group
      * @return
@@ -168,7 +167,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the GroupLevel of this Group.
+     * Gets the GroupLevel of this Group
      * 
      * @return
      */
@@ -177,7 +176,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the value of a property.
+     * Gets the value of a property
      * 
      * @param property
      * @return
@@ -187,7 +186,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a String.
+     * Gets a property as a String
      * 
      * @param property
      * @return
@@ -197,7 +196,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a String.
+     * Gets a property as a String
      * 
      * @param property
      *            The property to get
@@ -215,7 +214,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as an integer.
+     * Gets a property as an integer
      * 
      * @param property
      *            The property to get
@@ -226,7 +225,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as an integer.
+     * Gets a property as an integer
      * 
      * @param property
      *            The property to get
@@ -247,7 +246,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a transform.
+     * Gets a property as a transform
      * 
      * @param property
      * @return
@@ -257,7 +256,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a transform.
+     * Gets a property as a transform
      * 
      * @param property
      * @param def
@@ -277,7 +276,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a point.
+     * Gets a property as a point
      * 
      * @param property
      * @return
@@ -287,7 +286,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets a property as a point.
+     * Gets a property as a point
      * 
      * @param property
      * @param def
@@ -307,7 +306,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Sets the value of a transform property.
+     * Sets the value of a transform property
      * 
      * @param property
      * @param value
@@ -321,7 +320,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Sets the value of a point or block property.
+     * Sets the value of a point or block property
      * 
      * @param property
      * @param value
@@ -348,7 +347,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the immediate players part of this group.
+     * Gets the immediate players part of this group
      * 
      * @return
      */
@@ -373,7 +372,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets all players part of this group.
+     * Gets all players part of this group
      * 
      * @return
      */
@@ -397,7 +396,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Checks if the given player is a member of this group or child groups.
+     * Checks if the given player is a member of this group or child groups
      * 
      * @param player
      * @return
@@ -416,7 +415,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the role of the given player.
+     * Gets the role of the given player
      * 
      * @param player
      * @return
@@ -426,7 +425,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Sets the role of the given player to the given role.
+     * Sets the role of the given player to the given role
      * 
      * @param player
      * @param role
@@ -437,9 +436,6 @@ public final class Group implements Comparable<Group>, Storable {
 
     /**
      * Removes the role of the given player from this group
-=======
-     * Removes the role of the given player from this group.
->>>>>>> parent of 3f40c1b... Protection work & remove unused methods from Base64Coder
      * 
      * @param player
      */
@@ -448,7 +444,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Checks if the given CommandSource has a certain privilege.
+     * Checks if the given CommandSource has a certain privilege
      * 
      * @param source
      * @param privilege
@@ -463,7 +459,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the parent of this group.
+     * Gets the parent of this group
      * 
      * @return
      */
@@ -505,7 +501,7 @@ public final class Group implements Comparable<Group>, Storable {
     }
 
     /**
-     * Gets the Group from the given BSONObject.
+     * Gets the Group from the given BSONObject
      * 
      * @param rules
      * @param object

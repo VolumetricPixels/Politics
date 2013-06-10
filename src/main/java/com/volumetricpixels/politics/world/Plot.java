@@ -33,7 +33,6 @@ import org.spout.api.geo.discrete.Point;
 
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
-import org.bson.types.BasicBSONList;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.data.Storable;

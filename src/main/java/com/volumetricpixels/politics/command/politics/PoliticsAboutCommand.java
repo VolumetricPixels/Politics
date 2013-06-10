@@ -32,7 +32,6 @@ import com.volumetricpixels.politics.Politics;
  * Gives information about Politics to the executor of the command
  */
 public class PoliticsAboutCommand extends PoliticsCommand {
-
     /**
      * C'tor
      */
@@ -44,6 +43,6 @@ public class PoliticsAboutCommand extends PoliticsCommand {
     public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
         source.sendMessage("Politics " + Politics.getPlugin().getVersion());
         source.sendMessage("Copyright (c) 2012-" + Calendar.getInstance().get(Calendar.YEAR) + " Volumetric Pixels");
-        source.sendMessage("Politics is a self-serve community management system, designed as the final replacement for Towny, Factions and other similar plugins.");
+        source.sendMessage("Politics is a self-serve community management system, designed as the final replacement for Towny, Factions and similar plugins.");
     }
 }

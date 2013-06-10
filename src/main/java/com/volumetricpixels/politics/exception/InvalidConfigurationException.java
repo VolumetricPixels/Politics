@@ -23,7 +23,6 @@ package com.volumetricpixels.politics.exception;
  * Thrown when any type of configuration in Politics is invalid
  */
 public class InvalidConfigurationException extends Exception {
-
     private static final long serialVersionUID = 4786584962519951847L;
 
     /**
