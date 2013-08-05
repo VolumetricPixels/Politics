@@ -57,7 +57,6 @@ public class GroupDestroyCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Destroys your " + level.getName() + ".");
         cmd.setUsage("<template> [-f] [-n name]");
     }

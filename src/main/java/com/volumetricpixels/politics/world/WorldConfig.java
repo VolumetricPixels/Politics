@@ -20,7 +20,8 @@
 package com.volumetricpixels.politics.world;
 
 import org.spout.api.math.Vector3;
-import org.spout.api.util.config.Configuration;
+
+import org.spout.cereal.config.Configuration;
 
 /**
  * Configuration of a world

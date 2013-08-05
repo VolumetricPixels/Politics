@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.command.group;
 
+import org.spout.api.Server;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
@@ -60,7 +61,7 @@ public class GroupSpawnCommand extends GroupCommand {
         }
 
         Player player = null;
-        final String playerName = context.getFlagString('p');
+        final String playerName = context.getString("p");
         if (playerName == null) {
             if (source instanceof Player) {
                 player = (Player) source;
@@ -69,14 +70,14 @@ public class GroupSpawnCommand extends GroupCommand {
             if (!source.hasPermission("politics.admin.group." + level.getId() + ".spawnother")) {
                 throw new CommandException("You aren't allowed to spawn other players!");
             }
-            player = Politics.getPlugin().getEngine().getPlayer(playerName, false);
+            player = ((Server) Politics.getPlugin().getEngine()).getPlayer(playerName, false);
         }
 
         if (player == null) {
             throw new CommandException("The player wasn't specified!");
         }
 
-        player.getScene().setTransform(spawn);
+        player.getPhysics().setTransform(spawn);
 
         if (playerName != null) {
             source.sendMessage(playerName + " was teleported to the " + level.getName() + " spawn!");
@@ -86,7 +87,6 @@ public class GroupSpawnCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Sets the spawn of your " + level.getName() + ".");
         cmd.setUsage("[-p player] [-g " + level.getName() + "] [-u universe]");
     }

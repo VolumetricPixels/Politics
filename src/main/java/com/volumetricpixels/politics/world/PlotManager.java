@@ -25,12 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
 import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
-import org.spout.api.util.config.Configuration;
-import org.spout.api.util.config.yaml.YamlConfiguration;
 
 import org.apache.commons.io.FileUtils;
 
@@ -38,6 +35,10 @@ import org.bson.BSONEncoder;
 import org.bson.BSONObject;
 import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
+
+import org.spout.cereal.config.Configuration;
+import org.spout.cereal.config.ConfigurationException;
+import org.spout.cereal.config.yaml.YamlConfiguration;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;
@@ -47,7 +48,6 @@ import com.volumetricpixels.politics.util.DataUtils;
  * Manages plots
  */
 public class PlotManager {
-
     /**
      * Configs of worlds.
      */

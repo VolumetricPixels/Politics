@@ -27,8 +27,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.spout.api.util.config.Configuration;
-import org.spout.api.util.config.ConfigurationNode;
+import org.spout.cereal.config.Configuration;
+import org.spout.cereal.config.ConfigurationNode;
 
 import com.volumetricpixels.politics.group.level.GroupLevel;
 

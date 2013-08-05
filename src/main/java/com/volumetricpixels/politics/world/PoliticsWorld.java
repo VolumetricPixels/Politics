@@ -21,6 +21,7 @@ package com.volumetricpixels.politics.world;
 
 import java.util.List;
 
+import org.spout.api.Server;
 import org.spout.api.geo.World;
 import org.spout.api.util.map.concurrent.TSyncInt21TripleObjectHashMap;
 import org.spout.api.util.map.concurrent.TripleIntObjectMap;
@@ -137,7 +138,7 @@ public class PoliticsWorld implements Storable {
      * @return
      */
     public World getWorld() {
-        return Politics.getPlugin().getEngine().getWorld(name);
+        return ((Server) Politics.getPlugin().getEngine()).getWorld(name);
     }
 
 //    /**

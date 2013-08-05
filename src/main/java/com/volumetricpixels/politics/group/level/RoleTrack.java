@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.spout.api.util.config.ConfigurationNode;
+import org.spout.cereal.config.ConfigurationNode;
 
 /**
  * Represents a promotion track of roles

@@ -49,7 +49,7 @@ public class GroupPromoteCommand extends GroupCommand {
     public void execute(final CommandSource source, final Command cmd, final CommandArguments args) throws CommandException {
         final Group group = findGroup(source, cmd, args);
 
-        final Player player = Politics.getPlugin().getEngine().getPlayer(args.getString(0), false);
+        final Player player = args.popPlayer("p");
         if (player == null) {
             throw new CommandException("That player is not online!");
         }
@@ -57,7 +57,7 @@ public class GroupPromoteCommand extends GroupCommand {
             throw new CommandException("That player is not a member of the group!");
         }
 
-        final String trackName = args.getFlagString('t');
+        final String trackName = args.getString("t");
         RoleTrack track;
         if (trackName == null) {
             track = group.getLevel().getDefaultTrack();
@@ -87,7 +87,6 @@ public class GroupPromoteCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Promotes a player in this " + level.getName() + ".");
         cmd.setUsage("<player> [-t track] [-g group] [-u universe]");
     }

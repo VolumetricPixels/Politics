@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.util;
 
+import org.spout.api.Server;
 import org.spout.api.geo.World;
 
 import org.bson.BasicBSONObject;
@@ -31,7 +32,7 @@ public class DataUtils {
         if (string == null) {
             throw new IllegalArgumentException("Unable to get world from '" + string + "'");
         }
-        final World world = Politics.getPlugin().getEngine().getWorld(string);
+        final World world = ((Server) Politics.getPlugin().getEngine()).getWorld(string);
         if (world == null) {
             throw new IllegalArgumentException("'" + string + "' is not a valid world.");
         }

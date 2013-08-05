@@ -33,7 +33,6 @@ import com.volumetricpixels.politics.universe.UniverseRules;
  * Lists available rules.
  */
 public class UniverseRulesCommand extends UniverseCommand {
-
     /**
      * C'tor
      */
@@ -56,7 +55,6 @@ public class UniverseRulesCommand extends UniverseCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Lists all possible rules to use.");
         cmd.setUsage("");
     }

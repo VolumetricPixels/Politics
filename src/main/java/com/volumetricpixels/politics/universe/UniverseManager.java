@@ -30,9 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.spout.api.exception.ConfigurationException;
 import org.spout.api.geo.World;
-import org.spout.api.util.config.yaml.YamlConfiguration;
 
 import org.apache.commons.io.FileUtils;
 
@@ -41,6 +39,9 @@ import org.bson.BSONEncoder;
 import org.bson.BSONObject;
 import org.bson.BasicBSONDecoder;
 import org.bson.BasicBSONEncoder;
+
+import org.spout.cereal.config.ConfigurationException;
+import org.spout.cereal.config.yaml.YamlConfiguration;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.PoliticsPlugin;

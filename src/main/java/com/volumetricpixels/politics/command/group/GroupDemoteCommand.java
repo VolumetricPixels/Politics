@@ -19,6 +19,7 @@
  */
 package com.volumetricpixels.politics.command.group;
 
+import org.spout.api.Server;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
@@ -49,7 +50,7 @@ public class GroupDemoteCommand extends GroupCommand {
     public void execute(final CommandSource source, final Command cmd, final CommandArguments args) throws CommandException {
         final Group group = findGroup(source, cmd, args);
 
-        final Player player = Politics.getPlugin().getEngine().getPlayer(args.getString(0), false);
+        final Player player = ((Server) Politics.getPlugin().getEngine()).getPlayer(args.get().get(0), false);
         if (player == null) {
             throw new CommandException("That player is not online.");
         }
@@ -57,7 +58,7 @@ public class GroupDemoteCommand extends GroupCommand {
             throw new CommandException("That player is not a member of the group!");
         }
 
-        final String trackName = args.getFlagString('t');
+        final String trackName = args.getString("t");
         RoleTrack track;
         if (trackName == null) {
             track = group.getLevel().getDefaultTrack();
@@ -86,7 +87,6 @@ public class GroupDemoteCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Demotes a player in this " + level.getName() + ".");
         cmd.setUsage("<player> [-t track] [-g group] [-u universe]");
     }

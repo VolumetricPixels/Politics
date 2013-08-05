@@ -24,9 +24,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.spout.api.util.config.ConfigurationNode;
-
 import org.apache.commons.lang3.StringUtils;
+
+import org.spout.cereal.config.ConfigurationNode;
 
 import com.volumetricpixels.politics.Politics;
 import com.volumetricpixels.politics.group.privilege.Privilege;

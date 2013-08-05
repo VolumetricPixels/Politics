@@ -34,10 +34,9 @@ import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Claims the plot you are in.
+ * Claims the plot you are in
  */
 public class GroupUnclaimCommand extends GroupCommand {
-
     /**
      * C'tor
      * 
@@ -58,7 +57,7 @@ public class GroupUnclaimCommand extends GroupCommand {
 
         // TODO add a way to get the world, x, y, z from the command line
         // (should be in GroupCommand)
-        final Point position = ((Player) source).getScene().getPosition();
+        final Point position = ((Player) source).getPhysics().getPosition();
 
         final Plot plot = Politics.getPlotAt(position);
         if (plot == null) {
@@ -77,7 +76,6 @@ public class GroupUnclaimCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Unclaims land from your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");
     }

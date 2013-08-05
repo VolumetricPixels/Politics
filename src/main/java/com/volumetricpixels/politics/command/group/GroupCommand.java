@@ -139,7 +139,7 @@ public abstract class GroupCommand extends PCommand {
      */
     public Universe findUniverse(final CommandSource source, final Command cmd, final CommandArguments context) throws CommandException {
         Universe universe = null;
-        final String universeName = context.getFlagString('u');
+        final String universeName = context.getString("u");
 
         if (universeName != null) {
             universe = Politics.getUniverse(universeName);
@@ -175,7 +175,7 @@ public abstract class GroupCommand extends PCommand {
         final Universe universe = findUniverse(source, cmd, context);
 
         Group group = null;
-        final String groupName = context.getFlagString('g');
+        final String groupName = context.getString("g");
         if (groupName != null) {
             group = universe.getFirstGroupByProperty(level, GroupProperty.TAG, groupName.toLowerCase());
         } else {

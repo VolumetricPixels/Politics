@@ -30,7 +30,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 
-import org.spout.api.util.config.ConfigurationNode;
+import org.spout.cereal.config.ConfigurationNode;
 
 import com.volumetricpixels.politics.PoliticsPlugin;
 import com.volumetricpixels.politics.group.privilege.Privilege;

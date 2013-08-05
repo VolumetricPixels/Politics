@@ -34,10 +34,9 @@ import com.volumetricpixels.politics.group.privilege.GroupPrivileges;
 import com.volumetricpixels.politics.world.Plot;
 
 /**
- * Claims the plot you are in.
+ * Claims the plot you are in
  */
 public class GroupSetSpawnCommand extends GroupCommand {
-
     /**
      * C'tor
      * 
@@ -56,7 +55,7 @@ public class GroupSetSpawnCommand extends GroupCommand {
             throw new CommandException("You don't have permissions to set the spawn of your " + level.getName() + "!");
         }
 
-        final Transform transform = ((Player) source).getScene().getTransform();
+        final Transform transform = ((Player) source).getPhysics().getTransform();
 
         final Plot plot = Politics.getPlotAt(transform.getPosition());
         if (plot == null) {
@@ -73,7 +72,6 @@ public class GroupSetSpawnCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Sets the spawn of your " + level.getName() + ".");
         cmd.setUsage("[-p player] [-g " + level.getName() + "] [-u universe]");
     }

@@ -87,6 +87,6 @@ public abstract class PCommand implements Executor {
      *            The command to set up
      */
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(0, -1);
+        // Unused, still here though for now
     }
 }

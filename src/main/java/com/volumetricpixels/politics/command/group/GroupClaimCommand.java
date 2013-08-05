@@ -38,7 +38,6 @@ import com.volumetricpixels.politics.world.Plot;
  * Claims the plot you are in.
  */
 public class GroupClaimCommand extends GroupCommand {
-
     /**
      * C'tor
      * 
@@ -60,7 +59,7 @@ public class GroupClaimCommand extends GroupCommand {
 
         // TODO add a way to get the world, x, y, z from the command line
         // (should be in GroupCommand)
-        final Point position = ((Player) source).getScene().getPosition();
+        final Point position = ((Player) source).getPhysics().getPosition();
         if (!group.getUniverse().getWorlds().contains(Politics.getWorld(position.getWorld()))) {
             throw new CommandException("You can't create a plot for that group in this world.");
         }
@@ -84,7 +83,6 @@ public class GroupClaimCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Claims land for your " + level.getName() + ".");
         cmd.setUsage("[-g " + level.getName() + "] [-u universe]");
     }

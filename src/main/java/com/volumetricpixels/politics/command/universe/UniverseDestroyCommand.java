@@ -32,7 +32,6 @@ import com.volumetricpixels.politics.universe.Universe;
  * Destroys a universe and all of its groups.
  */
 public class UniverseDestroyCommand extends UniverseCommand {
-
     /**
      * C'tor
      */
@@ -42,9 +41,9 @@ public class UniverseDestroyCommand extends UniverseCommand {
 
     @Override
     public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
-        final Universe universe = Politics.getUniverse(args.getString(0));
+        final Universe universe = Politics.getUniverse(args.get().get(0));
         if (universe == null) {
-            source.sendMessage("A universe with the name '" + args.getString(0) + "' doesn't exist.");
+            source.sendMessage("A universe with the name '" + args.get().get(0) + "' doesn't exist.");
             return;
         }
 
@@ -60,7 +59,6 @@ public class UniverseDestroyCommand extends UniverseCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Destroys the given universe.");
         cmd.setUsage("<name>");
     }

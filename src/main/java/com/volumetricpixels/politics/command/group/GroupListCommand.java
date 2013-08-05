@@ -59,8 +59,10 @@ public class GroupListCommand extends GroupCommand {
         }
 
         int page = 1;
-        if (args.isInteger(0)) {
-            page = args.getInteger(0);
+        try {
+            page = args.popInteger("p");
+        } catch (Exception e) {
+            throw new CommandException("Invalid page number supplied!");
         }
 
         final int min = (page - 1) * PAGE_HEIGHT - 1; // Screen height

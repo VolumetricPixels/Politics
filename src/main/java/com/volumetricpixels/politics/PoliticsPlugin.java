@@ -23,7 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.spout.api.Engine;
-import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.plugin.Plugin;
 import org.spout.api.scheduler.TaskPriority;
 
 import com.volumetricpixels.politics.command.Commands;
@@ -37,7 +37,7 @@ import com.volumetricpixels.politics.world.PlotManager;
 /**
  * The main class of the Politics Spout plugin
  */
-public final class PoliticsPlugin extends CommonPlugin {
+public final class PoliticsPlugin extends Plugin {
     /**
      * Singleton instance of the plugin
      */

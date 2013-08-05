@@ -50,7 +50,7 @@ public class GroupCreateCommand extends GroupCommand {
             founderName = source.getName();
         }
         if (hasAdmin(source)) {
-            founderName = context.getFlagString('f', founderName);
+            founderName = context.getString("f", founderName);
         }
         // Check for a founder, this would only happen if he is not a player
         if (founderName == null) {
@@ -64,12 +64,12 @@ public class GroupCreateCommand extends GroupCommand {
         // Name
         final StringBuilder nameBuilder = new StringBuilder();
         for (int i = 0; i < context.length(); i++) {
-            nameBuilder.append(context.getString(i)).append(' ');
+            nameBuilder.append(context.get().get(i)).append(' ');
         }
         final String name = nameBuilder.toString().trim();
 
         // Tag
-        final String tag = context.getFlagString('t', name.toLowerCase().replace(" ", "-"));
+        final String tag = context.getString("t", name.toLowerCase().replace(" ", "-"));
 
         // Create le group
         final Group group = universe.createGroup(level);
@@ -87,7 +87,6 @@ public class GroupCreateCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(1, -1);
         cmd.setHelp("Creates a new " + level.getName() + ".");
         cmd.setUsage("<name> [-f founder] [-u universe] [-t tag]");
     }

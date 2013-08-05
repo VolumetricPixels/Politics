@@ -22,6 +22,7 @@ package com.volumetricpixels.politics.command.universe;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.spout.api.Server;
 import org.spout.api.command.Command;
 import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
@@ -48,7 +49,7 @@ public class UniverseCreateCommand extends UniverseCommand {
 
     @Override
     public void execute(final CommandSource source, final Command command, final CommandArguments args) throws CommandException {
-        final String name = args.getString(0).toLowerCase();
+        final String name = args.get().get(0).toLowerCase();
 
         if (name.contains(" ")) {
             source.sendMessage("Spaces are not allowed in universe names.");
@@ -67,14 +68,14 @@ public class UniverseCreateCommand extends UniverseCommand {
             return;
         }
 
-        final String rules = args.getString(1).toLowerCase();
+        final String rules = args.get().get(1).toLowerCase();
         final UniverseRules theRules = Politics.getUniverseManager().getRules(rules);
         if (theRules == null) {
             source.sendMessage("Invalid rules. To see the available rules, use.");
             return;
         }
 
-        final String worldsStr = args.getString(2);
+        final String worldsStr = args.get().get(2);
         final List<PoliticsWorld> worlds = new ArrayList<PoliticsWorld>();
         if (worldsStr == null) {
             for (final World world : Politics.getPlugin().getEngine().getWorlds()) {
@@ -84,7 +85,7 @@ public class UniverseCreateCommand extends UniverseCommand {
             final String[] worldNames = worldsStr.split(",");
             for (final String worldName : worldNames) {
                 final String trimmed = worldName.trim();
-                final World world = Politics.getPlugin().getEngine().getWorld(trimmed);
+                final World world = ((Server) Politics.getPlugin().getEngine()).getWorld(trimmed);
                 if (world == null) {
                     continue;
                 }
@@ -110,7 +111,6 @@ public class UniverseCreateCommand extends UniverseCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(2, -1);
         cmd.setHelp("Creates a new Universe with the given rules.");
         cmd.setUsage("<name> <rules> [worlds...]");
     }

@@ -37,10 +37,10 @@ public class PlayerMoveComponent extends EntityComponent {
 
     @Override
     public void onTick(final float dt) {
-        if (prev != null && !prev.equals(getOwner().getScene().getTransform())) {
+        if (prev != null && !prev.equals(getOwner().getPhysics().getTransform())) {
             final Player player = (Player) getOwner();
             final Point from = prev.getPosition();
-            final Point to = getOwner().getScene().getPosition();
+            final Point to = getOwner().getPhysics().getPosition();
 
             final Plot prev = Politics.getPlotAt(from);
             final Plot now = Politics.getPlotAt(to);
@@ -54,10 +54,10 @@ public class PlayerMoveComponent extends EntityComponent {
             // Call event
             final PlayerChangePlotEvent pcpe = PoliticsEventFactory.callPlayerChangePlotEvent(player, prev, now);
             if (pcpe.isCancelled()) {
-                getOwner().getScene().setPosition(from);
+                getOwner().getPhysics().setPosition(from);
             }
         }
 
-        prev = getOwner().getScene().getTransform();
+        prev = getOwner().getPhysics().getTransform();
     }
 }

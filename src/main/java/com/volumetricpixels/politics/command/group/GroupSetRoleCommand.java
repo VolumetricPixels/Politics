@@ -48,7 +48,7 @@ public class GroupSetRoleCommand extends GroupCommand {
     public void execute(final CommandSource source, final Command cmd, final CommandArguments args) throws CommandException {
         final Group group = findGroup(source, cmd, args);
 
-        final Player player = Politics.getPlugin().getEngine().getPlayer(args.getString(0), false);
+        final Player player = args.popPlayer("p");
         if (player == null) {
             throw new CommandException("That player is not online!");
         }
@@ -56,7 +56,7 @@ public class GroupSetRoleCommand extends GroupCommand {
             throw new CommandException("That player is not a member of the group!");
         }
 
-        final String rn = args.getString(1);
+        final String rn = args.getString("r");
         final Role role = group.getLevel().getRole(rn);
         if (role == null) {
             throw new CommandException("There isn't a role named `" + rn + "'!");
@@ -75,7 +75,6 @@ public class GroupSetRoleCommand extends GroupCommand {
 
     @Override
     public void setupCommand(final Command cmd) {
-        cmd.setArgumentBounds(2, -1);
         cmd.setHelp("Sets the role of a player in this " + level.getName() + ".");
         cmd.setUsage("<player> <role> [-g group] [-u universe]");
     }
